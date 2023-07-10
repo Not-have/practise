@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eea2c57b-6ab2-4e9e-ad55-5437b3ffc56d" name="更改" comment="fix: 更新代码">
-      <change afterPath="$PROJECT_DIR$/demo-react/src/components/reducer-demo/index.tsx" afterDir="false" />
+    <list default="true" id="eea2c57b-6ab2-4e9e-ad55-5437b3ffc56d" name="更改" comment="feat: useReducer 初步认识">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo-react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo-react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo-react/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/src/App.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1689001877502</updated>
-      <workItem from="1689001878886" duration="4636000" />
+      <workItem from="1689001878886" duration="5029000" />
     </task>
     <task id="LOCAL-00001" summary="fix: 更新代码">
       <created>1689002281042</created>
@@ -80,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689002281042</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: useReducer 初步认识">
+      <created>1689006988269</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1689006988269</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,6 +115,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix: 更新代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 更新代码" />
+    <MESSAGE value="feat: useReducer 初步认识" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: useReducer 初步认识" />
   </component>
 </project>
