@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="eea2c57b-6ab2-4e9e-ad55-5437b3ffc56d" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo-react/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo-react/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo-react/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo-react/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo-react/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my-app/package.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +30,10 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "E:\\practise\\demo-react\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -55,7 +55,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1689001877502</updated>
-      <workItem from="1689001878886" duration="144000" />
+      <workItem from="1689001878886" duration="345000" />
     </task>
     <servers />
   </component>
