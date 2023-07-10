@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eea2c57b-6ab2-4e9e-ad55-5437b3ffc56d" name="更改" comment="">
+    <list default="true" id="eea2c57b-6ab2-4e9e-ad55-5437b3ffc56d" name="更改" comment="fix: 更新代码">
+      <change afterPath="$PROJECT_DIR$/demo-react/src/components/reducer-demo/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo-react/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo-react/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/demo-react/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/demo-react/src/App.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -13,14 +16,25 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2SNzYpqk0ClGbTrDpvnvu8SKJeY" />
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -30,11 +44,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "js.last.introduce.type": "LET",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.webpack",
     "ts.external.directory.path": "E:\\practise\\demo-react\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -55,8 +71,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1689001877502</updated>
-      <workItem from="1689001878886" duration="345000" />
+      <workItem from="1689001878886" duration="4636000" />
     </task>
+    <task id="LOCAL-00001" summary="fix: 更新代码">
+      <created>1689002281042</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1689002281042</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -84,5 +108,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: 更新代码" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 更新代码" />
   </component>
 </project>
