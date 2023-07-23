@@ -4,7 +4,10 @@ import {
 
 import useModelContext from './_use-model-context';
 
-export default function useModelProps(): any {
+import {
+    IProps
+} from '../types'
+export default function useModelProps(): IProps {
     const {
         props
     } = useModelContext();
