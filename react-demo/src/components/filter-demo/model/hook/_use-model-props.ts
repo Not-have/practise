@@ -1,12 +1,13 @@
 import {
     useMemo
-} from 'react'
+} from 'react';
+
 import useModelContext from './_use-model-context';
 
-export default function useModelProps(){
+export default function useModelProps() {
     const {
         props
     } = useModelContext();
 
-    return useMemo(() => props, [props])
+    return useMemo(() => props, [props]);
 }

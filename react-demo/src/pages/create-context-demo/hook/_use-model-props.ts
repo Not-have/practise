@@ -2,11 +2,12 @@ import {
     useMemo
 } from 'react';
 
-import useModelContext from './_use-model-context';
-
 import {
     IProps
-} from '../types'
+} from '../types';
+
+import useModelContext from './_use-model-context';
+
 export default function useModelProps(): IProps {
     const {
         props

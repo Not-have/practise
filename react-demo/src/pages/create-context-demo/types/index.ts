@@ -1,8 +1,8 @@
 export interface IProps {
     name: string;
-    age: number
+    age: number;
 }
 
 export interface IModelValue {
-    props: IProps
+    props: IProps;
 }

@@ -1,1 +1,1 @@
-export { default } from './rc'
+export { default } from './rc';

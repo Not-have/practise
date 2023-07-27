@@ -1,10 +1,10 @@
 import React, {
-    ReactNode
+    ReactNode, useReducer
 } from 'react';
 
 import {
     IModelProviderProps
-} from '../types'
+} from '../types';
 import Context from '../context';
 
 /**
@@ -15,8 +15,10 @@ export default function Provider({
     props,
     children
 }: IModelProviderProps): JSX.Element {
+    const [state, dispatch] = useReducer();
+
     return <Context.Provider value={{
-        props,
+        props
     }}>
         {children}
     </Context.Provider>;

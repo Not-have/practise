@@ -1,9 +1,10 @@
 import {
     createContext
 } from 'react';
+
 import {
     IModelContext
-} from "../types"
+} from '../types';
 
 /**
  * 作为 createContext 的储存

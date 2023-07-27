@@ -4,7 +4,7 @@ import {
 
 import {
     IModelValue
-} from '../types'
+} from '../types';
 import Context from '../context';
 
 /**

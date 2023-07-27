@@ -1,16 +1,18 @@
-import React, {useState} from "react";
+import React from 'react';
+
 import {
     IProps
-} from './types'
-import Context from "./context";
-import Ui from './ui'
+} from './types';
+import Context from './context';
+import Ui from './ui';
 
-export default function (): JSX.Element {
+export default function(): JSX.Element {
     // state 模拟插入的 props
     const state: IProps = {
         name: '里斯',
         age: 25
-    }
+    };
+
     /**
      * props 目前是全部掺入 Context 中时使用的参数，在传入的参数，比较单一时，更加建议使用平铺
      * 当传入 value 的不为基础类型时，应该在 hook 下在定义 _use-model-Xxx(props) 这样的文件去取
@@ -20,5 +22,5 @@ export default function (): JSX.Element {
         props: state
     }}>
         <Ui />
-    </Context.Provider>
+    </Context.Provider>;
 }

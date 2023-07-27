@@ -18,7 +18,8 @@
     "build": "react-scripts build",
     "boot": "npm run clear && npm install && npm run clear:lock",
     "clear": "rmdir /s /q node_modules",
-    "clear:lock": "del/f/s/q package-lock.json"
+    "clear:lock": "del/f/s/q package-lock.json",
+    "lint": "eslint src/ --ext js,ts,tsx --fix"
   },
   "browserslist": {
     "production": [
@@ -33,8 +34,10 @@
     ]
   },
   "devDependencies": {
+    "@alicloud/eslint-config": "^1.13.3",
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6"
+    "@types/react-dom": "^18.2.6",
+    "eslint": "^8.45.0"
   }
 }

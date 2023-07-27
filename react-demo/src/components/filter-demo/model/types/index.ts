@@ -1,9 +1,17 @@
 import {
     ReactNode
 } from 'react';
-import {
-    IProps
-} from "../../types";
+
+/**
+ * 当前组件可接受的值
+ */
+export interface IProps {
+    values?: {
+        keyword: string;
+        status: string;
+    };
+    onChange?: (value: IProps['values']) => void;
+}
 
 export interface IModelProviderProps {
     props: IProps;
@@ -12,4 +20,9 @@ export interface IModelProviderProps {
 
 export interface IModelContext {
     props: IProps;
+}
+
+export interface IModelState {
+    keywords: string;
+    state: string;
 }
