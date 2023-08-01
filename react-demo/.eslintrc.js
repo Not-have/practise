@@ -7,6 +7,8 @@ module.exports = {
         '@typescript-eslint/no-invalid-void-type': 'off',
         'max-len': 0,
         "@typescript-eslint/no-shadow": ["off"],
+        // 解决 Forbidden non-null assertion.eslint@typescript-eslint/no-non-null-assertion
+        "@typescript-eslint/no-non-null-assertion":'off' ,
         // 修改为 4个空格
         "indent": ['error', 4],
         'react/jsx-indent-props': ['error', 4],
@@ -16,7 +18,8 @@ module.exports = {
             4,
             // 建议复制过来
             {
-                SwitchCase: 1,
+                // 设置为 1 时，依然报错
+                SwitchCase: 0,
                 VariableDeclarator: 1,
                 outerIIFEBody: 1,
                 // MemberExpression: null,

@@ -36,7 +36,7 @@
   "devDependencies": {
     "@alicloud/eslint-config": "^1.13.3",
     "@types/node": "^16.18.38",
-    "@types/react": "^18.2.14",
+    "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.6",
     "eslint": "^8.45.0"
   }

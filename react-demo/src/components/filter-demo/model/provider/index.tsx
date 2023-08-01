@@ -1,11 +1,16 @@
 import React, {
-    ReactNode, useReducer
+    useReducer
 } from 'react';
 
 import {
-    IModelProviderProps
+    IModelProviderProps,
+    IModelReducer
 } from '../types';
 import Context from '../context';
+import {
+    DEFAULT_CONTEXT_STATE
+} from '../const';
+import reducer from '../reducer';
 
 /**
  * 组合 model 和 Ui
@@ -15,10 +20,12 @@ export default function Provider({
     props,
     children
 }: IModelProviderProps): JSX.Element {
-    const [state, dispatch] = useReducer();
+    const [state, dispatch] = useReducer<IModelReducer>(reducer, DEFAULT_CONTEXT_STATE);
 
     return <Context.Provider value={{
-        props
+        props,
+        state,
+        dispatch
     }}>
         {children}
     </Context.Provider>;
