@@ -3,15 +3,15 @@ import {
 } from 'react';
 
 import {
-    IProps
+    IModelState
 } from '../types';
 
 import useModelContext from './_use-model-context';
 
-export default function useModelProps(): IProps {
+export default function useModelState(): IModelState {
     const {
-        props
+        state
     } = useModelContext();
 
-    return useMemo(() => props, [props]);
+    return useMemo(() => state, [state]);
 }

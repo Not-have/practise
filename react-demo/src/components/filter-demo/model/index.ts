@@ -5,3 +5,6 @@ export * from './hook';
 export type {
     IProps as Props
 } from './types';
+export {
+    EStatus
+} from './enum';

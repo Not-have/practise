@@ -1,13 +1,31 @@
 import React, {
-    useState
+    useCallback
 } from 'react';
 import {
-    Tag, Input
+    isEqual as _isEqual
+} from 'lodash';
+import {
+    Input, Tag
 } from 'antd';
 import styled from 'styled-components';
 
+import {
+    DATA_STATUS
+} from '../const';
+import {
+    EStatus,
+    useStatus
+} from '../model';
+
+import {
+    useHandleChange
+} from './hook';
+
 const ScDiv = styled.div`
-    margin: 0 10px;
+    margin: 0 20px;
+    span {
+        margin-top: 10px;
+    }
 `;
 const {
     CheckableTag
@@ -16,14 +34,10 @@ const {
     Search
 } = Input;
 
-const tagsData = ['Movies', 'Books', 'Music', 'Sports'];
-
-const App: React.FC = () => {
-    const [selectedTags, setSelectedTags] = useState<string>(tagsData[0]);
-
-    const handleChange = (tag: string, checked: boolean) => {
-        checked ? setSelectedTags(tag) : null;
-    };
+export default function Ui(): JSX.Element {
+    const status = useStatus();
+    const handleChange = useHandleChange();
+    const onChangeTag = useCallback((_checked: boolean, v: EStatus) => handleChange(v), [handleChange]);
 
     return (
         <ScDiv>
@@ -31,15 +45,13 @@ const App: React.FC = () => {
             <span style={{
                 marginRight: 8
             }}>状态：</span>
-            {tagsData.map(tag =>
-                <CheckableTag
-                    key={tag}
-                    checked={selectedTags.includes(tag)}
-                    onChange={checked => handleChange(tag, checked)}>
-                    {tag}
-                </CheckableTag>)}
+            {DATA_STATUS.map(v =>
+                <CheckableTag {...{
+                    key: v.value,
+                    checked: _isEqual(status, v.value),
+                    children: v.label,
+                    onChange: checked => onChangeTag(checked, v.value)
+                }} />)}
         </ScDiv>
     );
-};
-
-export default App;
+}
