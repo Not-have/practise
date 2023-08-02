@@ -11,6 +11,7 @@ import {
     DEFAULT_CONTEXT_STATE
 } from '../const';
 import reducer from '../reducer';
+import Lifecycle from '../lifecycle';
 
 /**
  * 组合 model 和 Ui
@@ -28,5 +29,6 @@ export default function Provider({
         dispatch
     }}>
         {children}
+        <Lifecycle />
     </Context.Provider>;
 }

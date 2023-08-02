@@ -2,14 +2,16 @@ import {
     ReactNode
 } from 'react';
 
+import {
+    IModelState
+} from './reducer';
+
 /**
  * props 的类型
+ * values 可以自行定义，不用使用继承
  */
 export interface IProps {
-    values?: {
-        keyword: string;
-        status: string;
-    };
+    values?: IModelState;
     onChange?: (value: IProps['values']) => void;
 }
 

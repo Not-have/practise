@@ -7,7 +7,7 @@ import {
     useDispatchSetStatus
 } from '../../model';
 
-export default function useHandleChange(): (value: EStatus) => void {
+export default function useHandleStatus(): (value: EStatus) => void {
     const dispatchSetStatus = useDispatchSetStatus();
 
     return useCallback((value: EStatus) => {

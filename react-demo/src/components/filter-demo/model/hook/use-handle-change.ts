@@ -3,22 +3,18 @@ import {
 } from 'react';
 
 import {
-    IProps
+    IModelState
 } from '../types';
 
 import useModelProps from './_use-model-props';
 
-export default function useHandleChange(): (values: IProps['values']) => void {
+export default function useHandleChange(): (values: IModelState) => void {
     const {
         onChange
     } = useModelProps();
 
-    return useCallback((values: IProps['values']) => {
+    return useCallback((values: IModelState) => {
         // 处理一个 onChange 没传的问题
-        if (!onChange) {
-            return;
-        }
-
-        onChange(values);
+        onChange?.(values);
     }, [onChange]);
 }
