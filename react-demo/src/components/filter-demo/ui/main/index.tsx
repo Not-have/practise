@@ -59,7 +59,7 @@ export default function Main(): JSX.Element {
                 <CheckableTag {...{
                     key: v.value,
                     checked: _isEqual(status, v.value),
-                    children: v.label + v.value,
+                    children: v.label,
                     onChange: checked => onChangeStatus(checked, v.value)
                 }} />)}
         </ScDiv>
