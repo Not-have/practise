@@ -3,15 +3,18 @@ import {
 } from 'react';
 
 import {
-    IModelState
-} from './reducer';
+    EStatus
+} from '../enum';
 
 /**
  * props 的类型
  * values 可以自行定义，不用使用继承
  */
 export interface IProps {
-    values?: IModelState;
+    values?: {
+        keyword?: string;
+        status?: EStatus;
+    };
     onChange?: (value: IProps['values']) => void;
 }
 

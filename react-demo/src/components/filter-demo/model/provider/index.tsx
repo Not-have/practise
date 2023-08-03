@@ -4,7 +4,8 @@ import React, {
 
 import {
     IModelProviderProps,
-    IModelReducer
+    IModelReducer,
+    IModelState
 } from '../types';
 import Context from '../context';
 import {
@@ -21,7 +22,20 @@ export default function Provider({
     props,
     children
 }: IModelProviderProps): JSX.Element {
-    const [state, dispatch] = useReducer<IModelReducer>(reducer, DEFAULT_CONTEXT_STATE);
+    /**
+     * 初始赋值
+     */
+    const initState = function(state: IModelState): IModelState {
+        if (!props.values) {
+            return state;
+        }
+
+        return {
+            ...state,
+            ...props.values
+        };
+    };
+    const [state, dispatch] = useReducer<IModelReducer, IModelState>(reducer, DEFAULT_CONTEXT_STATE, initState);
 
     return <Context.Provider value={{
         props,

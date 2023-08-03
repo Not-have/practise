@@ -7,5 +7,5 @@ import {
 
 export const DEFAULT_CONTEXT_STATE: IModelState = {
     keyword: '',
-    status: EStatus.OFF_LINE
+    status: EStatus.ON_LINE
 };

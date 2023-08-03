@@ -12,6 +12,9 @@ export default function ContextReducerDemo(): JSX.Element {
 
     // 实现一个 输入框 和 标签过滤的组件
     return <FilterDemo {...{
+        values: {
+            keyword: '你好'
+        },
         onChange: handleChange
     }} />;
 }
