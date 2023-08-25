@@ -1,4 +1,4 @@
-/*/node_modules/
 **/*-lock.json
 .idea/
 /react-demo/dist/
+node_modules/
