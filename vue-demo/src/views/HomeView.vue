@@ -1,5 +1,5 @@
 <template>
-  <Button label="sss" :primary="true"></Button>
+  <ElButton type="warning" loading disabled>11</ElButton>
 </template>
 
 <style>
@@ -7,6 +7,6 @@
 </style>
 <script setup lang="ts">
 import {
-  Button
-} from 'tiny-tools-vue-components'
+  ElButton,
+} from "element-plus"
 </script>

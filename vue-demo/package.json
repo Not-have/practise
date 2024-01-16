@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -12,8 +12,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "element-plus": "^2.3.12",
     "pinia": "^2.1.6",
-    "tiny-tools-vue-components": "^1.0.0-beta.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },

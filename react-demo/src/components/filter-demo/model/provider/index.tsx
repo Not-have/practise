@@ -25,7 +25,7 @@ export default function Provider({
     /**
      * 初始赋值
      */
-    const initState = function(state: IModelState): IModelState {
+    const initState = function (state: IModelState): IModelState {
         if (!props.values) {
             return state;
         }
@@ -43,6 +43,6 @@ export default function Provider({
         dispatch
     }}>
         {children}
-        <Lifecycle />
+        <Lifecycle/>
     </Context.Provider>;
 }
