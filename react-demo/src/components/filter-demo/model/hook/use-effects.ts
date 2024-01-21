@@ -1,6 +1,7 @@
 import {
     useEffect,
     useRef
+// @ts-ignore
 } from 'react';
 
 import useModelState from './_use-model-state';
