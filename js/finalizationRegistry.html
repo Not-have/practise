@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     * ES12
+     * FinalizationRegistry 监听对象何时被销毁
+     * 但是在 chrome 中，需要等待一会
+     * 在强引用中不会被销毁，在弱引用中会被销毁
+     */
+    const finalizationRegistry = new FinalizationRegistry((value) => {
+        console.log("注册在 FinalizationRegistry 中的对象被销毁" + value);
+    });
+
+
+    let obj1 = {
+        name: "哈哈哈",
+        age: 16
+    }
+    let obj2 = {
+        name: "哈哈哈",
+        age: 16
+    }
+
+    /**
+     * 可以在绑定一个销毁时的 key
+     */
+    finalizationRegistry.register(obj1, "obj1");
+    finalizationRegistry.register(obj2, "obj2");
+
+    obj1 = null
+    obj2 = null
+</script>

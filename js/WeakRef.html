@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /**
+     * WeakRef
+     * 结合 FinalizationRegistry 实现一个案例
+     * WeakRef 获取的原对象，如果被销毁了，那么 obj2.deref() 获取到的就是 undefined
+     */
+    const finalizationRegistry = new FinalizationRegistry((value) => {
+        console.log("注册在 FinalizationRegistry 中的对象被销毁" + value);
+    });
+
+    let obj1 = {
+        name: "哈哈哈",
+        age: 16
+    }
+
+    let obj2 = new WeakRef(obj1);
+
+    /**
+     * 可以在绑定一个销毁时的 key
+     */
+    finalizationRegistry.register(obj1, "obj1");
+
+    /**
+     * 获取的时候 obj2.deref() 获取对象，他不会被销毁
+     */
+    console.log(obj2.deref().name);
+
+    obj1 = null
+</script>
