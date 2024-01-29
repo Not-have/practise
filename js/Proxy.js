@@ -145,17 +145,17 @@ const objProxy = new Proxy(obj, {
 objProxy.name = "哈哈";
 objProxy.age = 22;
 
-// delete
+// delete - deleteProperty
 delete objProxy.age;
 console.log(objProxy);
 
-// 监听 in 捕获器
+// 监听 in 捕获器 - has
 console.log("name" in objProxy);
 
-// 获取对象原型
+// 获取对象原型 - getPrototypeOf
 console.log(Object.getPrototypeOf(objProxy));
 
-// 设置对象原型
+// 设置对象原型 - setPrototypeOf
 Object.setPrototypeOf(objProxy, objPrototype);
 objPrototype.study();
 
