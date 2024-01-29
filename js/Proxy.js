@@ -16,6 +16,13 @@ const objPrototype = {
  *     set 设置值的捕获器
  *     has 监听 in 捕获器
  *     deleteProperty 监听 delete 捕获器
+ *     getPrototypeOf 监听获取对象原型捕获器
+ *     setPrototypeOf 监听设置对象的原型捕获器
+ *     isExtensible 监听判断对象是否可以扩展捕获器
+ *     preventExtensions 监听判断对象是否可以扩展捕获器（与 isExtensible 作用类似，但是监听的方法不同）
+ *     getOwnPropertyDescriptor 监听获取对象属性的描述符捕获器
+ *     defineProperty 定义属性时进行拦截和修改
+ *     ownKeys 拦截对对象自身属性的获取操作
  * } 捕获器（不对其重写，会自动完成对原来对象的操作）
  *
  */
@@ -76,12 +83,25 @@ const objProxy = new Proxy(obj, {
     },
     /**
      * 监听判断对象是否可以扩展捕获器
+     * 只能拦截 Object.isExtensible()
      * @param target new Proxy 所代理的 obj（监听的对象）
      * 使用 Object.isExtensible(objProxy) 触发
      */
     isExtensible(target) {
         console.log("判断对象是否可以扩展");
         return Reflect.isExtensible(target);
+    },
+    /**
+     * 监听判断对象是否可以扩展捕获器
+     * 只能拦截 Object.preventExtensions()
+     * @param target new Proxy 所代理的 obj（监听的对象）
+     */
+    preventExtensions(target) {
+        console.log("拦截 Object.preventExtensions() 的调用");
+        // 在这里可以添加自定义逻辑，然后阻止对象扩展
+        // return true;
+        // 返回 true 或其他真值表示阻止对象扩展，返回 false 或其他假值表示允许对象扩展
+        return Reflect.preventExtensions(target);
     },
     /**
      * 监听获取对象属性的描述符捕获器
@@ -139,16 +159,20 @@ console.log(Object.getPrototypeOf(objProxy));
 Object.setPrototypeOf(objProxy, objPrototype);
 objPrototype.study();
 
-// 判断对象是否可以扩展
+// 判断对象是否可以扩展 - isExtensible
 console.log(Object.isExtensible(objProxy));  // 输出: true
-// Object.preventExtensions(objProxy);
 // console.log(Object.isExtensible(objProxy));  // 输出: false
 
-// 获取对象属性的描述符
+// 判断对象是否可以扩展 - preventExtensions
+Object.preventExtensions(objProxy);
+objProxy.address = "帝企鹅";
+console.log(objProxy, "preventExtensions");
+
+// 获取对象属性的描述符 - getOwnPropertyDescriptor
 const descriptor = Object.getOwnPropertyDescriptor(objProxy, "name");
 console.log(descriptor);
 
-// 定义或修改对象的属性
+// 定义或修改对象的属性 - defineProperty
 Object.defineProperty(objProxy, "name", {
     value: "John",
     writable: true,
@@ -162,5 +186,5 @@ Object.defineProperty(objProxy, "blockedProperty", {
     configurable: true
 }); // 失败，捕获器返回 false，属性定义被阻止
 
-// 拦截对对象自身属性的获取操作
+// 拦截对对象自身属性的获取操作 - ownKeys
 console.log(Object.keys(objProxy));
