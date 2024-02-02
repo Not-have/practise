@@ -1,50 +1,21 @@
 class Depend {
     constructor() {
-        this.receiverFns = [];
+        this.reactiveFns = [];
     }
 
     addDepend(receiverFn) {
-        this.receiverFns.push(receiverFn);
+        this.reactiveFns.push(receiverFn);
     }
 
     /**
      * 通知已经改变的依赖
      */
     notify() {
-        console.log(this.receiverFns);
-        this.receiverFns.forEach(item => {
-            item();
+        this.reactiveFns.forEach(fn => {
+            fn();
         });
     }
 }
-
-/**
- * 封装一个获取 depend 的函数
- * 只要是一个数据结构的封装，主要看  Map、WeakMap 的使用
- */
-const targetMap = new WeakMap();
-
-function getDepend(target, key) {
-    let map = targetMap.get(target, key);
-    if (!map) {
-        map = new Map();
-        targetMap.set(target, map);
-    }
-    // 根据 key 获取 depend 对象
-    let depend = map.get(key);
-
-    if (!depend) {
-        depend = new Depend();
-        map.set(key, depend);
-    }
-    return depend;
-}
-
-/**
- * watchFn 需要响应的函数，都传进来
- * @param fn 函数
- */
-const depend = new Depend();
 
 /**
  * watchFn
@@ -60,6 +31,29 @@ function watchFn(fn) {
     activeReactiveFn = null;
 }
 
+/**
+ * 封装一个获取 depend 的函数
+ * 只要是一个数据结构的封装，主要看  Map、WeakMap 的使用
+ */
+const targetMap = new WeakMap();
+
+function getDepend(target, key) {
+    // 根据target对象获取map的过程
+    let map = targetMap.get(target);
+    if (!map) {
+        map = new Map();
+        targetMap.set(target, map);
+    }
+
+    // 根据key获取depend对象
+    let depend = map.get(key);
+    if (!depend) {
+        depend = new Depend();
+        map.set(key, depend);
+    }
+    return depend;
+}
+
 const obj1 = {
     name: "里斯",
     age: 18,
@@ -69,7 +63,7 @@ const obj1 = {
 const objProxy = new Proxy(obj1, {
     get(target, key, receiver) {
         // 根据 target 和 key 可以获取 depend
-        const depend = getDepend(target, key);
+        const depend = getDepend(target, key)
         depend.addDepend(activeReactiveFn);
 
         return Reflect.get(target, key, receiver);
