@@ -1,10 +1,12 @@
 class Depend {
     constructor() {
-        this.reactiveFns = [];
+        this.reactiveFns = new Set();
     }
 
     addDepend(receiverFn) {
-        this.reactiveFns.push(receiverFn);
+        if (activeReactiveFn) {
+            this.reactiveFns.add(receiverFn);
+        }
     }
 
     /**
@@ -54,26 +56,31 @@ function getDepend(target, key) {
     return depend;
 }
 
-const obj1 = {
+function rective(obj) {
+    return new Proxy(obj, {
+        get(target, key, receiver) {
+            // 根据 target 和 key 可以获取 depend
+            const depend = getDepend(target, key);
+            // 给depend对象中添加响应函数
+            depend.addDepend(activeReactiveFn);
+
+            return Reflect.get(target, key, receiver);
+        },
+        set(target, key, newValue, receiver) {
+            Reflect.set(target, key, newValue, receiver);
+            const depend = getDepend(target, key);
+            depend.notify();
+        }
+    });
+}
+
+const obj = {
     name: "里斯",
     age: 18,
     address: "西安"
 };
 
-const objProxy = new Proxy(obj1, {
-    get(target, key, receiver) {
-        // 根据 target 和 key 可以获取 depend
-        const depend = getDepend(target, key)
-        depend.addDepend(activeReactiveFn);
-
-        return Reflect.get(target, key, receiver);
-    },
-    set(target, key, newValue, receiver) {
-        Reflect.set(target, key, newValue, receiver);
-        const depend = getDepend(target, key);
-        depend.notify();
-    }
-});
+const objProxy = rective(obj);
 
 watchFn(function () {
     console.log("name 改变", objProxy.name);
@@ -84,9 +91,9 @@ watchFn(function () {
 });
 
 objProxy.name = "哈哈哈";
-objProxy.name = "呵呵呵";
+// objProxy.name = "呵呵呵";
 
-objProxy.age = 14;
+// objProxy.age = 14;
 
 
 // const obj2 = {
