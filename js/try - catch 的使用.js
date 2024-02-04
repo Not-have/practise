@@ -3,11 +3,11 @@ function fun() {
 }
 
 function test() {
-    fun()
+    fun();
 }
 
 function demo() {
-    test()
+    test();
 }
 
 /**
@@ -16,15 +16,16 @@ function demo() {
 // demo();
 
 /**
- * try 可以写在顶层，也可以写在 可能出现异常的地方
+ * try 可以写在顶层，也可以写在 可能出现异常的地方（也就是看你想写在那）
  * 写在 try 里，后续的代码不会终止
  */
 try {
-    fun()
-} catch (err){
-    console.log("函数调用异常");
-} finally { // 捕获到异常后的执行
-    console.log(111);
+    fun();
+// } catch (err) { // err 在不需要的时候，是可以省略的，省略的写法：catch {
+} catch (err) {
+    console.log("函数调用异常", err.message);
+} finally { // 语句块无论是否发生异常都会执行
+    console.log("语句块无论是否发生异常都会执行");
 }
 
 console.log("后面代码逻辑");
