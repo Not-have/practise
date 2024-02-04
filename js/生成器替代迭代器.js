@@ -4,11 +4,11 @@
 
 /*
 function createArrayIterator(arr) {
-    let index = 0;
+    let test-03.js = 0;
     return {
         next: () => {
-            if (index < arr.length) {
-                return {done: false, value: arr[index++]};
+            if (test-03.js < arr.length) {
+                return {done: false, value: arr[test-03.js++]};
             } else {
                 return {done: true, value: undefined};
             }
