@@ -13,7 +13,8 @@ class Person {
     /**
      * 下面这样就可以获取 class 中指定的迭代器了
      */
-    [Symbol.iterator]() {
+    // [Symbol.iterator]() { // class 中使用函数，下面的方法和这个进行二选一
+    [Symbol.iterator] = () => {
         let index = 0;
         return {
             next: () => {
