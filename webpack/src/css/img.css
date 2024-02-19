@@ -1,0 +1,10 @@
+.bg-img{
+    background-image: url("../img/one.jpg");
+    height: 300px;
+    width: 200px;
+    background-repeat: round;
+}
+.img{
+    width:400px;
+    height: 300px;
+}

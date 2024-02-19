@@ -1,0 +1,7 @@
+.box{
+    /*  后两位表示透明  */
+    color: #ff000046; 
+    font-size: 30px;
+    user-select: none;
+   
+}

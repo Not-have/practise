@@ -1,5 +1,5 @@
 <template>
-  <ElButton type="warning" loading disabled>11</ElButton>
+    <ElButton type="warning" loading disabled>11</ElButton>
 </template>
 
 <style>
@@ -7,6 +7,6 @@
 </style>
 <script setup lang="ts">
 import {
-  ElButton,
+    ElButton,
 } from "element-plus"
 </script>
