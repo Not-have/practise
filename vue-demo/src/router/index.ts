@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import Router from './enum';
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import {
+    ERouter
+} from './enum';
 
-console.log(Router.ROUTER)
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -17,8 +18,8 @@ const router = createRouter({
             component: () => import('../views/AboutView.vue')
         },
         {
-            path: Router.ROUTER,
-            name: Router.ROUTER,
+            path: ERouter.ROUTER,
+            name: ERouter.ROUTER,
             component: () => import('../views/router/Router.vue'),
             children: [
                 // {
@@ -27,14 +28,24 @@ const router = createRouter({
                 //     component: () => import('../views/Router.vue'),
                 // },
                 {
-                    path: Router.ROUTER_$id_ROUTER_SON,
-                    name: Router.ROUTER_$id_ROUTER_SON,
+                    path: ERouter.ROUTER_$id_ROUTER_SON,
+                    name: ERouter.ROUTER_$id_ROUTER_SON,
                     component: () => import('../views/router/Router-son.vue'),
                     props: true, // 将动态路径参数作为 props 传递给组件
                 }
             ]
+        },
+        {
+            path: ERouter.COMPOSITION,
+            name: ERouter.COMPOSITION,
+            component: () => import('../views/composition/Index.vue')
+        },
+        {
+            path: ERouter.PROVIDE,
+            name: ERouter.PROVIDE,
+            component: () => import('../views/provide/Index.vue')
         }
     ]
-})
+});
 
-export default router
+export default router;

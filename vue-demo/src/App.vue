@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
+import {
+    ERouter
+} from '@/router/enum';
 </script>
 
 <template>
@@ -11,13 +14,17 @@ import { RouterLink, RouterView } from 'vue-router'
         &nbsp;
         &nbsp;
         <RouterLink to="/router">router</RouterLink>
-        
+        &nbsp;
+        &nbsp;
+        <RouterLink :to="ERouter.COMPOSITION">Vue3 Composition(组合式) API使用</RouterLink>
+        &nbsp;
+        &nbsp;
+        <RouterLink :to="ERouter.PROVIDE">provide</RouterLink>
+
     </nav>
     <br />
-    
+
     <RouterView />
 </template>
 
-<style>
-
-</style>
+<style></style>

@@ -1,6 +1,7 @@
-enum Router {
+
+export enum ERouter {
     ROUTER = "/router",
     ROUTER_$id_ROUTER_SON = "/router/:id/router-son",
+    COMPOSITION = "/composition",
+    PROVIDE = "/provide"
 }
-
-export default Router
