@@ -21,6 +21,10 @@ import {
         &nbsp;
         <RouterLink :to="ERouter.PROVIDE">provide</RouterLink>
 
+        &nbsp;
+        &nbsp;
+        <RouterLink :to="ERouter.DIRECTIVES">自定义指令</RouterLink>
+
     </nav>
     <br />
 

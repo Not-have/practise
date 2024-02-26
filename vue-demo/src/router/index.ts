@@ -44,6 +44,11 @@ const router = createRouter({
             path: ERouter.PROVIDE,
             name: ERouter.PROVIDE,
             component: () => import('../views/provide/Index.vue')
+        },
+        {
+            path: ERouter.DIRECTIVES,
+            name: ERouter.DIRECTIVES,
+            component: () => import('../views/directives/Index.vue')
         }
     ]
 });
