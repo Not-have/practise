@@ -53,13 +53,13 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { Tag, List } from 'ant-design-vue'
-import Icon from '@/components/Icon/Icon.vue'
-import { BasicForm } from '@/components/Form'
-import { actions, searchList, schemas } from './data'
-import { PageWrapper } from '@/components/Page'
+import { Tag, List } from 'ant-design-vue';
+import Icon from '@/components/Icon/Icon.vue';
+import { BasicForm } from '@/components/Form';
+import { actions, searchList, schemas } from './data';
+import { PageWrapper } from '@/components/Page';
 
-const prefixCls = 'list-search'
+const prefixCls = 'list-search';
 </script>
 <style lang="less" scoped>
 .list-search {

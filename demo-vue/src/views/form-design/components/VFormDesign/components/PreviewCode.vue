@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
-import { CodeEditor, MODE } from '@/components/CodeEditor'
+import { defineComponent, reactive, toRefs } from 'vue';
+import { CodeEditor, MODE } from '@/components/CodeEditor';
 
-import { copyText } from '@/utils/copyTextToClipboard'
-import { useMessage } from '@/hooks/web/useMessage'
+import { copyText } from '@/utils/copyTextToClipboard';
+import { useMessage } from '@/hooks/web/useMessage';
 
 export default defineComponent({
     name: 'PreviewCode',
@@ -43,33 +43,33 @@ export default defineComponent({
     setup(props) {
         const state = reactive({
             visible: false
-        })
+        });
 
         const exportData = (data: string, fileName = `file.${props.fileFormat}`) => {
-            let content = 'data:text/csv;charset=utf-8,'
-            content += data
-            const encodedUri = encodeURI(content)
-            const actions = document.createElement('a')
-            actions.setAttribute('href', encodedUri)
-            actions.setAttribute('download', fileName)
-            actions.click()
-        }
+            let content = 'data:text/csv;charset=utf-8,';
+            content += data;
+            const encodedUri = encodeURI(content);
+            const actions = document.createElement('a');
+            actions.setAttribute('href', encodedUri);
+            actions.setAttribute('download', fileName);
+            actions.click();
+        };
 
         const handleExportJson = () => {
-            exportData(props.editorJson)
-        }
+            exportData(props.editorJson);
+        };
 
-        const { createMessage } = useMessage()
+        const { createMessage } = useMessage();
 
         const handleCopyJson = () => {
             // 复制数据
-            const value = props.editorJson
+            const value = props.editorJson;
             if (!value) {
-                createMessage.warning('代码为空！')
-                return
+                createMessage.warning('代码为空！');
+                return;
             }
-            copyText(value)
-        }
+            copyText(value);
+        };
 
         return {
             ...toRefs(state),
@@ -77,9 +77,9 @@ export default defineComponent({
             handleCopyJson,
             handleExportJson,
             MODE
-        }
+        };
     }
-})
+});
 </script>
 
 <style lang="less" scoped>

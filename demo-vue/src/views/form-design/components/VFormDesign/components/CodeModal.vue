@@ -16,11 +16,11 @@
     </Modal>
 </template>
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from 'vue'
-import { formatRules, removeAttrs } from '../../../utils'
-import PreviewCode from './PreviewCode.vue'
-import { IFormConfig } from '../../../typings/v-form-component'
-import { Modal } from 'ant-design-vue'
+import { computed, defineComponent, reactive, toRefs } from 'vue';
+import { formatRules, removeAttrs } from '../../../utils';
+import PreviewCode from './PreviewCode.vue';
+import { IFormConfig } from '../../../typings/v-form-component';
+import { Modal } from 'ant-design-vue';
 
 const codeVueFront = `<template>
   <div>
@@ -40,7 +40,7 @@ export default {
     return {
       fApi:{},
       formData:{},
-      formConfig: `
+      formConfig: `;
 /* eslint-disable */
 let codeVueLast = `
     }
@@ -52,7 +52,7 @@ let codeVueLast = `
      }
   }
 }
-<\/script>`
+<\/script>`;
 //
 export default defineComponent({
     name: 'CodeModal',
@@ -61,23 +61,23 @@ export default defineComponent({
         const state = reactive({
             visible: false,
             jsonData: {} as IFormConfig
-        })
+        });
 
         const showModal = (formConfig: IFormConfig) => {
-            formConfig.schemas && formatRules(formConfig.schemas)
-            state.visible = true
-            state.jsonData = formConfig as any
-        }
+            formConfig.schemas && formatRules(formConfig.schemas);
+            state.visible = true;
+            state.jsonData = formConfig as any;
+        };
 
         const editorVueJson = computed(() => {
             return (
                 codeVueFront +
                 JSON.stringify(removeAttrs(state.jsonData as any), null, '\t') +
                 codeVueLast
-            )
-        })
+            );
+        });
 
-        return { ...toRefs(state), editorVueJson, showModal }
+        return { ...toRefs(state), editorVueJson, showModal };
     }
-})
+});
 </script>

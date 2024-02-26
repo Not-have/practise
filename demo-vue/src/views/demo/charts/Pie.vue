@@ -2,8 +2,8 @@
     <div ref="chartRef" :style="{ height, width }"></div>
 </template>
 <script lang="ts" setup>
-import { PropType, ref, Ref, onMounted } from 'vue'
-import { useECharts } from '@/hooks/web/useECharts'
+import { PropType, ref, Ref, onMounted } from 'vue';
+import { useECharts } from '@/hooks/web/useECharts';
 
 defineProps({
     width: {
@@ -14,11 +14,11 @@ defineProps({
         type: String as PropType<string>,
         default: 'calc(100vh - 78px)'
     }
-})
+});
 
-const chartRef = ref<HTMLDivElement | null>(null)
-const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>)
-const dataAll = [389, 259, 262, 324, 232, 176, 196, 214, 133, 370]
+const chartRef = ref<HTMLDivElement | null>(null);
+const { setOptions } = useECharts(chartRef as Ref<HTMLDivElement>);
+const dataAll = [389, 259, 262, 324, 232, 176, 196, 214, 133, 370];
 const yAxisData = [
     '原因1',
     '原因2',
@@ -30,7 +30,7 @@ const yAxisData = [
     '原因8',
     '原因9',
     '原因10'
-]
+];
 onMounted(() => {
     setOptions({
         backgroundColor: '#0f375f',
@@ -136,6 +136,6 @@ onMounted(() => {
                 data: dataAll.sort()
             }
         ]
-    })
-})
+    });
+});
 </script>

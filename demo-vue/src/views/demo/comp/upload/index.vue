@@ -16,12 +16,12 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { BasicUpload } from '@/components/Upload'
-import { useMessage } from '@/hooks/web/useMessage'
-import { BasicForm, FormSchema, useForm } from '@/components/Form'
-import { PageWrapper } from '@/components/Page'
-import { Alert } from 'ant-design-vue'
-import { uploadApi } from '@/api/sys/upload'
+import { BasicUpload } from '@/components/Upload';
+import { useMessage } from '@/hooks/web/useMessage';
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
+import { PageWrapper } from '@/components/Page';
+import { Alert } from 'ant-design-vue';
+import { uploadApi } from '@/api/sys/upload';
 
 const schemas: FormSchema[] = [
     {
@@ -36,17 +36,17 @@ const schemas: FormSchema[] = [
             api: uploadApi
         }
     }
-]
-const { createMessage } = useMessage()
+];
+const { createMessage } = useMessage();
 const [register] = useForm({
     labelWidth: 120,
     schemas,
     actionColOptions: {
         span: 16
     }
-})
+});
 
 function handleChange(list: string[]) {
-    createMessage.info(`已上传文件${JSON.stringify(list)}`)
+    createMessage.info(`已上传文件${JSON.stringify(list)}`);
 }
 </script>

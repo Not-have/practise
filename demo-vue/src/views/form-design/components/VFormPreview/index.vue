@@ -27,15 +27,15 @@
     </Modal>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from 'vue'
-import { IFormConfig } from '../../typings/v-form-component'
-import { IAnyObject } from '../../typings/base-type'
-import VFormCreate from '../VFormCreate/index.vue'
-import { formatRules } from '../../utils'
-import { IVFormMethods } from '../../hooks/useVFormMethods'
-import JsonModal from '../VFormDesign/components/JsonModal.vue'
-import { IToolbarMethods } from '../../typings/form-type'
-import { Modal } from 'ant-design-vue'
+import { defineComponent, reactive, ref, toRefs } from 'vue';
+import { IFormConfig } from '../../typings/v-form-component';
+import { IAnyObject } from '../../typings/base-type';
+import VFormCreate from '../VFormCreate/index.vue';
+import { formatRules } from '../../utils';
+import { IVFormMethods } from '../../hooks/useVFormMethods';
+import JsonModal from '../VFormDesign/components/JsonModal.vue';
+import { IToolbarMethods } from '../../typings/form-type';
+import { Modal } from 'ant-design-vue';
 
 export default defineComponent({
     name: 'VFormPreview',
@@ -45,18 +45,18 @@ export default defineComponent({
         Modal
     },
     setup() {
-        const jsonModal = ref<IToolbarMethods | null>(null)
+        const jsonModal = ref<IToolbarMethods | null>(null);
         const state = reactive<{
-            formModel: IAnyObject
-            visible: boolean
-            formConfig: IFormConfig
-            fApi: IVFormMethods
+            formModel: IAnyObject;
+            visible: boolean;
+            formConfig: IFormConfig;
+            fApi: IVFormMethods;
         }>({
             formModel: {},
             formConfig: {} as IFormConfig,
             visible: false,
             fApi: {} as IVFormMethods
-        })
+        });
 
         /**
          * 显示Json数据弹框
@@ -64,30 +64,30 @@ export default defineComponent({
          */
         const showModal = (jsonData: IFormConfig) => {
             // console.log('showModal-', jsonData);
-            formatRules(jsonData.schemas)
-            state.formConfig = jsonData as any
-            state.visible = true
-        }
+            formatRules(jsonData.schemas);
+            state.formConfig = jsonData as any;
+            state.visible = true;
+        };
 
         /**
          * 获取表单数据
          * @return {Promise<void>}
          */
         const handleCancel = () => {
-            state.visible = false
-            state.formModel = {}
-        }
+            state.visible = false;
+            state.formModel = {};
+        };
         const handleGetData = async () => {
-            const _data = await state.fApi.submit?.()
-            jsonModal.value?.showModal?.(_data)
-        }
+            const _data = await state.fApi.submit?.();
+            jsonModal.value?.showModal?.(_data);
+        };
 
         const onSubmit = (_data: IAnyObject) => {
             //
-        }
+        };
         const onCancel = () => {
-            state.formModel = {}
-        }
+            state.formModel = {};
+        };
         return {
             handleGetData,
             handleCancel,
@@ -96,7 +96,7 @@ export default defineComponent({
             jsonModal,
             onSubmit,
             onCancel
-        }
+        };
     }
-})
+});
 </script>

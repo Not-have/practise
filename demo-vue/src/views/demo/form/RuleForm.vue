@@ -13,11 +13,11 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { BasicForm, FormSchema, useForm } from '@/components/Form'
-import { CollapseContainer } from '@/components/Container'
-import { useMessage } from '@/hooks/web/useMessage'
-import { PageWrapper } from '@/components/Page'
-import { isAccountExist } from '@/api/demo/system'
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
+import { CollapseContainer } from '@/components/Container';
+import { useMessage } from '@/hooks/web/useMessage';
+import { PageWrapper } from '@/components/Page';
+import { isAccountExist } from '@/api/demo/system';
 
 const schemas: FormSchema[] = [
     {
@@ -98,7 +98,7 @@ const schemas: FormSchema[] = [
                 }
             ],
             onChange: value => {
-                console.log(value, '123')
+                console.log(value, '123');
             }
         },
         rules: [
@@ -123,13 +123,13 @@ const schemas: FormSchema[] = [
                 validator: async (rule, value) => {
                     if (!value) {
                         /* eslint-disable-next-line */
-                        return Promise.reject('值不能为空')
+                        return Promise.reject('值不能为空');
                     }
                     if (value === '1') {
                         /* eslint-disable-next-line */
-                        return Promise.reject('值不能为1')
+                        return Promise.reject('值不能为1');
                     }
-                    return Promise.resolve()
+                    return Promise.resolve();
                 },
                 trigger: 'change'
             }
@@ -194,20 +194,20 @@ const schemas: FormSchema[] = [
                 trigger: 'blur',
                 validator(_, value) {
                     return new Promise((resolve, reject) => {
-                        if (!value) return resolve()
+                        if (!value) return resolve();
                         isAccountExist(value)
                             .then(resolve)
                             .catch(err => {
-                                reject(err.message || '验证失败')
-                            })
-                    })
+                                reject(err.message || '验证失败');
+                            });
+                    });
                 }
             }
         ]
     }
-]
+];
 
-const { createMessage } = useMessage()
+const { createMessage } = useMessage();
 const [register, { validateFields, clearValidate, getFieldsValue, resetFields, setFieldsValue }] =
     useForm({
         labelWidth: 120,
@@ -215,21 +215,21 @@ const [register, { validateFields, clearValidate, getFieldsValue, resetFields, s
         actionColOptions: {
             span: 24
         }
-    })
+    });
 async function validateForm() {
     try {
-        const res = await validateFields()
-        console.log('passing', res)
+        const res = await validateFields();
+        console.log('passing', res);
     } catch (error) {
-        console.log('not passing', error)
+        console.log('not passing', error);
     }
 }
 async function resetValidate() {
-    clearValidate()
+    clearValidate();
 }
 function getFormValues() {
-    const values = getFieldsValue()
-    createMessage.success('values:' + JSON.stringify(values))
+    const values = getFieldsValue();
+    createMessage.success('values:' + JSON.stringify(values));
 }
 function setFormValues() {
     setFieldsValue({
@@ -239,10 +239,10 @@ function setFormValues() {
         field7: '1',
         field33: '2020-12-12',
         field3: '2020-12-12'
-    })
+    });
 }
 
 function handleSubmit(values: any) {
-    createMessage.success('click search,values:' + JSON.stringify(values))
+    createMessage.success('click search,values:' + JSON.stringify(values));
 }
 </script>

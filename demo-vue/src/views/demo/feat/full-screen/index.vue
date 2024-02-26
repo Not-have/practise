@@ -30,16 +30,16 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { CollapseContainer } from '@/components/Container'
-import { useFullscreen } from '@vueuse/core'
+import { ref } from 'vue';
+import { CollapseContainer } from '@/components/Container';
+import { useFullscreen } from '@vueuse/core';
 
-import { PageWrapper } from '@/components/Page'
-import { type Nullable } from '@vben/types'
+import { PageWrapper } from '@/components/Page';
+import { type Nullable } from '@vben/types';
 
-const domRef = ref<Nullable<HTMLElement>>(null)
+const domRef = ref<Nullable<HTMLElement>>(null);
 
-const { enter, toggle, exit, isFullscreen } = useFullscreen()
+const { enter, toggle, exit, isFullscreen } = useFullscreen();
 
-const { toggle: toggleDom, isFullscreen: isDomFullscreen } = useFullscreen(domRef)
+const { toggle: toggleDom, isFullscreen: isDomFullscreen } = useFullscreen(domRef);
 </script>

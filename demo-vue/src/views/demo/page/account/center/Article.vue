@@ -40,14 +40,14 @@
     </List>
 </template>
 <script lang="ts" setup>
-import { List, Tag } from 'ant-design-vue'
-import Icon from '@/components/Icon/Icon.vue'
-import { actions, articleList } from './data'
+import { List, Tag } from 'ant-design-vue';
+import Icon from '@/components/Icon/Icon.vue';
+import { actions, articleList } from './data';
 
-const ListItem = List.Item
-const ListItemMeta = List.Item.Meta
+const ListItem = List.Item;
+const ListItemMeta = List.Item.Meta;
 
-const prefixCls = 'account-center-article'
+const prefixCls = 'account-center-article';
 </script>
 <style lang="less" scoped>
 .account-center-article {

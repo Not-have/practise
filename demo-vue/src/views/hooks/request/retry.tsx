@@ -1,21 +1,21 @@
-import { defineComponent, ref } from 'vue'
-import { Card, Typography, Input, Button, Space, message } from 'ant-design-vue'
-import { imitateApi } from './mock-api'
-import { useRequest } from '@vben/hooks'
-import { PageWrapper } from '@/components/Page'
+import { defineComponent, ref } from 'vue';
+import { Card, Typography, Input, Button, Space, message } from 'ant-design-vue';
+import { imitateApi } from './mock-api';
+import { useRequest } from '@vben/hooks';
+import { PageWrapper } from '@/components/Page';
 
 const Demo1 = defineComponent({
     setup() {
-        let count = 0
-        const search = ref('')
+        let count = 0;
+        const search = ref('');
 
         const { loading, run } = useRequest(imitateApi, {
             manual: true,
             retryCount: 3,
             onError: error => {
-                message.error(error.message + ` count: ${count++}.`)
+                message.error(error.message + ` count: ${count++}.`);
             }
-        })
+        });
 
         return () => (
             <Card title="错误重试">
@@ -42,9 +42,9 @@ const Demo1 = defineComponent({
                     </Button>
                 </Space>
             </Card>
-        )
+        );
     }
-})
+});
 
 export default defineComponent({
     setup() {
@@ -77,6 +77,6 @@ retryInterval?: number; // 重试时间间隔，单位为毫秒。如果不设�
             >
                 <Demo1 />
             </PageWrapper>
-        )
+        );
     }
-})
+});

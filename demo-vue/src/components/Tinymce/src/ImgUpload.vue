@@ -15,14 +15,14 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed } from 'vue';
 
-import { Upload } from 'ant-design-vue'
-import { useDesign } from '@/hooks/web/useDesign'
-import { useGlobSetting } from '@/hooks/setting'
-import { useI18n } from '@/hooks/web/useI18n'
+import { Upload } from 'ant-design-vue';
+import { useDesign } from '@/hooks/web/useDesign';
+import { useGlobSetting } from '@/hooks/setting';
+import { useI18n } from '@/hooks/web/useI18n';
 
-defineOptions({ name: 'TinymceImageUpload' })
+defineOptions({ name: 'TinymceImageUpload' });
 
 const props = defineProps({
     fullscreen: {
@@ -32,40 +32,40 @@ const props = defineProps({
         type: Boolean,
         default: false
     }
-})
+});
 
-const emit = defineEmits(['uploading', 'done', 'error'])
+const emit = defineEmits(['uploading', 'done', 'error']);
 
-let uploading = false
+let uploading = false;
 
-const { uploadUrl } = useGlobSetting()
-const { t } = useI18n()
-const { prefixCls } = useDesign('tinymce-img-upload')
+const { uploadUrl } = useGlobSetting();
+const { t } = useI18n();
+const { prefixCls } = useDesign('tinymce-img-upload');
 
 const getButtonProps = computed(() => {
-    const { disabled } = props
+    const { disabled } = props;
     return {
         disabled
-    }
-})
+    };
+});
 
 function handleChange(info: Record<string, any>) {
-    const file = info.file
-    const status = file?.status
-    const url = file?.response?.url
-    const name = file?.name
+    const file = info.file;
+    const status = file?.status;
+    const url = file?.response?.url;
+    const name = file?.name;
 
     if (status === 'uploading') {
         if (!uploading) {
-            emit('uploading', name)
-            uploading = true
+            emit('uploading', name);
+            uploading = true;
         }
     } else if (status === 'done') {
-        emit('done', name, url)
-        uploading = false
+        emit('done', name, url);
+        uploading = false;
     } else if (status === 'error') {
-        emit('error')
-        uploading = false
+        emit('error');
+        uploading = false;
     }
 }
 </script>

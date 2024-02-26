@@ -69,44 +69,44 @@
     </div>
 </template>
 <script lang="ts" setup name="FormItemProps">
-import { computed, watch } from 'vue'
+import { computed, watch } from 'vue';
 import {
     baseFormItemControlAttrs,
     baseFormItemProps,
     advanceFormItemProps,
     advanceFormItemColProps
-} from '../../VFormDesign/config/formItemPropsConfig'
+} from '../../VFormDesign/config/formItemPropsConfig';
 
-import { Empty, Input, Form, FormItem, Switch, Checkbox, Col } from 'ant-design-vue'
-import RuleProps from './RuleProps.vue'
-import { useFormDesignState } from '../../../hooks/useFormDesignState'
-import { isArray } from 'lodash-es'
+import { Empty, Input, Form, FormItem, Switch, Checkbox, Col } from 'ant-design-vue';
+import RuleProps from './RuleProps.vue';
+import { useFormDesignState } from '../../../hooks/useFormDesignState';
+import { isArray } from 'lodash-es';
 
-const { formConfig } = useFormDesignState()
+const { formConfig } = useFormDesignState();
 
 watch(
     () => formConfig.value,
     () => {
         if (formConfig.value.currentItem) {
-            formConfig.value.currentItem.itemProps = formConfig.value.currentItem.itemProps || {}
+            formConfig.value.currentItem.itemProps = formConfig.value.currentItem.itemProps || {};
             formConfig.value.currentItem.itemProps.labelCol =
-                formConfig.value.currentItem.itemProps.labelCol || {}
+                formConfig.value.currentItem.itemProps.labelCol || {};
             formConfig.value.currentItem.itemProps.wrapperCol =
-                formConfig.value.currentItem.itemProps.wrapperCol || {}
+                formConfig.value.currentItem.itemProps.wrapperCol || {};
         }
     },
     { deep: true, immediate: true }
-)
+);
 const showProps = (exclude: string[] | undefined) => {
     if (!exclude) {
-        return true
+        return true;
     }
-    return isArray(exclude) ? !exclude.includes(formConfig.value.currentItem!.component) : true
-}
+    return isArray(exclude) ? !exclude.includes(formConfig.value.currentItem!.component) : true;
+};
 
 const controlPropsList = computed(() => {
     return baseFormItemControlAttrs.filter(item => {
-        return showProps(item.exclude)
-    })
-})
+        return showProps(item.exclude);
+    });
+});
 </script>

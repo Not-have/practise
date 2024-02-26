@@ -9,14 +9,14 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { h } from 'vue'
-import { BasicTable, useTable, BasicColumn } from '@/components/Table'
-import { optionsListApi } from '@/api/demo/select'
+import { h } from 'vue';
+import { BasicTable, useTable, BasicColumn } from '@/components/Table';
+import { optionsListApi } from '@/api/demo/select';
 
-import { demoListApi } from '@/api/demo/table'
-import { treeOptionsListApi } from '@/api/demo/tree'
-import { useMessage } from '@/hooks/web/useMessage'
-import { Progress } from 'ant-design-vue'
+import { demoListApi } from '@/api/demo/table';
+import { treeOptionsListApi } from '@/api/demo/tree';
+import { useMessage } from '@/hooks/web/useMessage';
+import { Progress } from 'ant-design-vue';
 
 const columns: BasicColumn[] = [
     {
@@ -49,9 +49,9 @@ const columns: BasicColumn[] = [
         edit: true,
         editRule: async text => {
             if (text === '2') {
-                return '不能输入该值'
+                return '不能输入该值';
             }
-            return ''
+            return '';
         },
         width: 200
     },
@@ -66,10 +66,10 @@ const columns: BasicColumn[] = [
             return {
                 max: 100,
                 min: 0
-            }
+            };
         },
         editRender: ({ text }) => {
-            return h(Progress, { percent: Number(text) })
+            return h(Progress, { percent: Number(text) });
         }
     },
     {
@@ -144,7 +144,7 @@ const columns: BasicColumn[] = [
         edit: true,
         editComponent: 'Checkbox',
         editValueMap: value => {
-            return value ? '是' : '否'
+            return value ? '是' : '否';
         },
         width: 200
     },
@@ -154,7 +154,7 @@ const columns: BasicColumn[] = [
         edit: true,
         editComponent: 'Switch',
         editValueMap: value => {
-            return value ? '开' : '关'
+            return value ? '开' : '关';
         },
         width: 200
     },
@@ -209,7 +209,7 @@ const columns: BasicColumn[] = [
         },
         width: 200
     }
-]
+];
 
 const [registerTable] = useTable({
     title: '可编辑单元格示例',
@@ -217,13 +217,13 @@ const [registerTable] = useTable({
     columns: columns,
     showIndexColumn: false,
     bordered: true
-})
+});
 
-const { createMessage } = useMessage()
+const { createMessage } = useMessage();
 
 function handleEditEnd({ record, index, key, value }: Recordable) {
-    console.log(record, index, key, value)
-    return false
+    console.log(record, index, key, value);
+    return false;
 }
 
 // 模拟将指定数据保存
@@ -232,7 +232,7 @@ function feakSave({ value, key, id }) {
         content: `正在模拟保存${key}`,
         key: '_save_fake_data',
         duration: 0
-    })
+    });
     return new Promise(resolve => {
         setTimeout(() => {
             if (value === '') {
@@ -240,26 +240,26 @@ function feakSave({ value, key, id }) {
                     content: '保存失败：不能为空',
                     key: '_save_fake_data',
                     duration: 2
-                })
-                resolve(false)
+                });
+                resolve(false);
             } else {
                 createMessage.success({
                     content: `记录${id}的${key}已保存`,
                     key: '_save_fake_data',
                     duration: 2
-                })
-                resolve(true)
+                });
+                resolve(true);
             }
-        }, 2000)
-    })
+        }, 2000);
+    });
 }
 
 async function beforeEditSubmit({ record, index, key, value }) {
-    console.log('单元格数据正在准备提交', { record, index, key, value })
-    return await feakSave({ id: record.id, key, value })
+    console.log('单元格数据正在准备提交', { record, index, key, value });
+    return await feakSave({ id: record.id, key, value });
 }
 
 function handleEditCancel() {
-    console.log('cancel')
+    console.log('cancel');
 }
 </script>

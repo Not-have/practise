@@ -11,9 +11,9 @@
     </BasicModal>
 </template>
 <script lang="ts" setup>
-import { ref, nextTick } from 'vue'
-import { BasicModal, useModalInner } from '@/components/Modal'
-import { BasicForm, FormSchema, useForm } from '@/components/Form'
+import { ref, nextTick } from 'vue';
+import { BasicModal, useModalInner } from '@/components/Modal';
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
 
 const schemas: FormSchema[] = [
     {
@@ -33,12 +33,12 @@ const schemas: FormSchema[] = [
             span: 24
         }
     }
-]
+];
 
 const props = defineProps({
     userData: { type: Object }
-})
-const modelRef = ref({})
+});
+const modelRef = ref({});
 const [
     registerForm
     // {
@@ -52,14 +52,14 @@ const [
     actionColOptions: {
         span: 24
     }
-})
+});
 
 const [register] = useModalInner(data => {
-    data && onDataReceive(data)
-})
+    data && onDataReceive(data);
+});
 
 function onDataReceive(data) {
-    console.log('Data Received', data)
+    console.log('Data Received', data);
     // 方式1;
     // setFieldsValue({
     //   field2: data.data,
@@ -67,7 +67,7 @@ function onDataReceive(data) {
     // });
 
     // // 方式2
-    modelRef.value = { field2: data.data, field1: data.info }
+    modelRef.value = { field2: data.data, field1: data.info };
 
     // setProps({
     //   model:{ field2: data.data, field1: data.info }
@@ -75,6 +75,6 @@ function onDataReceive(data) {
 }
 
 function handleVisibleChange(v) {
-    v && props.userData && nextTick(() => onDataReceive(props.userData))
+    v && props.userData && nextTick(() => onDataReceive(props.userData));
 }
 </script>

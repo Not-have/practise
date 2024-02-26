@@ -1,14 +1,14 @@
-import { defineComponent } from 'vue'
-import { Card, Typography, Spin } from 'ant-design-vue'
-import { imitateApi } from './mock-api'
-import { useRequest } from '@vben/hooks'
-import { PageWrapper } from '@/components/Page'
+import { defineComponent } from 'vue';
+import { Card, Typography, Spin } from 'ant-design-vue';
+import { imitateApi } from './mock-api';
+import { useRequest } from '@vben/hooks';
+import { PageWrapper } from '@/components/Page';
 
 const Demo1 = defineComponent({
     setup() {
         const { data, loading } = useRequest(imitateApi, {
             refreshOnWindowFocus: true
-        })
+        });
 
         return () => (
             <Card title="屏幕聚焦重新请求">
@@ -39,9 +39,9 @@ const Demo1 = defineComponent({
                     <div>Username: {data.value}</div>
                 </Spin>
             </Card>
-        )
+        );
     }
-})
+});
 
 export default defineComponent({
     setup() {
@@ -49,6 +49,6 @@ export default defineComponent({
             <PageWrapper>
                 <Demo1 />
             </PageWrapper>
-        )
+        );
     }
-})
+});

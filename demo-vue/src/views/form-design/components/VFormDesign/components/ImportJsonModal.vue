@@ -33,15 +33,15 @@
     </Modal>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
+import { defineComponent, reactive, toRefs } from 'vue';
 // import message from '../../../utils/message';
-import { useFormDesignState } from '../../../hooks/useFormDesignState'
+import { useFormDesignState } from '../../../hooks/useFormDesignState';
 // import { codemirror } from 'vue-codemirror-lite';
-import { IFormConfig } from '../../../typings/v-form-component'
-import { formItemsForEach, generateKey } from '../../../utils'
-import { CodeEditor, MODE } from '@/components/CodeEditor'
-import { useMessage } from '@/hooks/web/useMessage'
-import { Upload, Modal } from 'ant-design-vue'
+import { IFormConfig } from '../../../typings/v-form-component';
+import { formItemsForEach, generateKey } from '../../../utils';
+import { CodeEditor, MODE } from '@/components/CodeEditor';
+import { useMessage } from '@/hooks/web/useMessage';
+import { Upload, Modal } from 'ant-design-vue';
 
 export default defineComponent({
     name: 'ImportJsonModal',
@@ -51,7 +51,7 @@ export default defineComponent({
         Modal
     },
     setup() {
-        const { createMessage } = useMessage()
+        const { createMessage } = useMessage();
 
         const state = reactive({
             visible: false,
@@ -78,43 +78,43 @@ export default defineComponent({
                 config: {}
             },
             handleSetSelectItem: null
-        })
-        const { formDesignMethods } = useFormDesignState()
+        });
+        const { formDesignMethods } = useFormDesignState();
         const handleCancel = () => {
-            state.visible = false
-        }
+            state.visible = false;
+        };
         const showModal = () => {
-            state.visible = true
-        }
+            state.visible = true;
+        };
         const handleImportJson = () => {
             // 导入JSON
             try {
-                const editorJsonData = JSON.parse(state.json) as IFormConfig
+                const editorJsonData = JSON.parse(state.json) as IFormConfig;
                 editorJsonData.schemas &&
                     formItemsForEach(editorJsonData.schemas, formItem => {
-                        generateKey(formItem)
-                    })
+                        generateKey(formItem);
+                    });
                 formDesignMethods.setFormConfig({
                     ...editorJsonData,
                     activeKey: 1,
                     currentItem: { component: '' }
-                })
-                handleCancel()
-                createMessage.success('导入成功')
+                });
+                handleCancel();
+                createMessage.success('导入成功');
             } catch {
-                createMessage.error('导入失败，数据格式不对')
+                createMessage.error('导入失败，数据格式不对');
             }
-        }
+        };
         const beforeUpload = (e: File) => {
             // 通过json文件导入
-            const reader = new FileReader()
-            reader.readAsText(e)
+            const reader = new FileReader();
+            reader.readAsText(e);
             reader.onload = function () {
-                state.json = this.result as string
-                handleImportJson()
-            }
-            return false
-        }
+                state.json = this.result as string;
+                handleImportJson();
+            };
+            return false;
+        };
 
         return {
             handleImportJson,
@@ -123,9 +123,9 @@ export default defineComponent({
             showModal,
             ...toRefs(state),
             MODE
-        }
+        };
     }
-})
+});
 </script>
 
 <style lang="less" scoped>

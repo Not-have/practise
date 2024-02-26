@@ -4,12 +4,12 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { PageWrapper } from '@/components/Page'
-import { useDesign } from '@/hooks/web/useDesign'
-import { driver } from 'driver.js'
-import 'driver.js/dist/driver.css'
+import { PageWrapper } from '@/components/Page';
+import { useDesign } from '@/hooks/web/useDesign';
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
 
-const { prefixVar } = useDesign('')
+const { prefixVar } = useDesign('');
 
 function handleStart() {
     driver({
@@ -36,6 +36,6 @@ function handleStart() {
                 }
             }
         ]
-    }).drive()
+    }).drive();
 }
 </script>

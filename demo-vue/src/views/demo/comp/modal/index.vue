@@ -52,35 +52,35 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { shallowRef, ComponentOptions, ref, nextTick } from 'vue'
-import { Alert, Space, message } from 'ant-design-vue'
-import { useModal } from '@/components/Modal'
-import Modal1 from './Modal1.vue'
-import Modal2 from './Modal2.vue'
-import Modal3 from './Modal3.vue'
-import Modal4 from './Modal4.vue'
-import Modal5 from './Modal5.vue'
-import { PageWrapper } from '@/components/Page'
-import { type Nullable } from '@vben/types'
-import { createPrompt } from '@/components/Prompt'
+import { shallowRef, ComponentOptions, ref, nextTick } from 'vue';
+import { Alert, Space, message } from 'ant-design-vue';
+import { useModal } from '@/components/Modal';
+import Modal1 from './Modal1.vue';
+import Modal2 from './Modal2.vue';
+import Modal3 from './Modal3.vue';
+import Modal4 from './Modal4.vue';
+import Modal5 from './Modal5.vue';
+import { PageWrapper } from '@/components/Page';
+import { type Nullable } from '@vben/types';
+import { createPrompt } from '@/components/Prompt';
 
-const currentModal = shallowRef<Nullable<ComponentOptions>>(null)
-const [register1, { openModal: openModal1 }] = useModal()
-const [register2, { openModal: openModal2 }] = useModal()
-const [register3, { openModal: openModal3 }] = useModal()
-const [register4, { openModal: openModal4 }] = useModal()
-const [register5, { openModal: openModal5 }] = useModal()
-const modalOpen = ref<Boolean>(false)
-const userData = ref<any>(null)
+const currentModal = shallowRef<Nullable<ComponentOptions>>(null);
+const [register1, { openModal: openModal1 }] = useModal();
+const [register2, { openModal: openModal2 }] = useModal();
+const [register3, { openModal: openModal3 }] = useModal();
+const [register4, { openModal: openModal4 }] = useModal();
+const [register5, { openModal: openModal5 }] = useModal();
+const modalOpen = ref<Boolean>(false);
+const userData = ref<any>(null);
 
 function send() {
     openModal4(true, {
         data: 'content',
         info: 'Info'
-    })
+    });
 }
 function openModalLoading() {
-    openModal1(true)
+    openModal1(true);
     // setModalProps({ loading: true });
     // setTimeout(() => {
     //   setModalProps({ loading: false });
@@ -90,25 +90,25 @@ function openModalLoading() {
 function openTargetModal(index: number) {
     switch (index) {
         case 1:
-            currentModal.value = Modal1 as ComponentOptions
-            break
+            currentModal.value = Modal1 as ComponentOptions;
+            break;
         case 2:
-            currentModal.value = Modal2 as ComponentOptions
-            break
+            currentModal.value = Modal2 as ComponentOptions;
+            break;
         case 3:
-            currentModal.value = Modal3 as ComponentOptions
-            break
+            currentModal.value = Modal3 as ComponentOptions;
+            break;
         default:
-            currentModal.value = Modal4 as ComponentOptions
-            break
+            currentModal.value = Modal4 as ComponentOptions;
+            break;
     }
     nextTick(() => {
         // `useModal` not working with dynamic component
         // passing data through `userData` prop
-        userData.value = { data: Math.random(), info: 'Info222' }
+        userData.value = { data: Math.random(), info: 'Info222' };
         // open the target modal
-        modalOpen.value = true
-    })
+        modalOpen.value = true;
+    });
 }
 
 function handleCreatePrompt() {
@@ -118,9 +118,9 @@ function handleCreatePrompt() {
         label: '邮箱',
         defaultValue: '默认邮箱',
         onOK: async (email: string) => {
-            message.success('填写的邮箱地址为' + email)
+            message.success('填写的邮箱地址为' + email);
         },
         inputType: 'Input'
-    })
+    });
 }
 </script>

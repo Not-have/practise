@@ -33,12 +33,12 @@
     </div>
 </template>
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
-import { remove } from '../../../utils'
-import { useFormDesignState } from '../../../hooks/useFormDesignState'
-import { isArray } from 'lodash-es'
-import { Form, FormItem, AutoComplete, Input } from 'ant-design-vue'
-import Icon from '@/components/Icon/Icon.vue'
+import { ref, defineComponent } from 'vue';
+import { remove } from '../../../utils';
+import { useFormDesignState } from '../../../hooks/useFormDesignState';
+import { isArray } from 'lodash-es';
+import { Form, FormItem, AutoComplete, Input } from 'ant-design-vue';
+import Icon from '@/components/Icon/Icon.vue';
 
 export default defineComponent({
     name: 'RuleProps',
@@ -51,25 +51,25 @@ export default defineComponent({
     },
     setup() {
         // 获取祖先组件的状态
-        const { formConfig } = useFormDesignState()
+        const { formConfig } = useFormDesignState();
         // 抽离 currentItem
         /**
          * 添加正则校验，判断当前组件的rules是不是数组，如果不是数组，使用set方法重置成数组，然后添加正则校验
          */
         const addRules = () => {
             if (!isArray(formConfig.value.currentItem!.rules))
-                formConfig.value.currentItem!['rules'] = []
-            formConfig.value.currentItem!.rules?.push({ pattern: '', message: '' })
-        }
+                formConfig.value.currentItem!['rules'] = [];
+            formConfig.value.currentItem!.rules?.push({ pattern: '', message: '' });
+        };
         /**
          * 删除正则校验，当正则规则为0时，删除rules属性
          * @param index {number} 需要删除的规则下标
          */
         const removeRule = (index: number) => {
-            remove(formConfig.value.currentItem!.rules as Array<any>, index)
+            remove(formConfig.value.currentItem!.rules as Array<any>, index);
             if (formConfig.value.currentItem!.rules?.length === 0)
-                delete formConfig.value.currentItem!['rules']
-        }
+                delete formConfig.value.currentItem!['rules'];
+        };
 
         const patternDataSource = ref([
             {
@@ -232,11 +232,11 @@ export default defineComponent({
                 value: '/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$/',
                 text: 'email(支持中文邮箱)'
             }
-        ])
+        ]);
 
-        return { addRules, removeRule, formConfig, patternDataSource }
+        return { addRules, removeRule, formConfig, patternDataSource };
     }
-})
+});
 </script>
 
 <style lang="less" scoped>

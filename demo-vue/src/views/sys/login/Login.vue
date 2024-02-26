@@ -50,30 +50,30 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { AppDarkModeToggle, AppLocalePicker, AppLogo } from '@/components/Application'
-import { useGlobSetting } from '@/hooks/setting'
-import { useDesign } from '@/hooks/web/useDesign'
-import { useI18n } from '@/hooks/web/useI18n'
-import { useLocaleStore } from '@/store/modules/locale'
-import { computed } from 'vue'
-import ForgetPasswordForm from './ForgetPasswordForm.vue'
-import LoginForm from './LoginForm.vue'
-import MobileForm from './MobileForm.vue'
-import QrCodeForm from './QrCodeForm.vue'
-import RegisterForm from './RegisterForm.vue'
+import { AppDarkModeToggle, AppLocalePicker, AppLogo } from '@/components/Application';
+import { useGlobSetting } from '@/hooks/setting';
+import { useDesign } from '@/hooks/web/useDesign';
+import { useI18n } from '@/hooks/web/useI18n';
+import { useLocaleStore } from '@/store/modules/locale';
+import { computed } from 'vue';
+import ForgetPasswordForm from './ForgetPasswordForm.vue';
+import LoginForm from './LoginForm.vue';
+import MobileForm from './MobileForm.vue';
+import QrCodeForm from './QrCodeForm.vue';
+import RegisterForm from './RegisterForm.vue';
 
 defineProps({
     sessionTimeout: {
         type: Boolean
     }
-})
+});
 
-const globSetting = useGlobSetting()
-const { prefixCls } = useDesign('login')
-const { t } = useI18n()
-const localeStore = useLocaleStore()
-const showLocale = localeStore.getShowPicker
-const title = computed(() => globSetting?.title ?? '')
+const globSetting = useGlobSetting();
+const { prefixCls } = useDesign('login');
+const { t } = useI18n();
+const localeStore = useLocaleStore();
+const showLocale = localeStore.getShowPicker;
+const title = computed(() => globSetting?.title ?? '');
 </script>
 <style lang="less">
 @prefix-cls: ~'@{namespace}-login';

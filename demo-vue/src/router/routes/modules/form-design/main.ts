@@ -1,6 +1,6 @@
-import type { AppRouteModule } from '@/router/types'
+import type { AppRouteModule } from '@/router/types';
 
-import { LAYOUT } from '@/router/constant'
+import { LAYOUT } from '@/router/constant';
 
 const permission: AppRouteModule = {
     path: '/form-designer',
@@ -29,6 +29,6 @@ const permission: AppRouteModule = {
             component: () => import('@/views/form-design/examples/baseForm.vue')
         }
     ]
-}
+};
 
-export default permission
+export default permission;

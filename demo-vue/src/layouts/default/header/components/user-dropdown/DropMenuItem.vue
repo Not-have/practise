@@ -7,20 +7,20 @@
     </Menu.Item>
 </template>
 <script lang="ts" setup>
-import { Menu } from 'ant-design-vue'
-import { computed, getCurrentInstance } from 'vue'
-import Icon from '@/components/Icon/Icon.vue'
-import { propTypes } from '@/utils/propTypes'
+import { Menu } from 'ant-design-vue';
+import { computed, getCurrentInstance } from 'vue';
+import Icon from '@/components/Icon/Icon.vue';
+import { propTypes } from '@/utils/propTypes';
 
-defineOptions({ name: 'DropdownMenuItem' })
+defineOptions({ name: 'DropdownMenuItem' });
 
 const props = defineProps({
     // eslint-disable-next-line
     key: propTypes.string,
     text: propTypes.string,
     icon: propTypes.string
-})
+});
 
-const instance = getCurrentInstance()
-const itemKey = computed(() => props.key || instance?.vnode?.props?.key)
+const instance = getCurrentInstance();
+const itemKey = computed(() => props.key || instance?.vnode?.props?.key);
 </script>

@@ -93,11 +93,11 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { BasicTable, useTable } from '@/components/Table'
-import { PageWrapper } from '@/components/Page'
-import { Divider, Card, Empty, Descriptions, Steps, Tabs } from 'ant-design-vue'
+import { BasicTable, useTable } from '@/components/Table';
+import { PageWrapper } from '@/components/Page';
+import { Divider, Card, Empty, Descriptions, Steps, Tabs } from 'ant-design-vue';
 
-import { refundTimeTableSchema, refundTimeTableData } from './data'
+import { refundTimeTableSchema, refundTimeTableData } from './data';
 
 const [registerTimeTable] = useTable({
     title: '退货进度',
@@ -106,5 +106,5 @@ const [registerTimeTable] = useTable({
     dataSource: refundTimeTableData,
     showIndexColumn: false,
     scroll: { y: 300 }
-})
+});
 </script>

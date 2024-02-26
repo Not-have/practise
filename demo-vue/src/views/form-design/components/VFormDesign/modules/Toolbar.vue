@@ -27,17 +27,17 @@
     <!-- 操作区域 start -->
 </template>
 <script lang="ts">
-import { defineComponent, inject, reactive, toRefs } from 'vue'
-import { UseRefHistoryReturn } from '@vueuse/core'
-import { IFormConfig } from '../../../typings/v-form-component'
-import { Tooltip, Divider } from 'ant-design-vue'
-import Icon from '@/components/Icon/Icon.vue'
+import { defineComponent, inject, reactive, toRefs } from 'vue';
+import { UseRefHistoryReturn } from '@vueuse/core';
+import { IFormConfig } from '../../../typings/v-form-component';
+import { Tooltip, Divider } from 'ant-design-vue';
+import Icon from '@/components/Icon/Icon.vue';
 
 interface IToolbarsConfig {
-    type: string
-    title: string
-    icon: string
-    event: string
+    type: string;
+    title: string;
+    icon: string;
+    event: string;
 }
 
 export default defineComponent({
@@ -49,7 +49,7 @@ export default defineComponent({
     },
     setup() {
         const state = reactive<{
-            toolbarsConfigs: IToolbarsConfig[]
+            toolbarsConfigs: IToolbarsConfig[];
         }>({
             toolbarsConfigs: [
                 {
@@ -89,13 +89,13 @@ export default defineComponent({
                     icon: 'ant-design:clear-outlined'
                 }
             ]
-        })
-        const historyRef = inject('historyReturn') as UseRefHistoryReturn<IFormConfig, IFormConfig>
+        });
+        const historyRef = inject('historyReturn') as UseRefHistoryReturn<IFormConfig, IFormConfig>;
 
-        const { undo, redo, canUndo, canRedo } = historyRef
-        return { ...toRefs(state), undo, redo, canUndo, canRedo }
+        const { undo, redo, canUndo, canRedo } = historyRef;
+        return { ...toRefs(state), undo, redo, canUndo, canRedo };
     }
-})
+});
 </script>
 
 <style lang="less" scoped>

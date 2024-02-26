@@ -1,7 +1,7 @@
 module.exports = {
     printWidth: 100,
     tabWidth: 4,
-    semi: false,
+    semi: true, // 设置结尾处有分号
     vueIndentScriptAndStyle: false,
     singleQuote: true,
     trailingComma: 'none',
@@ -24,4 +24,4 @@ module.exports = {
             }
         }
     ]
-}
+};

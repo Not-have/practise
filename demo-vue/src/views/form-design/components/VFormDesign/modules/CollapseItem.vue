@@ -31,11 +31,11 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue'
-import { IVFormComponent } from '../../../typings/v-form-component'
-import draggable from 'vuedraggable'
-import Icon from '@/components/Icon/Icon.vue'
-import { useDesign } from '@/hooks/web/useDesign'
+import { defineComponent, reactive, PropType } from 'vue';
+import { IVFormComponent } from '../../../typings/v-form-component';
+import draggable from 'vuedraggable';
+import Icon from '@/components/Icon/Icon.vue';
+import { useDesign } from '@/hooks/web/useDesign';
 
 export default defineComponent({
     name: 'CollapseItem',
@@ -51,23 +51,23 @@ export default defineComponent({
         }
     },
     setup(props, { emit }) {
-        const { prefixCls } = useDesign('form-design-collapse-item')
+        const { prefixCls } = useDesign('form-design-collapse-item');
 
-        const state = reactive({})
+        const state = reactive({});
         const handleStart = (e: any, list1: IVFormComponent[]) => {
-            emit('start', list1[e.oldIndex].component)
-        }
+            emit('start', list1[e.oldIndex].component);
+        };
         const handleAdd = (e: any) => {
-            console.log(e)
-        }
+            console.log(e);
+        };
         // https://github.com/SortableJS/vue.draggable.next
         // https://github.com/SortableJS/vue.draggable.next/blob/master/example/components/custom-clone.vue
         const cloneItem = one => {
-            return props.handleListPush(one)
-        }
-        return { prefixCls, state, handleStart, handleAdd, cloneItem }
+            return props.handleListPush(one);
+        };
+        return { prefixCls, state, handleStart, handleAdd, cloneItem };
     }
-})
+});
 </script>
 
 <style lang="less" scoped>

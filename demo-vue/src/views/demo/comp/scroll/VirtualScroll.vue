@@ -24,19 +24,19 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { VScroll } from '@/components/VirtualScroll'
-import { Divider } from 'ant-design-vue'
-import { PageWrapper } from '@/components/Page'
+import { VScroll } from '@/components/VirtualScroll';
+import { Divider } from 'ant-design-vue';
+import { PageWrapper } from '@/components/Page';
 
 const data = (() => {
-    const arr: any[] = []
+    const arr: any[] = [];
     for (let index = 1; index < 20000; index++) {
         arr.push({
             title: '列表项' + index
-        })
+        });
     }
-    return arr
-})()
+    return arr;
+})();
 </script>
 <style lang="less" scoped>
 .virtual-scroll-demo {

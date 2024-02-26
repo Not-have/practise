@@ -83,36 +83,36 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { ref, unref } from 'vue'
-import { QrCode, QrCodeActionType } from '@/components/Qrcode'
-import LogoImg from '@/assets/images/logo.png'
-import { CollapseContainer } from '@/components/Container'
-import { PageWrapper } from '@/components/Page'
-import { type Nullable } from '@vben/types'
-import { QRCode } from 'ant-design-vue'
+import { ref, unref } from 'vue';
+import { QrCode, QrCodeActionType } from '@/components/Qrcode';
+import LogoImg from '@/assets/images/logo.png';
+import { CollapseContainer } from '@/components/Container';
+import { PageWrapper } from '@/components/Page';
+import { type Nullable } from '@vben/types';
+import { QRCode } from 'ant-design-vue';
 
-const qrCodeUrl = 'https://www.vvbin.cn'
-const qrRef = ref<Nullable<QrCodeActionType>>(null)
-const qrDiyRef = ref<Nullable<QrCodeActionType>>(null)
+const qrCodeUrl = 'https://www.vvbin.cn';
+const qrRef = ref<Nullable<QrCodeActionType>>(null);
+const qrDiyRef = ref<Nullable<QrCodeActionType>>(null);
 function download() {
-    const qrEl = unref(qrRef)
-    if (!qrEl) return
-    qrEl.download('文件名')
+    const qrEl = unref(qrRef);
+    if (!qrEl) return;
+    qrEl.download('文件名');
 }
 function downloadDiy() {
-    const qrEl = unref(qrDiyRef)
-    if (!qrEl) return
-    qrEl.download('Qrcode')
+    const qrEl = unref(qrDiyRef);
+    if (!qrEl) return;
+    qrEl.download('Qrcode');
 }
 
 function onQrcodeDone({ ctx }: any) {
     if (ctx instanceof CanvasRenderingContext2D) {
         // 额外绘制
-        ctx.fillStyle = 'black'
-        ctx.font = '16px "微软雅黑"'
-        ctx.textBaseline = 'bottom'
-        ctx.textAlign = 'center'
-        ctx.fillText('你帅你先扫', 100, 195, 200)
+        ctx.fillStyle = 'black';
+        ctx.font = '16px "微软雅黑"';
+        ctx.textBaseline = 'bottom';
+        ctx.textAlign = 'center';
+        ctx.fillText('你帅你先扫', 100, 195, 200);
     }
 }
 </script>

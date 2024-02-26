@@ -51,11 +51,11 @@
     </List>
 </template>
 <script lang="ts" setup>
-import { computed, PropType, ref, watch, unref } from 'vue'
-import { ListItem } from './data'
-import { useDesign } from '@/hooks/web/useDesign'
-import { List, Avatar, Tag, Typography } from 'ant-design-vue'
-import { isNumber } from '@/utils/is'
+import { computed, PropType, ref, watch, unref } from 'vue';
+import { ListItem } from './data';
+import { useDesign } from '@/hooks/web/useDesign';
+import { List, Avatar, Tag, Typography } from 'ant-design-vue';
+import { isNumber } from '@/utils/is';
 
 const props = defineProps({
     list: {
@@ -81,30 +81,30 @@ const props = defineProps({
     onTitleClick: {
         type: Function as PropType<(Recordable) => void>
     }
-})
+});
 
-const emit = defineEmits(['update:currentPage'])
+const emit = defineEmits(['update:currentPage']);
 
-const { prefixCls } = useDesign('header-notify-list')
-const current = ref(props.currentPage || 1)
+const { prefixCls } = useDesign('header-notify-list');
+const current = ref(props.currentPage || 1);
 const getData = computed(() => {
-    const { pageSize, list } = props
-    if (pageSize === false) return []
-    let size = isNumber(pageSize) ? pageSize : 5
-    return list.slice(size * (unref(current) - 1), size * unref(current))
-})
+    const { pageSize, list } = props;
+    if (pageSize === false) return [];
+    let size = isNumber(pageSize) ? pageSize : 5;
+    return list.slice(size * (unref(current) - 1), size * unref(current));
+});
 watch(
     () => props.currentPage,
     v => {
-        current.value = v
+        current.value = v;
     }
-)
+);
 const getPagination = computed(() => {
-    const { list, pageSize } = props
+    const { list, pageSize } = props;
 
     // compatible line 104
     // if typeof pageSize is boolean, Number(true) && 5 = 5, Number(false) && 5 = 0
-    const size = isNumber(pageSize) ? pageSize : Number(pageSize) && 5
+    const size = isNumber(pageSize) ? pageSize : Number(pageSize) && 5;
 
     if (size > 0 && list && list.length > size) {
         return {
@@ -112,17 +112,17 @@ const getPagination = computed(() => {
             pageSize: size,
             current: unref(current),
             onChange(page) {
-                current.value = page
-                emit('update:currentPage', page)
+                current.value = page;
+                emit('update:currentPage', page);
             }
-        }
+        };
     } else {
-        return false
+        return false;
     }
-})
+});
 
 function handleTitleClick(item: ListItem) {
-    props.onTitleClick && props.onTitleClick(item)
+    props.onTitleClick && props.onTitleClick(item);
 }
 </script>
 <style lang="less" scoped>

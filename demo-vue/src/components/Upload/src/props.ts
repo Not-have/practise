@@ -1,19 +1,19 @@
-import type { PropType } from 'vue'
-import { FileBasicColumn } from './types/typing'
+import type { PropType } from 'vue';
+import { FileBasicColumn } from './types/typing';
 
-import type { Options } from 'sortablejs'
+import type { Options } from 'sortablejs';
 
-import { Merge } from '@/utils/types'
+import { Merge } from '@/utils/types';
 
 type SortableOptions = Merge<
     Omit<Options, 'onEnd'>,
     {
-        onAfterEnd?: <T = any, R = any>(params: T) => R
+        onAfterEnd?: <T = any, R = any>(params: T) => R;
         // ...可扩展
     }
->
+>;
 
-type ListType = 'text' | 'picture' | 'picture-card'
+type ListType = 'text' | 'picture' | 'picture-card';
 
 export const basicProps = {
     listType: {
@@ -69,7 +69,7 @@ export const basicProps = {
         type: Object as PropType<SortableOptions>,
         default: () => ({})
     }
-}
+};
 
 export const uploadContainerProps = {
     value: {
@@ -85,14 +85,14 @@ export const uploadContainerProps = {
         type: Boolean as PropType<boolean>,
         default: false
     }
-}
+};
 
 export const previewProps = {
     value: {
         type: Array as PropType<string[]>,
         default: () => []
     }
-}
+};
 
 export const fileListProps = {
     columns: {
@@ -115,4 +115,4 @@ export const fileListProps = {
         type: Object as PropType<SortableOptions>,
         default: () => ({})
     }
-}
+};

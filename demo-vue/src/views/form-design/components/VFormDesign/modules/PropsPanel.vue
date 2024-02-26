@@ -21,18 +21,18 @@
     </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
-import FormProps from '../components/FormProps.vue'
-import FormItemProps from '../components/FormItemProps.vue'
-import ComponentProps from '../components/ComponentProps.vue'
-import ComponentColumnProps from '../components/FormItemColumnProps.vue'
-import { useFormDesignState } from '../../../hooks/useFormDesignState'
-import { customComponents } from '../../../core/formItemConfig'
-import { TabPane, Tabs } from 'ant-design-vue'
+import { computed, defineComponent } from 'vue';
+import FormProps from '../components/FormProps.vue';
+import FormItemProps from '../components/FormItemProps.vue';
+import ComponentProps from '../components/ComponentProps.vue';
+import ComponentColumnProps from '../components/FormItemColumnProps.vue';
+import { useFormDesignState } from '../../../hooks/useFormDesignState';
+import { customComponents } from '../../../core/formItemConfig';
+import { TabPane, Tabs } from 'ant-design-vue';
 
-type ChangeTabKey = 1 | 2
+type ChangeTabKey = 1 | 2;
 export interface IPropsPanel {
-    changeTab: (key: ChangeTabKey) => void
+    changeTab: (key: ChangeTabKey) => void;
 }
 export default defineComponent({
     name: 'PropsPanel',
@@ -45,15 +45,15 @@ export default defineComponent({
         TabPane
     },
     setup() {
-        const { formConfig } = useFormDesignState()
+        const { formConfig } = useFormDesignState();
         const slotProps = computed(() => {
             return customComponents.find(
                 item => item.component === formConfig.value.currentItem?.component
-            )
-        })
-        return { formConfig, customComponents, slotProps }
+            );
+        });
+        return { formConfig, customComponents, slotProps };
     }
-})
+});
 </script>
 
 <style lang="less" scoped>

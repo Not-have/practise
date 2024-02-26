@@ -1,21 +1,21 @@
-import { defineComponent, unref } from 'vue'
-import { Card, Typography, Button, Space } from 'ant-design-vue'
-import { useRequest } from '@vben/hooks'
-import { PageWrapper } from '@/components/Page'
-import { imitateApi } from './mock-api'
+import { defineComponent, unref } from 'vue';
+import { Card, Typography, Button, Space } from 'ant-design-vue';
+import { useRequest } from '@vben/hooks';
+import { PageWrapper } from '@/components/Page';
+import { imitateApi } from './mock-api';
 
 export default defineComponent({
     setup() {
-        const action = useRequest(imitateApi)
+        const action = useRequest(imitateApi);
 
         const withLoadingDelayAction = useRequest(imitateApi, {
             loadingDelay: 300
-        })
+        });
 
         const trigger = () => {
-            action.run('lutz')
-            withLoadingDelayAction.run('lutz')
-        }
+            action.run('lutz');
+            withLoadingDelayAction.run('lutz');
+        };
 
         return () => (
             <PageWrapper>
@@ -58,6 +58,6 @@ export default defineComponent({
                     </Space>
                 </Card>
             </PageWrapper>
-        )
+        );
     }
-})
+});

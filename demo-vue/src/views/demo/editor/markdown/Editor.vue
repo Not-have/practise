@@ -12,12 +12,12 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { h } from 'vue'
-import { BasicForm, FormSchema } from '@/components/Form'
-import { CollapseContainer } from '@/components/Container'
-import { useMessage } from '@/hooks/web/useMessage'
-import { MarkDown } from '@/components/Markdown'
-import { PageWrapper } from '@/components/Page'
+import { h } from 'vue';
+import { BasicForm, FormSchema } from '@/components/Form';
+import { CollapseContainer } from '@/components/Container';
+import { useMessage } from '@/hooks/web/useMessage';
+import { MarkDown } from '@/components/Markdown';
+import { PageWrapper } from '@/components/Page';
 
 const schemas: FormSchema[] = [
     {
@@ -37,15 +37,15 @@ const schemas: FormSchema[] = [
             return h(MarkDown, {
                 value: model[field],
                 onChange: (value: string) => {
-                    model[field] = value
+                    model[field] = value;
                 }
-            })
+            });
         }
     }
-]
-const { createMessage } = useMessage()
+];
+const { createMessage } = useMessage();
 
 function handleSubmit(values: any) {
-    createMessage.success('click search,values:' + JSON.stringify(values))
+    createMessage.success('click search,values:' + JSON.stringify(values));
 }
 </script>

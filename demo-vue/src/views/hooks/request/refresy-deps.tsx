@@ -1,21 +1,21 @@
-import { computed, defineComponent, reactive, ref, unref } from 'vue'
-import { Button, Card, Typography, Select } from 'ant-design-vue'
-import { imitateApi } from './mock-api'
-import { useRequest } from '@vben/hooks'
-import { PageWrapper } from '@/components/Page'
+import { computed, defineComponent, reactive, ref, unref } from 'vue';
+import { Button, Card, Typography, Select } from 'ant-design-vue';
+import { imitateApi } from './mock-api';
+import { useRequest } from '@vben/hooks';
+import { PageWrapper } from '@/components/Page';
 
 const options = [
     { label: 'Jack', value: 'Jack' },
     { label: 'Lucy', value: 'Lucy' },
     { label: 'Lutz', value: 'Lutz' }
-]
+];
 
 const Demo1 = defineComponent({
     setup() {
-        const select = ref('Lutz')
+        const select = ref('Lutz');
         const { data, loading } = useRequest(() => imitateApi(select.value), {
             refreshDeps: [select]
-        })
+        });
 
         return () => (
             <Card title="Ref 依赖刷新">
@@ -45,19 +45,19 @@ const { data, loading } = useRequest(() => imitateApi(select.value), {
                 />
                 <p>Username: {loading.value ? 'Loading' : unref(data)}</p>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo2 = defineComponent({
     setup() {
-        const numOrign = ref(1)
+        const numOrign = ref(1);
         const changeNum = () => {
-            ++numOrign.value
-        }
-        const numComp = computed(() => numOrign.value * Math.PI)
+            ++numOrign.value;
+        };
+        const numComp = computed(() => numOrign.value * Math.PI);
 
-        const { data, loading } = useRequest(imitateApi, { refreshDeps: [numComp] })
+        const { data, loading } = useRequest(imitateApi, { refreshDeps: [numComp] });
 
         return () => (
             <Card title="Computed 依赖刷新" class="mt-2">
@@ -88,17 +88,17 @@ const { data, loading } = useRequest(imitateApi, {
                     changeNum
                 </Button>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo3 = defineComponent({
     setup() {
-        const status = reactive({ id: 'lutz' })
+        const status = reactive({ id: 'lutz' });
         const changeStatus = () => {
-            status.id = status.id === 'LUTZ' ? 'lutz' : 'LUTZ'
-        }
-        const { data, loading } = useRequest(imitateApi, { refreshDeps: [() => status.id] })
+            status.id = status.id === 'LUTZ' ? 'lutz' : 'LUTZ';
+        };
+        const { data, loading } = useRequest(imitateApi, { refreshDeps: [() => status.id] });
 
         return () => (
             <Card title="Function 依赖刷新" class="mt-2">
@@ -130,9 +130,9 @@ const { data, loading } = useRequest(imitateApi, {
                     changeStatus
                 </Button>
             </Card>
-        )
+        );
     }
-})
+});
 
 export default defineComponent({
     setup() {
@@ -169,6 +169,6 @@ refreshDepsAction?: () => void; // 非手动执行, 默认执行 fetchInstance.r
                 <Demo2 />
                 <Demo3 />
             </PageWrapper>
-        )
+        );
     }
-})
+});

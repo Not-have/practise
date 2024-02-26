@@ -10,9 +10,9 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { BasicForm, FormSchema, useForm } from '@/components/Form'
-import { CollapseContainer } from '@/components/Container'
-import { PageWrapper } from '@/components/Page'
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
+import { CollapseContainer } from '@/components/Container';
+import { PageWrapper } from '@/components/Page';
 
 const getSchamas = (): FormSchema[] => {
     return [
@@ -26,7 +26,7 @@ const getSchamas = (): FormSchema[] => {
             componentProps: {
                 placeholder: '自定义placeholder',
                 onChange: (e: any) => {
-                    console.log(e)
+                    console.log(e);
                 }
             }
         },
@@ -108,8 +108,8 @@ const getSchamas = (): FormSchema[] => {
         //     ],
         //   },
         // },
-    ]
-}
+    ];
+};
 
 function getAppendSchemas(): FormSchema[] {
     return [
@@ -145,7 +145,7 @@ function getAppendSchemas(): FormSchema[] {
                 span: 8
             }
         }
-    ]
+    ];
 }
 const [register] = useForm({
     labelWidth: 120,
@@ -155,8 +155,8 @@ const [register] = useForm({
     },
     compact: true,
     showAdvancedButton: true
-})
-const extraSchemas: FormSchema[] = []
+});
+const extraSchemas: FormSchema[] = [];
 for (let i = 14; i < 30; i++) {
     extraSchemas.push({
         field: 'field' + i,
@@ -165,7 +165,7 @@ for (let i = 14; i < 30; i++) {
         colProps: {
             span: 8
         }
-    })
+    });
 }
 const [register1] = useForm({
     labelWidth: 120,
@@ -181,5 +181,5 @@ const [register1] = useForm({
     compact: true,
     showAdvancedButton: true,
     alwaysShowLines: 2
-})
+});
 </script>

@@ -39,9 +39,9 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { CollapseContainer } from '@/components/Container'
-import { useMessage } from '@/hooks/web/useMessage'
-import { PageWrapper } from '@/components/Page'
+import { CollapseContainer } from '@/components/Container';
+import { useMessage } from '@/hooks/web/useMessage';
+import { PageWrapper } from '@/components/Page';
 
 const {
     createMessage,
@@ -51,36 +51,36 @@ const {
     createErrorModal,
     createWarningModal,
     notification
-} = useMessage()
+} = useMessage();
 
-const { info, success, warning, error } = createMessage
+const { info, success, warning, error } = createMessage;
 
 function handleLoading() {
-    createMessage.loading('Loading...')
+    createMessage.loading('Loading...');
 }
 function handleConfirm(type: 'warning' | 'error' | 'success' | 'info') {
     createConfirm({
         iconType: type,
         title: 'Tip',
         content: 'content message...'
-    })
+    });
 }
 function handleSuccessModal() {
-    createSuccessModal({ title: 'Tip', content: 'content message...' })
+    createSuccessModal({ title: 'Tip', content: 'content message...' });
 }
 function handleErrorModal() {
-    createErrorModal({ title: 'Tip', content: 'content message...' })
+    createErrorModal({ title: 'Tip', content: 'content message...' });
 }
 function handleWarningModal() {
-    createWarningModal({ title: 'Tip', content: 'content message...' })
+    createWarningModal({ title: 'Tip', content: 'content message...' });
 }
 function handleInfoModal() {
-    createInfoModal({ title: 'Tip', content: 'content message...' })
+    createInfoModal({ title: 'Tip', content: 'content message...' });
 }
 function handleNotify() {
     notification.success({
         message: 'Tip',
         description: 'content message...'
-    })
+    });
 }
 </script>

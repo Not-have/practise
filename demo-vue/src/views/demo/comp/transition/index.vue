@@ -15,9 +15,9 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { Select } from 'ant-design-vue'
-import { PageWrapper } from '@/components/Page'
+import { ref } from 'vue';
+import { Select } from 'ant-design-vue';
+import { PageWrapper } from '@/components/Page';
 import {
     FadeTransition,
     ScaleTransition,
@@ -32,7 +32,7 @@ import {
     ScaleRotateTransition,
     ExpandXTransition,
     ExpandTransition
-} from '@/components/Transition'
+} from '@/components/Transition';
 
 const TransitionItem = {
     FadeTransition,
@@ -48,24 +48,24 @@ const TransitionItem = {
     ScaleRotateTransition,
     ExpandXTransition,
     ExpandTransition
-}
+};
 
 const options = Object.keys(TransitionItem).map(item => {
-    const label = item.replace('Transition', '')
+    const label = item.replace('Transition', '');
     return {
         label,
         value: item,
         key: item
-    }
-})
+    };
+});
 
-const value = ref('FadeTransition')
-const show = ref(true)
+const value = ref('FadeTransition');
+const show = ref(true);
 function start() {
-    show.value = false
+    show.value = false;
     setTimeout(() => {
-        show.value = true
-    }, 300)
+        show.value = true;
+    }, 300);
 }
 </script>
 <style lang="less" scoped>

@@ -8,11 +8,11 @@
     </svg>
 </template>
 <script lang="ts" setup>
-import type { CSSProperties } from 'vue'
-import { computed } from 'vue'
-import { useDesign } from '@/hooks/web/useDesign'
+import type { CSSProperties } from 'vue';
+import { computed } from 'vue';
+import { useDesign } from '@/hooks/web/useDesign';
 
-defineOptions({ name: 'SvgIcon' })
+defineOptions({ name: 'SvgIcon' });
 
 const props = defineProps({
     prefix: {
@@ -31,20 +31,20 @@ const props = defineProps({
         type: Boolean,
         default: false
     }
-})
+});
 
-const { prefixCls } = useDesign('svg-icon')
-const symbolId = computed(() => `#${props.prefix}-${props.name}`)
+const { prefixCls } = useDesign('svg-icon');
+const symbolId = computed(() => `#${props.prefix}-${props.name}`);
 
 const getStyle = computed((): CSSProperties => {
-    const { size } = props
-    let s = `${size}`
-    s = `${s.replace('px', '')}px`
+    const { size } = props;
+    let s = `${size}`;
+    s = `${s.replace('px', '')}px`;
     return {
         width: s,
         height: s
-    }
-})
+    };
+});
 </script>
 <style lang="less" scoped>
 @prefix-cls: ~'@{namespace}-svg-icon';

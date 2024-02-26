@@ -20,16 +20,16 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { BasicForm, useForm } from '@/components/Form'
-import { ref } from 'vue'
-import PersonTable from './PersonTable.vue'
-import { PageWrapper } from '@/components/Page'
-import { schemas, taskSchemas } from './data'
-import { Card } from 'ant-design-vue'
+import { BasicForm, useForm } from '@/components/Form';
+import { ref } from 'vue';
+import PersonTable from './PersonTable.vue';
+import { PageWrapper } from '@/components/Page';
+import { schemas, taskSchemas } from './data';
+import { Card } from 'ant-design-vue';
 
-defineOptions({ name: 'FormHightPage' })
+defineOptions({ name: 'FormHightPage' });
 
-const tableRef = ref<{ getDataSource: () => any } | null>(null)
+const tableRef = ref<{ getDataSource: () => any } | null>(null);
 
 const [register, { validate }] = useForm({
     layout: 'vertical',
@@ -38,7 +38,7 @@ const [register, { validate }] = useForm({
     },
     schemas: schemas,
     showActionButtonGroup: false
-})
+});
 
 const [registerTask, { validate: validateTaskForm }] = useForm({
     layout: 'vertical',
@@ -47,18 +47,18 @@ const [registerTask, { validate: validateTaskForm }] = useForm({
     },
     schemas: taskSchemas,
     showActionButtonGroup: false
-})
+});
 
 async function submitAll() {
     try {
         if (tableRef.value) {
-            console.log('table data:', tableRef.value.getDataSource())
+            console.log('table data:', tableRef.value.getDataSource());
         }
 
-        const [values, taskValues] = await Promise.all([validate(), validateTaskForm()])
-        console.log('form data:', values, taskValues)
+        const [values, taskValues] = await Promise.all([validate(), validateTaskForm()]);
+        console.log('form data:', values, taskValues);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 </script>

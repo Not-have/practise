@@ -81,8 +81,8 @@
     </div>
 </template>
 <script lang="ts" setup name="FormProps">
-import { computed } from 'vue'
-import { useFormDesignState } from '../../../hooks/useFormDesignState'
+import { computed } from 'vue';
+import { useFormDesignState } from '../../../hooks/useFormDesignState';
 import {
     InputNumber,
     Slider,
@@ -93,25 +93,25 @@ import {
     FormItem,
     RadioButton,
     RadioGroup
-} from 'ant-design-vue'
+} from 'ant-design-vue';
 
-const { formConfig } = useFormDesignState()
+const { formConfig } = useFormDesignState();
 
 formConfig.value = formConfig.value || {
     labelCol: { span: 24 },
     wrapperCol: { span: 24 }
-}
+};
 
 const lableLayoutChange = (e: RadioChangeEvent) => {
     if (e.target.value === 'Grid') {
-        formConfig.value.layout = 'horizontal'
+        formConfig.value.layout = 'horizontal';
     }
-}
+};
 
 const sliderSpan = computed(() => {
     if (formConfig.value.labelLayout) {
-        return Number(formConfig.value.labelCol!.span)
+        return Number(formConfig.value.labelCol!.span);
     }
-    return 0
-})
+    return 0;
+});
 </script>

@@ -14,10 +14,10 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { BasicForm, useForm } from '@/components/Form'
-import { CollapseContainer } from '@/components/Container'
-import { PageWrapper } from '@/components/Page'
+import { ref } from 'vue';
+import { BasicForm, useForm } from '@/components/Form';
+import { CollapseContainer } from '@/components/Container';
+import { PageWrapper } from '@/components/Page';
 
 const [register, { appendSchemaByField, removeSchemaByField, validate }] = useForm({
     schemas: [
@@ -43,18 +43,18 @@ const [register, { appendSchemaByField, removeSchemaByField, validate }] = useFo
     labelWidth: 100,
     actionColOptions: { span: 24 },
     baseColProps: { span: 8 }
-})
+});
 
 async function handleSubmit() {
     try {
-        const data = await validate()
-        console.log(data)
+        const data = await validate();
+        console.log(data);
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 }
 
-const n = ref(1)
+const n = ref(1);
 
 function add() {
     appendSchemaByField(
@@ -65,7 +65,7 @@ function add() {
             required: true
         },
         ''
-    )
+    );
     appendSchemaByField(
         {
             field: `field${n.value}b`,
@@ -74,7 +74,7 @@ function add() {
             required: true
         },
         ''
-    )
+    );
 
     appendSchemaByField(
         {
@@ -84,8 +84,8 @@ function add() {
             slot: 'add'
         },
         ''
-    )
-    n.value++
+    );
+    n.value++;
 }
 /**
  * @description: 批量添加
@@ -113,12 +113,12 @@ function batchAdd() {
             }
         ],
         ''
-    )
-    n.value++
+    );
+    n.value++;
 }
 
 function del(field: string) {
-    removeSchemaByField([`field${field}a`, `field${field}b`, `${field}`])
-    n.value--
+    removeSchemaByField([`field${field}a`, `field${field}b`, `${field}`]);
+    n.value--;
 }
 </script>

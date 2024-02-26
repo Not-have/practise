@@ -1,31 +1,31 @@
 /**
  * @description：表单配置
  */
-import { IVFormComponent } from '../typings/v-form-component'
-import { isArray } from 'lodash-es'
-import { componentMap as VbenCmp, add } from '@/components/Form/src/componentMap'
-import { ComponentType } from '@/components/Form/src/types'
+import { IVFormComponent } from '../typings/v-form-component';
+import { isArray } from 'lodash-es';
+import { componentMap as VbenCmp, add } from '@/components/Form/src/componentMap';
+import { ComponentType } from '@/components/Form/src/types';
 
-import { componentMap as Cmp } from '../components'
-import { Component } from 'vue'
+import { componentMap as Cmp } from '../components';
+import { Component } from 'vue';
 
-const componentMap = new Map<string, Component>()
+const componentMap = new Map<string, Component>();
 
 //如果有其它控件，可以在这里初始化
 
 //注册Ant控件库
 Cmp.forEach((value, key) => {
-    componentMap.set(key, value)
+    componentMap.set(key, value);
     if (VbenCmp[key] == null) {
-        add(key as ComponentType, value)
+        add(key as ComponentType, value);
     }
-})
+});
 //注册vben控件库
 VbenCmp.forEach((value, key) => {
-    componentMap.set(key, value)
-})
+    componentMap.set(key, value);
+});
 
-export { componentMap }
+export { componentMap };
 
 /**
  * 设置自定义表单控件
@@ -34,19 +34,19 @@ export { componentMap }
 export function setFormDesignComponents(config: IVFormComponent | IVFormComponent[]) {
     if (isArray(config)) {
         config.forEach(item => {
-            const { componentInstance: component, ...rest } = item
-            componentMap[item.component] = component
-            customComponents.push(Object.assign({ props: {} }, rest))
-        })
+            const { componentInstance: component, ...rest } = item;
+            componentMap[item.component] = component;
+            customComponents.push(Object.assign({ props: {} }, rest));
+        });
     } else {
-        const { componentInstance: component, ...rest } = config
-        componentMap[config.component] = component
-        customComponents.push(Object.assign({ props: {} }, rest))
+        const { componentInstance: component, ...rest } = config;
+        componentMap[config.component] = component;
+        customComponents.push(Object.assign({ props: {} }, rest));
     }
 }
 
 //外部设置的自定义控件
-export const customComponents: IVFormComponent[] = []
+export const customComponents: IVFormComponent[] = [];
 
 // 左侧控件列表与初始化的控件属性
 // props.slotName,会在formitem级别生成一个slot,并绑定当前record值
@@ -357,7 +357,7 @@ export const baseComponents: IVFormComponent[] = [
             slotName: 'slotName'
         }
     }
-]
+];
 
 // https://next.antdv.com/components/transfer-cn
 const transferControl = {
@@ -391,9 +391,9 @@ const transferControl = {
             }
         ]
     }
-}
+};
 
-baseComponents.push(transferControl)
+baseComponents.push(transferControl);
 
 export const layoutComponents: IVFormComponent[] = [
     {
@@ -417,4 +417,4 @@ export const layoutComponents: IVFormComponent[] = [
             gutter: 0
         }
     }
-]
+];

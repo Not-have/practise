@@ -22,13 +22,13 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { baseItemColumnProps } from '../config/formItemPropsConfig'
+import { defineComponent } from 'vue';
+import { baseItemColumnProps } from '../config/formItemPropsConfig';
 
-import { Empty, Input, Form, FormItem, Switch, Checkbox, Select, Slider } from 'ant-design-vue'
-import RuleProps from './RuleProps.vue'
-import { useFormDesignState } from '../../../hooks/useFormDesignState'
-import { isArray } from 'lodash-es'
+import { Empty, Input, Form, FormItem, Switch, Checkbox, Select, Slider } from 'ant-design-vue';
+import RuleProps from './RuleProps.vue';
+import { useFormDesignState } from '../../../hooks/useFormDesignState';
+import { isArray } from 'lodash-es';
 
 export default defineComponent({
     name: 'FormItemProps',
@@ -46,21 +46,21 @@ export default defineComponent({
     // props: {} as PropsOptions,
 
     setup() {
-        const { formConfig } = useFormDesignState()
+        const { formConfig } = useFormDesignState();
         const showProps = (exclude: string[] | undefined) => {
             if (!exclude) {
-                return true
+                return true;
             }
 
             return isArray(exclude)
                 ? !exclude.includes(formConfig.value.currentItem!.component)
-                : true
-        }
+                : true;
+        };
         return {
             baseItemColumnProps,
             formConfig,
             showProps
-        }
+        };
     }
-})
+});
 </script>

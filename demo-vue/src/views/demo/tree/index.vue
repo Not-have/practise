@@ -60,48 +60,48 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { nextTick, ref, unref } from 'vue'
-import { BasicTree, TreeActionType, TreeItem } from '@/components/Tree'
-import { treeData } from './data'
-import { PageWrapper } from '@/components/Page'
-import { Card, Row, Col, Spin } from 'ant-design-vue'
-import { cloneDeep, uniq } from 'lodash-es'
-import { isArray } from '@/utils/is'
-import { type Nullable } from '@vben/types'
-import { SmileTwoTone, CarryOutOutlined } from '@ant-design/icons-vue'
+import { nextTick, ref, unref } from 'vue';
+import { BasicTree, TreeActionType, TreeItem } from '@/components/Tree';
+import { treeData } from './data';
+import { PageWrapper } from '@/components/Page';
+import { Card, Row, Col, Spin } from 'ant-design-vue';
+import { cloneDeep, uniq } from 'lodash-es';
+import { isArray } from '@/utils/is';
+import { type Nullable } from '@vben/types';
+import { SmileTwoTone, CarryOutOutlined } from '@ant-design/icons-vue';
 
-const asyncTreeRef = ref<Nullable<TreeActionType>>(null)
-const asyncExpandTreeRef = ref<Nullable<TreeActionType>>(null)
-const loadTreeRef = ref<Nullable<TreeActionType>>(null)
-const tree2 = ref<TreeItem[]>([])
-const treeLoading = ref(false)
+const asyncTreeRef = ref<Nullable<TreeActionType>>(null);
+const asyncExpandTreeRef = ref<Nullable<TreeActionType>>(null);
+const loadTreeRef = ref<Nullable<TreeActionType>>(null);
+const tree2 = ref<TreeItem[]>([]);
+const treeLoading = ref(false);
 
 function handleCheck(checkedKeys, e) {
-    console.log('onChecked', checkedKeys, e)
+    console.log('onChecked', checkedKeys, e);
 }
 
 function loadTreeData() {
-    treeLoading.value = true
+    treeLoading.value = true;
     // 以下是模拟异步获取数据
     setTimeout(() => {
         // 设置数据源
-        tree2.value = cloneDeep(treeData)
-        treeLoading.value = false
+        tree2.value = cloneDeep(treeData);
+        treeLoading.value = false;
         // 展开全部
         nextTick(() => {
-            console.log(unref(asyncExpandTreeRef))
-            unref(asyncExpandTreeRef)?.expandAll(true)
-        })
-    }, 2000)
+            console.log(unref(asyncExpandTreeRef));
+            unref(asyncExpandTreeRef)?.expandAll(true);
+        });
+    }, 2000);
 }
 function loadTreeData2() {
-    treeLoading.value = true
+    treeLoading.value = true;
     // 以下是模拟异步获取数据
     setTimeout(() => {
         // 设置数据源
-        tree2.value = cloneDeep(treeData)
-        treeLoading.value = false
-    }, 2000)
+        tree2.value = cloneDeep(treeData);
+        treeLoading.value = false;
+    }, 2000);
 }
 
 const tree = ref([
@@ -109,30 +109,30 @@ const tree = ref([
         title: 'parent ',
         key: '0-0'
     }
-])
+]);
 
 function onLoadData(treeNode) {
     return new Promise((resolve: (value?: unknown) => void) => {
         if (isArray(treeNode.children) && treeNode.children.length > 0) {
-            resolve()
-            return
+            resolve();
+            return;
         }
         setTimeout(() => {
-            const asyncTreeAction: TreeActionType | null = unref(asyncTreeRef)
+            const asyncTreeAction: TreeActionType | null = unref(asyncTreeRef);
             if (asyncTreeAction) {
                 const nodeChildren = [
                     { title: `Child Node ${treeNode.eventKey}-0`, key: `${treeNode.eventKey}-0` },
                     { title: `Child Node ${treeNode.eventKey}-1`, key: `${treeNode.eventKey}-1` }
-                ]
-                asyncTreeAction.updateNodeByKey(treeNode.eventKey, { children: nodeChildren })
+                ];
+                asyncTreeAction.updateNodeByKey(treeNode.eventKey, { children: nodeChildren });
                 asyncTreeAction.setExpandedKeys(
                     uniq([treeNode.eventKey, ...asyncTreeAction.getExpandedKeys()])
-                )
+                );
             }
 
-            resolve()
-            return
-        }, 300)
-    })
+            resolve();
+            return;
+        }, 300);
+    });
 }
 </script>

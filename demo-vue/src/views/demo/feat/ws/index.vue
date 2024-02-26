@@ -57,57 +57,57 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { reactive, watchEffect, computed } from 'vue'
-import { Tag, Input } from 'ant-design-vue'
-import { PageWrapper } from '@/components/Page'
-import { useWebSocket } from '@vueuse/core'
-import { formatToDateTime } from '@/utils/dateUtil'
+import { reactive, watchEffect, computed } from 'vue';
+import { Tag, Input } from 'ant-design-vue';
+import { PageWrapper } from '@/components/Page';
+import { useWebSocket } from '@vueuse/core';
+import { formatToDateTime } from '@/utils/dateUtil';
 
-const InputTextArea = Input.TextArea
+const InputTextArea = Input.TextArea;
 
 const state = reactive({
     server: 'ws://localhost:3300/test',
     sendValue: '',
     recordList: [] as { id: number; time: number; res: string }[]
-})
+});
 
 const { status, data, send, close, open } = useWebSocket(state.server, {
     autoReconnect: false,
     heartbeat: true
-})
+});
 
 watchEffect(() => {
     if (data.value) {
         try {
-            const res = JSON.parse(data.value)
-            state.recordList.push(res)
+            const res = JSON.parse(data.value);
+            state.recordList.push(res);
         } catch (error) {
             state.recordList.push({
                 res: data.value,
                 id: Math.ceil(Math.random() * 1000),
                 time: new Date().getTime()
-            })
+            });
         }
     }
-})
+});
 
-const getIsOpen = computed(() => status.value === 'OPEN')
-const getTagColor = computed(() => (getIsOpen.value ? 'success' : 'red'))
+const getIsOpen = computed(() => status.value === 'OPEN');
+const getTagColor = computed(() => (getIsOpen.value ? 'success' : 'red'));
 
 const getList = computed(() => {
-    return [...state.recordList].reverse()
-})
+    return [...state.recordList].reverse();
+});
 
 function handlerSend() {
-    send(state.sendValue)
-    state.sendValue = ''
+    send(state.sendValue);
+    state.sendValue = '';
 }
 
 function toggle() {
     if (getIsOpen.value) {
-        close()
+        close();
     } else {
-        open()
+        open();
     }
 }
 </script>

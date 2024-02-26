@@ -25,32 +25,32 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-import { CollapseContainer } from '@/components/Container'
-import { useTabs } from '@/hooks/web/useTabs'
-import { PageWrapper } from '@/components/Page'
-import { Alert } from 'ant-design-vue'
-import { useMessage } from '@/hooks/web/useMessage'
-import { useGo } from '@/hooks/web/usePage'
+import { CollapseContainer } from '@/components/Container';
+import { useTabs } from '@/hooks/web/useTabs';
+import { PageWrapper } from '@/components/Page';
+import { Alert } from 'ant-design-vue';
+import { useMessage } from '@/hooks/web/useMessage';
+import { useGo } from '@/hooks/web/usePage';
 
-defineOptions({ name: 'TabsDemo' })
+defineOptions({ name: 'TabsDemo' });
 
-const go = useGo()
-const title = ref<string>('')
+const go = useGo();
+const title = ref<string>('');
 const { closeAll, closeLeft, closeRight, closeOther, closeCurrent, refreshPage, setTitle } =
-    useTabs()
-const { createMessage } = useMessage()
+    useTabs();
+const { createMessage } = useMessage();
 
 function setTabTitle() {
     if (title.value) {
-        setTitle(title.value)
+        setTitle(title.value);
     } else {
-        createMessage.error('请输入要设置的Tab标题！')
+        createMessage.error('请输入要设置的Tab标题！');
     }
 }
 
 function toDetail(index: number) {
-    go(`/feat/tabs/detail/${index}`)
+    go(`/feat/tabs/detail/${index}`);
 }
 </script>

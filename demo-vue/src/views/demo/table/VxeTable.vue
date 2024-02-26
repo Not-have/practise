@@ -13,17 +13,17 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
-import { ActionItem, TableAction } from '@/components/Table'
-import { PageWrapper } from '@/components/Page'
-import { useMessage } from '@/hooks/web/useMessage'
-import { vxeTableColumns, vxeTableFormSchema } from './tableData'
-import { BasicTableProps, VxeBasicTable, VxeGridInstance } from '@/components/VxeTable'
-import { demoListApi } from '@/api/demo/table'
+import { reactive, ref } from 'vue';
+import { ActionItem, TableAction } from '@/components/Table';
+import { PageWrapper } from '@/components/Page';
+import { useMessage } from '@/hooks/web/useMessage';
+import { vxeTableColumns, vxeTableFormSchema } from './tableData';
+import { BasicTableProps, VxeBasicTable, VxeGridInstance } from '@/components/VxeTable';
+import { demoListApi } from '@/api/demo/table';
 
-const { createMessage } = useMessage()
+const { createMessage } = useMessage();
 
-const tableRef = ref<VxeGridInstance>()
+const tableRef = ref<VxeGridInstance>();
 
 const gridOptions = reactive<BasicTableProps>({
     id: 'VxeTable',
@@ -42,8 +42,8 @@ const gridOptions = reactive<BasicTableProps>({
                     },
                     events: {
                         click: () => {
-                            tableRef.value?.insert({ name: '新增的' })
-                            createMessage.success('新增成功')
+                            tableRef.value?.insert({ name: '新增的' });
+                            createMessage.success('新增成功');
                         }
                     }
                 }
@@ -57,7 +57,7 @@ const gridOptions = reactive<BasicTableProps>({
                     },
                     events: {
                         click: () => {
-                            tableRef.value?.insertAt({ name: '新增的' }, -1)
+                            tableRef.value?.insertAt({ name: '新增的' }, -1);
                         }
                     }
                 }
@@ -76,14 +76,14 @@ const gridOptions = reactive<BasicTableProps>({
                     page: page.currentPage,
                     pageSize: page.pageSize,
                     ...form
-                })
+                });
             },
             queryAll: async ({ form }) => {
-                return await demoListApi(form)
+                return await demoListApi(form);
             }
         }
     }
-})
+});
 
 // 操作按钮（权限控制）
 const createActions = record => {
@@ -91,7 +91,7 @@ const createActions = record => {
         {
             label: '详情',
             onClick: () => {
-                console.log(record)
+                console.log(record);
             }
         },
         {
@@ -104,12 +104,12 @@ const createActions = record => {
             popConfirm: {
                 title: '是否确认删除',
                 confirm: () => {
-                    tableRef.value?.remove(record)
+                    tableRef.value?.remove(record);
                 }
             }
         }
-    ]
+    ];
 
-    return actions
-}
+    return actions;
+};
 </script>

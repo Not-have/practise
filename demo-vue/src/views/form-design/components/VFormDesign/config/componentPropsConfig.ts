@@ -1,10 +1,10 @@
-import { IBaseFormAttrs } from './formItemPropsConfig'
+import { IBaseFormAttrs } from './formItemPropsConfig';
 
 interface IBaseComponentProps {
-    [key: string]: IBaseFormAttrs[]
+    [key: string]: IBaseFormAttrs[];
 }
 
-type BaseFormAttrs = Omit<IBaseFormAttrs, 'tag'>
+type BaseFormAttrs = Omit<IBaseFormAttrs, 'tag'>;
 
 export const baseComponentControlAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
     {
@@ -102,7 +102,7 @@ export const baseComponentControlAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
         component: 'Checkbox',
         includes: ['Select', 'TreeSelect', 'AutoComplete']
     }
-]
+];
 
 //共用属性
 export const baseComponentCommonAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
@@ -179,7 +179,7 @@ export const baseComponentCommonAttrs: Omit<IBaseFormAttrs, 'tag'>[] = [
         },
         includes: ['Select', 'AutoComplete']
     }
-]
+];
 
 const componentAttrs: IBaseComponentProps = {
     AutoComplete: [
@@ -1095,52 +1095,52 @@ const componentAttrs: IBaseComponentProps = {
             component: 'Checkbox'
         }
     ]
-}
+};
 
 function deleteProps(list: Omit<IBaseFormAttrs, 'tag'>[], key: string) {
     list.forEach((element, index) => {
         if (element.name == key) {
-            list.splice(index, 1)
+            list.splice(index, 1);
         }
-    })
+    });
 }
 
-componentAttrs['StrengthMeter'] = componentAttrs['Input']
+componentAttrs['StrengthMeter'] = componentAttrs['Input'];
 componentAttrs['StrengthMeter'].push({
     name: 'visibilityToggle',
     label: '是否显示切换按钮',
     component: 'Checkbox'
-})
+});
 
-deleteProps(componentAttrs['StrengthMeter'], 'type')
-deleteProps(componentAttrs['StrengthMeter'], 'prefix')
-deleteProps(componentAttrs['StrengthMeter'], 'defaultValue')
-deleteProps(componentAttrs['StrengthMeter'], 'suffix')
+deleteProps(componentAttrs['StrengthMeter'], 'type');
+deleteProps(componentAttrs['StrengthMeter'], 'prefix');
+deleteProps(componentAttrs['StrengthMeter'], 'defaultValue');
+deleteProps(componentAttrs['StrengthMeter'], 'suffix');
 //组件属性
 // name 控件的属性
-export const baseComponentAttrs: IBaseComponentProps = componentAttrs
+export const baseComponentAttrs: IBaseComponentProps = componentAttrs;
 
 //在所有的选项中查找需要配置项
 const findCompoentProps = (props, name) => {
     const idx = props.findIndex((value: BaseFormAttrs) => {
-        return value.name === name
-    })
+        return value.name === name;
+    });
     if (props[idx] && props[idx].componentProps) {
-        return props[idx].componentProps
+        return props[idx].componentProps;
     }
-}
+};
 
 // 根据其它选项的值更新自身控件配置值
 export const componentPropsFuncs = {
     RadioGroup: (compProp, options: BaseFormAttrs[]) => {
-        const props = findCompoentProps(options, 'size')
+        const props = findCompoentProps(options, 'size');
         if (props) {
             if (compProp['optionType'] && compProp['optionType'] != 'button') {
-                props['disabled'] = true
-                compProp['size'] = null
+                props['disabled'] = true;
+                compProp['size'] = null;
             } else {
-                props['disabled'] = false
+                props['disabled'] = false;
             }
         }
     }
-}
+};

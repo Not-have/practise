@@ -42,11 +42,11 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { Card } from 'ant-design-vue'
-import { CountTo } from '@/components/CountTo'
-import { PageWrapper } from '@/components/Page'
+import { Card } from 'ant-design-vue';
+import { CountTo } from '@/components/CountTo';
+import { PageWrapper } from '@/components/Page';
 
-const CardGrid = Card.Grid
+const CardGrid = Card.Grid;
 </script>
 <style lang="less" scoped>
 .count-to-demo {

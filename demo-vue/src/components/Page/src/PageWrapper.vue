@@ -39,12 +39,12 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { PageWrapperFixedHeightKey } from '@/enums/pageEnum'
-import { useContentHeight } from '@/hooks/web/useContentHeight'
-import { useDesign } from '@/hooks/web/useDesign'
-import { propTypes } from '@/utils/propTypes'
-import { PageHeader } from 'ant-design-vue'
-import { omit } from 'lodash-es'
+import { PageWrapperFixedHeightKey } from '@/enums/pageEnum';
+import { useContentHeight } from '@/hooks/web/useContentHeight';
+import { useDesign } from '@/hooks/web/useDesign';
+import { propTypes } from '@/utils/propTypes';
+import { PageHeader } from 'ant-design-vue';
+import { omit } from 'lodash-es';
 import {
     CSSProperties,
     PropType,
@@ -55,13 +55,13 @@ import {
     useAttrs,
     useSlots,
     watch
-} from 'vue'
-import PageFooter from './PageFooter.vue'
+} from 'vue';
+import PageFooter from './PageFooter.vue';
 
 defineOptions({
     name: 'PageWrapper',
     inheritAttrs: false
-})
+});
 
 const props = defineProps({
     title: propTypes.string,
@@ -78,35 +78,35 @@ const props = defineProps({
     contentClass: propTypes.string,
     fixedHeight: propTypes.bool,
     upwardSpace: propTypes.oneOfType([propTypes.number, propTypes.string]).def(0)
-})
+});
 
-const attrs = useAttrs()
-const slots = useSlots()
+const attrs = useAttrs();
+const slots = useSlots();
 
-const wrapperRef = ref(null)
-const headerRef = ref(null)
-const contentRef = ref(null)
-const footerRef = ref(null)
-const { prefixCls } = useDesign('page-wrapper')
+const wrapperRef = ref(null);
+const headerRef = ref(null);
+const contentRef = ref(null);
+const footerRef = ref(null);
+const { prefixCls } = useDesign('page-wrapper');
 
 provide(
     PageWrapperFixedHeightKey,
     computed(() => props.fixedHeight)
-)
+);
 
 const getIsContentFullHeight = computed(() => {
-    return props.contentFullHeight
-})
+    return props.contentFullHeight;
+});
 
-const getUpwardSpace = computed(() => props.upwardSpace)
+const getUpwardSpace = computed(() => props.upwardSpace);
 const { redoHeight, setCompensation, contentHeight } = useContentHeight(
     getIsContentFullHeight,
     wrapperRef,
     [headerRef, footerRef],
     [contentRef],
     getUpwardSpace
-)
-setCompensation({ useLayoutFooter: true, elements: [footerRef] })
+);
+setCompensation({ useLayoutFooter: true, elements: [footerRef] });
 
 const getClass = computed(() => {
     return [
@@ -115,13 +115,13 @@ const getClass = computed(() => {
             [`${prefixCls}--dense`]: props.dense
         },
         attrs.class ?? {}
-    ]
-})
+    ];
+});
 
 const getHeaderStyle = computed((): CSSProperties => {
-    const { headerSticky } = props
+    const { headerSticky } = props;
     if (!headerSticky) {
-        return {}
+        return {};
     }
 
     return {
@@ -129,54 +129,54 @@ const getHeaderStyle = computed((): CSSProperties => {
         top: 0,
         zIndex: 99,
         ...props.headerStyle
-    }
-})
+    };
+});
 
 const getShowHeader = computed(
     () => props.content || slots?.headerContent || props.title || getHeaderSlots.value.length
-)
+);
 
-const getShowFooter = computed(() => slots?.leftFooter || slots?.rightFooter)
+const getShowFooter = computed(() => slots?.leftFooter || slots?.rightFooter);
 
 const getHeaderSlots = computed(() => {
-    return Object.keys(omit(slots, 'default', 'leftFooter', 'rightFooter', 'headerContent'))
-})
+    return Object.keys(omit(slots, 'default', 'leftFooter', 'rightFooter', 'headerContent'));
+});
 
 const getContentStyle = computed((): CSSProperties => {
-    const { contentFullHeight, contentStyle, fixedHeight } = props
+    const { contentFullHeight, contentStyle, fixedHeight } = props;
     if (!contentFullHeight) {
-        return { ...contentStyle }
+        return { ...contentStyle };
     }
 
-    const height = `${unref(contentHeight)}px`
+    const height = `${unref(contentHeight)}px`;
     return {
         ...contentStyle,
         minHeight: height,
         ...(fixedHeight ? { height } : {})
-    }
-})
+    };
+});
 
 const getContentClass = computed(() => {
-    const { contentBackground, contentClass } = props
+    const { contentBackground, contentClass } = props;
     return [
         `${prefixCls}-content`,
         contentClass,
         {
             [`${prefixCls}-content-bg`]: contentBackground
         }
-    ]
-})
+    ];
+});
 
 watch(
     () => [getShowFooter.value],
     () => {
-        redoHeight()
+        redoHeight();
     },
     {
         flush: 'post',
         immediate: true
     }
-)
+);
 </script>
 <style lang="less">
 @prefix-cls: ~'@{namespace}-page-wrapper';

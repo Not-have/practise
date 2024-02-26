@@ -734,6 +734,6 @@ const iconConfig = {
         'gold',
         'canlendar'
     ]
-}
+};
 
-export default iconConfig
+export default iconConfig;

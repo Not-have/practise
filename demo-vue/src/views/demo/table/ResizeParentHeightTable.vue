@@ -23,10 +23,10 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { BasicTable, useTable } from '@/components/Table'
-import { getBasicColumns, getFormConfig } from './tableData'
+import { BasicTable, useTable } from '@/components/Table';
+import { getBasicColumns, getFormConfig } from './tableData';
 
-import { demoListApi } from '@/api/demo/table'
+import { demoListApi } from '@/api/demo/table';
 
 const [registerTable] = useTable({
     api: demoListApi,
@@ -38,7 +38,7 @@ const [registerTable] = useTable({
     showIndexColumn: false,
     isCanResizeParent: true,
     rowKey: 'id'
-})
+});
 
 const [registerTable1] = useTable({
     api: demoListApi,
@@ -50,7 +50,7 @@ const [registerTable1] = useTable({
     isCanResizeParent: true,
     useSearchForm: false,
     rowKey: 'id'
-})
+});
 
 const [registerTable2] = useTable({
     api: demoListApi,
@@ -63,5 +63,5 @@ const [registerTable2] = useTable({
     useSearchForm: false,
     pagination: false,
     rowKey: 'id'
-})
+});
 </script>

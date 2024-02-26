@@ -23,25 +23,25 @@
     </PageWrapper>
 </template>
 <script lang="tsx" setup>
-import { h } from 'vue'
-import { BasicForm, FormSchema, useForm } from '@/components/Form'
-import { CollapseContainer } from '@/components/Container'
-import { useMessage } from '@/hooks/web/useMessage'
-import { Input, FormItem, FormItemRest, Select } from 'ant-design-vue'
-import { PageWrapper } from '@/components/Page'
+import { h } from 'vue';
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
+import { CollapseContainer } from '@/components/Container';
+import { useMessage } from '@/hooks/web/useMessage';
+import { Input, FormItem, FormItemRest, Select } from 'ant-design-vue';
+import { PageWrapper } from '@/components/Page';
 
 const custom_typeKey2typeValueRules = model => {
     return [
         {
             required: true,
             validator: async () => {
-                if (!model.typeKey) return Promise.reject('请选择类型')
-                if (!model.typeValue) return Promise.reject('请输入数据')
-                Promise.resolve()
+                if (!model.typeKey) return Promise.reject('请选择类型');
+                if (!model.typeValue) return Promise.reject('请输入数据');
+                Promise.resolve();
             }
         }
-    ]
-}
+    ];
+};
 const schemas: FormSchema[] = [
     {
         field: 'field1',
@@ -51,7 +51,7 @@ const schemas: FormSchema[] = [
             span: 8
         },
         dynamicDisabled: ({ values }) => {
-            return !!values.field_disabled
+            return !!values.field_disabled;
         },
         rules: [{ required: true }],
         render: ({ model, field }, { disabled }) => {
@@ -59,10 +59,10 @@ const schemas: FormSchema[] = [
                 placeholder: '请输入',
                 value: model[field],
                 onChange: e => {
-                    model[field] = e.target.value
+                    model[field] = e.target.value;
                 },
                 disabled
-            })
+            });
         }
     },
     {
@@ -73,13 +73,13 @@ const schemas: FormSchema[] = [
             span: 8
         },
         dynamicDisabled: ({ values }) => {
-            return !!values.field_disabled
+            return !!values.field_disabled;
         },
         rules: [{ required: true }],
         renderComponentContent: (_, { disabled }) => {
             return {
                 suffix: () => (disabled ? 'suffix_disabled' : 'suffix_default')
-            }
+            };
         }
     },
     {
@@ -91,7 +91,7 @@ const schemas: FormSchema[] = [
             span: 8
         },
         dynamicDisabled: ({ values }) => {
-            return !!values.field_disabled
+            return !!values.field_disabled;
         },
         rules: [{ required: true }]
     },
@@ -109,13 +109,13 @@ const schemas: FormSchema[] = [
                         disabled={disabled}
                     ></Input>
                 </FormItem>
-            )
+            );
         },
         colProps: {
             span: 8
         },
         dynamicDisabled: ({ values }) => {
-            return !!values.field_disabled
+            return !!values.field_disabled;
         }
     },
     {
@@ -128,7 +128,7 @@ const schemas: FormSchema[] = [
             span: 8
         },
         dynamicDisabled: ({ values }) => {
-            return !!values.field_disabled
+            return !!values.field_disabled;
         }
     },
     // 复合field 场景 自定义表单控件 一个控件包含多个表单录入 示例: 选择+输入
@@ -166,13 +166,13 @@ const schemas: FormSchema[] = [
                         </FormItemRest>
                     </FormItem>
                 </Input.Group>
-            )
+            );
         },
         colProps: {
             span: 8
         },
         dynamicDisabled: ({ values }) => {
-            return !!values.field_disabled
+            return !!values.field_disabled;
         }
     },
     // 复合field 场景 自定义表单控件 一个控件包含多个表单录入 示例: 选择+输入
@@ -211,13 +211,13 @@ const schemas: FormSchema[] = [
                         </FormItemRest>
                     </Input.Group>
                 </FormItem>
-            )
+            );
         },
         colProps: {
             span: 16
         },
         dynamicDisabled: ({ values }) => {
-            return !!values.field_disabled
+            return !!values.field_disabled;
         }
     },
     {
@@ -229,8 +229,8 @@ const schemas: FormSchema[] = [
         },
         labelWidth: 200
     }
-]
-const { createMessage } = useMessage()
+];
+const { createMessage } = useMessage();
 
 const [register] = useForm({
     labelWidth: 120,
@@ -238,11 +238,11 @@ const [register] = useForm({
     actionColOptions: {
         span: 24
     }
-})
+});
 
 function handleSubmit(values: any) {
-    console.log('submit values', values)
-    createMessage.success('click search,values:' + JSON.stringify(values))
+    console.log('submit values', values);
+    createMessage.success('click search,values:' + JSON.stringify(values));
 }
 </script>
 <style lang="less" scoped>

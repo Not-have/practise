@@ -11,17 +11,17 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { ClickOutSide } from '@/components/ClickOutSide'
-import { PageWrapper } from '@/components/Page'
+import { ref } from 'vue';
+import { ClickOutSide } from '@/components/ClickOutSide';
+import { PageWrapper } from '@/components/Page';
 
-const text = ref('Click')
+const text = ref('Click');
 
 function handleClickOutside() {
-    text.value = 'Click Out Side'
+    text.value = 'Click Out Side';
 }
 
 function innerClick() {
-    text.value = 'Click Inner'
+    text.value = 'Click Inner';
 }
 </script>

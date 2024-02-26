@@ -73,12 +73,12 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { nextTick, ref, unref } from 'vue'
-import { BasicForm, FormSchema, FormActionType, FormProps } from '@/components/Form'
-import { CollapseContainer } from '@/components/Container'
-import { useMessage } from '@/hooks/web/useMessage'
-import { PageWrapper } from '@/components/Page'
-import { type Nullable } from '@vben/types'
+import { nextTick, ref, unref } from 'vue';
+import { BasicForm, FormSchema, FormActionType, FormProps } from '@/components/Form';
+import { CollapseContainer } from '@/components/Container';
+import { useMessage } from '@/hooks/web/useMessage';
+import { PageWrapper } from '@/components/Page';
+import { type Nullable } from '@vben/types';
 
 const schemas: FormSchema[] = [
     {
@@ -91,7 +91,7 @@ const schemas: FormSchema[] = [
         componentProps: {
             placeholder: '自定义placeholder',
             onChange: (e: any) => {
-                console.log(e)
+                console.log(e);
             }
         }
     },
@@ -173,20 +173,20 @@ const schemas: FormSchema[] = [
             ]
         }
     }
-]
+];
 
-const formElRef = ref<Nullable<FormActionType>>(null)
-const { createMessage } = useMessage()
+const formElRef = ref<Nullable<FormActionType>>(null);
+const { createMessage } = useMessage();
 
 function handleSubmit(values: any) {
-    createMessage.success('click search,values:' + JSON.stringify(values))
+    createMessage.success('click search,values:' + JSON.stringify(values));
 }
 
 async function setProps(props: FormProps) {
-    const formEl = unref(formElRef)
-    console.info(formEl)
-    if (!formEl) return
-    await nextTick()
-    await formEl.setProps(props)
+    const formEl = unref(formElRef);
+    console.info(formEl);
+    if (!formEl) return;
+    await nextTick();
+    await formEl.setProps(props);
 }
 </script>

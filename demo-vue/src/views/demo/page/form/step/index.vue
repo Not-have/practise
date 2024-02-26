@@ -25,42 +25,42 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import Step1 from './Step1.vue'
-import Step2 from './Step2.vue'
-import Step3 from './Step3.vue'
-import { PageWrapper } from '@/components/Page'
-import { Steps } from 'ant-design-vue'
+import { ref, reactive } from 'vue';
+import Step1 from './Step1.vue';
+import Step2 from './Step2.vue';
+import Step3 from './Step3.vue';
+import { PageWrapper } from '@/components/Page';
+import { Steps } from 'ant-design-vue';
 
-defineOptions({ name: 'FormStepPage' })
+defineOptions({ name: 'FormStepPage' });
 
-const current = ref(0)
+const current = ref(0);
 
 const state = reactive({
     initStep2: false,
     initStep3: false
-})
+});
 
 function handleStep1Next(step1Values: any) {
-    current.value++
-    state.initStep2 = true
-    console.log(step1Values)
+    current.value++;
+    state.initStep2 = true;
+    console.log(step1Values);
 }
 
 function handleStepPrev() {
-    current.value--
+    current.value--;
 }
 
 function handleStep2Next(step2Values: any) {
-    current.value++
-    state.initStep3 = true
-    console.log(step2Values)
+    current.value++;
+    state.initStep3 = true;
+    console.log(step2Values);
 }
 
 function handleRedo() {
-    current.value = 0
-    state.initStep2 = false
-    state.initStep3 = false
+    current.value = 0;
+    state.initStep2 = false;
+    state.initStep3 = false;
 }
 </script>
 <style lang="less" scoped>

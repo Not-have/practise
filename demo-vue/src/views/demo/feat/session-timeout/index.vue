@@ -15,34 +15,34 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { PageWrapper } from '@/components/Page'
-import { useUserStore } from '@/store/modules/user'
-import { sessionTimeoutApi, tokenExpiredApi } from '@/api/demo/account'
-import { Card } from 'ant-design-vue'
+import { PageWrapper } from '@/components/Page';
+import { useUserStore } from '@/store/modules/user';
+import { sessionTimeoutApi, tokenExpiredApi } from '@/api/demo/account';
+import { Card } from 'ant-design-vue';
 
-defineOptions({ name: 'TestSessionTimeout' })
+defineOptions({ name: 'TestSessionTimeout' });
 
-const CardGrid = Card.Grid
+const CardGrid = Card.Grid;
 
-const userStore = useUserStore()
+const userStore = useUserStore();
 async function test1() {
     // 示例网站生产环境用的是mock数据，不能返回Http状态码，
     // 所以在生产环境直接改变状态来达到测试效果
     if (import.meta.env.PROD) {
-        userStore.setToken(undefined)
-        userStore.setSessionTimeout(true)
+        userStore.setToken(undefined);
+        userStore.setSessionTimeout(true);
     } else {
         // 这个api会返回状态码为401的响应
-        await sessionTimeoutApi()
+        await sessionTimeoutApi();
     }
 }
 
 async function test2() {
     // 这个api会返回code为401的json数据，Http状态码为200
     try {
-        await tokenExpiredApi()
+        await tokenExpiredApi();
     } catch (err) {
-        console.log('接口访问错误：', (err as Error).message || '错误')
+        console.log('接口访问错误：', (err as Error).message || '错误');
     }
 }
 </script>

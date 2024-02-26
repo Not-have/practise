@@ -1,8 +1,8 @@
-import { defineComponent, ref, unref } from 'vue'
-import { Card, Typography, Button, Input, Space, message } from 'ant-design-vue'
-import { getArticle } from './mock-api'
-import { useRequest, clearCache } from '@vben/hooks'
-import { PageWrapper } from '@/components/Page'
+import { defineComponent, ref, unref } from 'vue';
+import { Card, Typography, Button, Input, Space, message } from 'ant-design-vue';
+import { getArticle } from './mock-api';
+import { useRequest, clearCache } from '@vben/hooks';
+import { PageWrapper } from '@/components/Page';
 
 const Article1 = defineComponent({
     props: {
@@ -14,7 +14,7 @@ const Article1 = defineComponent({
     setup(props) {
         const { loading, data } = useRequest(getArticle, {
             cacheKey: props.cacheKey
-        })
+        });
 
         return () => (
             <>
@@ -22,16 +22,16 @@ const Article1 = defineComponent({
                 <p>Latest request time: {unref(data)?.time}</p>
                 <p>{unref(data)?.data}</p>
             </>
-        )
+        );
     }
-})
+});
 
 const Demo1 = defineComponent({
     setup() {
-        const state = ref(false)
+        const state = ref(false);
         const toggle = (bool?: boolean) => {
-            state.value = bool ?? !state.value
-        }
+            state.value = bool ?? !state.value;
+        };
 
         return () => (
             <Card title="SWR">
@@ -51,16 +51,16 @@ const Demo1 = defineComponent({
                     {state.value && <Article1 />}
                 </div>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Article2 = defineComponent({
     setup() {
         const { loading, data } = useRequest(getArticle, {
             cacheKey: 'staleTime-demo',
             staleTime: 5000
-        })
+        });
 
         return () => (
             <>
@@ -68,16 +68,16 @@ const Article2 = defineComponent({
                 <p>Latest request time: {unref(data)?.time}</p>
                 <p>{unref(data)?.data}</p>
             </>
-        )
+        );
     }
-})
+});
 
 const Demo2 = defineComponent({
     setup() {
-        const state = ref(false)
+        const state = ref(false);
         const toggle = (bool?: boolean) => {
-            state.value = bool ?? !state.value
-        }
+            state.value = bool ?? !state.value;
+        };
 
         return () => (
             <Card title="数据保持新鲜" class="mt-2">
@@ -98,15 +98,15 @@ const Demo2 = defineComponent({
                     {state.value && <Article2 />}
                 </div>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Article3 = defineComponent({
     setup() {
         const { loading, data, refresh } = useRequest(getArticle, {
             cacheKey: 'cacheKey-share'
-        })
+        });
 
         return () => (
             <>
@@ -117,9 +117,9 @@ const Article3 = defineComponent({
                 <p>Latest request time: {unref(data)?.time}</p>
                 <p>{unref(data)?.data}</p>
             </>
-        )
+        );
     }
-})
+});
 
 const Demo3 = defineComponent({
     setup() {
@@ -155,17 +155,17 @@ const Demo3 = defineComponent({
                     <Article3 />
                 </div>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Article4 = defineComponent({
     setup() {
         const { loading, data, params, run } = useRequest(getArticle, {
             cacheKey: 'cacheKey-share4'
-        })
+        });
 
-        const keyword = ref(params.value?.[0] || '')
+        const keyword = ref(params.value?.[0] || '');
 
         return () => (
             <>
@@ -178,16 +178,16 @@ const Article4 = defineComponent({
                 <p>Latest request data: {unref(data)?.data}</p>
                 <p>keyword: {keyword.value}</p>
             </>
-        )
+        );
     }
-})
+});
 
 const Demo4 = defineComponent({
     setup() {
-        const state = ref(false)
+        const state = ref(false);
         const toggle = (bool?: boolean) => {
-            state.value = bool ?? !state.value
-        }
+            state.value = bool ?? !state.value;
+        };
 
         return () => (
             <Card title="参数缓存" class="mt-2">
@@ -206,22 +206,22 @@ const Demo4 = defineComponent({
                     <div class="mt-2">{state.value && <Article4 />}</div>
                 </div>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo5 = defineComponent({
     setup() {
-        const state = ref(false)
+        const state = ref(false);
         const toggle = (bool?: boolean) => {
-            state.value = bool ?? !state.value
-        }
+            state.value = bool ?? !state.value;
+        };
 
         const clear = (cacheKey?: string | string[]) => {
-            clearCache(cacheKey)
-            const tips = Array.isArray(cacheKey) ? cacheKey.join('、') : cacheKey
-            message.success(`Clear ${tips ?? 'All'} finished`)
-        }
+            clearCache(cacheKey);
+            const tips = Array.isArray(cacheKey) ? cacheKey.join('、') : cacheKey;
+            message.success(`Clear ${tips ?? 'All'} finished`);
+        };
 
         return () => (
             <Card title="删除缓存" class="mt-2">
@@ -252,18 +252,18 @@ const Demo5 = defineComponent({
                     {state.value && <Article1 cacheKey="Article3" />}
                 </div>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Article6 = defineComponent({
     setup() {
-        const cacheKey = 'setCache-demo6'
+        const cacheKey = 'setCache-demo6';
         const { loading, data } = useRequest(getArticle, {
             cacheKey,
             setCache: data => localStorage.setItem(cacheKey, JSON.stringify(data)),
             getCache: () => JSON.parse(localStorage.getItem(cacheKey) || '{}')
-        })
+        });
 
         return () => (
             <>
@@ -271,16 +271,16 @@ const Article6 = defineComponent({
                 <p>Latest request time: {unref(data)?.time}</p>
                 <p>{unref(data)?.data}</p>
             </>
-        )
+        );
     }
-})
+});
 
 const Demo6 = defineComponent({
     setup() {
-        const state = ref(false)
+        const state = ref(false);
         const toggle = (bool?: boolean) => {
-            state.value = bool ?? !state.value
-        }
+            state.value = bool ?? !state.value;
+        };
 
         return () => (
             <Card title="自定义缓存" class="mt-2">
@@ -299,9 +299,9 @@ const Demo6 = defineComponent({
                     <div class="mt-2">{state.value && <Article6 />}</div>
                 </div>
             </Card>
-        )
+        );
     }
-})
+});
 
 export default defineComponent({
     setup() {
@@ -314,6 +314,6 @@ export default defineComponent({
                 <Demo5 />
                 <Demo6 />
             </PageWrapper>
-        )
+        );
     }
-})
+});

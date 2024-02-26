@@ -14,13 +14,13 @@
     </BasicModal>
 </template>
 <script lang="ts" setup>
-import type { ExportModalResult } from './typing'
-import { BasicModal, useModalInner } from '@/components/Modal'
-import { BasicForm, FormSchema, useForm } from '@/components/Form'
+import type { ExportModalResult } from './typing';
+import { BasicModal, useModalInner } from '@/components/Modal';
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
 
-import { useI18n } from '@/hooks/web/useI18n'
+import { useI18n } from '@/hooks/web/useI18n';
 
-const { t } = useI18n()
+const { t } = useI18n();
 
 const schemas: FormSchema[] = [
     {
@@ -60,20 +60,20 @@ const schemas: FormSchema[] = [
             ]
         }
     }
-]
+];
 
-const emit = defineEmits(['success', 'register'])
+const emit = defineEmits(['success', 'register']);
 
-const [registerForm, { validate }] = useForm()
-const [registerModal, { closeModal }] = useModalInner()
+const [registerForm, { validate }] = useForm();
+const [registerModal, { closeModal }] = useModalInner();
 
 const handleOk = async () => {
-    const res = await validate<ExportModalResult>()
-    const { filename, bookType } = res
+    const res = await validate<ExportModalResult>();
+    const { filename, bookType } = res;
     emit('success', {
         filename: `${filename.split('.').shift()}.${bookType}`,
         bookType
-    })
-    closeModal()
-}
+    });
+    closeModal();
+};
 </script>

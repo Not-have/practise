@@ -1,4 +1,4 @@
-import { TreeItem } from '@/components/Tree'
+import { TreeItem } from '@/components/Tree';
 
 export const treeData: TreeItem[] = [
     {
@@ -37,7 +37,7 @@ export const treeData: TreeItem[] = [
             { title: 'leaf', key: '2-2-1' }
         ]
     }
-]
+];
 
 export const treeData2: any[] = [
     {
@@ -80,7 +80,7 @@ export const treeData2: any[] = [
             { name: 'leaf', id: '2-2-1' }
         ]
     }
-]
+];
 
 export const treeData3: any[] = [
     {
@@ -120,4 +120,4 @@ export const treeData3: any[] = [
             { name: 'leaf', key: '2-2-1' }
         ]
     }
-]
+];

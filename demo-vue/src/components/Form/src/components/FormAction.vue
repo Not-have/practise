@@ -40,16 +40,16 @@
     </Col>
 </template>
 <script lang="ts" setup>
-import type { ColEx } from '../types'
-import { computed, PropType } from 'vue'
-import { Form, Col } from 'ant-design-vue'
-import { Button, ButtonProps } from '@/components/Button'
-import { BasicArrow } from '@/components/Basic'
-import { useFormContext } from '../hooks/useFormContext'
-import { useI18n } from '@/hooks/web/useI18n'
-import { propTypes } from '@/utils/propTypes'
+import type { ColEx } from '../types';
+import { computed, PropType } from 'vue';
+import { Form, Col } from 'ant-design-vue';
+import { Button, ButtonProps } from '@/components/Button';
+import { BasicArrow } from '@/components/Basic';
+import { useFormContext } from '../hooks/useFormContext';
+import { useI18n } from '@/hooks/web/useI18n';
+import { propTypes } from '@/utils/propTypes';
 
-defineOptions({ name: 'BasicFormAction' })
+defineOptions({ name: 'BasicFormAction' });
 
 const props = defineProps({
     showActionButtonGroup: propTypes.bool.def(true),
@@ -71,25 +71,25 @@ const props = defineProps({
     actionSpan: propTypes.number.def(6),
     isAdvanced: propTypes.bool,
     hideAdvanceBtn: propTypes.bool
-})
+});
 
-const emit = defineEmits(['toggle-advanced'])
+const emit = defineEmits(['toggle-advanced']);
 
-const { t } = useI18n()
-const { resetAction, submitAction } = useFormContext()
+const { t } = useI18n();
+const { resetAction, submitAction } = useFormContext();
 
 const actionColOpt = computed(() => {
-    const { showAdvancedButton, actionSpan: span, actionColOptions } = props
-    const actionSpan = 24 - span
-    const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {}
+    const { showAdvancedButton, actionSpan: span, actionColOptions } = props;
+    const actionSpan = 24 - span;
+    const advancedSpanObj = showAdvancedButton ? { span: actionSpan < 6 ? 24 : actionSpan } : {};
     const actionColOpt: Partial<ColEx> = {
         style: { textAlign: 'right' },
         span: showAdvancedButton ? 6 : 4,
         ...advancedSpanObj,
         ...actionColOptions
-    }
-    return actionColOpt
-})
+    };
+    return actionColOpt;
+});
 
 const getResetBtnOptions = computed((): ButtonProps => {
     return Object.assign(
@@ -97,8 +97,8 @@ const getResetBtnOptions = computed((): ButtonProps => {
             text: t('common.resetText')
         },
         props.resetButtonOptions
-    )
-})
+    );
+});
 
 const getSubmitBtnOptions = computed((): ButtonProps => {
     return Object.assign(
@@ -106,10 +106,10 @@ const getSubmitBtnOptions = computed((): ButtonProps => {
             text: t('common.queryText')
         },
         props.submitButtonOptions
-    )
-})
+    );
+});
 
 function toggleAdvanced() {
-    emit('toggle-advanced')
+    emit('toggle-advanced');
 }
 </script>

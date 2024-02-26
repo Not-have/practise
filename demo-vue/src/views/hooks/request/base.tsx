@@ -1,12 +1,12 @@
-import { defineComponent, onMounted, ref, unref } from 'vue'
-import { Card, Spin, Typography, message, Input, Button, Space } from 'ant-design-vue'
-import { imitateApi } from './mock-api'
-import { useRequest } from '@vben/hooks'
-import { PageWrapper } from '@/components/Page'
+import { defineComponent, onMounted, ref, unref } from 'vue';
+import { Card, Spin, Typography, message, Input, Button, Space } from 'ant-design-vue';
+import { imitateApi } from './mock-api';
+import { useRequest } from '@vben/hooks';
+import { PageWrapper } from '@/components/Page';
 
 const Demo1 = defineComponent({
     setup() {
-        const { data, error, loading } = useRequest(imitateApi)
+        const { data, error, loading } = useRequest(imitateApi);
 
         return () => (
             <Card title="默认用法">
@@ -31,26 +31,26 @@ const Demo1 = defineComponent({
                     </div>
                 </Spin>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo2 = defineComponent({
     setup() {
-        const search = ref('')
+        const search = ref('');
         const setSearch = (value: string) => {
-            search.value = value
-        }
+            search.value = value;
+        };
 
         const { loading, run } = useRequest(imitateApi, {
             manual: true,
             onSuccess: (result, params) => {
                 if (result) {
-                    setSearch('')
-                    message.success(`The username was changed to "${params[0]}" !`)
+                    setSearch('');
+                    message.success(`The username was changed to "${params[0]}" !`);
                 }
             }
-        })
+        });
 
         return () => (
             <Card title="手动触发" class="mt-2">
@@ -78,35 +78,35 @@ const Demo2 = defineComponent({
                     </Button>
                 </Space>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo3 = defineComponent({
     setup() {
-        const search = ref('')
+        const search = ref('');
         const setSearch = (value: string) => {
-            search.value = value
-        }
+            search.value = value;
+        };
 
         const { loading, run } = useRequest(imitateApi, {
             manual: true,
             onBefore: params => {
-                message.info(`Start Request: ${params[0]}`)
+                message.info(`Start Request: ${params[0]}`);
             },
             onSuccess: (result, params) => {
                 if (result) {
-                    setSearch('')
-                    message.success(`The username was changed to "${params[0]}" !`)
+                    setSearch('');
+                    message.success(`The username was changed to "${params[0]}" !`);
                 }
             },
             onError: error => {
-                message.error(error.message)
+                message.error(error.message);
             },
             onFinally: () => {
-                message.info(`Request finish`)
+                message.info(`Request finish`);
             }
-        })
+        });
 
         return () => (
             <Card title="生命周期" class="mt-2">
@@ -156,21 +156,21 @@ const Demo3 = defineComponent({
                     </Button>
                 </Space>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo4 = defineComponent({
     setup() {
         const { data, loading, run, refresh } = useRequest(imitateApi, {
             manual: true
-        })
+        });
 
-        onMounted(() => run('lutz'))
+        onMounted(() => run('lutz'));
 
         const changeData = () => {
-            data.value = `${Date.now()}`
-        }
+            data.value = `${Date.now()}`;
+        };
 
         return () => (
             <Card title="刷新（重复上一次请求）" class="mt-2">
@@ -194,26 +194,26 @@ const Demo4 = defineComponent({
                     </Space>
                 </Spin>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo5 = defineComponent({
     setup() {
-        const search = ref('')
+        const search = ref('');
         const setSearch = (value: string) => {
-            search.value = value
-        }
+            search.value = value;
+        };
 
         const { loading, run, cancel } = useRequest(imitateApi, {
             manual: true,
             onSuccess: (result, params) => {
                 if (result) {
-                    setSearch('')
-                    message.success(`The username was changed to "${params[0]}" !`)
+                    setSearch('');
+                    message.success(`The username was changed to "${params[0]}" !`);
                 }
             }
-        })
+        });
 
         return () => (
             <Card title="取消响应" class="mt-2">
@@ -240,13 +240,13 @@ const Demo5 = defineComponent({
                     </Button>
                 </Space>
             </Card>
-        )
+        );
     }
-})
+});
 
 const Demo6 = defineComponent({
     setup() {
-        const search = ref('')
+        const search = ref('');
 
         const {
             data: username,
@@ -255,11 +255,11 @@ const Demo6 = defineComponent({
             params
         } = useRequest(imitateApi, {
             defaultParams: ['lutz']
-        })
+        });
 
         const onChange = () => {
-            run(search.value)
-        }
+            run(search.value);
+        };
 
         return () => (
             <Card title="管理参数" class="mt-2">
@@ -296,9 +296,9 @@ const Demo6 = defineComponent({
                     <div>Username: {unref(username)}</div>
                 </div>
             </Card>
-        )
+        );
     }
-})
+});
 
 export default defineComponent({
     setup() {
@@ -344,6 +344,6 @@ export default defineComponent({
                 <Demo5 />
                 <Demo6 />
             </PageWrapper>
-        )
+        );
     }
-})
+});

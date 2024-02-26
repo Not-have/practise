@@ -1,8 +1,8 @@
-import { optionsListApi } from '@/api/demo/select'
-import { FormProps, FormSchema, BasicColumn } from '@/components/Table'
-import { VxeFormItemProps, VxeGridPropTypes } from '@/components/VxeTable'
-import { ref } from 'vue'
-import { Input } from 'ant-design-vue'
+import { optionsListApi } from '@/api/demo/select';
+import { FormProps, FormSchema, BasicColumn } from '@/components/Table';
+import { VxeFormItemProps, VxeGridPropTypes } from '@/components/VxeTable';
+import { ref } from 'vue';
+import { Input } from 'ant-design-vue';
 
 export function getBasicColumns(): BasicColumn[] {
     return [
@@ -44,7 +44,7 @@ export function getBasicColumns(): BasicColumn[] {
             sorter: true,
             dataIndex: 'endTime'
         }
-    ]
+    ];
 }
 
 export function getBasicShortColumns(): BasicColumn[] {
@@ -70,11 +70,11 @@ export function getBasicShortColumns(): BasicColumn[] {
             dataIndex: 'no',
             width: 80
         }
-    ]
+    ];
 }
 
 export function getMultipleHeaderColumns(): BasicColumn[] {
-    const testRef = ref('姓名:')
+    const testRef = ref('姓名:');
     return [
         {
             title: 'ID',
@@ -90,7 +90,7 @@ export function getMultipleHeaderColumns(): BasicColumn[] {
                         size="small"
                         v-model:value={testRef.value}
                     />
-                )
+                );
             },
             dataIndex: 'name',
             width: 120
@@ -110,7 +110,7 @@ export function getMultipleHeaderColumns(): BasicColumn[] {
                                 <span style="background: #f00; color: #fff;">{testRef.value}</span>{' '}
                                 _{column.customTitle}
                             </div>
-                        )
+                        );
                     },
                     dataIndex: 'no',
                     width: 120,
@@ -132,7 +132,7 @@ export function getMultipleHeaderColumns(): BasicColumn[] {
                 }
             ]
         }
-    ]
+    ];
 }
 
 export function getCustomHeaderColumns(): BasicColumn[] {
@@ -176,12 +176,12 @@ export function getCustomHeaderColumns(): BasicColumn[] {
             dataIndex: 'endTime',
             width: 120
         }
-    ]
+    ];
 }
 
 const cellContent = (_, index) => ({
     colSpan: index === 9 ? 0 : 1
-})
+});
 
 export function getMergeHeaderColumns(): BasicColumn[] {
     return [
@@ -232,10 +232,10 @@ export function getMergeHeaderColumns(): BasicColumn[] {
             width: 200,
             customCell: cellContent
         }
-    ]
+    ];
 }
 export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
-    const arr: FormSchema[] = []
+    const arr: FormSchema[] = [];
     for (let index = 0; index < itemNumber; index++) {
         arr.push({
             field: `field${index}`,
@@ -245,10 +245,10 @@ export const getAdvanceSchema = (itemNumber = 6): FormSchema[] => {
                 xl: 12,
                 xxl: 8
             }
-        })
+        });
     }
-    return arr
-}
+    return arr;
+};
 export function getFormConfig(): Partial<FormProps> {
     return {
         labelWidth: 100,
@@ -265,11 +265,11 @@ export function getFormConfig(): Partial<FormProps> {
                 }
             }
         ]
-    }
+    };
 }
 export function getBasicData() {
     return (() => {
-        const arr: any = []
+        const arr: any = [];
         for (let index = 0; index < 40; index++) {
             arr.push({
                 id: `${index}`,
@@ -279,15 +279,15 @@ export function getBasicData() {
                 address: 'New York No. 1 Lake ParkNew York No. 1 Lake Park',
                 beginTime: new Date().toLocaleString(),
                 endTime: new Date().toLocaleString()
-            })
+            });
         }
-        return arr
-    })()
+        return arr;
+    })();
 }
 
 export function getTreeTableData() {
     return (() => {
-        const arr: any = []
+        const arr: any = [];
         for (let index = 0; index < 40; index++) {
             arr.push({
                 id: `${index}`,
@@ -357,10 +357,10 @@ export function getTreeTableData() {
                         ]
                     }
                 ]
-            })
+            });
         }
-        return arr
-    })()
+        return arr;
+    })();
 }
 
 export const vxeTableColumns: VxeGridPropTypes.Columns = [
@@ -390,12 +390,12 @@ export const vxeTableColumns: VxeGridPropTypes.Columns = [
         align: 'center',
         slots: {
             default: ({ row }) => {
-                const text = `自定义${row.no}`
-                return [<div class="text-red-500">{text}</div>]
+                const text = `自定义${row.no}`;
+                return [<div class="text-red-500">{text}</div>];
             }
         },
         exportMethod: ({ row }) => {
-            return `自定义${row.no}导出`
+            return `自定义${row.no}导出`;
         }
     },
     {
@@ -429,7 +429,7 @@ export const vxeTableColumns: VxeGridPropTypes.Columns = [
         slots: { default: 'action' },
         fixed: 'right'
     }
-]
+];
 
 export const vxeTableFormSchema: VxeFormItemProps[] = [
     {
@@ -469,4 +469,4 @@ export const vxeTableFormSchema: VxeFormItemProps[] = [
             ]
         }
     }
-]
+];

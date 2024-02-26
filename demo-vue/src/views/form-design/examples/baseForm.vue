@@ -2,7 +2,7 @@
     <BasicForm @register="register" />
 </template>
 <script lang="ts" setup>
-import { BasicForm, FormSchema, useForm } from '@/components/Form'
+import { BasicForm, FormSchema, useForm } from '@/components/Form';
 
 const schemas: FormSchema[] = [
     {
@@ -29,9 +29,9 @@ const schemas: FormSchema[] = [
         //   span: 8,
         // },
     }
-]
+];
 
 const [register] = useForm({
     schemas
-})
+});
 </script>

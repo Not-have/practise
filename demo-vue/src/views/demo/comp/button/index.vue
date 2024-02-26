@@ -122,6 +122,6 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { PageWrapper } from '@/components/Page'
-import { Card, Row, Col } from 'ant-design-vue'
+import { PageWrapper } from '@/components/Page';
+import { Card, Row, Col } from 'ant-design-vue';
 </script>

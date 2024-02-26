@@ -29,15 +29,15 @@
     </div>
 </template>
 <script lang="ts" setup>
-import type { TableSetting, ColumnChangeParam, TableActionType } from '../types/table'
-import type { PropType } from 'vue'
-import { Divider } from 'ant-design-vue'
-import TableSettingComponent from './settings/index.vue'
-import TableTitle from './TableTitle.vue'
-import { useDesign } from '@/hooks/web/useDesign'
-import TableSelectionBar from '../components/TableSelectionBar.vue'
+import type { TableSetting, ColumnChangeParam, TableActionType } from '../types/table';
+import type { PropType } from 'vue';
+import { Divider } from 'ant-design-vue';
+import TableSettingComponent from './settings/index.vue';
+import TableTitle from './TableTitle.vue';
+import { useDesign } from '@/hooks/web/useDesign';
+import TableSelectionBar from '../components/TableSelectionBar.vue';
 
-defineOptions({ name: 'BasicTableHeader' })
+defineOptions({ name: 'BasicTableHeader' });
 
 const props = defineProps({
     title: {
@@ -65,12 +65,12 @@ const props = defineProps({
         type: Boolean,
         default: false
     }
-})
+});
 
-const emit = defineEmits(['columns-change'])
-const { prefixCls } = useDesign('basic-table-header')
+const emit = defineEmits(['columns-change']);
+const { prefixCls } = useDesign('basic-table-header');
 function handleColumnChange(data: ColumnChangeParam[]) {
-    emit('columns-change', data)
+    emit('columns-change', data);
 }
 </script>
 <style lang="less">

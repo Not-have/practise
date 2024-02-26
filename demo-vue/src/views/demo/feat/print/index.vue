@@ -8,12 +8,12 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { PageWrapper } from '@/components/Page'
-import { CollapseContainer } from '@/components/Container'
+import { PageWrapper } from '@/components/Page';
+import { CollapseContainer } from '@/components/Container';
 
-import printJS from 'print-js'
+import printJS from 'print-js';
 
-defineOptions({ name: 'AppLogo' })
+defineOptions({ name: 'AppLogo' });
 
 function jsonPrint() {
     printJS({
@@ -23,7 +23,7 @@ function jsonPrint() {
         ],
         properties: ['name', 'email', 'phone'],
         type: 'json'
-    })
+    });
 }
 
 function imagePrint() {
@@ -35,6 +35,6 @@ function imagePrint() {
         type: 'image',
         header: 'Multiple Images',
         imageStyle: 'width:100%;'
-    })
+    });
 }
 </script>

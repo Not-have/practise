@@ -68,34 +68,34 @@
     </PageWrapper>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { Alert, Divider } from 'ant-design-vue'
-import CurrentPermissionMode from '../CurrentPermissionMode.vue'
-import { usePermission } from '@/hooks/web/usePermission'
-import { Authority } from '@/components/Authority'
-import { usePermissionStore } from '@/store/modules/permission'
-import { PermissionModeEnum } from '@/enums/appEnum'
-import { PageWrapper } from '@/components/Page'
-import { useAppStore } from '@/store/modules/app'
-import { useUserStore } from '@/store/modules/user'
+import { computed } from 'vue';
+import { Alert, Divider } from 'ant-design-vue';
+import CurrentPermissionMode from '../CurrentPermissionMode.vue';
+import { usePermission } from '@/hooks/web/usePermission';
+import { Authority } from '@/components/Authority';
+import { usePermissionStore } from '@/store/modules/permission';
+import { PermissionModeEnum } from '@/enums/appEnum';
+import { PageWrapper } from '@/components/Page';
+import { useAppStore } from '@/store/modules/app';
+import { useUserStore } from '@/store/modules/user';
 
-const { hasPermission } = usePermission()
-const permissionStore = usePermissionStore()
-const appStore = useAppStore()
-const userStore = useUserStore()
+const { hasPermission } = usePermission();
+const permissionStore = usePermissionStore();
+const appStore = useAppStore();
+const userStore = useUserStore();
 
 const isBackPermissionMode = computed(
     () => appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK
-)
+);
 
 async function switchToken(userId: number) {
     // 本函数切换用户登录Token的部分仅用于演示，实际生产时切换身份应当重新登录
-    const token = 'fakeToken' + userId
-    userStore.setToken(token)
+    const token = 'fakeToken' + userId;
+    userStore.setToken(token);
 
     // 重新获取用户信息和菜单
-    userStore.getUserInfoAction()
-    permissionStore.changePermissionCode()
+    userStore.getUserInfoAction();
+    permissionStore.changePermissionCode();
 }
 </script>
 <style lang="less" scoped>
