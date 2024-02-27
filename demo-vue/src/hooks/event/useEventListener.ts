@@ -12,6 +12,12 @@ export interface UseEventParams {
     isDebounce?: boolean;
     wait?: number;
 }
+
+/**
+ * 事件监听
+ * @param param0
+ * @returns
+ */
 export function useEventListener({
     el = window,
     name,
@@ -21,7 +27,6 @@ export function useEventListener({
     isDebounce = true,
     wait = 80
 }: UseEventParams): { removeEvent: RemoveEventFn } {
-    /* eslint-disable-next-line */
     let remove: RemoveEventFn = () => {};
     const isAddRef = ref(false);
 
@@ -29,6 +34,7 @@ export function useEventListener({
         const element = ref(el as Element) as Ref<Element>;
 
         const handler = isDebounce ? useDebounceFn(listener, wait) : useThrottleFn(listener, wait);
+
         const realHandler = wait ? handler : listener;
         const removeEventListener = (e: Element) => {
             isAddRef.value = true;
