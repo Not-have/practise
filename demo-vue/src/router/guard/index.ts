@@ -27,7 +27,7 @@ export function setupRouterGuard(router: Router) {
 }
 
 /**
- * Hooks for handling page state
+ * 用于处理页面状态的钩子
  */
 function createPageGuard(router: Router) {
     const loadedPageMap = new Map<string, boolean>();
@@ -46,7 +46,7 @@ function createPageGuard(router: Router) {
     });
 }
 
-// Used to handle page loading status
+// 用于处理页面加载状态
 function createPageLoadingGuard(router: Router) {
     const userStore = useUserStoreWithOut();
     const appStore = useAppStoreWithOut();
@@ -79,7 +79,7 @@ function createPageLoadingGuard(router: Router) {
 }
 
 /**
- * The interface used to close the current page to complete the request when the route is switched
+ * 切换路由时用于关闭当前页面以完成请求的接口
  * @param router
  */
 function createHttpGuard(router: Router) {
@@ -110,7 +110,7 @@ function createScrollGuard(router: Router) {
 }
 
 /**
- * Used to close the message instance when the route is switched
+ * 用于在切换路由时关闭消息实例
  * @param router
  */
 export function createMessageGuard(router: Router) {

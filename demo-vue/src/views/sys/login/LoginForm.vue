@@ -134,7 +134,9 @@ const { validForm } = useFormValid(formRef);
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
 async function handleLogin() {
+    // 获取 表单数据
     const data = await validForm();
+
     if (!data) return;
     try {
         loading.value = true;

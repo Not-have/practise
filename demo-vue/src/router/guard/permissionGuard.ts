@@ -18,6 +18,7 @@ const whitePathList: PageEnum[] = [LOGIN_PATH];
 export function createPermissionGuard(router: Router) {
     const userStore = useUserStoreWithOut();
     const permissionStore = usePermissionStoreWithOut();
+
     router.beforeEach(async (to, from, next) => {
         if (
             from.path === ROOT_PATH &&
@@ -29,7 +30,8 @@ export function createPermissionGuard(router: Router) {
             return;
         }
 
-        const token = userStore.getToken;
+        let token = userStore.getToken;
+        token = '给了一个 token 的固定值，让其一直保持登录状态。';
 
         // Whitelist can be directly entered
         if (whitePathList.includes(to.path as PageEnum)) {
@@ -48,7 +50,8 @@ export function createPermissionGuard(router: Router) {
             next();
             return;
         }
-        // token or user does not exist
+
+        // 令牌或用户不存在
         if (!token) {
             // You can access without permission. You need to set the routing meta.ignoreAuth to true
             if (to.meta.ignoreAuth) {
