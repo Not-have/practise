@@ -19,7 +19,7 @@ export function joinTimestamp(join: boolean, restful = false): string | object {
 }
 
 /**
- * @description: Format request parameter time
+ * @description: 格式化请求参数时间
  */
 export function formatRequestDate(params: Recordable) {
     if (Object.prototype.toString.call(params) !== '[object Object]') {

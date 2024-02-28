@@ -38,7 +38,14 @@ const charts: AppRouteModule = {
             },
             component: () => import('@/views/demo/charts/map/Google.vue')
         },
-
+        {
+            path: 'gis',
+            name: 'GisMap',
+            meta: {
+                title: 'Gis 地图'
+            },
+            component: () => import('@/views/demo/charts/map/Gis.vue')
+        },
         {
             path: 'echarts',
             name: 'Echarts',

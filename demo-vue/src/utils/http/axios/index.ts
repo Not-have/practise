@@ -34,6 +34,7 @@ const transform: AxiosTransform = {
     transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
         const { t } = useI18n();
         const { isTransformResponse, isReturnNativeResponse } = options;
+
         // 是否返回原生响应头 比如：需要获取响应头时使用该属性
         if (isReturnNativeResponse) {
             return res;
@@ -115,9 +116,11 @@ const transform: AxiosTransform = {
         if (apiUrl && isString(apiUrl)) {
             config.url = `${apiUrl}${config.url}`;
         }
+
         const params = config.params || {};
         const data = config.data || false;
         formatDate && data && !isString(data) && formatRequestDate(data);
+
         if (config.method?.toUpperCase() === RequestEnum.GET) {
             if (!isString(params)) {
                 // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
@@ -154,6 +157,7 @@ const transform: AxiosTransform = {
                 config.params = undefined;
             }
         }
+
         return config;
     },
 
