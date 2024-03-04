@@ -11,18 +11,20 @@ export default function Navigation() {
     return (
         <Tab.Navigator>
             <Tab.Screen
-                name="Login"
+                name="home"
                 component={Home}
                 options={{
+                    tabBarLabel: '首页',
                     tabBarIcon: () => (
                         <Icons name="stepbackward" color={'#2e95d3'} />
                     )
                 }}
             />
             <Tab.Screen
-                name="Settings"
+                name="mine"
                 component={Mine}
                 options={{
+                    tabBarLabel: '我的',
                     tabBarIcon: () => <Icons name="adduser" color={'#2e95d3'} />
                 }}
             />
