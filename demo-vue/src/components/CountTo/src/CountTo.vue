@@ -1,26 +1,26 @@
 <template>
-  <span :style="{ color }">
-    {{ value }}
-  </span>
+    <span :style="{ color }">
+        {{ value }}
+    </span>
 </template>
 <script lang="ts" setup>
-  import { ref, computed, watchEffect, unref, onMounted, watch } from 'vue';
-  import { useTransition, TransitionPresets } from '@vueuse/core';
-  import { isNumber } from '@/utils/is';
+import { ref, computed, watchEffect, unref, onMounted, watch } from 'vue';
+import { useTransition, TransitionPresets } from '@vueuse/core';
+import { isNumber } from '@/utils/is';
 
-  defineOptions({ name: 'CountTo' });
+defineOptions({ name: 'CountTo' });
 
-  const props = defineProps({
+const props = defineProps({
     startVal: { type: Number, default: 0 },
     endVal: { type: Number, default: 2021 },
     duration: { type: Number, default: 1500 },
     autoplay: { type: Boolean, default: true },
     decimals: {
-      type: Number,
-      default: 0,
-      validator(value: number) {
-        return value >= 0;
-      },
+        type: Number,
+        default: 0,
+        validator(value: number) {
+            return value >= 0;
+        }
     },
     prefix: { type: String, default: '' },
     suffix: { type: String, default: '' },
@@ -37,54 +37,54 @@
     /**
      * Digital animation
      */
-    transition: { type: String, default: 'linear' },
-  });
+    transition: { type: String, default: 'linear' }
+});
 
-  const emit = defineEmits(['onStarted', 'onFinished']);
+const emit = defineEmits(['onStarted', 'onFinished']);
 
-  const source = ref(props.startVal);
-  const disabled = ref(false);
-  let outputValue = useTransition(source);
+const source = ref(props.startVal);
+const disabled = ref(false);
+let outputValue = useTransition(source);
 
-  const value = computed(() => formatNumber(unref(outputValue)));
+const value = computed(() => formatNumber(unref(outputValue)));
 
-  watchEffect(() => {
+watchEffect(() => {
     source.value = props.startVal;
-  });
+});
 
-  watch([() => props.startVal, () => props.endVal], () => {
+watch([() => props.startVal, () => props.endVal], () => {
     if (props.autoplay) {
-      start();
+        start();
     }
-  });
+});
 
-  onMounted(() => {
+onMounted(() => {
     props.autoplay && start();
-  });
+});
 
-  function start() {
+function start() {
     run();
     source.value = props.endVal;
-  }
+}
 
-  function reset() {
+function reset() {
     source.value = props.startVal;
     run();
-  }
+}
 
-  function run() {
+function run() {
     outputValue = useTransition(source, {
-      disabled,
-      duration: props.duration,
-      onFinished: () => emit('onFinished'),
-      onStarted: () => emit('onStarted'),
-      ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {}),
+        disabled,
+        duration: props.duration,
+        onFinished: () => emit('onFinished'),
+        onStarted: () => emit('onStarted'),
+        ...(props.useEasing ? { transition: TransitionPresets[props.transition] } : {})
     });
-  }
+}
 
-  function formatNumber(num: number | string) {
+function formatNumber(num: number | string) {
     if (!num && num !== 0) {
-      return '';
+        return '';
     }
     const { decimals, decimal, separator, suffix, prefix } = props;
     num = Number(num).toFixed(decimals);
@@ -96,12 +96,12 @@
 
     const rgx = /(\d+)(\d{3})/;
     if (separator && !isNumber(separator)) {
-      while (rgx.test(x1)) {
-        x1 = x1.replace(rgx, '$1' + separator + '$2');
-      }
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + separator + '$2');
+        }
     }
     return prefix + x1 + x2 + suffix;
-  }
+}
 
-  defineExpose({ reset });
+defineExpose({ reset });
 </script>

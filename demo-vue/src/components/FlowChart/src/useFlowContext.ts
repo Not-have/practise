@@ -5,13 +5,13 @@ import { provide, inject } from 'vue';
 const key = Symbol('flow-chart');
 
 type Instance = {
-  logicFlow: LogicFlow;
+    logicFlow: LogicFlow;
 };
 
 export function createFlowChartContext(instance: Instance) {
-  provide(key, instance);
+    provide(key, instance);
 }
 
 export function useFlowChartContext(): Instance {
-  return inject(key) as Instance;
+    return inject(key) as Instance;
 }

@@ -1,64 +1,64 @@
 <template>
-  <PageWrapper
-    title="基础表单"
-    contentBackground
-    content=" 表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
-    contentClass="p-4"
-  >
-    <BasicForm @register="register" />
-  </PageWrapper>
+    <PageWrapper
+        title="基础表单"
+        contentBackground
+        content=" 表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。"
+        contentClass="p-4"
+    >
+        <BasicForm @register="register" />
+    </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { BasicForm, useForm } from '@/components/Form';
-  import { schemas } from './data';
-  import { useMessage } from '@/hooks/web/useMessage';
-  import { PageWrapper } from '@/components/Page';
+import { BasicForm, useForm } from '@/components/Form';
+import { schemas } from './data';
+import { useMessage } from '@/hooks/web/useMessage';
+import { PageWrapper } from '@/components/Page';
 
-  defineOptions({ name: 'FormBasicPage' });
+defineOptions({ name: 'FormBasicPage' });
 
-  const { createMessage } = useMessage();
-  const [register, { validate, setProps }] = useForm({
+const { createMessage } = useMessage();
+const [register, { validate, setProps }] = useForm({
     labelCol: {
-      span: 8,
+        span: 8
     },
     wrapperCol: {
-      span: 15,
+        span: 15
     },
     schemas: schemas,
     actionColOptions: {
-      offset: 8,
-      span: 23,
+        offset: 8,
+        span: 23
     },
     submitButtonOptions: {
-      text: '提交',
+        text: '提交'
     },
-    submitFunc: customSubmitFunc,
-  });
+    submitFunc: customSubmitFunc
+});
 
-  async function customSubmitFunc() {
+async function customSubmitFunc() {
     try {
-      await validate();
-      setProps({
-        submitButtonOptions: {
-          loading: true,
-        },
-      });
-      setTimeout(() => {
+        await validate();
         setProps({
-          submitButtonOptions: {
-            loading: false,
-          },
+            submitButtonOptions: {
+                loading: true
+            }
         });
-        createMessage.success('提交成功！');
-      }, 2000);
+        setTimeout(() => {
+            setProps({
+                submitButtonOptions: {
+                    loading: false
+                }
+            });
+            createMessage.success('提交成功！');
+        }, 2000);
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
-  }
+}
 </script>
 <style lang="less" scoped>
-  .form-wrap {
+.form-wrap {
     padding: 24px;
     background-color: @component-background;
-  }
+}
 </style>

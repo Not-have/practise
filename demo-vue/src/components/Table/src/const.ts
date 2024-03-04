@@ -3,12 +3,12 @@ import componentSetting from '@/settings/componentSetting';
 const { table } = componentSetting;
 
 const {
-  pageSizeOptions,
-  defaultPageSize,
-  fetchSetting,
-  defaultSize,
-  defaultSortFn,
-  defaultFilterFn,
+    pageSizeOptions,
+    defaultPageSize,
+    fetchSetting,
+    defaultSize,
+    defaultSortFn,
+    defaultFilterFn
 } = table;
 
 export const ROW_KEY = 'key';

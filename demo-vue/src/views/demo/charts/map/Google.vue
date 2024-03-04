@@ -1,30 +1,30 @@
 <template>
-  <div ref="wrapRef" :style="{ height, width }"></div>
+    <div ref="wrapRef" :style="{ height, width }"></div>
 </template>
 <script lang="ts" setup>
-  import { ref, nextTick, unref, onMounted } from 'vue';
-  import { useScript } from '@/hooks/web/useScript';
+import { ref, nextTick, unref, onMounted } from 'vue';
+import { useScript } from '@/hooks/web/useScript';
 
-  defineOptions({ name: 'GoogleMap' });
+defineOptions({ name: 'GoogleMap' });
 
-  defineProps({
+defineProps({
     width: {
-      type: String,
-      default: '100%',
+        type: String,
+        default: '100%'
     },
     height: {
-      type: String,
-      default: 'calc(100vh - 78px)',
-    },
-  });
+        type: String,
+        default: 'calc(100vh - 78px)'
+    }
+});
 
-  const MAP_URL =
+const MAP_URL =
     'https://maps.googleapis.com/maps/api/js?key=AIzaSyBQWrGwj4gAzKndcbwD5favT9K0wgty_0&signed_in=true';
 
-  const wrapRef = ref<HTMLDivElement | null>(null);
-  const { toPromise } = useScript({ src: MAP_URL });
+const wrapRef = ref<HTMLDivElement | null>(null);
+const { toPromise } = useScript({ src: MAP_URL });
 
-  async function initMap() {
+async function initMap() {
     await toPromise();
     await nextTick();
     const wrapEl = unref(wrapRef);
@@ -32,17 +32,17 @@
     const google = (window as any).google;
     const latLng = { lat: 116.404, lng: 39.915 };
     const map = new google.maps.Map(wrapEl, {
-      zoom: 4,
-      center: latLng,
+        zoom: 4,
+        center: latLng
     });
     new google.maps.Marker({
-      position: latLng,
-      map: map,
-      title: 'Hello World!',
+        position: latLng,
+        map: map,
+        title: 'Hello World!'
     });
-  }
+}
 
-  onMounted(async () => {
+onMounted(async () => {
     await initMap();
-  });
+});
 </script>

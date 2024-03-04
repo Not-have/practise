@@ -6,7 +6,7 @@ const store = createPinia();
 registerPiniaPersistPlugin(store);
 
 export function setupStore(app: App<Element>) {
-  app.use(store);
+    app.use(store);
 }
 
 export { store };

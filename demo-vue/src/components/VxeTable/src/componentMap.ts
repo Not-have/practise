@@ -3,19 +3,19 @@ import type { Component } from 'vue';
 import type { ComponentType } from './componentType';
 import { ApiSelect, ApiTreeSelect } from '@/components/Form';
 import {
-  Input,
-  Select,
-  Radio,
-  Checkbox,
-  AutoComplete,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  Switch,
-  TimePicker,
-  TreeSelect,
-  Rate,
-  Empty,
+    Input,
+    Select,
+    Radio,
+    Checkbox,
+    AutoComplete,
+    Cascader,
+    DatePicker,
+    InputNumber,
+    Switch,
+    TimePicker,
+    TreeSelect,
+    Rate,
+    Empty
 } from 'ant-design-vue';
 import { Button } from '@/components/Button';
 
@@ -49,11 +49,11 @@ componentMap.set('AApiTreeSelect', ApiTreeSelect);
 componentMap.set('AEmpty', Empty);
 
 export function add(compName: ComponentType, component: Component) {
-  componentMap.set(compName, component);
+    componentMap.set(compName, component);
 }
 
 export function del(compName: ComponentType) {
-  componentMap.delete(compName);
+    componentMap.delete(compName);
 }
 
 export { componentMap };

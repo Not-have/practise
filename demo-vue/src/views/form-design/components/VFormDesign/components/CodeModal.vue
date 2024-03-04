@@ -2,27 +2,27 @@
  * @Description: 渲染代码
 -->
 <template>
-  <Modal
-    title="代码"
-    :footer="null"
-    :open="visible"
-    @cancel="visible = false"
-    wrapClassName="v-code-modal"
-    style="top: 20px"
-    width="850px"
-    :destroyOnClose="true"
-  >
-    <PreviewCode :editorJson="editorVueJson" fileFormat="vue" />
-  </Modal>
+    <Modal
+        title="代码"
+        :footer="null"
+        :open="visible"
+        @cancel="visible = false"
+        wrapClassName="v-code-modal"
+        style="top: 20px"
+        width="850px"
+        :destroyOnClose="true"
+    >
+        <PreviewCode :editorJson="editorVueJson" fileFormat="vue" />
+    </Modal>
 </template>
 <script lang="ts">
-  import { computed, defineComponent, reactive, toRefs } from 'vue';
-  import { formatRules, removeAttrs } from '../../../utils';
-  import PreviewCode from './PreviewCode.vue';
-  import { IFormConfig } from '../../../typings/v-form-component';
-  import { Modal } from 'ant-design-vue';
+import { computed, defineComponent, reactive, toRefs } from 'vue';
+import { formatRules, removeAttrs } from '../../../utils';
+import PreviewCode from './PreviewCode.vue';
+import { IFormConfig } from '../../../typings/v-form-component';
+import { Modal } from 'ant-design-vue';
 
-  const codeVueFront = `<template>
+const codeVueFront = `<template>
   <div>
     <v-form-create
       :formConfig="formConfig"
@@ -41,7 +41,7 @@ export default {
       fApi:{},
       formData:{},
       formConfig: `;
-  /* eslint-disable */
+/* eslint-disable */
   let codeVueLast = `
     }
   },

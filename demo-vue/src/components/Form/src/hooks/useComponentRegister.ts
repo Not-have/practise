@@ -5,15 +5,15 @@ import type { Component } from 'vue';
 import { isPascalCase } from '@/utils/is';
 
 export function useComponentRegister<T extends string, R extends Component>(
-  compName: ComponentType | T,
-  comp: R,
+    compName: ComponentType | T,
+    comp: R
 ) {
-  if (!isPascalCase(compName)) {
-    throw new Error('compName must be in PascalCase');
-  }
+    if (!isPascalCase(compName)) {
+        throw new Error('compName must be in PascalCase');
+    }
 
-  add(compName, comp);
-  tryOnUnmounted(() => {
-    del(compName);
-  });
+    add(compName, comp);
+    tryOnUnmounted(() => {
+        del(compName);
+    });
 }

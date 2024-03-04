@@ -4,5 +4,5 @@ import { Input, Layout } from 'ant-design-vue';
 import VXETable from 'vxe-table';
 
 export function registerGlobComp(app: App) {
-  app.use(Input).use(Button).use(Layout).use(VXETable);
+    app.use(Input).use(Button).use(Layout).use(VXETable);
 }

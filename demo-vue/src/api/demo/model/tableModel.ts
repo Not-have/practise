@@ -5,13 +5,13 @@ import { BasicPageParams, BasicFetchResult } from '@/api/model/baseModel';
 export type DemoParams = Partial<BasicPageParams>;
 
 export interface DemoListItem {
-  id: string;
-  beginTime: string;
-  endTime: string;
-  address: string;
-  name: string;
-  no: number;
-  status: number;
+    id: string;
+    beginTime: string;
+    endTime: string;
+    address: string;
+    name: string;
+    no: number;
+    status: number;
 }
 
 /**

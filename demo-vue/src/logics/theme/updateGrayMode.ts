@@ -5,5 +5,5 @@ import { toggleClass } from './util';
  * @param gray
  */
 export function updateGrayMode(gray: boolean) {
-  toggleClass(gray, 'gray-mode', document.documentElement);
+    toggleClass(gray, 'gray-mode', document.documentElement);
 }

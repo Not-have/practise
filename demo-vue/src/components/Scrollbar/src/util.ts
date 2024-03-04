@@ -2,42 +2,42 @@ import type { BarMap } from './types';
 import type { MergeAll } from '@/utils/types';
 
 export const BAR_MAP: BarMap = {
-  vertical: {
-    offset: 'offsetHeight',
-    scroll: 'scrollTop',
-    scrollSize: 'scrollHeight',
-    size: 'height',
-    key: 'vertical',
-    axis: 'Y',
-    client: 'clientY',
-    direction: 'top',
-  },
-  horizontal: {
-    offset: 'offsetWidth',
-    scroll: 'scrollLeft',
-    scrollSize: 'scrollWidth',
-    size: 'width',
-    key: 'horizontal',
-    axis: 'X',
-    client: 'clientX',
-    direction: 'left',
-  },
+    vertical: {
+        offset: 'offsetHeight',
+        scroll: 'scrollTop',
+        scrollSize: 'scrollHeight',
+        size: 'height',
+        key: 'vertical',
+        axis: 'Y',
+        client: 'clientY',
+        direction: 'top'
+    },
+    horizontal: {
+        offset: 'offsetWidth',
+        scroll: 'scrollLeft',
+        scrollSize: 'scrollWidth',
+        size: 'width',
+        key: 'horizontal',
+        axis: 'X',
+        client: 'clientX',
+        direction: 'left'
+    }
 };
 
 export function renderThumbStyle({ move, size, bar }) {
-  const style = {} as any;
-  const translate = `translate${bar.axis}(${move}%)`;
+    const style = {} as any;
+    const translate = `translate${bar.axis}(${move}%)`;
 
-  style[bar.size] = size;
-  style.transform = translate;
-  style.msTransform = translate;
-  style.webkitTransform = translate;
+    style[bar.size] = size;
+    style.transform = translate;
+    style.msTransform = translate;
+    style.webkitTransform = translate;
 
-  return style;
+    return style;
 }
 
 function extend<T extends object, K extends object>(to: T, _from: K): T & K {
-  return Object.assign(to, _from);
+    return Object.assign(to, _from);
 }
 
 /**
@@ -49,11 +49,11 @@ function extend<T extends object, K extends object>(to: T, _from: K): T & K {
  * { name: 'zhangsan', sex: 'male', age: 20 }
  */
 export function toObject<T extends object[]>(arr: T): MergeAll<T> {
-  const res = {} as MergeAll<T>;
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i]) {
-      extend(res, arr[i]);
+    const res = {} as MergeAll<T>;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i]) {
+            extend(res, arr[i]);
+        }
     }
-  }
-  return res;
+    return res;
 }
