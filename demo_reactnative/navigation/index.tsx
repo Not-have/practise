@@ -4,6 +4,7 @@ import Icons from 'react-native-vector-icons/AntDesign';
 
 import Home from '../pages/home';
 import Mine from '../pages/mine';
+import Details from '../pages/details';
 
 export default function Navigation() {
     const Tab = createBottomTabNavigator();
@@ -15,8 +16,9 @@ export default function Navigation() {
                 component={Home}
                 options={{
                     tabBarLabel: '首页',
-                    tabBarIcon: () => (
-                        <Icons name="stepbackward" color={'#2e95d3'} />
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <Icons name="home" color={color} />
                     )
                 }}
             />
@@ -25,9 +27,12 @@ export default function Navigation() {
                 component={Mine}
                 options={{
                     tabBarLabel: '我的',
-                    tabBarIcon: () => <Icons name="adduser" color={'#2e95d3'} />
+                    tabBarIcon: ({ color }) => (
+                        <Icons name="adduser" color={color} />
+                    )
                 }}
             />
+            <Tab.Screen name="Details" component={Details} />
         </Tab.Navigator>
     );
 }
