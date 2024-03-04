@@ -1,0 +1,45 @@
+import { useI18n } from '@/hooks/web/useI18n';
+const { t } = useI18n();
+export const modalProps = {
+    open: { type: Boolean },
+    scrollTop: { type: Boolean, default: true },
+    height: { type: Number },
+    minHeight: { type: Number },
+    draggable: { type: Boolean, default: true },
+    centered: { type: Boolean },
+    cancelText: { type: String, default: t('common.cancelText') },
+    okText: { type: String, default: t('common.okText') },
+    closeFunc: Function
+};
+export const basicProps = Object.assign({}, modalProps, {
+    defaultFullscreen: { type: Boolean },
+    canFullscreen: { type: Boolean, default: true },
+    wrapperFooterOffset: { type: Number, default: 0 },
+    helpMessage: [String, Array],
+    useWrapper: { type: Boolean, default: true },
+    loading: { type: Boolean },
+    loadingTip: { type: String },
+    showCancelBtn: { type: Boolean, default: true },
+    showOkBtn: { type: Boolean, default: true },
+    wrapperProps: Object,
+    afterClose: Function,
+    bodyStyle: Object,
+    closable: { type: Boolean, default: true },
+    closeIcon: Object,
+    confirmLoading: { type: Boolean },
+    destroyOnClose: { type: Boolean },
+    footer: Object,
+    getContainer: Function,
+    mask: { type: Boolean, default: true },
+    maskClosable: { type: Boolean, default: true },
+    keyboard: { type: Boolean, default: true },
+    maskStyle: Object,
+    okType: { type: String, default: 'primary' },
+    okButtonProps: Object,
+    cancelButtonProps: Object,
+    title: { type: String },
+    open: { type: Boolean },
+    width: [String, Number],
+    wrapClassName: { type: String },
+    zIndex: { type: Number }
+});
