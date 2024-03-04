@@ -8,10 +8,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
+import Icons from 'react-native-vector-icons/AntDesign';
+
 function App(): React.JSX.Element {
     return (
         <View>
-            <Text>1122</Text>
+            <Text>1122111</Text>
+            <Icons name="stepforward" size={50} color="red" />
         </View>
     );
 }
