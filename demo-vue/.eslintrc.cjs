@@ -1,7 +1,7 @@
 module.exports = {
-  root: true,
-  extends: ['@vben'],
-  rules: {
-    'no-undef': 'off'
-  }
+    root: true,
+    extends: ['@vben'],
+    rules: {
+        'no-undef': 'off'
+    }
 };
