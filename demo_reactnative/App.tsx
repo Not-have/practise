@@ -6,16 +6,15 @@
  */
 
 import React from 'react';
-import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 
-import Icons from 'react-native-vector-icons/AntDesign';
+import Navigation from './navigation';
 
 function App(): React.JSX.Element {
     return (
-        <View>
-            <Text>1122111</Text>
-            <Icons name="stepforward" size={50} color="red" />
-        </View>
+        <NavigationContainer>
+            <Navigation />
+        </NavigationContainer>
     );
 }
 
