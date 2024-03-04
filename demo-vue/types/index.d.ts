@@ -1,17 +1,17 @@
 declare interface Fn<T = any, R = T> {
-    (...arg: T[]): R;
+  (...arg: T[]): R;
 }
 
 declare interface PromiseFn<T = any, R = T> {
-    (...arg: T[]): Promise<R>;
+  (...arg: T[]): Promise<R>;
 }
 
 declare type RefType<T> = T | null;
 
 declare type LabelValueOptions = {
-    label: string;
-    value: any;
-    [key: string]: string | number | boolean;
+  label: string;
+  value: any;
+  [key: string]: string | number | boolean;
 }[];
 
 declare type EmitType = ReturnType<typeof defineEmits>;
@@ -19,7 +19,7 @@ declare type EmitType = ReturnType<typeof defineEmits>;
 declare type TargetContext = '_self' | '_blank';
 
 declare interface ComponentElRef<T extends HTMLElement = HTMLDivElement> {
-    $el: T;
+  $el: T;
 }
 
 declare type ComponentRef<T extends HTMLElement = HTMLDivElement> = ComponentElRef<T> | null;

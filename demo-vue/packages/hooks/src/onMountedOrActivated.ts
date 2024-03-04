@@ -6,20 +6,20 @@ import { nextTick, onActivated, onMounted } from 'vue';
  * @param hook 任何函数（包括异步函数）
  */
 function onMountedOrActivated(hook: AnyFunction) {
-    let mounted: boolean;
+  let mounted: boolean;
 
-    onMounted(() => {
-        hook();
-        nextTick(() => {
-            mounted = true;
-        });
+  onMounted(() => {
+    hook();
+    nextTick(() => {
+      mounted = true;
     });
+  });
 
-    onActivated(() => {
-        if (mounted) {
-            hook();
-        }
-    });
+  onActivated(() => {
+    if (mounted) {
+      hook();
+    }
+  });
 }
 
 export { onMountedOrActivated };

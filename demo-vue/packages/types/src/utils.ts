@@ -32,7 +32,7 @@ type Recordable<T = any> = Record<string, T>;
  * 字符串类型对象（只读）
  */
 interface ReadonlyRecordable<T = any> {
-    readonly [key: string]: T;
+  readonly [key: string]: T;
 }
 
 /**
@@ -46,13 +46,13 @@ type TimeoutHandle = ReturnType<typeof setTimeout>;
 type IntervalHandle = ReturnType<typeof setInterval>;
 
 export {
-    type AnyFunction,
-    type AnyNormalFunction,
-    type AnyPromiseFunction,
-    type IntervalHandle,
-    type NonNullable,
-    type Nullable,
-    type ReadonlyRecordable,
-    type Recordable,
-    type TimeoutHandle
+  type AnyFunction,
+  type AnyNormalFunction,
+  type AnyPromiseFunction,
+  type IntervalHandle,
+  type NonNullable,
+  type Nullable,
+  type ReadonlyRecordable,
+  type Recordable,
+  type TimeoutHandle,
 };

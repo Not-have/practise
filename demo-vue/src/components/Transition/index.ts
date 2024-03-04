@@ -17,11 +17,11 @@ export const ScrollXReverseTransition = createSimpleTransition('scroll-x-reverse
 export const ScaleRotateTransition = createSimpleTransition('scale-rotate-transition');
 
 export const ExpandXTransition = createJavascriptTransition(
-    'expand-x-transition',
-    ExpandTransitionGenerator('', true)
+  'expand-x-transition',
+  ExpandTransitionGenerator('', true),
 );
 
 export const ExpandTransition = createJavascriptTransition(
-    'expand-transition',
-    ExpandTransitionGenerator('')
+  'expand-transition',
+  ExpandTransitionGenerator(''),
 );

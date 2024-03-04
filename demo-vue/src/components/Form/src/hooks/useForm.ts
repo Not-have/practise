@@ -1,8 +1,8 @@
 import type {
-    FormProps,
-    FormActionType,
-    UseFormReturnType,
-    FormSchemaInner as FormSchema
+  FormProps,
+  FormActionType,
+  UseFormReturnType,
+  FormSchemaInner as FormSchema,
 } from '../types/form';
 import type { NamePath } from 'ant-design-vue/lib/form/interface';
 import type { DynamicProps } from '#/utils';
@@ -16,112 +16,112 @@ export declare type ValidateFields = (nameList?: NamePath[]) => Promise<Recordab
 type Props = Partial<DynamicProps<FormProps>>;
 
 export function useForm(props?: Props): UseFormReturnType {
-    const formRef = ref<Nullable<FormActionType>>(null);
-    const loadedRef = ref<Nullable<boolean>>(false);
+  const formRef = ref<Nullable<FormActionType>>(null);
+  const loadedRef = ref<Nullable<boolean>>(false);
 
-    async function getForm() {
-        const form = unref(formRef);
-        if (!form) {
-            error(
-                'The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!'
-            );
-        }
-        await nextTick();
-        return form as FormActionType;
+  async function getForm() {
+    const form = unref(formRef);
+    if (!form) {
+      error(
+        'The form instance has not been obtained, please make sure that the form has been rendered when performing the form operation!',
+      );
     }
+    await nextTick();
+    return form as FormActionType;
+  }
 
-    function register(instance: FormActionType) {
-        isProdMode() &&
-            onUnmounted(() => {
-                formRef.value = null;
-                loadedRef.value = null;
-            });
-        if (unref(loadedRef) && isProdMode() && instance === unref(formRef)) return;
+  function register(instance: FormActionType) {
+    isProdMode() &&
+      onUnmounted(() => {
+        formRef.value = null;
+        loadedRef.value = null;
+      });
+    if (unref(loadedRef) && isProdMode() && instance === unref(formRef)) return;
 
-        formRef.value = instance;
-        loadedRef.value = true;
+    formRef.value = instance;
+    loadedRef.value = true;
 
-        watch(
-            () => props,
-            () => {
-                props && instance.setProps(getDynamicProps(props));
-            },
-            {
-                immediate: true,
-                deep: true
-            }
-        );
-    }
+    watch(
+      () => props,
+      () => {
+        props && instance.setProps(getDynamicProps(props));
+      },
+      {
+        immediate: true,
+        deep: true,
+      },
+    );
+  }
 
-    const methods: FormActionType = {
-        scrollToField: async (name: NamePath, options?: ScrollOptions | undefined) => {
-            const form = await getForm();
-            form.scrollToField(name, options);
-        },
-        setProps: async (formProps: Partial<FormProps>) => {
-            const form = await getForm();
-            form.setProps(formProps);
-        },
+  const methods: FormActionType = {
+    scrollToField: async (name: NamePath, options?: ScrollOptions | undefined) => {
+      const form = await getForm();
+      form.scrollToField(name, options);
+    },
+    setProps: async (formProps: Partial<FormProps>) => {
+      const form = await getForm();
+      form.setProps(formProps);
+    },
 
-        updateSchema: async (data: Partial<FormSchema> | Partial<FormSchema>[]) => {
-            const form = await getForm();
-            form.updateSchema(data);
-        },
+    updateSchema: async (data: Partial<FormSchema> | Partial<FormSchema>[]) => {
+      const form = await getForm();
+      form.updateSchema(data);
+    },
 
-        resetSchema: async (data: Partial<FormSchema> | Partial<FormSchema>[]) => {
-            const form = await getForm();
-            form.resetSchema(data);
-        },
+    resetSchema: async (data: Partial<FormSchema> | Partial<FormSchema>[]) => {
+      const form = await getForm();
+      form.resetSchema(data);
+    },
 
-        clearValidate: async (name?: string | string[]) => {
-            const form = await getForm();
-            form.clearValidate(name);
-        },
+    clearValidate: async (name?: string | string[]) => {
+      const form = await getForm();
+      form.clearValidate(name);
+    },
 
-        resetFields: async () => {
-            getForm().then(async form => {
-                await form.resetFields();
-            });
-        },
+    resetFields: async () => {
+      getForm().then(async (form) => {
+        await form.resetFields();
+      });
+    },
 
-        removeSchemaByField: async (field: string | string[]) => {
-            unref(formRef)?.removeSchemaByField(field);
-        },
+    removeSchemaByField: async (field: string | string[]) => {
+      unref(formRef)?.removeSchemaByField(field);
+    },
 
-        // TODO promisify
-        getFieldsValue: <T>() => {
-            return unref(formRef)?.getFieldsValue() as T;
-        },
+    // TODO promisify
+    getFieldsValue: <T>() => {
+      return unref(formRef)?.getFieldsValue() as T;
+    },
 
-        setFieldsValue: async <T extends Recordable<any>>(values: T) => {
-            const form = await getForm();
-            form.setFieldsValue(values);
-        },
+    setFieldsValue: async <T extends Recordable<any>>(values: T) => {
+      const form = await getForm();
+      form.setFieldsValue(values);
+    },
 
-        appendSchemaByField: async (
-            schema: FormSchema | FormSchema[],
-            prefixField: string | undefined,
-            first?: boolean
-        ) => {
-            const form = await getForm();
-            form.appendSchemaByField(schema, prefixField, first);
-        },
+    appendSchemaByField: async (
+      schema: FormSchema | FormSchema[],
+      prefixField: string | undefined,
+      first?: boolean,
+    ) => {
+      const form = await getForm();
+      form.appendSchemaByField(schema, prefixField, first);
+    },
 
-        submit: async (): Promise<any> => {
-            const form = await getForm();
-            return form.submit();
-        },
+    submit: async (): Promise<any> => {
+      const form = await getForm();
+      return form.submit();
+    },
 
-        validate: async <T = Recordable>(nameList?: NamePath[] | false): Promise<T> => {
-            const form = await getForm();
-            return form.validate(nameList);
-        },
+    validate: async <T = Recordable>(nameList?: NamePath[] | false): Promise<T> => {
+      const form = await getForm();
+      return form.validate(nameList);
+    },
 
-        validateFields: async (nameList?: NamePath[]): Promise<Recordable> => {
-            const form = await getForm();
-            return form.validateFields(nameList);
-        }
-    };
+    validateFields: async (nameList?: NamePath[]): Promise<Recordable> => {
+      const form = await getForm();
+      return form.validateFields(nameList);
+    },
+  };
 
-    return [register, methods];
+  return [register, methods];
 }

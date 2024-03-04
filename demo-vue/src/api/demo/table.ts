@@ -2,7 +2,7 @@ import { defHttp } from '@/utils/http/axios';
 import { DemoParams, DemoListGetResultModel } from './model/tableModel';
 
 enum Api {
-    DEMO_LIST = '/table/getDemoList'
+  DEMO_LIST = '/table/getDemoList',
 }
 
 /**
@@ -10,11 +10,11 @@ enum Api {
  */
 
 export const demoListApi = (params: DemoParams) =>
-    defHttp.get<DemoListGetResultModel>({
-        url: Api.DEMO_LIST,
-        params,
-        headers: {
-            // @ts-ignore
-            ignoreCancelToken: true
-        }
-    });
+  defHttp.get<DemoListGetResultModel>({
+    url: Api.DEMO_LIST,
+    params,
+    headers: {
+      // @ts-ignore
+      ignoreCancelToken: true,
+    },
+  });

@@ -14,8 +14,8 @@ import { cacheCipher, SHOULD_ENABLE_STORAGE_ENCRYPTION } from '@/settings/encryp
 export const PERSIST_KEY_PREFIX = getCommonStoragePrefix();
 
 const persistEncryption: Encryption = EncryptionFactory.createAesEncryption({
-    key: cacheCipher.key,
-    iv: cacheCipher.iv
+  key: cacheCipher.key,
+  iv: cacheCipher.iv,
 });
 
 /**
@@ -26,27 +26,27 @@ const persistEncryption: Encryption = EncryptionFactory.createAesEncryption({
  * @returns serializer
  */
 function customSerializer(shouldEnableEncryption: boolean): Serializer {
-    if (shouldEnableEncryption) {
-        return {
-            deserialize: value => {
-                const decrypted = persistEncryption.decrypt(value);
-                return JSON.parse(decrypted);
-            },
-            serialize: value => {
-                const serialized = JSON.stringify(value);
-                return persistEncryption.encrypt(serialized);
-            }
-        };
-    } else {
-        return {
-            deserialize: value => {
-                return JSON.parse(value);
-            },
-            serialize: value => {
-                return JSON.stringify(value);
-            }
-        };
-    }
+  if (shouldEnableEncryption) {
+    return {
+      deserialize: (value) => {
+        const decrypted = persistEncryption.decrypt(value);
+        return JSON.parse(decrypted);
+      },
+      serialize: (value) => {
+        const serialized = JSON.stringify(value);
+        return persistEncryption.encrypt(serialized);
+      },
+    };
+  } else {
+    return {
+      deserialize: (value) => {
+        return JSON.parse(value);
+      },
+      serialize: (value) => {
+        return JSON.stringify(value);
+      },
+    };
+  }
 }
 
 /**
@@ -56,7 +56,7 @@ function customSerializer(shouldEnableEncryption: boolean): Serializer {
  * @param pinia Pinia instance Pinia 实例
  */
 export function registerPiniaPersistPlugin(pinia: Pinia) {
-    pinia.use(createPersistedState(createPersistedStateOptions(PERSIST_KEY_PREFIX)));
+  pinia.use(createPersistedState(createPersistedStateOptions(PERSIST_KEY_PREFIX)));
 }
 
 /**
@@ -67,9 +67,9 @@ export function registerPiniaPersistPlugin(pinia: Pinia) {
  * @returns persisted state factory options
  */
 export function createPersistedStateOptions(keyPrefix: string): PersistedStateFactoryOptions {
-    return {
-        storage: localStorage,
-        key: id => `${keyPrefix}__${id}`,
-        serializer: customSerializer(SHOULD_ENABLE_STORAGE_ENCRYPTION)
-    };
+  return {
+    storage: localStorage,
+    key: (id) => `${keyPrefix}__${id}`,
+    serializer: customSerializer(SHOULD_ENABLE_STORAGE_ENCRYPTION),
+  };
 }

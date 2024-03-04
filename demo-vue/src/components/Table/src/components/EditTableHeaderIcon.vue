@@ -1,16 +1,16 @@
 <template>
-    <span class="edit-header-cell">
-        <slot></slot>
-        {{ title }}
-        <FormOutlined />
-    </span>
+  <span class="edit-header-cell">
+    <slot></slot>
+    {{ title }}
+    <FormOutlined />
+  </span>
 </template>
 <script lang="ts" setup>
-import { FormOutlined } from '@ant-design/icons-vue';
+  import { FormOutlined } from '@ant-design/icons-vue';
 
-defineOptions({ name: 'EditTableHeaderIcon' });
+  defineOptions({ name: 'EditTableHeaderIcon' });
 
-defineProps({
-    title: { type: String, default: '' }
-});
+  defineProps({
+    title: { type: String, default: '' },
+  });
 </script>

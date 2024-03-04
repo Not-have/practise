@@ -5,24 +5,24 @@ import { IconPicker } from '@/components/Icon';
  * Component list, register here to setting it in the form
  */
 import {
-    Input,
-    Button,
-    Select,
-    Radio,
-    Checkbox,
-    AutoComplete,
-    Cascader,
-    DatePicker,
-    InputNumber,
-    Switch,
-    TimePicker,
-    // ColorPicker,
-    TreeSelect,
-    Slider,
-    Rate,
-    Divider,
-    Calendar,
-    Transfer
+  Input,
+  Button,
+  Select,
+  Radio,
+  Checkbox,
+  AutoComplete,
+  Cascader,
+  DatePicker,
+  InputNumber,
+  Switch,
+  TimePicker,
+  // ColorPicker,
+  TreeSelect,
+  Slider,
+  Rate,
+  Divider,
+  Calendar,
+  Transfer,
 } from 'ant-design-vue';
 
 //ant-desing本身的Form控件库
@@ -59,11 +59,11 @@ componentMap.set('IconPicker', IconPicker);
 componentMap.set('Divider', Divider);
 
 export function add(compName: ComponentType, component: Component) {
-    componentMap.set(compName, component);
+  componentMap.set(compName, component);
 }
 
 export function del(compName: ComponentType) {
-    componentMap.delete(compName);
+  componentMap.delete(compName);
 }
 
 export { componentMap };

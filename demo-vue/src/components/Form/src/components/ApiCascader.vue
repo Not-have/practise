@@ -1,53 +1,53 @@
 <template>
-    <Cascader
-        v-model:value="state"
-        :options="options"
-        :load-data="loadData"
-        change-on-select
-        @change="handleChange"
-        :displayRender="handleRenderDisplay"
-    >
-        <template #suffixIcon v-if="loading">
-            <LoadingOutlined spin />
-        </template>
-        <template #notFoundContent v-if="loading">
-            <span>
-                <LoadingOutlined spin class="mr-1" />
-                {{ t('component.form.apiSelectNotFound') }}
-            </span>
-        </template>
-    </Cascader>
+  <Cascader
+    v-model:value="state"
+    :options="options"
+    :load-data="loadData"
+    change-on-select
+    @change="handleChange"
+    :displayRender="handleRenderDisplay"
+  >
+    <template #suffixIcon v-if="loading">
+      <LoadingOutlined spin />
+    </template>
+    <template #notFoundContent v-if="loading">
+      <span>
+        <LoadingOutlined spin class="mr-1" />
+        {{ t('component.form.apiSelectNotFound') }}
+      </span>
+    </template>
+  </Cascader>
 </template>
 <script lang="ts" setup>
-import { type Recordable } from '@vben/types';
-import { PropType, ref, unref, watch } from 'vue';
-import { Cascader } from 'ant-design-vue';
-import type { CascaderProps } from 'ant-design-vue';
-import { propTypes } from '@/utils/propTypes';
-import { isFunction } from '@/utils/is';
-import { get, omit } from 'lodash-es';
-import { useRuleFormItem } from '@/hooks/component/useFormItem';
-import { LoadingOutlined } from '@ant-design/icons-vue';
-import { useI18n } from '@/hooks/web/useI18n';
+  import { type Recordable } from '@vben/types';
+  import { PropType, ref, unref, watch } from 'vue';
+  import { Cascader } from 'ant-design-vue';
+  import type { CascaderProps } from 'ant-design-vue';
+  import { propTypes } from '@/utils/propTypes';
+  import { isFunction } from '@/utils/is';
+  import { get, omit } from 'lodash-es';
+  import { useRuleFormItem } from '@/hooks/component/useFormItem';
+  import { LoadingOutlined } from '@ant-design/icons-vue';
+  import { useI18n } from '@/hooks/web/useI18n';
 
-interface Option {
+  interface Option {
     value?: string;
     label?: string;
     loading?: boolean;
     isLeaf?: boolean;
     children?: Option[];
     [key: string]: any;
-}
+  }
 
-defineOptions({ name: 'ApiCascader' });
+  defineOptions({ name: 'ApiCascader' });
 
-const props = defineProps({
+  const props = defineProps({
     value: {
-        type: Array
+      type: Array,
     },
     api: {
-        type: Function as PropType<(arg?: any) => Promise<Option[]>>,
-        default: null
+      type: Function as PropType<(arg?: any) => Promise<Option[]>>,
+      default: null,
     },
     numberToString: propTypes.bool,
     resultField: propTypes.string.def(''),
@@ -58,137 +58,137 @@ const props = defineProps({
     immediate: propTypes.bool.def(true),
     // init fetch params
     initFetchParams: {
-        type: Object as PropType<Recordable<any>>,
-        default: () => ({})
+      type: Object as PropType<Recordable<any>>,
+      default: () => ({}),
     },
     // 是否有下级，默认是
     isLeaf: {
-        type: Function as PropType<(arg: Recordable<any>) => boolean>,
-        default: null
+      type: Function as PropType<(arg: Recordable<any>) => boolean>,
+      default: null,
     },
     displayRenderArray: {
-        type: Array
-    }
-});
-
-const emit = defineEmits(['change', 'defaultChange']);
-
-const apiData = ref<any[]>([]);
-const options = ref<Option[]>([]);
-const loading = ref<boolean>(false);
-const emitData = ref<any[]>([]);
-const isFirstLoad = ref(true);
-const { t } = useI18n();
-// Embedded in the form, just use the hook binding to perform form verification
-const [state]: any = useRuleFormItem(props, 'value', 'change', emitData);
-
-watch(
-    apiData,
-    data => {
-        const opts = generatorOptions(data);
-        options.value = opts;
+      type: Array,
     },
-    { deep: true }
-);
+  });
 
-function generatorOptions(options: any[]): Option[] {
+  const emit = defineEmits(['change', 'defaultChange']);
+
+  const apiData = ref<any[]>([]);
+  const options = ref<Option[]>([]);
+  const loading = ref<boolean>(false);
+  const emitData = ref<any[]>([]);
+  const isFirstLoad = ref(true);
+  const { t } = useI18n();
+  // Embedded in the form, just use the hook binding to perform form verification
+  const [state]: any = useRuleFormItem(props, 'value', 'change', emitData);
+
+  watch(
+    apiData,
+    (data) => {
+      const opts = generatorOptions(data);
+      options.value = opts;
+    },
+    { deep: true },
+  );
+
+  function generatorOptions(options: any[]): Option[] {
     const { labelField, valueField, numberToString, childrenField, isLeaf } = props;
     return options.reduce((prev, next: Recordable<any>) => {
-        if (next) {
-            const value = next[valueField];
-            const item = {
-                ...omit(next, [labelField, valueField]),
-                label: next[labelField],
-                value: numberToString ? `${value}` : value,
-                isLeaf: isLeaf && typeof isLeaf === 'function' ? isLeaf(next) : false
-            };
-            const children = Reflect.get(next, childrenField);
-            if (children) {
-                Reflect.set(item, childrenField, generatorOptions(children));
-            }
-            prev.push(item);
+      if (next) {
+        const value = next[valueField];
+        const item = {
+          ...omit(next, [labelField, valueField]),
+          label: next[labelField],
+          value: numberToString ? `${value}` : value,
+          isLeaf: isLeaf && typeof isLeaf === 'function' ? isLeaf(next) : false,
+        };
+        const children = Reflect.get(next, childrenField);
+        if (children) {
+          Reflect.set(item, childrenField, generatorOptions(children));
         }
-        return prev;
+        prev.push(item);
+      }
+      return prev;
     }, [] as Option[]);
-}
+  }
 
-async function initialFetch() {
+  async function initialFetch() {
     const api = props.api;
     if (!api || !isFunction(api)) return;
     apiData.value = [];
     loading.value = true;
     try {
-        const res = await api(props.initFetchParams);
-        if (Array.isArray(res)) {
-            apiData.value = res;
-            return;
-        }
-        if (props.resultField) {
-            apiData.value = get(res, props.resultField) || [];
-        }
+      const res = await api(props.initFetchParams);
+      if (Array.isArray(res)) {
+        apiData.value = res;
+        return;
+      }
+      if (props.resultField) {
+        apiData.value = get(res, props.resultField) || [];
+      }
     } catch (error) {
-        console.warn(error);
+      console.warn(error);
     } finally {
-        loading.value = false;
+      loading.value = false;
     }
-}
+  }
 
-const loadData: CascaderProps['loadData'] = async selectedOptions => {
+  const loadData: CascaderProps['loadData'] = async (selectedOptions) => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
 
     const api = props.api;
     if (!api || !isFunction(api)) return;
     try {
-        const res = await api({
-            [props.apiParamKey]: Reflect.get(targetOption, 'value')
-        });
-        if (Array.isArray(res)) {
-            const children = generatorOptions(res);
-            targetOption.children = children;
-            return;
-        }
-        if (props.resultField) {
-            const children = generatorOptions(get(res, props.resultField) || []);
-            targetOption.children = children;
-        }
+      const res = await api({
+        [props.apiParamKey]: Reflect.get(targetOption, 'value'),
+      });
+      if (Array.isArray(res)) {
+        const children = generatorOptions(res);
+        targetOption.children = children;
+        return;
+      }
+      if (props.resultField) {
+        const children = generatorOptions(get(res, props.resultField) || []);
+        targetOption.children = children;
+      }
     } catch (e) {
-        console.error(e);
+      console.error(e);
     } finally {
-        targetOption.loading = false;
+      targetOption.loading = false;
     }
-};
+  };
 
-watch(
+  watch(
     () => props.immediate,
     () => {
-        props.immediate && initialFetch();
+      props.immediate && initialFetch();
     },
     {
-        immediate: true
-    }
-);
+      immediate: true,
+    },
+  );
 
-watch(
+  watch(
     () => props.initFetchParams,
     () => {
-        !unref(isFirstLoad) && initialFetch();
+      !unref(isFirstLoad) && initialFetch();
     },
-    { deep: true }
-);
+    { deep: true },
+  );
 
-function handleChange(keys, args) {
+  function handleChange(keys, args) {
     emitData.value = args;
     emit('defaultChange', keys, args);
-}
+  }
 
-const handleRenderDisplay: CascaderProps['displayRender'] = ({ labels, selectedOptions }) => {
+  const handleRenderDisplay: CascaderProps['displayRender'] = ({ labels, selectedOptions }) => {
     if (unref(emitData).length === selectedOptions?.length) {
-        return labels.join(' / ');
+      return labels.join(' / ');
     }
     if (props.displayRenderArray) {
-        return props.displayRenderArray.join(' / ');
+      return props.displayRenderArray.join(' / ');
     }
     return '';
-};
+  };
 </script>

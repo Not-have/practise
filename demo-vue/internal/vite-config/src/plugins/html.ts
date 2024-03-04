@@ -6,8 +6,8 @@ import type { PluginOption } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
 export function configHtmlPlugin({ isBuild }: { isBuild: boolean }) {
-    const htmlPlugin: PluginOption[] = createHtmlPlugin({
-        minify: isBuild
-    });
-    return htmlPlugin;
+  const htmlPlugin: PluginOption[] = createHtmlPlugin({
+    minify: isBuild,
+  });
+  return htmlPlugin;
 }

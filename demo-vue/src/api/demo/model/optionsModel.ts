@@ -1,12 +1,12 @@
 import { BasicFetchResult } from '@/api/model/baseModel';
 
 export interface DemoOptionsItem {
-    name: string;
-    id: string;
+  name: string;
+  id: string;
 }
 
 export interface selectParams {
-    id: number | string;
+  id: number | string;
 }
 
 /**

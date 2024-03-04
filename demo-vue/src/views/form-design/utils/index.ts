@@ -22,14 +22,14 @@ import { cloneDeep, isArray, isFunction, isNumber, uniqueId } from 'lodash-es';
  * @returns {string|boolean} 返回一个唯一 id 或者 false
  */
 export function generateKey(formItem?: IVFormComponent): string | boolean {
-    if (formItem && formItem.component) {
-        const key = uniqueId(`${toLine(formItem.component)}_`);
-        formItem.key = key;
-        formItem.field = key;
+  if (formItem && formItem.component) {
+    const key = uniqueId(`${toLine(formItem.component)}_`);
+    formItem.key = key;
+    formItem.field = key;
 
-        return true;
-    }
-    return uniqueId('key_');
+    return true;
+  }
+  return uniqueId('key_');
 }
 
 /**
@@ -39,20 +39,20 @@ export function generateKey(formItem?: IVFormComponent): string | boolean {
  * @returns {T} 返回删除的数组项
  */
 export function remove<T>(
-    array: Array<T>,
-    value: number | ((item: T, index: number, array: Array<T>) => boolean)
+  array: Array<T>,
+  value: number | ((item: T, index: number, array: Array<T>) => boolean),
 ): T | undefined {
-    let removeVal: Array<T | undefined> = [];
-    if (!isArray(array)) return undefined;
-    if (isNumber(value)) {
-        removeVal = array.splice(value, 1);
-    } else {
-        const index = array.findIndex(value);
-        if (index !== -1) {
-            removeVal = array.splice(index, 1);
-        }
+  let removeVal: Array<T | undefined> = [];
+  if (!isArray(array)) return undefined;
+  if (isNumber(value)) {
+    removeVal = array.splice(value, 1);
+  } else {
+    const index = array.findIndex(value);
+    if (index !== -1) {
+      removeVal = array.splice(index, 1);
     }
-    return removeVal.shift();
+  }
+  return removeVal.shift();
 }
 
 /**
@@ -60,7 +60,7 @@ export function remove<T>(
  * @param value
  */
 export function getType(value: any): string {
-    return Object.prototype.toString.call(value).slice(8, -1);
+  return Object.prototype.toString.call(value).slice(8, -1);
 }
 
 /**
@@ -68,10 +68,10 @@ export function getType(value: any): string {
  * @returns {String} 唯一id标识符
  */
 export function randomUUID(): string {
-    function S4() {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    }
-    return `${S4() + S4()}-${S4()}-${S4()}-${S4()}-${S4() + S4() + S4()}`;
+  function S4() {
+    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  }
+  return `${S4() + S4()}-${S4()}-${S4()}-${S4()}-${S4() + S4() + S4()}`;
 }
 
 /**
@@ -79,7 +79,7 @@ export function randomUUID(): string {
  * @param str
  */
 export function toLine(str: string) {
-    return str.replace(/([A-Z])/g, '_$1').toLowerCase();
+  return str.replace(/([A-Z])/g, '_$1').toLowerCase();
 }
 
 /**
@@ -88,41 +88,41 @@ export function toLine(str: string) {
  * @param cb
  */
 export function formItemsForEach(array: IVFormComponent[], cb: (item: IVFormComponent) => void) {
-    if (!isArray(array)) return;
-    const traverse = (schemas: IVFormComponent[]) => {
-        schemas.forEach((formItem: IVFormComponent) => {
-            if (['Grid'].includes(formItem.component)) {
-                // 栅格布局
-                formItem.columns?.forEach(item => traverse(item.children));
-            } else {
-                cb(formItem);
-            }
-        });
-    };
-    traverse(array);
+  if (!isArray(array)) return;
+  const traverse = (schemas: IVFormComponent[]) => {
+    schemas.forEach((formItem: IVFormComponent) => {
+      if (['Grid'].includes(formItem.component)) {
+        // 栅格布局
+        formItem.columns?.forEach((item) => traverse(item.children));
+      } else {
+        cb(formItem);
+      }
+    });
+  };
+  traverse(array);
 }
 
 /**
  * 查找表单项
  */
 export const findFormItem: (
-    schemas: IVFormComponent[],
-    cb: (formItem: IVFormComponent) => boolean
+  schemas: IVFormComponent[],
+  cb: (formItem: IVFormComponent) => boolean,
 ) => IVFormComponent | undefined = (schemas, cb) => {
-    let res;
-    const traverse = (schemas: IVFormComponent[]): boolean => {
-        return schemas.some((formItem: IVFormComponent) => {
-            const { component: type } = formItem;
-            // 处理栅格
-            if (['Grid'].includes(type)) {
-                return formItem.columns?.some(item => traverse(item.children));
-            }
-            if (cb(formItem)) res = formItem;
-            return cb(formItem);
-        });
-    };
-    traverse(schemas);
-    return res;
+  let res;
+  const traverse = (schemas: IVFormComponent[]): boolean => {
+    return schemas.some((formItem: IVFormComponent) => {
+      const { component: type } = formItem;
+      // 处理栅格
+      if (['Grid'].includes(type)) {
+        return formItem.columns?.some((item) => traverse(item.children));
+      }
+      if (cb(formItem)) res = formItem;
+      return cb(formItem);
+    });
+  };
+  traverse(schemas);
+  return res;
 };
 
 /**
@@ -131,15 +131,15 @@ export const findFormItem: (
  * @returns {IFormConfig}
  */
 export const removeAttrs = (formConfig: IFormConfig): IFormConfig => {
-    const copyFormConfig = cloneDeep(formConfig);
-    delete copyFormConfig.currentItem;
-    delete copyFormConfig.activeKey;
-    copyFormConfig.schemas &&
-        formItemsForEach(copyFormConfig.schemas, item => {
-            delete item.icon;
-            delete item.key;
-        });
-    return copyFormConfig;
+  const copyFormConfig = cloneDeep(formConfig);
+  delete copyFormConfig.currentItem;
+  delete copyFormConfig.activeKey;
+  copyFormConfig.schemas &&
+    formItemsForEach(copyFormConfig.schemas, (item) => {
+      delete item.icon;
+      delete item.key;
+    });
+  return copyFormConfig;
 };
 
 /**
@@ -148,14 +148,14 @@ export const removeAttrs = (formConfig: IFormConfig): IFormConfig => {
  * @return {Promise<any[]>}
  */
 export const handleAsyncOptions = async (
-    options: (() => Promise<any[]>) | any[]
+  options: (() => Promise<any[]>) | any[],
 ): Promise<any[]> => {
-    try {
-        if (isFunction(options)) return await options();
-        return options;
-    } catch {
-        return [];
-    }
+  try {
+    if (isFunction(options)) return await options();
+    return options;
+  } catch {
+    return [];
+  }
 };
 
 /**
@@ -163,14 +163,14 @@ export const handleAsyncOptions = async (
  * @param {IVFormComponent[]} schemas
  */
 export const formatRules = (schemas: IVFormComponent[]) => {
-    formItemsForEach(schemas, item => {
-        if ('required' in item) {
-            !isArray(item.rules) && (item.rules = []);
-            item.rules.push({ required: true, message: item.message });
-            delete item['required'];
-            delete item['message'];
-        }
-    });
+  formItemsForEach(schemas, (item) => {
+    if ('required' in item) {
+      !isArray(item.rules) && (item.rules = []);
+      item.rules.push({ required: true, message: item.message });
+      delete item['required'];
+      delete item['message'];
+    }
+  });
 };
 
 /**
@@ -179,11 +179,11 @@ export const formatRules = (schemas: IVFormComponent[]) => {
  * @return {IValidationRule[]}
  */
 export const strToReg = (rules: IValidationRule[]) => {
-    const newRules = cloneDeep(rules);
-    return newRules.map(item => {
-        if (item.pattern) item.pattern = runCode(item.pattern);
-        return item;
-    });
+  const newRules = cloneDeep(rules);
+  return newRules.map((item) => {
+    if (item.pattern) item.pattern = runCode(item.pattern);
+    return item;
+  });
 };
 
 /**
@@ -192,9 +192,9 @@ export const strToReg = (rules: IValidationRule[]) => {
  * @return {any}
  */
 export const runCode = <T>(code: any): T => {
-    try {
-        return new Function(`return ${code}`)();
-    } catch {
-        return code;
-    }
+  try {
+    return new Function(`return ${code}`)();
+  } catch {
+    return code;
+  }
 };

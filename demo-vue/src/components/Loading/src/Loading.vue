@@ -1,50 +1,50 @@
 <template>
-    <section
-        class="full-loading"
-        :class="{ absolute, [`${theme}`]: !!theme }"
-        :style="[background ? `background-color: ${background}` : '']"
-        v-show="loading"
-    >
-        <Spin v-bind="$attrs" :tip="tip" :size="size" :spinning="loading" />
-    </section>
+  <section
+    class="full-loading"
+    :class="{ absolute, [`${theme}`]: !!theme }"
+    :style="[background ? `background-color: ${background}` : '']"
+    v-show="loading"
+  >
+    <Spin v-bind="$attrs" :tip="tip" :size="size" :spinning="loading" />
+  </section>
 </template>
 <script lang="ts" setup>
-import type { PropType } from 'vue';
-import { Spin } from 'ant-design-vue';
-import { SizeEnum } from '@/enums/sizeEnum';
+  import type { PropType } from 'vue';
+  import { Spin } from 'ant-design-vue';
+  import { SizeEnum } from '@/enums/sizeEnum';
 
-defineOptions({ name: 'Loading' });
+  defineOptions({ name: 'Loading' });
 
-defineProps({
+  defineProps({
     tip: {
-        type: String as PropType<string>,
-        default: ''
+      type: String as PropType<string>,
+      default: '',
     },
     size: {
-        type: String as PropType<SizeEnum>,
-        default: SizeEnum.LARGE,
-        validator: (v: SizeEnum): boolean => {
-            return [SizeEnum.DEFAULT, SizeEnum.SMALL, SizeEnum.LARGE].includes(v);
-        }
+      type: String as PropType<SizeEnum>,
+      default: SizeEnum.LARGE,
+      validator: (v: SizeEnum): boolean => {
+        return [SizeEnum.DEFAULT, SizeEnum.SMALL, SizeEnum.LARGE].includes(v);
+      },
     },
     absolute: {
-        type: Boolean as PropType<boolean>,
-        default: false
+      type: Boolean as PropType<boolean>,
+      default: false,
     },
     loading: {
-        type: Boolean as PropType<boolean>,
-        default: false
+      type: Boolean as PropType<boolean>,
+      default: false,
     },
     background: {
-        type: String as PropType<string>
+      type: String as PropType<string>,
     },
     theme: {
-        type: String as PropType<'dark' | 'light'>
-    }
-});
+      type: String as PropType<'dark' | 'light'>,
+    },
+  });
 </script>
 <style lang="less" scoped>
-.full-loading {
+  .full-loading {
     display: flex;
     position: fixed;
     z-index: 200;
@@ -57,20 +57,20 @@ defineProps({
     background-color: rgb(240 242 245 / 40%);
 
     &.absolute {
-        position: absolute;
-        z-index: 300;
-        top: 0;
-        left: 0;
+      position: absolute;
+      z-index: 300;
+      top: 0;
+      left: 0;
     }
-}
+  }
 
-html[data-theme='dark'] {
+  html[data-theme='dark'] {
     .full-loading:not(.light) {
-        background-color: @modal-mask-bg;
+      background-color: @modal-mask-bg;
     }
-}
+  }
 
-.full-loading.dark {
+  .full-loading.dark {
     background-color: @modal-mask-bg;
-}
+  }
 </style>

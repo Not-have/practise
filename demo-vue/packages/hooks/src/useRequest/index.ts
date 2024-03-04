@@ -12,19 +12,19 @@ import { useRequestImplement } from './useRequestImplement';
 export { clearCache } from './utils/cache';
 
 export function useRequest<TData, TParams extends any[]>(
-    service: Service<TData, TParams>,
-    options?: UseRequestOptions<TData, TParams>,
-    plugins?: UseRequestPlugin<TData, TParams>[]
+  service: Service<TData, TParams>,
+  options?: UseRequestOptions<TData, TParams>,
+  plugins?: UseRequestPlugin<TData, TParams>[],
 ) {
-    return useRequestImplement<TData, TParams>(service, options, [
-        ...(plugins || []),
-        useDebouncePlugin,
-        useLoadingDelayPlugin,
-        usePollingPlugin,
-        useRefreshOnWindowFocusPlugin,
-        useThrottlePlugin,
-        useAutoRunPlugin,
-        useCachePlugin,
-        useRetryPlugin
-    ] as UseRequestPlugin<TData, TParams>[]);
+  return useRequestImplement<TData, TParams>(service, options, [
+    ...(plugins || []),
+    useDebouncePlugin,
+    useLoadingDelayPlugin,
+    usePollingPlugin,
+    useRefreshOnWindowFocusPlugin,
+    useThrottlePlugin,
+    useAutoRunPlugin,
+    useCachePlugin,
+    useRetryPlugin,
+  ] as UseRequestPlugin<TData, TParams>[]);
 }

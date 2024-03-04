@@ -5,21 +5,21 @@ import type { ComponentType } from './types';
  * Component list, register here to setting it in the form
  */
 import {
-    AutoComplete,
-    Cascader,
-    Checkbox,
-    DatePicker,
-    Divider,
-    Input,
-    InputNumber,
-    Radio,
-    Rate,
-    Select,
-    Slider,
-    Switch,
-    TimePicker,
-    TreeSelect,
-    Transfer
+  AutoComplete,
+  Cascader,
+  Checkbox,
+  DatePicker,
+  Divider,
+  Input,
+  InputNumber,
+  Radio,
+  Rate,
+  Select,
+  Slider,
+  Switch,
+  TimePicker,
+  TreeSelect,
+  Transfer,
 } from 'ant-design-vue';
 import ApiRadioGroup from './components/ApiRadioGroup.vue';
 import RadioButtonGroup from './components/RadioButtonGroup.vue';
@@ -80,14 +80,14 @@ componentMap.set('CropperAvatar', CropperAvatar);
 componentMap.set('BasicTitle', BasicTitle);
 
 export function add<T extends string, R extends Component>(
-    compName: ComponentType | T,
-    component: R
+  compName: ComponentType | T,
+  component: R,
 ) {
-    componentMap.set(compName, component);
+  componentMap.set(compName, component);
 }
 
 export function del<T extends string>(compName: ComponentType | T) {
-    componentMap.delete(compName);
+  componentMap.delete(compName);
 }
 
 export { componentMap };

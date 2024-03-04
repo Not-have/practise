@@ -1,4 +1,4 @@
 module.exports = {
-    root: true,
-    extends: ['@vben/stylelint-config']
+  root: true,
+  extends: ['@vben/stylelint-config'],
 };

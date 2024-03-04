@@ -1,14 +1,14 @@
 <script lang="tsx">
-import type { CSSProperties, PropType, VNodeChild } from 'vue';
-import { defineComponent, computed, unref } from 'vue';
-import { Tooltip } from 'ant-design-vue';
-import { InfoCircleOutlined } from '@ant-design/icons-vue';
-import { getPopupContainer } from '@/utils';
-import { isString, isArray } from '@/utils/is';
-import { getSlot } from '@/utils/helper/tsxHelper';
-import { useDesign } from '@/hooks/web/useDesign';
+  import type { CSSProperties, PropType, VNodeChild } from 'vue';
+  import { defineComponent, computed, unref } from 'vue';
+  import { Tooltip } from 'ant-design-vue';
+  import { InfoCircleOutlined } from '@ant-design/icons-vue';
+  import { getPopupContainer } from '@/utils';
+  import { isString, isArray } from '@/utils/is';
+  import { getSlot } from '@/utils/helper/tsxHelper';
+  import { useDesign } from '@/hooks/web/useDesign';
 
-const props = {
+  const props = {
     /**
      * Help text max-width
      * @default: 600px
@@ -37,66 +37,66 @@ const props = {
      * Help text list
      */
     text: {
-        type: [Array, String, Object] as PropType<string[] | string | VNodeChild | JSX.Element>
-    }
-};
+      type: [Array, String, Object] as PropType<string[] | string | VNodeChild | JSX.Element>,
+    },
+  };
 
-export default defineComponent({
+  export default defineComponent({
     name: 'BasicHelp',
     components: { Tooltip },
     props,
     setup(props, { slots }) {
-        const { prefixCls } = useDesign('basic-help');
+      const { prefixCls } = useDesign('basic-help');
 
-        const getTooltipStyle = computed(
-            (): CSSProperties => ({ color: props.color, fontSize: props.fontSize })
-        );
+      const getTooltipStyle = computed(
+        (): CSSProperties => ({ color: props.color, fontSize: props.fontSize }),
+      );
 
-        const getOverlayStyle = computed((): CSSProperties => ({ maxWidth: props.maxWidth }));
+      const getOverlayStyle = computed((): CSSProperties => ({ maxWidth: props.maxWidth }));
 
-        function renderTitle() {
-            const textList = props.text;
+      function renderTitle() {
+        const textList = props.text;
 
-            if (isString(textList)) {
-                return <p>{textList}</p>;
-            }
-
-            if (isArray(textList)) {
-                return textList.map((text, index) => {
-                    return (
-                        <p key={text}>
-                            <>
-                                {props.showIndex ? `${index + 1}. ` : ''}
-                                {text}
-                            </>
-                        </p>
-                    );
-                });
-            }
-            return <div>{textList}</div>;
+        if (isString(textList)) {
+          return <p>{textList}</p>;
         }
 
-        return () => {
+        if (isArray(textList)) {
+          return textList.map((text, index) => {
             return (
-                <Tooltip
-                    overlayClassName={`${prefixCls}__wrap`}
-                    title={<div style={unref(getTooltipStyle)}>{renderTitle()}</div>}
-                    autoAdjustOverflow={true}
-                    overlayStyle={unref(getOverlayStyle)}
-                    placement={props.placement as 'right'}
-                    getPopupContainer={() => getPopupContainer()}
-                >
-                    <span class={prefixCls}>{getSlot(slots) || <InfoCircleOutlined />}</span>
-                </Tooltip>
+              <p key={text}>
+                <>
+                  {props.showIndex ? `${index + 1}. ` : ''}
+                  {text}
+                </>
+              </p>
             );
-        };
-    }
-});
+          });
+        }
+        return <div>{textList}</div>;
+      }
+
+      return () => {
+        return (
+          <Tooltip
+            overlayClassName={`${prefixCls}__wrap`}
+            title={<div style={unref(getTooltipStyle)}>{renderTitle()}</div>}
+            autoAdjustOverflow={true}
+            overlayStyle={unref(getOverlayStyle)}
+            placement={props.placement as 'right'}
+            getPopupContainer={() => getPopupContainer()}
+          >
+            <span class={prefixCls}>{getSlot(slots) || <InfoCircleOutlined />}</span>
+          </Tooltip>
+        );
+      };
+    },
+  });
 </script>
 <style lang="less">
-@prefix-cls: ~'@{namespace}-basic-help';
+  @prefix-cls: ~'@{namespace}-basic-help';
 
-.@{prefix-cls} {
+  .@{prefix-cls} {
     display: inline-block;
     margin-left: 6px;
     color: @text-color-help-dark;
@@ -104,13 +104,13 @@ export default defineComponent({
     cursor: pointer;
 
     &:hover {
-        color: @primary-color;
+      color: @primary-color;
     }
 
     &__wrap {
-        p {
-            margin-bottom: 0;
-        }
+      p {
+        margin-bottom: 0;
+      }
     }
-}
+  }
 </style>

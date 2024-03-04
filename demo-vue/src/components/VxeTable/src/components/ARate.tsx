@@ -1,15 +1,15 @@
 import {
-    createEditRender,
-    createDefaultRender,
-    createFilterRender,
-    createDefaultFilterRender,
-    createFormItemRender
+  createEditRender,
+  createDefaultRender,
+  createFilterRender,
+  createDefaultFilterRender,
+  createFormItemRender,
 } from './common';
 
 export default {
-    renderDefault: createDefaultRender(),
-    renderEdit: createEditRender(),
-    renderFilter: createFilterRender(),
-    defaultFilterMethod: createDefaultFilterRender(),
-    renderItemContent: createFormItemRender()
+  renderDefault: createDefaultRender(),
+  renderEdit: createEditRender(),
+  renderFilter: createFilterRender(),
+  defaultFilterMethod: createDefaultFilterRender(),
+  renderItemContent: createFormItemRender(),
 };

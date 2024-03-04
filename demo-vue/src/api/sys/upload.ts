@@ -10,14 +10,14 @@ const { uploadUrl = '' } = useGlobSetting();
  * @description: Upload interface
  */
 export function uploadApi(
-    params: UploadFileParams,
-    onUploadProgress: (progressEvent: AxiosProgressEvent) => void
+  params: UploadFileParams,
+  onUploadProgress: (progressEvent: AxiosProgressEvent) => void,
 ) {
-    return defHttp.uploadFile<UploadApiResult>(
-        {
-            url: uploadUrl,
-            onUploadProgress
-        },
-        params
-    );
+  return defHttp.uploadFile<UploadApiResult>(
+    {
+      url: uploadUrl,
+      onUploadProgress,
+    },
+    params,
+  );
 }

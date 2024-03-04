@@ -3,7 +3,7 @@
 import type { CSSProperties, Plugin } from 'vue';
 
 type OptionalKeys<T extends Record<string, unknown>> = {
-    [K in keyof T]: T extends Record<K, T[K]> ? never : K;
+  [K in keyof T]: T extends Record<K, T[K]> ? never : K;
 }[keyof T];
 
 type RequiredKeys<T extends Record<string, unknown>> = Exclude<keyof T, OptionalKeys<T>>;
@@ -13,7 +13,7 @@ type MonoArgEmitter<T, Keys extends keyof T> = <K extends Keys>(evt: K, arg?: T[
 type BiArgEmitter<T, Keys extends keyof T> = <K extends Keys>(evt: K, arg: T[K]) => void;
 
 export type EventEmitter<T extends Record<string, unknown>> = MonoArgEmitter<T, OptionalKeys<T>> &
-    BiArgEmitter<T, RequiredKeys<T>>;
+  BiArgEmitter<T, RequiredKeys<T>>;
 
 export type AnyFunction<T> = (...args: any[]) => T;
 
@@ -28,7 +28,7 @@ export type RefElement = Nullable<HTMLElement>;
 export type CustomizedHTMLElement<T> = HTMLElement & T;
 
 export type Indexable<T> = {
-    [key: string]: T;
+  [key: string]: T;
 };
 
 export type Hash<T> = Indexable<T>;
@@ -42,7 +42,7 @@ export type StyleValue = string | CSSProperties | Array<StyleValue>;
 export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
 
 export type Merge<O extends object, T extends object> = {
-    [K in keyof O | keyof T]: K extends keyof T ? T[K] : K extends keyof O ? O[K] : never;
+  [K in keyof O | keyof T]: K extends keyof T ? T[K] : K extends keyof O ? O[K] : never;
 };
 
 /**
@@ -58,8 +58,8 @@ export type Merge<O extends object, T extends object> = {
  * }
  */
 export type MergeAll<T extends object[], R extends object = {}> = T extends [
-    infer F extends object,
-    ...infer Rest extends object[]
+  infer F extends object,
+  ...infer Rest extends object[],
 ]
-    ? MergeAll<Rest, Merge<R, F>>
-    : R;
+  ? MergeAll<Rest, Merge<R, F>>
+  : R;

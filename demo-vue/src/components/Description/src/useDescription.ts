@@ -3,28 +3,26 @@ import { ref, getCurrentInstance, unref } from 'vue';
 import { isProdMode } from '@/utils/env';
 
 export function useDescription(props?: Partial<DescriptionProps>): UseDescReturnType {
-    if (!getCurrentInstance()) {
-        throw new Error(
-            'useDescription() can only be used inside setup() or functional components!'
-        );
+  if (!getCurrentInstance()) {
+    throw new Error('useDescription() can only be used inside setup() or functional components!');
+  }
+  const desc = ref<Nullable<DescInstance>>(null);
+  const loaded = ref(false);
+
+  function register(instance: DescInstance) {
+    if (unref(loaded) && isProdMode()) {
+      return;
     }
-    const desc = ref<Nullable<DescInstance>>(null);
-    const loaded = ref(false);
+    desc.value = instance;
+    props && instance.setDescProps(props);
+    loaded.value = true;
+  }
 
-    function register(instance: DescInstance) {
-        if (unref(loaded) && isProdMode()) {
-            return;
-        }
-        desc.value = instance;
-        props && instance.setDescProps(props);
-        loaded.value = true;
-    }
+  const methods: DescInstance = {
+    setDescProps: (descProps: Partial<DescriptionProps>): void => {
+      unref(desc)?.setDescProps(descProps);
+    },
+  };
 
-    const methods: DescInstance = {
-        setDescProps: (descProps: Partial<DescriptionProps>): void => {
-            unref(desc)?.setDescProps(descProps);
-        }
-    };
-
-    return [register, methods];
+  return [register, methods];
 }

@@ -1,20 +1,20 @@
 <template>
-    <div ref="wrap">
-        <slot></slot>
-    </div>
+  <div ref="wrap">
+    <slot></slot>
+  </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
-import { onClickOutside } from '@vueuse/core';
+  import { ref, onMounted } from 'vue';
+  import { onClickOutside } from '@vueuse/core';
 
-const emit = defineEmits(['mounted', 'clickOutside']);
-const wrap = ref(null);
+  const emit = defineEmits(['mounted', 'clickOutside']);
+  const wrap = ref(null);
 
-onClickOutside(wrap, () => {
+  onClickOutside(wrap, () => {
     emit('clickOutside');
-});
+  });
 
-onMounted(() => {
+  onMounted(() => {
     emit('mounted');
-});
+  });
 </script>

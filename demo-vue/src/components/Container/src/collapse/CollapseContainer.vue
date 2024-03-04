@@ -1,14 +1,14 @@
 <script lang="tsx">
-import { ref, unref, defineComponent, type PropType, type ExtractPropTypes } from 'vue';
-import { isNil } from 'lodash-es';
-import { Skeleton } from 'ant-design-vue';
-import { useTimeoutFn } from '@vben/hooks';
-import { CollapseTransition } from '@/components/Transition';
-import CollapseHeader from './CollapseHeader.vue';
-import { triggerWindowResize } from '@/utils/event';
-import { useDesign } from '@/hooks/web/useDesign';
+  import { ref, unref, defineComponent, type PropType, type ExtractPropTypes } from 'vue';
+  import { isNil } from 'lodash-es';
+  import { Skeleton } from 'ant-design-vue';
+  import { useTimeoutFn } from '@vben/hooks';
+  import { CollapseTransition } from '@/components/Transition';
+  import CollapseHeader from './CollapseHeader.vue';
+  import { triggerWindowResize } from '@/utils/event';
+  import { useDesign } from '@/hooks/web/useDesign';
 
-const collapseContainerProps = {
+  const collapseContainerProps = {
     title: { type: String, default: '' },
     loading: { type: Boolean },
     /**
@@ -19,8 +19,8 @@ const collapseContainerProps = {
      * Warm reminder on the right side of the title
      */
     helpMessage: {
-        type: [Array, String] as PropType<string[] | string>,
-        default: ''
+      type: [Array, String] as PropType<string[] | string>,
+      default: '',
     },
     /**
      * Whether to trigger window.resize when expanding and contracting,
@@ -30,89 +30,89 @@ const collapseContainerProps = {
     /**
      * Delayed loading time
      */
-    lazyTime: { type: Number, default: 0 }
-};
+    lazyTime: { type: Number, default: 0 },
+  };
 
-export type CollapseContainerProps = ExtractPropTypes<typeof collapseContainerProps>;
+  export type CollapseContainerProps = ExtractPropTypes<typeof collapseContainerProps>;
 
-export default defineComponent({
+  export default defineComponent({
     name: 'CollapseContainer',
 
     props: collapseContainerProps,
 
     setup(props, { expose, slots }) {
-        const { prefixCls } = useDesign('collapse-container');
+      const { prefixCls } = useDesign('collapse-container');
 
-        const show = ref(true);
+      const show = ref(true);
 
-        const handleExpand = (val: boolean) => {
-            show.value = isNil(val) ? !show.value : val;
-            if (props.triggerWindowResize) {
-                // 200 milliseconds here is because the expansion has animation,
-                useTimeoutFn(triggerWindowResize, 200);
-            }
-        };
+      const handleExpand = (val: boolean) => {
+        show.value = isNil(val) ? !show.value : val;
+        if (props.triggerWindowResize) {
+          // 200 milliseconds here is because the expansion has animation,
+          useTimeoutFn(triggerWindowResize, 200);
+        }
+      };
 
-        expose({ handleExpand });
+      expose({ handleExpand });
 
-        return () => (
-            <div class={unref(prefixCls)}>
-                <CollapseHeader
-                    {...props}
-                    prefixCls={unref(prefixCls)}
-                    onExpand={handleExpand}
-                    show={show.value}
-                    v-slots={{
-                        title: slots.title,
-                        action: slots.action
-                    }}
-                />
+      return () => (
+        <div class={unref(prefixCls)}>
+          <CollapseHeader
+            {...props}
+            prefixCls={unref(prefixCls)}
+            onExpand={handleExpand}
+            show={show.value}
+            v-slots={{
+              title: slots.title,
+              action: slots.action,
+            }}
+          />
 
-                <div class="p-2">
-                    <CollapseTransition enable={props.canExpan}>
-                        {props.loading ? (
-                            <Skeleton active={props.loading} />
-                        ) : (
-                            <div class={`${prefixCls}__body`} v-show={show.value}>
-                                {slots.default?.()}
-                            </div>
-                        )}
-                    </CollapseTransition>
+          <div class="p-2">
+            <CollapseTransition enable={props.canExpan}>
+              {props.loading ? (
+                <Skeleton active={props.loading} />
+              ) : (
+                <div class={`${prefixCls}__body`} v-show={show.value}>
+                  {slots.default?.()}
                 </div>
+              )}
+            </CollapseTransition>
+          </div>
 
-                {slots.footer && <div class={`${prefixCls}__footer`}>{slots.footer()}</div>}
-            </div>
-        );
-    }
-});
+          {slots.footer && <div class={`${prefixCls}__footer`}>{slots.footer()}</div>}
+        </div>
+      );
+    },
+  });
 </script>
 
 <style lang="less">
-@prefix-cls: ~'@{namespace}-collapse-container';
+  @prefix-cls: ~'@{namespace}-collapse-container';
 
-.@{prefix-cls} {
+  .@{prefix-cls} {
     transition: all 0.3s ease-in-out;
     border-radius: 2px;
     background-color: @component-background;
 
     &__header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 32px;
-        border-bottom: 1px solid @border-color-light;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 32px;
+      border-bottom: 1px solid @border-color-light;
     }
 
     &__footer {
-        border-top: 1px solid @border-color-light;
+      border-top: 1px solid @border-color-light;
     }
 
     &__action {
-        display: flex;
-        flex: 1;
-        align-items: center;
-        justify-content: flex-end;
-        text-align: right;
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: right;
     }
-}
+  }
 </style>

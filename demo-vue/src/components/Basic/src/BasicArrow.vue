@@ -3,16 +3,16 @@
  * @Description: Arrow component with animation
 -->
 <template>
-    <span :class="getClass">
-        <Icon icon="ion:chevron-forward" :style="$attrs.iconStyle" />
-    </span>
+  <span :class="getClass">
+    <Icon icon="ion:chevron-forward" :style="$attrs.iconStyle" />
+  </span>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue';
-import Icon from '@/components/Icon/Icon.vue';
-import { useDesign } from '@/hooks/web/useDesign';
+  import { computed } from 'vue';
+  import Icon from '@/components/Icon/Icon.vue';
+  import { useDesign } from '@/hooks/web/useDesign';
 
-const props = defineProps({
+  const props = defineProps({
     /**
      * Arrow expand state
      */
@@ -28,29 +28,29 @@ const props = defineProps({
     /**
      * Cancel padding/margin for inline
      */
-    inset: { type: Boolean }
-});
+    inset: { type: Boolean },
+  });
 
-const { prefixCls } = useDesign('basic-arrow');
+  const { prefixCls } = useDesign('basic-arrow');
 
-// get component class
-const getClass = computed(() => {
+  // get component class
+  const getClass = computed(() => {
     const { expand, up, down, inset } = props;
     return [
-        prefixCls,
-        {
-            [`${prefixCls}--active`]: expand,
-            up,
-            inset,
-            down
-        }
+      prefixCls,
+      {
+        [`${prefixCls}--active`]: expand,
+        up,
+        inset,
+        down,
+      },
     ];
-});
+  });
 </script>
 <style lang="less" scoped>
-@prefix-cls: ~'@{namespace}-basic-arrow';
+  @prefix-cls: ~'@{namespace}-basic-arrow';
 
-.@{prefix-cls} {
+  .@{prefix-cls} {
     display: inline-block;
     transform: rotate(0deg);
     transform-origin: center center;
@@ -58,27 +58,27 @@ const getClass = computed(() => {
     cursor: pointer;
 
     &--active {
-        transform: rotate(90deg);
+      transform: rotate(90deg);
     }
 
     &.inset {
-        line-height: 0px;
+      line-height: 0px;
     }
 
     &.up {
-        transform: rotate(-90deg);
+      transform: rotate(-90deg);
     }
 
     &.down {
-        transform: rotate(90deg);
+      transform: rotate(90deg);
     }
 
     &.up.@{prefix-cls}--active {
-        transform: rotate(90deg);
+      transform: rotate(90deg);
     }
 
     &.down.@{prefix-cls}--active {
-        transform: rotate(-90deg);
+      transform: rotate(-90deg);
     }
-}
+  }
 </style>
