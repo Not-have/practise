@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router"
-import Router from '../router/enum'
+import {
+    ERouter
+} from '@/router/enum'
+
+import Error from '../../components/Error.vue'
 
 const router = useRouter();
 
 const handleUrl = () => {
     // router.push({ name: Router.ROUTER_$id_ROUTER_SON, params: { id: 'erina', name: 'test' } })
     router.push({
-        name: Router.ROUTER_$id_ROUTER_SON,
+        name: ERouter.ROUTER_$id_ROUTER_SON,
         params: {
             id: 11
         },
@@ -16,14 +20,19 @@ const handleUrl = () => {
         }
     })
 }
+
 </script>
 
 <template>
-    router
-    
-    <button @click="handleUrl">跳转</button>
-    
-    <router-view />
+    <div>
+        router
+        
+        <button @click="handleUrl">跳转</button>
+        
+        <router-view />
+
+        <Error />
+    </div>
 </template>
 
 <style scoped>

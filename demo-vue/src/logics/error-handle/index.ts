@@ -60,9 +60,10 @@ function formatComponentName(vm: any) {
 }
 
 /**
- * Configure Vue error handling function
+ * 配置 Vue 错误处理功能
  */
 function vueErrorHandler(err: unknown, vm: any, info: string) {
+    console.log(err, vm, info, 'vueErrorHandler');
     const errorLogStore = useErrorLogStoreWithOut();
     const { name, path } = formatComponentName(vm);
     errorLogStore.addErrorLogInfo({
@@ -77,7 +78,7 @@ function vueErrorHandler(err: unknown, vm: any, info: string) {
 }
 
 /**
- * Configure script error handling function
+ * 配置脚本错误处理功能
  */
 export function scriptErrorHandler(
     event: Event | string,
