@@ -189,6 +189,7 @@ export function useRafThrottle<T extends FunctionArgs>(fn: T): T {
     return function (...args: any[]) {
         if (locked) return;
         locked = true;
+        // window.requestAnimationFrame 用于在下一次浏览器重绘之前调用指定的函数
         window.requestAnimationFrame(() => {
             // @ts-ignore
             fn.apply(this, args);

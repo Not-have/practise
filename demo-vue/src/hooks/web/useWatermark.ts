@@ -113,7 +113,7 @@ const obFn = () => {
 export function useWatermark(
     appendEl: Ref<HTMLElement | null> = ref(document.body) as Ref<HTMLElement>,
     waterMarkOptions: waterMarkOptionsType = {}
-): UseWatermarkRes {
+): Omit<UseWatermarkRes, 'waterMarkOptions' | 'obInstance' | 'targetElement' | 'parentElement'> {
     const domSymbol = Symbol(watermarkSymbol);
     const appendElRaw = unref(appendEl);
     if (appendElRaw && sourceMap.has(domSymbol)) {

@@ -14,11 +14,11 @@ export function useScript(opts: ScriptOptions) {
         onMounted(() => {
             script = document.createElement('script');
             script.type = 'text/javascript';
-            script.onload = function () {
+            script.onload = function (res) {
                 isLoading.value = false;
                 success.value = true;
                 error.value = false;
-                resolve('');
+                resolve(res);
             };
 
             script.onerror = function (err) {
