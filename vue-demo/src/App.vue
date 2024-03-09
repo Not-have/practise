@@ -24,6 +24,10 @@ import {
         &nbsp;
         &nbsp;
         <RouterLink :to="ERouter.DIRECTIVES">自定义指令</RouterLink>
+        
+        &nbsp;
+        &nbsp;
+        <RouterLink :to="ERouter.COMPUTED">computed</RouterLink>
 
     </nav>
     <br />

@@ -4,8 +4,6 @@ import {
     ERouter
 } from '@/router/enum'
 
-import Error from '../../components/Error.vue'
-
 const router = useRouter();
 
 const handleUrl = () => {
@@ -16,7 +14,7 @@ const handleUrl = () => {
             id: 11
         },
         query: {
-            id: 'erina', name: 'test'
+            id: 'erina', name: ''
         }
     })
 }
@@ -30,8 +28,6 @@ const handleUrl = () => {
         <button @click="handleUrl">跳转</button>
         
         <router-view />
-
-        <Error />
     </div>
 </template>
 

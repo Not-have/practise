@@ -9,7 +9,8 @@ import draggable from './directives/draggable';
 import './rc/imitation-vue-error/rc/index'
 
 const app = createApp(App);
-
+import Antd from 'ant-design-vue';
+app.use(Antd);
 app.use(createPinia());
 app.use(router);
 app.use(draggable);
