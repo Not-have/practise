@@ -11,6 +11,9 @@
         <p v-if="activeKey === 'tab2'">
             <VisitAnalysisBar />
         </p>
+        <p v-if="activeKey === 'tab3'">
+            <EchartsTest />
+        </p>
     </Card>
 </template>
 <script lang="ts" setup>
@@ -18,6 +21,7 @@ import { ref } from 'vue';
 import { Card } from 'ant-design-vue';
 import VisitAnalysis from './VisitAnalysis.vue';
 import VisitAnalysisBar from './VisitAnalysisBar.vue';
+import EchartsTest from './EchartsTest.vue';
 
 const activeKey = ref('tab1');
 
@@ -29,6 +33,10 @@ const tabListTitle = [
     {
         key: 'tab2',
         tab: '访问量'
+    },
+    {
+        key: 'tab3',
+        tab: '数据修改测试'
     }
 ];
 
