@@ -18,20 +18,6 @@ import { setupStore } from '@/store';
 
 import App from './App.vue';
 
-window.addEventListener('error', handleListenerError, true);
-window.addEventListener('unhandledrejection', handleUnhandledRejection);
-
-function handleListenerError(eventErr) {
-    console.error('全局错误事件:', eventErr);
-    eventErr.preventDefault();
-}
-console.log('main');
-
-function handleUnhandledRejection(event) {
-    console.error('未处理的 Promise 拒绝:', event.reason);
-    // 根据需要处理或记录错误
-}
-
 async function bootstrap() {
     const app = createApp(App);
 

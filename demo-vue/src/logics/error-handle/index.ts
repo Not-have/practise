@@ -75,6 +75,8 @@ function vueErrorHandler(err: unknown, vm: any, info: string) {
         detail: info,
         url: window.location.href
     });
+
+    return false;
 }
 
 /**

@@ -24,9 +24,9 @@ const [registerTable, { reload }] = useTable({
 function handleReloadCurrent() {
     // reload();
     // 异步错误（Promise 拒绝）
-    Promise.reject(new Error('异步错误！')).catch(err => {
-        console.error('捕获到 Promise 拒绝:', err);
-    });
+    new Promise((resolve, reject) => {
+        reject('1111');
+    }).catch;
 }
 
 function handleReload() {
