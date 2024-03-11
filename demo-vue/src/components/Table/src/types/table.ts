@@ -178,7 +178,10 @@ export interface BasicTableProps<T = any> {
     showSummary?: boolean;
     // 是否可拖拽列
     canColDrag?: boolean;
-    // 接口请求对象
+    /**
+     * 接口请求对象
+     * 这块不应叫 api，应该改为 fetchDataSource
+     */
     api?: (...arg: any) => Promise<any>;
     // 请求之前处理参数
     beforeFetch?: Fn;

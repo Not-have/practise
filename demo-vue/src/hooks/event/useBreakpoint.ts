@@ -20,8 +20,6 @@ export interface CreateCallbackParams {
 }
 
 export function useBreakpoint() {
-    console.log(globalWidthRef, 'globalWidthRef');
-
     return {
         screenRef: computed(() => unref(globalScreenRef)),
         widthRef: globalWidthRef,

@@ -22,7 +22,11 @@ const [registerTable, { reload }] = useTable({
     pagination: { pageSize: 10 }
 });
 function handleReloadCurrent() {
-    reload();
+    // reload();
+    // 异步错误（Promise 拒绝）
+    Promise.reject(new Error('异步错误！')).catch(err => {
+        console.error('捕获到 Promise 拒绝:', err);
+    });
 }
 
 function handleReload() {
