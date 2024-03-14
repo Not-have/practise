@@ -2,7 +2,7 @@
     <p>{{and}}</p>
     <button @click="fun">修改</button>
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue"
 const str1 = ref(1)
 const str2 = ref(2)

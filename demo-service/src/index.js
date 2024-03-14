@@ -7,7 +7,8 @@ const app = express();
 // 引入 /list 路由模块
 const domRender = require("./dom/render-dom");
 const dataCrossDomainProxy = require("./data/cross-domain-proxy")
-
+console.log(__dirname);
+app.use('/public', express.static(__dirname + "/public"));
 app.use("/dom", domRender);
 app.use("/data", dataCrossDomainProxy);
 

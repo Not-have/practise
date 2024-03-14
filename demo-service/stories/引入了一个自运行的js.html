@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引入了一个自运行的js</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function domeJsonp() {
+        const script = document.createElement("script");
+        script.src = "http://localhost:3000/public/render-js.js";
+        document.body.append(script)
+    }
+
+    domeJsonp()
+</script>

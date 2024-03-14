@@ -8,7 +8,7 @@ const copy = readonly(original);
 original.count++;
 
 // 更改该只读副本将会失败，并会得到一个警告
-copy.count++; // warning!
+// copy.count++; // warning!
 
 console.log(copy.count);
 

@@ -1,7 +1,7 @@
 **/*-lock.json
 .idea/
 /react-demo/dist/
-
+**/dist
 
 # OSX
 #

@@ -10,8 +10,8 @@ import { customRef } from "vue";
  * trigger 决定什么时候触发所有的依赖,进行更新
  * 返回一个带有 get 和 set 的对象
  */
-export default function (value, delay = 200) {
-    let time = null;
+export default function (value: any, delay = 200) {
+    let time: any = null;
     return customRef((track, trigger) => {
         return {
             get() {

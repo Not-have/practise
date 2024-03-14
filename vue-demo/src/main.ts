@@ -6,7 +6,6 @@ import "./assets/main.css";
 import App from './App.vue';
 import router from './router';
 import draggable from './directives/draggable';
-import './rc/imitation-vue-error/rc/index'
 
 const app = createApp(App);
 import Antd from 'ant-design-vue';
