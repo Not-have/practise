@@ -6,8 +6,10 @@ const app = express();
 
 // 引入 /list 路由模块
 const domRender = require("./dom/render-dom");
+const dataCrossDomainProxy = require("./data/cross-domain-proxy")
 
 app.use("/dom", domRender);
+app.use("/data", dataCrossDomainProxy);
 
 // 监听端口
 app.listen(3000, function () {
