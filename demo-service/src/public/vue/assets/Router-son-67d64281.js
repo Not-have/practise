@@ -1,0 +1,1 @@
+import{e as t,i as n,o as s,c as a,b as r,F as l,g as e}from"./index-e20f5daa.js";const c=e("br",null,null,-1),u=e("br",null,null,-1),i=t({__name:"Router-son",setup(_){const o=n();return console.log(o),(m,p)=>(s(),a(l,null,[c,r(" Router-son "),u],64))}});export{i as default};

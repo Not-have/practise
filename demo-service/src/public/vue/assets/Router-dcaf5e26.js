@@ -1,0 +1,1 @@
+import{e as r,u as a,f as n,o as s,c,b as u,g as _,h as i,E as m}from"./index-e20f5daa.js";const f=r({__name:"Router",setup(p){const e=a(),o=()=>{e.push({name:m.ROUTER_$id_ROUTER_SON,params:{id:11},query:{id:"erina",name:""}})};return(d,l)=>{const t=n("router-view");return s(),c("div",null,[u(" router "),_("button",{onClick:o},"跳转"),i(t)])}}});export{f as default};

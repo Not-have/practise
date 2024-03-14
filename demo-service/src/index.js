@@ -1,8 +1,11 @@
 // 引入express
 const express = require("express");
-
+const cors = require('cors');
 // 创建出express对象
 const app = express();
+
+// 设置跨域访问
+app.use(cors());
 
 // 引入 /list 路由模块
 const domRender = require("./dom/render-dom");

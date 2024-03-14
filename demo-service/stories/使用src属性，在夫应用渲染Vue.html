@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- 在这定义了一个box -->
+    <test-one id="box"></test-one>
+    <script>
+        function domeJsonp() {
+            const script = document.createElement("script");
+            script.src = "http://localhost:3000/public/vue/assets/index-e20f5daa.js";
+            script.type = "module"
+            document.body.append(script)
+        }
+    
+        domeJsonp()
+    </script>
+</body>
+
+</html>
