@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>src属性的特性</title>
 </head>
+
 <body>
-    <div id="test"></div>
 </body>
+
 </html>
 <script>
-    const dom = document.getElementById('test')
     function domeJsonp() {
         const script = document.createElement("script");
         script.src = "http://localhost:3000/dom?callback=jsonp";
 
-        window.jsonp = function(data) {
-            dom.innerHTML = data;
+        window.jsonp = function (data) {
+            /**
+             * 解析 string 为 DOM
+             * https://developer.mozilla.org/zh-CN/docs/Web/API/DOMParser
+             */
+            const parser = new DOMParser();
+            // 转换类型
+            const doc = parser.parseFromString(data, 'text/html');
+            // 获取元素
+            const element = doc.body.firstChild;
+            document.body.appendChild(element);
         }
 
         document.body.append(script)
