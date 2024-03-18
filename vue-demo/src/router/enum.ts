@@ -5,4 +5,5 @@ export enum ERouter {
     PROVIDE = "/provide",
     DIRECTIVES = "/directives",
     COMPUTED = "/computed",
+    VUE_STYLED_COMPONENTS = "/vue-styled-components"
 }

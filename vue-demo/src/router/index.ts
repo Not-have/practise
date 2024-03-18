@@ -53,6 +53,11 @@ const router = createRouter({
             name: ERouter.COMPUTED,
             component: () => import("../views/computed/index.vue"),
         },
+        {
+            path: ERouter.VUE_STYLED_COMPONENTS,
+            name: ERouter.VUE_STYLED_COMPONENTS,
+            component: () => import("../views/vue-styled-components/index.vue"),
+        },
     ],
 });
 

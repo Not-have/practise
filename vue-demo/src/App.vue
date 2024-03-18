@@ -29,6 +29,10 @@ import {
         &nbsp;
         <RouterLink :to="ERouter.COMPUTED">computed</RouterLink>
 
+        &nbsp;
+        &nbsp;
+        <RouterLink :to="ERouter.VUE_STYLED_COMPONENTS">vue-styled-components</RouterLink>
+
     </nav>
     <br />
 
