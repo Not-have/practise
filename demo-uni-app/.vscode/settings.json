@@ -4,5 +4,6 @@
         "pinia",
         "Unocss",
         "unplugin"
-    ]
+    ],
+    "commentTranslate.source": "Bing"
 }
