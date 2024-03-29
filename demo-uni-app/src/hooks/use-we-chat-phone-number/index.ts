@@ -1,4 +1,5 @@
 import type { ButtonOnGetphonenumberEvent } from '@uni-helper/uni-app-types';
+import { initRequest } from '@/utils/fetch';
 
 const appid = import.meta.env.VITE_WE_CHAT_APP_ID;
 const secret = import.meta.env.VITE_WE_CHAT_SECRET;
@@ -18,16 +19,16 @@ async function getPhoneNumber(phoneNumberCode?: string): Promise<IData> {
     const accessToken = await getAccessToken();
 
     return await new Promise((resolve, reject) => {
-        uni.request({
+        initRequest({
             url: `https://api.weixin.qq.com/wxa/business/getuserphonenumber?access_token=${accessToken}`,
             method: 'POST',
             data: {
                 code: phoneNumberCode
             }
         })
-            .then((res: any) => {
+            .then((data: any) => {
                 resolve({
-                    phoneNumber: res.data.phone_info.phoneNumber,
+                    phoneNumber: data.phone_info.phoneNumber,
                     accessToken: accessToken
                 });
             })
@@ -36,19 +37,17 @@ async function getPhoneNumber(phoneNumberCode?: string): Promise<IData> {
 }
 
 function getAccessToken(): Promise<string> {
-    return uni
-        .request({
-            url: 'https://api.weixin.qq.com/cgi-bin/token',
-            method: 'GET',
-            data: {
-                appid: appid,
-                secret: secret,
-                grant_type: 'client_credential'
-            }
-        })
-        .then((res: any) => {
-            return res.data.access_token;
-        });
+    return initRequest({
+        url: 'https://api.weixin.qq.com/cgi-bin/token',
+        method: 'GET',
+        data: {
+            appid: appid,
+            secret: secret,
+            grant_type: 'client_credential'
+        }
+    }).then((data: any) => {
+        return data.access_token;
+    });
 }
 /**
  * @deprecated 获取用户手机号和 accessToken

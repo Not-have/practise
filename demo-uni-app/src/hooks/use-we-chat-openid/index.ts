@@ -1,3 +1,5 @@
+import { initRequest } from '@/utils/fetch';
+
 const appid = import.meta.env.VITE_WE_CHAT_APP_ID;
 const secret = import.meta.env.VITE_WE_CHAT_SECRET;
 
@@ -22,23 +24,21 @@ interface _IData extends Pick<IData, 'openId' | 'sessionKey'> {}
  * https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/user-login/code2Session.html
  */
 function getOpenId(code: string): Promise<_IData> {
-    return uni
-        .request({
-            url: 'https://api.weixin.qq.com/sns/jscode2session',
-            method: 'GET',
-            data: {
-                appid: appid, //你的小程序的APPID
-                secret: secret, //你的小程序的secret,
-                js_code: code, //wx.login 登录成功后的code
-                grant_type: 'authorization_code'
-            }
-        })
-        .then((res: any) => {
-            return {
-                openId: res.data.openid,
-                sessionKey: res.data.session_key
-            };
-        });
+    return initRequest({
+        url: 'https://api.weixin.qq.com/sns/jscode2session',
+        method: 'GET',
+        data: {
+            appid: appid, //你的小程序的APPID
+            secret: secret, //你的小程序的secret,
+            js_code: code, //wx.login 登录成功后的code
+            grant_type: 'authorization_code'
+        }
+    }).then((data: any) => {
+        return {
+            openId: data.openid,
+            sessionKey: data.data.session_key
+        };
+    });
 }
 
 /**
