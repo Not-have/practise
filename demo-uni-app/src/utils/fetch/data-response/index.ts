@@ -10,29 +10,13 @@ export default async function dataResponse<T>({
     method,
     ...params
 }: UniNamespace.RequestOptions): Promise<T> {
-    let token;
-    try {
-        token = uni.getStorageSync(import.meta.env.VITE_TOKEN_NAME);
-    } catch (e) {
-        throw new Error(`token error: ${e}`);
-    }
-
-    const headerToken = {
-        authorization: token ? `Bearer ${token}` : null
-    };
-
-    if (!/^https?:\/\//i.test(url)) {
-        url = `${import.meta.env.VITE_BASE_URL}${url}`;
-    }
-
     try {
         const data0: IData0<T> = await initRequest({
             url,
             data,
             method,
             header: {
-                ...params.header,
-                ...headerToken
+                ...params.header
             }
         });
         /**
@@ -44,15 +28,15 @@ export default async function dataResponse<T>({
 
         let errStr = '';
         if (data0.code !== 200) {
-            if (/^[a-zA-Z0-9.,!?]+$/.test(data0.msg || '')) {
-                errStr = data0.msg.length > 10 ? 'Request failed' : data0.msg;
+            if (/^[a-zA-Z0-9.,!?]+$/.test(data0.message || '')) {
+                errStr = data0.message.length > 10 ? 'Request failed' : data0.message;
             }
 
             if (
-                /[\u4E00-\u9FA5]+.*[.,!?]+.*[0-9]+/.test(data0.msg) ||
-                /[a-zA-Z]+.*[.,!?]+.*[0-9]+/.test(data0.msg)
+                /[\u4E00-\u9FA5]+.*[.,!?]+.*[0-9]+/.test(data0.message) ||
+                /[a-zA-Z]+.*[.,!?]+.*[0-9]+/.test(data0.message)
             ) {
-                errStr = data0.msg.length > 7 ? '网络请求失败' : data0.msg;
+                errStr = data0.message.length > 7 ? '网络请求失败' : data0.message;
             }
 
             uni.showToast({

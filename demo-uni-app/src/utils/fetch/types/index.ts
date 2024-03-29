@@ -4,7 +4,7 @@ export interface IData0<T> {
     /**
      * @todo message
      */
-    msg: string;
+    message: string;
 }
 
 export interface IInitRequest {
