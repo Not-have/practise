@@ -1,5 +1,6 @@
 import { initRequest } from '@/utils/fetch';
 
+// https://mp.weixin.qq.com/wxamp/devprofile/get_profile?token=420041989&lang=zh_CN
 const appid = import.meta.env.VITE_WE_CHAT_APP_ID;
 const secret = import.meta.env.VITE_WE_CHAT_SECRET;
 
