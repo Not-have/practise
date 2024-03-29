@@ -1,5 +1,5 @@
 <template>
-    <view class=""> 首页 </view>
+    <view class=""> 首页11ss</view>
 </template>
 
 <script setup lang="ts"></script>
