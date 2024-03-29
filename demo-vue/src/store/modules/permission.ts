@@ -105,6 +105,7 @@ export const usePermissionStore = defineStore({
         },
         async changePermissionCode() {
             const codeList = await getPermCode();
+
             this.setPermCodeList(codeList);
         },
 

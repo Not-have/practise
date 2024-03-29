@@ -323,6 +323,8 @@ createTableContext({ ...tableAction, wrapRef, getBindValues });
 
 emit('register', tableAction, formActions);
 
+console.log(tableAction, formActions);
+
 defineExpose({ tableElRef, ...tableAction });
 </script>
 <style lang="less">

@@ -21,12 +21,15 @@ const [registerTable, { reload }] = useTable({
     columns: getBasicColumns(),
     pagination: { pageSize: 10 }
 });
+
+console.log(registerTable);
+
 function handleReloadCurrent() {
-    // reload();
+    reload();
     // 异步错误（Promise 拒绝）
-    new Promise((resolve, reject) => {
-        reject('1111');
-    }).catch;
+    // new Promise((resolve, reject) => {
+    //     reject('1111');
+    // }).catch;
 }
 
 function handleReload() {
