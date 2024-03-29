@@ -1,9 +1,6 @@
 // import type { IRequestConfig } from '../types';
 
-import initRequest from '../init-request';
-import handleResponseData from '../data-response';
-
-export default function request<T>({
+export default function request({
     url,
     data,
     method,

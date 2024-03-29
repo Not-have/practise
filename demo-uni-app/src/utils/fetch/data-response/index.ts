@@ -33,7 +33,7 @@ export default async function dataResponse<T>({
             header: {
                 ...params.header,
                 ...headerToken
-            },
+            }
         });
         /**
          * 401 令牌失效
@@ -48,7 +48,10 @@ export default async function dataResponse<T>({
                 errStr = data0.msg.length > 10 ? 'Request failed' : data0.msg;
             }
 
-            if (/[\u4E00-\u9FA5]+.*[.,!?]+.*[0-9]+/.test(data0.msg) || /[a-zA-Z]+.*[.,!?]+.*[0-9]+/.test(data0.msg)) {
+            if (
+                /[\u4E00-\u9FA5]+.*[.,!?]+.*[0-9]+/.test(data0.msg) ||
+                /[a-zA-Z]+.*[.,!?]+.*[0-9]+/.test(data0.msg)
+            ) {
                 errStr = data0.msg.length > 7 ? '网络请求失败' : data0.msg;
             }
 

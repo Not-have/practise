@@ -1,14 +1,8 @@
 // https://www.jianshu.com/p/ddd984e9d197
-/*
-/api/basic/v1/ :基础信息的前缀，包括房屋、行政区域、小区
-/api/dispatch/v1/ :维修单相关所有的网关前缀
-/api/system/v1/ ：用户、角色、员工、公司、区域设置  http://192.168.0.3:18502/doc.html#/home
-/api/sso/v1/ ：登录注册、忘记密码
-/api/config/v1/ ：配置相关前缀包括banner、三方小程序等
- */
+
 import request from './data-response';
 
-interface IConfig extends Omit<UniNamespace.RequestOptions, 'method' | 'url' | 'data'> { }
+interface IConfig extends Omit<UniNamespace.RequestOptions, 'method' | 'url' | 'data'> {}
 
 function fetch(conf?: UniNamespace.RequestOptions) {
     function get<D, Q extends string | AnyObject>(

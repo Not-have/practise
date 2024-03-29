@@ -1,5 +1,5 @@
 import type { IData0, IInitRequest } from '../types';
-import request from "../request";
+import request from '../request';
 
 export default function initRequest<T>({
     url,
@@ -13,17 +13,19 @@ export default function initRequest<T>({
             data,
             method,
             ...params
-        }).then(((res: IInitRequest) => {
-            if (res.statusCode !== 200) {
-                uni.showToast({
-                    title: 'Dev server err',
-                    icon: 'error'
-                });
+        })
+            .then((res: IInitRequest) => {
+                if (res.statusCode !== 200) {
+                    uni.showToast({
+                        title: 'Dev server err',
+                        icon: 'error'
+                    });
 
-                reject(res);
-            }
+                    reject(res);
+                }
 
-            resolve(res.data);
-        })).catch(err => reject(err));
+                resolve(res.data);
+            })
+            .catch((err) => reject(err));
     });
 }
