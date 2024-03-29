@@ -36,7 +36,7 @@ function getOpenId(code: string): Promise<_IData> {
     }).then((data: any) => {
         return {
             openId: data.openid,
-            sessionKey: data.data.session_key
+            sessionKey: data.session_key
         };
     });
 }

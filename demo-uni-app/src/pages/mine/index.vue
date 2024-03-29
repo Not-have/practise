@@ -1,7 +1,7 @@
-<template>
-    <view class=""> 我的 </view>
-</template>
-
 <script setup lang="ts"></script>
+
+<template>
+    <view class="" />
+</template>
 
 <style scoped lang="scss"></style>

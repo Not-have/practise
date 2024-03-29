@@ -50,7 +50,7 @@ function getAccessToken(): Promise<string> {
     });
 }
 /**
- * @deprecated 获取用户手机号和 accessToken
+ * @deprecated 获取用户手机号和 accessToken（非个人用户）
  *
  * 不建议 web 端来获取
  *
@@ -60,13 +60,13 @@ function getAccessToken(): Promise<string> {
  */
 export default function useWeChatPhoneNumber(e: ButtonOnGetphonenumberEvent): Promise<IData> {
     return new Promise(async (resolve, reject) => {
-        if (e.detail.code) {
+        if (e.detail?.code) {
             const data = await getPhoneNumber(e.detail.code);
             resolve(data);
         }
 
-        reject('用户未同意手机号的获取');
+        reject(e.detail?.errMsg);
 
-        throw new Error('用户未同意手机号的获取');
+        throw new Error('useWeChatPhoneNumber 获取手机号失败！');
     });
 }
