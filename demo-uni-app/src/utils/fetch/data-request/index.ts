@@ -4,7 +4,7 @@ import initRequest from '../init-request';
 /**
  * 真实的后台数据响应
  */
-export default async function dataResponse<T>({
+export default async function dataRequest<T>({
     url,
     data,
     method,

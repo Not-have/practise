@@ -16,7 +16,8 @@
         url = `${import.meta.env.VITE_BASE_URL}${url}`;
     }
  */
-import dataRequest from './data-response';
+import dataRequest from './data-request';
+import initRequest from './init-request';
 
 interface IConfig extends Omit<UniNamespace.RequestOptions, 'method' | 'url' | 'data'> {}
 interface IParamsConf extends IConfig {
@@ -81,6 +82,4 @@ function fetch({ baseUrl, ...conf }: IParamsConf = {}) {
 
 export default fetch;
 
-/**
- * request 使用 request 去外部兼容历史
- */
+export { initRequest };
