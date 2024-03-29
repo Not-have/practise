@@ -9,7 +9,7 @@ import { defineConfig } from 'unocss';
 import { transformerAttributify, transformerClass } from 'unocss-preset-weapp/transformer';
 
 // 可以写属性会自动增加class,也可以写class
-const prefix = "uno-"
+const prefix = 'uno-';
 export default defineConfig({
     // 配置 UnoCSS 以适配微信小程序的样式编写规范和限制
     presets: [
