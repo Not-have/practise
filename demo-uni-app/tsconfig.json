@@ -17,7 +17,8 @@
             "@dcloudio/types",
             "@uni-helper/uni-app-types",
             "@uni-helper/uni-ui-types",
-            "node"
+            "node",
+            "./src/typings.d.ts"
         ]
     },
     "vueCompilerOptions": {
@@ -34,5 +35,5 @@
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue"
-    ]
+, "typings.d.ts"    ]
 }

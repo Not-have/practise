@@ -23,6 +23,9 @@ module.exports = defineConfig({
         'prettier',
         'plugin:prettier/recommended'
     ],
+    globals: {
+        wx: true
+    },
     rules: {
         'prettier/prettier': 'error',
         'vue/no-setup-props-destructure': 'off',
