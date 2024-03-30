@@ -10,6 +10,7 @@ const innerAudioContext = uni.createInnerAudioContext();
 // 自动播放
 innerAudioContext.autoplay = true;
 
+// 复合使用的时候，注意播放失效问题，建议
 // var plugin = requirePlugin('WechatSI');
 // let manager = plugin.getRecordRecognitionManager();
 
@@ -61,20 +62,17 @@ const handleTouchend = () => {
     // manager.stop();
 };
 const handlePlayClick = () => {
-    // console.log(voicePath.value);
-
     if (voicePath.value) {
-        innerAudioContext.src = voicePath.value;
-        innerAudioContext.play();
+        handlePlay(voicePath.value);
     }
 };
 
-// const handlePlay = (url: string) => {
-//     if (url) {
-//         innerAudioContext.src = url;
-//         innerAudioContext.play();
-//     }
-// };
+const handlePlay = (url: string) => {
+    if (url) {
+        innerAudioContext.src = url;
+        innerAudioContext.play();
+    }
+};
 
 // const handleVideoToTestClick = () => {
 //     /*
