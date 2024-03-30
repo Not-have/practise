@@ -109,18 +109,16 @@ const handlePlay = (url: string) => {
 // };
 </script>
 <template>
-    <view class="">
-        <view class="video">
-            <button @touchstart="handleTouchstart" @touchend="handleTouchend">
-                {{ isTyping ? '语音输入中...' : '语音输入' }}
-            </button>
-            <br />
-            <button class="" hover-class="none" @click="handlePlayClick"> 播放语音 </button>
+    <view class="video">
+        <button @touchstart="handleTouchstart" @touchend="handleTouchend">
+            {{ isTyping ? '语音输入中...' : '语音输入' }}
+        </button>
+        <br />
+        <button class="" hover-class="none" @click="handlePlayClick"> 播放语音 </button>
 
-            {{ text }}
+        {{ text }}
 
-            <!-- <button @click="handleVideoToTestClick">文字操作</button> -->
-        </view>
+        <!-- <button @click="handleVideoToTestClick">文字操作</button> -->
     </view>
 </template>
 
