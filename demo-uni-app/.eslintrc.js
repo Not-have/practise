@@ -43,7 +43,14 @@ module.exports = defineConfig({
         '@typescript-eslint/ban-types': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
-        '@typescript-eslint/no-unused-vars': 'off',
+        /**
+         * @link https://typescript-eslint.io/rules/no-unused-vars
+         */
+        '@typescript-eslint/no-unused-vars': ['error', {
+            vars: 'all',
+            args: 'after-used',
+            ignoreRestSiblings: true
+        }],
         'space-before-function-paren': 'off',
 
         'vue/attributes-order': 'off',
@@ -74,7 +81,7 @@ module.exports = defineConfig({
         'eqeqeq': ['error', 'always', { null: 'ignore' }], // 使用 === 替代 ==
         'no-const-assign': 2, //禁止修改const声明的变量
         'semi': ['error', 'always'],
-        "no-unused-vars": "error",
+        "no-unused-vars": "off",
         // "@typescript-eslint/no-unsafe-optional-chaining": "off"
         // "prettier/prettier": [
         //     "error",

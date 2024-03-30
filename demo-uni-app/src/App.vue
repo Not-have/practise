@@ -10,4 +10,8 @@ onHide(() => {
     console.log('App Hide');
 });
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+button {
+    display: inline-block;
+}
+</style>

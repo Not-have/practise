@@ -32,5 +32,3 @@ declare global {
   const onUnhandledRejection: typeof import('@dcloudio/uni-app')['onUnhandledRejection']
   const onUnload: typeof import('@dcloudio/uni-app')['onUnload']
 }
-
-declare const requirePlugin: (name: string) => any;
