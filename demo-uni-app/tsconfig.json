@@ -19,7 +19,7 @@
             "@uni-helper/uni-ui-types",
             "miniprogram-api-typings",
             "node",
-            "./src/typings.d.ts"
+            "./typings.d.ts"
         ]
     },
     "vueCompilerOptions": {

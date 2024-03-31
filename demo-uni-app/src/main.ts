@@ -1,7 +1,6 @@
 import { createSSRApp } from 'vue';
-// import "uno.css";
 import App from './App.vue';
-
+import "uno.css";
 import setupStore from '@/store/index';
 
 export function createApp() {
