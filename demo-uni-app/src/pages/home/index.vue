@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Page from '@/components/page/index.vue';
+import Page from '@/components/public-page/index.vue';
 import { ERouter } from '@/enum';
 import { useTestStore } from '@/store';
 const { objTestStore, setPropertyTestStore } = useTestStore();

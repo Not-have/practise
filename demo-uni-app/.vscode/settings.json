@@ -6,5 +6,8 @@
         "Unocss",
         "unplugin"
     ],
-    "commentTranslate.source": "Bing"
+    "commentTranslate.source": "Bing",
+    "files.associations": {
+        "*.json": "jsonc"
+    }
 }

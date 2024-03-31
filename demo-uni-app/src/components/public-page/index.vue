@@ -1,11 +1,15 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import PublicTabbar from '../public-tabbar/index.vue';
+</script>
 <template>
     <view class="page flex flex-row">
         <common-top-bar
             bg-image="https://img6.bdstatic.com/img/image/pcindex/sunjunpchuazhoutu.JPG"
         />
         <view class="content"><slot></slot></view>
-        <view class="footer"> 底部 </view>
+        <view class="footer">
+            <PublicTabbar />
+        </view>
     </view>
 </template>
 
