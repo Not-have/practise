@@ -16,10 +16,74 @@ const handleRouter = () => {
 };
 </script>
 <template>
-    <view class="">
+    <view class="flex">
+        <common-top-bar
+            bg-image="https://img6.bdstatic.com/img/image/pcindex/sunjunpchuazhoutu.JPG"
+        />
         <button @click="handleClick">修改</button>
         <button @click="handleRouter"> 跳转 </button>
         {{ objTestStore }}
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 1 </view>
+
+        <view> 1 </view>
+        <view> 1 </view>
+        <view> 12 </view>
     </view>
 </template>
 

@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { useTestStore } from '@/store';
 const { objTestStore } = useTestStore();
-
-console.log(objTestStore);
 </script>
 <template>
     <view class="">

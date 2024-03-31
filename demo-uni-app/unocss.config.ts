@@ -5,15 +5,16 @@
  * https://github.com/MellowCo/unocss-preset-weapp
  */
 import presetWeapp from 'unocss-preset-weapp';
-import { defineConfig } from 'unocss';
+import { defineConfig, presetIcons } from 'unocss';
 import { transformerAttributify, transformerClass } from 'unocss-preset-weapp/transformer';
 
 // 可以写属性会自动增加class,也可以写class
-const prefix = 'uno-';
+const prefix = '';
 export default defineConfig({
     // 配置 UnoCSS 以适配微信小程序的样式编写规范和限制
     presets: [
-        presetWeapp({ prefix }) // 工具预设
+        presetWeapp({ prefix }), // 工具预设
+        presetIcons()
     ],
     // 是 UnoCSS 的转换器，用于处理 CSS 类名和属性化类名之间的转换
     transformers: [

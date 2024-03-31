@@ -1,3 +1,49 @@
+<!-- 
+App.vue ——> onLaunch 加入：
+
+// https://blog.csdn.net/weixin_44596839/article/details/124358961
+import type { ComponentInternalInstance } from 'vue';
+import { getCurrentInstance } from 'vue';
+import { onLaunch } from '@dcloudio/uni-app';
+const instance = getCurrentInstance() as ComponentInternalInstance;
+
+onLaunch(() => {
+    // onLaunch 加入的内容，用于计算刘海屏
+    // https://blog.csdn.net/weixin_44596839/article/details/124358961
+    const {
+        appContext: {
+            config: { globalProperties: global }
+        }
+    } = instance;
+    uni.getSystemInfo({
+        success: function (e) {
+            if (!e) {
+                throw new Error('获取刘海屏错误');
+            }
+            // #ifndef MP
+            global.StatusBar = e.statusBarHeight;
+            if (e.platform === 'android') {
+                global.CustomBar = e.statusBarHeight || 0 + 50;
+            } else {
+                global.CustomBar = e.statusBarHeight || 0 + 45;
+            }
+            // #endif
+
+            // #ifdef MP-WEIXIN
+            global.StatusBar = e.statusBarHeight;
+            let custom = wx.getMenuButtonBoundingClientRect();
+            global.Custom = custom;
+            global.CustomBar = custom.bottom + custom.top - (e.statusBarHeight || 0) + 4;
+            // #endif
+
+            // #ifdef MP-ALIPAY
+            global.StatusBar = e.statusBarHeight;
+            global.CustomBar = e.statusBarHeight || 0 + (e.titleBarHeight || 0);
+            // #endif
+        }
+    });
+});
+ -->
 <script lang="ts" setup>
 import type { ComponentInternalInstance } from 'vue';
 import { computed, defineProps } from 'vue';
