@@ -15,6 +15,9 @@ const handleClick = () => {
 const handleRouter = () => {
     uni.navigateTo({ url: ERouter.HOME_DETAILS });
 };
+
+console.log(uni.$u.trim(' abc '));
+console.log(' abc ');
 </script>
 <template>
     <Page class="">
