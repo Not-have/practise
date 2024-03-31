@@ -58,4 +58,9 @@ view,
     border-style: solid;
     border-color: #e5e7eb;
 }
+page {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+}
 </style>

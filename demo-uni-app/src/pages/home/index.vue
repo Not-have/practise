@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import Page from '@/components/page/index.vue';
 import { ERouter } from '@/enum';
 import { useTestStore } from '@/store';
 const { objTestStore, setPropertyTestStore } = useTestStore();
@@ -16,22 +17,20 @@ const handleRouter = () => {
 };
 </script>
 <template>
-    <view class="">
-        <common-top-bar
-            bg-image="https://img6.bdstatic.com/img/image/pcindex/sunjunpchuazhoutu.JPG"
-        />
+    <Page class="">
         <button @click="handleClick">修改</button>
         <button @click="handleRouter"> 跳转 </button>
         {{ objTestStore }}
 
-        <view class="center border-box"> 12 </view>
-        <view class="space-y-5 flex flex-col justify-center items-center">
-            <view class="i-ph-anchor-simple-thin text-lg" />
-            <view class="i-mdi-alarm text-orange-400 text-xl" />
-            <view class="i-logos-vue text-3xl" />
-            <view class="i-carbon-sun" />
-        </view>
-    </view>
+        <view class="center border-box text-xs"> 12 </view>
+
+        <view class="i-ph-anchor-simple-thin" />
+        <view class="i-mdi-alarm" />
+        <view class="i-logos-vue" />
+        <view class="i-carbon-sun" />
+        <view class="i-ph-confetti-duotone" />
+        <view class="i-octicon-accessibility-inset-16" />
+    </Page>
 </template>
 
 <style scoped lang="scss">
