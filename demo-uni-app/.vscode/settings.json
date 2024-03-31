@@ -3,6 +3,7 @@
         "dcloudio",
         "getphonenumber",
         "pinia",
+        "tabbar",
         "Unocss",
         "unplugin"
     ],
