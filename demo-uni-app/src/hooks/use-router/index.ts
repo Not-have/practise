@@ -30,7 +30,7 @@ export default function useRouter(): (options: string | TOptions) => void {
         }
 
         // @ts-ignore
-        const { type = 'default', url, query = {}, ...args } = options;
+        const { type = 'default', url, query = {}, params, ...args } = options;
         const urlQuery = mixinQuery(url || _url, query);
 
         switch (type) {
@@ -39,7 +39,10 @@ export default function useRouter(): (options: string | TOptions) => void {
                 uni.navigateTo({
                     url: urlQuery,
                     animationType: args.animationType,
-                    animationDuration: args.animationDuration
+                    animationDuration: args.animationDuration,
+                    success: (res) => {
+                        if (params) res.eventChannel.emit('acceptDataParams', args.params);
+                    }
                 });
                 break;
             case 'redirectTo':

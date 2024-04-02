@@ -1,6 +1,6 @@
 // TODO 需要优化
 export type TOptions =
-    | ({ type: 'navigateTo'; query?: Record<string, any> } & Omit<
+    | ({ type: 'navigateTo'; query?: Record<string, any>; params?: Record<string, any> } & Omit<
           UniNamespace.NavigateToOptions,
           'events'
       >)
