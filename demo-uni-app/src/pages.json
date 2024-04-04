@@ -14,9 +14,9 @@
             }
         }, 
         {
-            "path": "pages/we-chat-op/index",
+            "path": "pages/we-chat/index",
             "style": {
-                "navigationBarTitleText": "we-chat-op"
+                "navigationBarTitleText": "we-chat"
             }
         }
     ],
@@ -57,7 +57,7 @@
                 "text": "首页"
             },
             {
-                "pagePath": "pages/we-chat-op/index",
+                "pagePath": "pages/we-chat/index",
                 "text": "微信"
             },
             {

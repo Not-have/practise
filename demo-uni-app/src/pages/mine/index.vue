@@ -1,21 +1,11 @@
 <script setup lang="ts">
-import { useWeChatOpenId, useWeChatPhoneNumber as handlePhoneNumberClick } from '@/hooks';
-
-// eslint-disable-next-line no-unused-vars
-const initWeChatOpenId = () => {
-    useWeChatOpenId().then((res) => {
-        console.log(res);
-    });
-};
+import PublicPage from '@/components/public-page/index.vue';
 </script>
 
 <template>
-    <view class="">
-        <button open-type="getPhoneNumber" @getphonenumber="handlePhoneNumberClick"
-            >获取手机号</button
-        >
+    <PublicPage :footer="true">
         <view class="uni-scss-test"> uni.scss 内置的常用样式变量测试 </view>
-    </view>
+    </PublicPage>
 </template>
 
 <style scoped lang="scss">

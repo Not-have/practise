@@ -8,7 +8,7 @@ enum ERouter {
     HOME = '/pages/home/index',
     HOME_DETAILS = '/pages-home/details/index',
 
-    WE_CHAT = '/pages/we-chat-op/index',
+    WE_CHAT = '/pages/we-chat/index',
 
     MINE = '/pages/mine/index'
 }
