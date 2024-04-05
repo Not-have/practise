@@ -51,7 +51,7 @@ import { getCurrentInstance } from 'vue';
 
 const props = defineProps({
     isBack: {
-        type: Boolean || String,
+        type: Boolean,
         default: false
     },
     backColor: {

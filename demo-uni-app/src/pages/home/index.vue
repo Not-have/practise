@@ -28,8 +28,12 @@ console.log(uni.$u.trim(' abc '));
 console.log(' abc ');
 </script>
 <template>
-    <Page :topBar="true">
-        <button @click="handleClick" id="text">修改</button>
+    <Page
+        :topBar="true"
+        :loading="true"
+        bgImage="https://img6.bdstatic.com/img/image/pcindex/sunjunpchuazhoutu.JPG"
+    >
+        <button @click="handleClick">修改</button>
         <button @click="handleRouter"> 跳转 </button>
         {{ objTestStore }}
     </Page>

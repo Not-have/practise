@@ -31,7 +31,7 @@ const handleClick = (e: any) => {
 <template>
     <u-tabbar
         :value="_index"
-        :fixed="true"
+        :fixed="false"
         :placeholder="false"
         :safeAreaInsetBottom="false"
         @change="handleChange"
