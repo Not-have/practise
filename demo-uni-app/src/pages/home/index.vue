@@ -30,7 +30,6 @@ console.log(' abc ');
 <template>
     <Page
         :topBar="true"
-        :loading="true"
         bgImage="https://img6.bdstatic.com/img/image/pcindex/sunjunpchuazhoutu.JPG"
     >
         <button @click="handleClick">修改</button>

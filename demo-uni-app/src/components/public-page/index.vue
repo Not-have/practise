@@ -70,7 +70,7 @@ const handleScrolltolower = () => {
             }}</common-top-bar>
         </slot>
         <scroll-view
-            class="content"
+            class="content border-box"
             :scroll-y="true"
             :refresher-enabled="pagination"
             :refresher-triggered="refreshStatus"
@@ -101,6 +101,7 @@ const handleScrolltolower = () => {
     .content {
         flex: 1;
         overflow-y: auto;
+        padding: $uni-spacing-col-base $uni-spacing-row-base;
     }
 }
 </style>
