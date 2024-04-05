@@ -161,6 +161,7 @@ const handleClick = () => {
     height: 60upx;
     font-size: 32upx;
     line-height: 60upx;
+    font-weight: 500;
     cursor: none;
     pointer-events: none;
     text-overflow: ellipsis;
