@@ -29,8 +29,10 @@ console.log(' abc ');
 </script>
 <template>
     <Page
-        :topBar="true"
-        bgImage="https://img6.bdstatic.com/img/image/pcindex/sunjunpchuazhoutu.JPG"
+        :topBar="{
+            title: '11111',
+            bgImage: 'https://img6.bdstatic.com/img/image/pcindex/sunjunpchuazhoutu.JPG'
+        }"
     >
         <button @click="handleClick">修改</button>
         <button @click="handleRouter"> 跳转 </button>
