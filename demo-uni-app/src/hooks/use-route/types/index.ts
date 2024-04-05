@@ -1,5 +1,5 @@
 export interface IReturns {
-    query: string;
+    query: any;
     location: string;
     referrer: string;
     params: Record<string, any> | null;

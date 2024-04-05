@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useTestStore } from '@/store';
-import { useRouter } from '@/hooks';
+import { useRouter, useRoute } from '@/hooks';
 const { objTestStore } = useTestStore();
 
 const router = useRouter();
@@ -9,6 +9,10 @@ const handleClick = () => {
         type: 'navigateBack'
     });
 };
+
+useRoute().then((res) => {
+    console.log(res);
+});
 </script>
 <template>
     <view class="">

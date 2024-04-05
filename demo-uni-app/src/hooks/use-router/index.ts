@@ -22,6 +22,9 @@ function mixinQuery(url: string, params: Record<string, any>): string {
     return (url += query);
 }
 
+/**
+ * https://zh.uniapp.dcloud.io/api/router.html#navigateto
+ */
 export default function useRouter(): (options: string | TOptions) => void {
     return function (options: string | TOptions) {
         let _url = '';
