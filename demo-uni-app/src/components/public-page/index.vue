@@ -87,7 +87,8 @@ const topBarProps = computed(() => {
         bgColor: '',
         bgImage: ''
     };
-    if (typeof props.topBar === 'boolean') {
+
+    if (typeof props.topBar === 'boolean' && props.topBar) {
         obj.topBar = true;
     }
     if (typeof props.topBar === 'object') {

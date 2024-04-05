@@ -30,7 +30,8 @@ onLaunch(() => {
             global.StatusBar = e.statusBarHeight;
             let custom = wx.getMenuButtonBoundingClientRect();
             global.Custom = custom;
-            global.CustomBar = custom.bottom + custom.top - (e.statusBarHeight || 0) + 4;
+            // TODO global.CustomBar = custom.bottom + custom.top - (e.statusBarHeight || 0) + 4; 取消这个 + 4，为了统一在手机上的高度
+            global.CustomBar = custom.bottom + custom.top - (e.statusBarHeight || 0);
             // #endif
 
             // #ifdef MP-ALIPAY
