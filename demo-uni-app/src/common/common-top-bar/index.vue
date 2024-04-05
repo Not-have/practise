@@ -1,7 +1,10 @@
 <!-- 
 App.vue ——> onLaunch 加入：
 
-// https://blog.csdn.net/weixin_44596839/article/details/124358961
+也可使用 uni-nav-bar
+
+https://zh.uniapp.dcloud.io/component/uniui/uni-nav-bar.html
+
 import type { ComponentInternalInstance } from 'vue';
 import { getCurrentInstance } from 'vue';
 import { onLaunch } from '@dcloudio/uni-app';
