@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import Page from '@/components/public-page/index.vue';
-import { ERouter } from '@/enum';
+import { ERouter } from '@/router';
 import { useTestStore } from '@/store';
 const { objTestStore, setPropertyTestStore } = useTestStore();
 import { useRouter } from '@/hooks';

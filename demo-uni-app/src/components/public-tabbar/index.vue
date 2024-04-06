@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from '@/hooks';
-import { router as _router } from '@/router';
+import { TABBAR } from '@/router';
 
 const router = useRouter();
 const _index = ref(0);
 
 onTabItemTap((e) => {
-    _router.forEach((v, i) => {
+    TABBAR.forEach((v, i) => {
         if (v.url.slice(1) === e.pagePath) {
             _index.value = i;
         }
@@ -19,14 +19,14 @@ const handleChange = (e: any) => {
 };
 const handleClick = (e: any) => {
     router({
-        url: _router[e].url,
+        url: TABBAR[e].url,
         type: 'switchTab'
     });
 };
 </script>
 <!-- TODO 
     底部 bar 自己写一个，可以不用这个 
-    docs：https://uiadmin.net/uview-plus/components/tabbar.html
+    docs：https://uiadmin.net/uview-plus/components/TABBAR.html
 -->
 <template>
     <u-tabbar
@@ -37,7 +37,7 @@ const handleClick = (e: any) => {
         @change="handleChange"
     >
         <u-tabbar-item
-            v-for="item in _router"
+            v-for="item in TABBAR"
             :key="item.url"
             :text="item.text"
             :icon="item.icon"
