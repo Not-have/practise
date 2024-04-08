@@ -11,28 +11,28 @@ const innerAudioContext = uni.createInnerAudioContext();
 innerAudioContext.autoplay = true;
 
 // 复合使用的时候，注意播放失效问题，建议
-// var plugin = requirePlugin('WechatSI');
-// let manager = plugin.getRecordRecognitionManager();
+var plugin = requirePlugin('WechatSI');
+let manager = plugin.getRecordRecognitionManager();
 
 const initRecord = () => {
-    // manager.onStart = function (res: any) {
-    //     console.log('正在录音', res);
-    // };
-    // //有新的识别内容返回，则会调用此事件
-    // manager.onRecognize = (res: any) => {
-    //     console.log('有新的识别内容', res);
-    // };
-    // // 识别结束事件
-    // manager.onStop = (res: any) => {
-    //     console.log('识别结束事件', res);
-    //     if (res?.result) {
-    //         text.value = res.result;
-    //     }
-    // };
-    // // 识别错误事件
-    // manager.onError = (res: any) => {
-    //     console.log('识别错误事件', res);
-    // };
+    manager.onStart = function (res: any) {
+        console.log('正在录音', res);
+    };
+    //有新的识别内容返回，则会调用此事件
+    manager.onRecognize = (res: any) => {
+        console.log('有新的识别内容', res);
+    };
+    // 识别结束事件
+    manager.onStop = (res: any) => {
+        console.log('识别结束事件', res);
+        if (res?.result) {
+            text.value = res.result;
+        }
+    };
+    // 识别错误事件
+    manager.onError = (res: any) => {
+        console.log('识别错误事件', res);
+    };
     // 语音录制完成
     recorderManager.onStop(function (res) {
         console.log(res, '语音录制完成');
@@ -49,30 +49,30 @@ const handleTouchstart = () => {
         duration: 30000
     });
 
-    // manager.start({
-    //     duration: 30000,
-    //     lang: 'zh_CN'
-    // });
+    manager.start({
+        duration: 30000,
+        lang: 'zh_CN'
+    });
 };
 const handleTouchend = () => {
     console.log('录音结束');
     isTyping.value = false;
     recorderManager.stop();
 
-    // manager.stop();
+    manager.stop();
 };
-const handlePlayClick = () => {
-    if (voicePath.value) {
-        handlePlay(voicePath.value);
-    }
-};
+// const handlePlayClick = () => {
+//     if (voicePath.value) {
+//         handlePlay(voicePath.value);
+//     }
+// };
 
-const handlePlay = (url: string) => {
-    if (url) {
-        innerAudioContext.src = url;
-        innerAudioContext.play();
-    }
-};
+// const handlePlay = (url: string) => {
+//     if (url) {
+//         innerAudioContext.src = url;
+//         innerAudioContext.play();
+//     }
+// };
 
 // const handleVideoToTestClick = () => {
 //     /*
@@ -114,7 +114,7 @@ const handlePlay = (url: string) => {
             {{ isTyping ? '语音输入中...' : '语音输入' }}
         </button>
         <br />
-        <button class="" hover-class="none" @click="handlePlayClick"> 播放语音 </button>
+        <!-- <button class="" hover-class="none" @click="handlePlayClick"> 播放语音 </button> -->
 
         {{ text }}
 
