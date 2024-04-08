@@ -1,6 +1,6 @@
-import type { Ref } from 'vue';
+// import type { Ref } from 'vue';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { reactive } from 'vue';
 
 interface IInitStore {
     age: number;
@@ -8,22 +8,22 @@ interface IInitStore {
 }
 
 interface IStore {
-    objTestStore: Ref<IInitStore>;
+    objTestStore: IInitStore;
     setAllTestStore: (payload: IInitStore) => void;
     setPropertyTestStore: <K extends keyof IInitStore>(key: K, value: IInitStore[K]) => void;
 }
 
-const useTestStore = defineStore(
+const useTestOneStore = defineStore(
     'testStore',
     (): IStore => {
-        const objTestStore = ref({ age: 0, name: '' });
+        const objTestStore = reactive({ age: 0, name: '' });
 
         function setAllTestStore(payload: IInitStore) {
-            objTestStore.value = payload;
+            Object.assign(objTestStore, payload);
         }
 
         function setPropertyTestStore<K extends keyof IInitStore>(key: K, value: IInitStore[K]) {
-            return (objTestStore.value[key] = value);
+            return (objTestStore[key] = value);
         }
 
         return { setAllTestStore, setPropertyTestStore, objTestStore };
@@ -33,4 +33,4 @@ const useTestStore = defineStore(
     }
 );
 
-export default useTestStore;
+export default useTestOneStore;

@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import Page from '@/components/public-page/index.vue';
-import { ERouter } from '@/router';
 import { useTestOneStore } from '@/store';
-
-import { useRouter } from '@/hooks';
 
 const testStore = useTestOneStore();
 const { objTestStore } = storeToRefs(testStore);
@@ -19,20 +16,6 @@ const handleAllClick = () => {
         age: 333
     });
 };
-const router = useRouter();
-
-const handleRouter = () => {
-    router({
-        type: 'navigateTo',
-        url: ERouter.HOME_DETAILS,
-        query: {
-            name: '111'
-        }
-    });
-};
-
-console.log(uni.$u.trim(' abc '));
-console.log(' abc ');
 </script>
 <template>
     <Page
@@ -44,7 +27,6 @@ console.log(' abc ');
         <button @click="handleClick">修改</button>
         <button @click="handleAllClick">全量修改</button>
 
-        <button @click="handleRouter"> 跳转 </button>
         <hr />
         {{ objTestStore.age }}
         {{ objTestStore.name }}

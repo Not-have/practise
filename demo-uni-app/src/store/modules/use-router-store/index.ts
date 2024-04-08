@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { reactive } from 'vue';
 
 /**
- * @deprecated 路由传参，使用 hooks 吧，放弃 pinia 的实现 
+ * @deprecated 路由传参，使用 hooks 吧，放弃 pinia 的实现
  *
  * 路由
  *

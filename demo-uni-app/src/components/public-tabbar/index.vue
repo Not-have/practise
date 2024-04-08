@@ -23,6 +23,14 @@ const handleClick = (e: any) => {
         type: 'switchTab'
     });
 };
+
+onShow(() => {
+    try {
+        uni.hideTabBar();
+    } catch (e) {
+        console.error('不是tabbar', e);
+    }
+});
 </script>
 <!-- TODO 
     底部 bar 自己写一个，可以不用这个 

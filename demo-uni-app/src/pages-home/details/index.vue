@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { useTestStore } from '@/store';
+import Page from '@/components/public-page/index.vue';
+import { useTestOneStore } from '@/store';
 import { useRouter, useRoute } from '@/hooks';
-const { objTestStore } = useTestStore();
+const { objTestStore } = useTestOneStore();
 
 const router = useRouter();
 const handleClick = () => {
@@ -15,12 +16,12 @@ useRoute().then((res) => {
 });
 </script>
 <template>
-    <view class="">
+    <Page class="">
         <button @click="handleClick">返回</button>
         详情
         <br />
         {{ objTestStore }}
-    </view>
+    </Page>
 </template>
 
 <style scoped lang="scss"></style>

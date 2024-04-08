@@ -1,10 +1,20 @@
 import type { ComponentPublicInstance } from 'vue';
+import { onLoad as _onLoad } from '@dcloudio/uni-app';
 import { getCurrentInstance } from 'vue';
 import type { IReturns } from './types';
 
+/**
+ * 获取当前路由信息
+ *
+ * 唯一缺点他是异步的，不是很完美
+ *
+ * 写在 onLoad 中
+ *
+ * @returns {Promise<IReturns>}
+ */
 export default function useRoute(): Promise<IReturns> {
     return new Promise((resolve, reason) => {
-        onLoad((e) => {
+        _onLoad((e) => {
             let params = null;
             try {
                 const instance = getCurrentInstance()!.proxy as ComponentPublicInstance;

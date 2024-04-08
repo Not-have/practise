@@ -71,13 +71,20 @@ const props = defineProps({
     }
 });
 
+/*
+// 可以不存在（没有人把 自定义和原生 tabbar 混合使用，除非傻逼）
 onShow(() => {
-    if (props.footer) {
-        uni.hideTabBar();
-        return;
+    try {
+        if (props.footer) {
+            uni.hideTabBar();
+            return;
+        }
+        uni.showTabBar();
+    } catch (e) {
+        console.error('不是tabbar', e);
     }
-    uni.showTabBar();
 });
+*/
 
 const topBarProps = computed(() => {
     let obj = {
