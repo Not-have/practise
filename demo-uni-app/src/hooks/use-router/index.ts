@@ -44,7 +44,9 @@ export default function useRouter(): (options: string | TOptions) => void {
                     animationType: args.animationType,
                     animationDuration: args.animationDuration,
                     success: (res) => {
-                        if (params) res.eventChannel.emit('acceptDataParams', args.params);
+                        if (params) {
+                            res.eventChannel.emit('acceptDataParams', args.params);
+                        }
                     }
                 });
                 break;

@@ -25,7 +25,7 @@ export default function useRoute(): Promise<IReturns> {
                     params = data;
                 });
             } catch (e) {
-                new Error('获取信息路哟 params 信息错误：' + e);
+                new Error('Getting route params error:' + e);
             }
             try {
                 const routes: any = getCurrentPages(); // 获取当前打开过的页面路由数组
@@ -45,7 +45,7 @@ export default function useRoute(): Promise<IReturns> {
                 });
             } catch (e) {
                 reason(e);
-                throw new Error('获取信息路哟信息错误：' + e);
+                throw new Error('Error getting routing information: ' + e);
             }
         });
     });
