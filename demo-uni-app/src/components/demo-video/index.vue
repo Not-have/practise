@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { onLoad } from '@dcloudio/uni-app';
 import { ref } from 'vue';
 
 const isTyping = ref(false);
