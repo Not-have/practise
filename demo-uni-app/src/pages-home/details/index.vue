@@ -12,7 +12,7 @@ const handleClick = () => {
 };
 
 useRoute().then((res) => {
-    console.log(res);
+    console.log(res, 'details');
 });
 </script>
 <template>

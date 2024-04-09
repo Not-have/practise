@@ -1,7 +1,18 @@
-import type { ComponentPublicInstance } from 'vue';
 import { onLoad as _onLoad } from '@dcloudio/uni-app';
-import { getCurrentInstance } from 'vue';
 import type { IReturns } from './types';
+
+function getNewsletter(): IReturns['params'] {
+    return new Promise((resolve, reject) => {
+        try {
+            uni.$once('navigateTo_params', function (data) {
+                resolve(data);
+            });
+        } catch (e) {
+            new Error('Getting route params error:' + e);
+            reject(e);
+        }
+    });
+}
 
 /**
  * 获取当前路由信息
@@ -14,28 +25,23 @@ import type { IReturns } from './types';
  */
 export default function useRoute(): Promise<IReturns> {
     return new Promise((resolve, reason) => {
-        _onLoad((e) => {
-            let params = null;
-            try {
-                const instance = getCurrentInstance()!.proxy as ComponentPublicInstance;
-                // @ts-ignore
-                const eventChannel = instance.getOpenerEventChannel();
-
-                eventChannel.on('acceptDataParams', function (data: any) {
-                    params = data;
-                });
-            } catch (e) {
-                new Error('Getting route params error:' + e);
-            }
+        _onLoad(async (e: any) => {
             try {
                 const routes: any = getCurrentPages(); // 获取当前打开过的页面路由数组
 
-                const query = e || routes[routes.length - 1].options;
+                let query = null;
+                if (JSON.stringify(e) !== '{}') {
+                    query = await (JSON.parse(decodeURIComponent(e.query)) ||
+                        routes[routes.length - 1].options);
+                }
+
                 const location = routes[routes.length - 1].route;
                 let referrer = '';
                 if (routes.length > 2) {
                     referrer = routes[routes.length - 2].route;
                 }
+
+                const params = await getNewsletter();
 
                 resolve({
                     query,

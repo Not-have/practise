@@ -26,7 +26,11 @@ const handleRouter = () => {
         type: 'navigateTo',
         url: ERouter.HOME_DETAILS,
         query: {
-            name: '111'
+            name: '111',
+            arr: [1, 2, 3, 4, 5, 'wwwws']
+        },
+        params: {
+            a: 222
         }
     });
 };
