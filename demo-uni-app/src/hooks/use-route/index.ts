@@ -37,9 +37,11 @@ export default function useRoute(): Promise<IReturns> {
 
                 const location = routes[routes.length - 1].route;
                 let referrer = '';
-                if (routes.length > 2) {
-                    referrer = routes[routes.length - 2].route;
-                }
+                referrer = routes[0]?.route || '';
+
+                // if (routes.length > 2) {
+                //     referrer = routes[routes.length - 2].route;
+                // }
 
                 const params = await getNewsletter();
 
