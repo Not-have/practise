@@ -3,8 +3,13 @@ import type { IReturns } from './types';
 
 function getNewsletter(): IReturns['params'] {
     return new Promise((resolve, reject) => {
+        const timeout = setTimeout(() => {
+            resolve(null);
+        }, 250);
+
         try {
             uni.$once('navigateTo_params', function (data) {
+                clearTimeout(timeout);
                 resolve(data);
             });
         } catch (e) {
