@@ -135,21 +135,24 @@ const handleScrolltolower = () => {
                 >{{ topBarProps.title }}</common-top-bar
             >
         </slot>
-        <scroll-view
-            class="content border-box"
-            :style="{ backgroundImage: `url(${bgImage})` }"
-            :scroll-y="true"
-            :refresher-enabled="pagination"
-            :refresher-triggered="refreshStatus"
-            :refresher-threshold="100"
-            :lower-threshold="100"
-            refresher-background="#f7f7f7"
-            @refresherrefresh="handleRefresherrefresh"
-            @scrolltolower="handleScrolltolower"
-        >
-            <slot></slot>
-            <uni-load-more v-if="pagination" iconType="circle" :status="moreStatus" />
-        </scroll-view>
+        <view class="body">
+            <scroll-view
+                class="content border-box"
+                :style="{ backgroundImage: `url(${bgImage})` }"
+                :scroll-y="true"
+                :refresher-enabled="pagination"
+                :refresher-triggered="refreshStatus"
+                :refresher-threshold="100"
+                :lower-threshold="100"
+                refresher-background="#f7f7f7"
+                @refresherrefresh="handleRefresherrefresh"
+                @scrolltolower="handleScrolltolower"
+            >
+                <slot name="extra"></slot>
+                <slot></slot>
+                <uni-load-more v-if="pagination" iconType="circle" :status="moreStatus" />
+            </scroll-view>
+        </view>
         <view class="footer" v-if="footer">
             <slot name="footer">
                 <PublicTabbar />
@@ -166,11 +169,17 @@ const handleScrolltolower = () => {
     flex-direction: column;
     overflow: hidden;
     background-color: v-bind('bgColor');
-    .content {
+    .body {
         flex: 1;
-        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
         padding: $uni-spacing-col-base $uni-spacing-row-base;
-        background-size: cover;
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            background-size: cover;
+        }
     }
 }
 </style>

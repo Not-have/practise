@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    // 定义经纬度
+    const latitude = 108.97368; // 纬度
+    const longitude = 34.352847 ; // 经度
+
+    // 发起逆地理编码请求
+    fetch(`https://restapi.amap.com/v3/geocode/regeo?key=b2837cddf98a7704c3bd74124c95eff3&location=${longitude},${latitude}`)
+        .then(response => response.json())
+        .then(data => {
+            // 解析返回的数据
+            const citycode = data.regeocode.addressComponent.citycode;
+            console.log("城市编码:", citycode);
+        })
+        .catch(error => {
+            console.error("请求失败:", error);
+        });
+
+</script>
