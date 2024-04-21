@@ -1,11 +1,15 @@
 <script lang="ts" setup>
 import PublicPage from '@/components/public-page/index.vue';
-// import DemoVideo from '@/components/demo-video/index.vue';
+import { useWeChatUserCertificate } from '@/hooks';
+const handleClick = () => {
+    useWeChatUserCertificate().then((res) => {
+        console.log(res);
+    });
+};
 </script>
 <template>
     <PublicPage>
-        <!-- <DemoVideo /> -->
-        22
+        <u-button type="primary" text="确定" @click="handleClick" />
     </PublicPage>
 </template>
 

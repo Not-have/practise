@@ -1,4 +1,4 @@
-export { default as useWeChatOpenId } from './use-we-chat-openid';
+export { default as useWeChatUserCertificate } from './use-we-chat-user-certificate';
 export { default as useWeChatPhoneNumber } from './use-we-chat-phone-number';
 
 export { default as useRouter } from './use-router';

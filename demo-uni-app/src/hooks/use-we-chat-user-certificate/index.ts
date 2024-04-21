@@ -17,9 +17,13 @@ interface IData {
      * 会话密钥，有效期是三天
      */
     sessionKey: string;
+    /**
+     * unionid 用户在开放平台的唯一标识符，若当前小程序已绑定到微信开放平台账号下会返回
+     */
+    unionId: string;
 }
 
-interface _IData extends Pick<IData, 'openId' | 'sessionKey'> {}
+interface _IData extends Pick<IData, 'openId' | 'sessionKey' | 'unionId'> {}
 
 /**
  * https://developers.weixin.qq.com/miniprogram/dev/OpenApiDoc/user-login/code2Session.html
@@ -37,19 +41,22 @@ function getOpenId(code: string): Promise<_IData> {
     }).then((data: any) => {
         return {
             openId: data.openid,
-            sessionKey: data.session_key
+            sessionKey: data.session_key,
+            unionId: data.unionid
         };
     });
 }
 
 /**
- * @deprecated 获取用户 code 和 openId
+ * @deprecated 获取用户 openId unionId
  *
  * 不建议 web 端来获取
  *
  * https://developers.weixin.qq.com/miniprogram/dev/api/open-api/login/wx.login.html
+ *
+ * https://developers.weixin.qq.com/community/develop/article/doc/00082a04b94c00a9f3eb879ba5ac13
  */
-export default function useWeChatOpenId(): Promise<IData> {
+export default function useWeChatUserCertificate(): Promise<IData> {
     return uni.login().then(async (res) => {
         if (!res.code) {
             throw new Error('登录失败！' + res.errMsg);
@@ -59,7 +66,8 @@ export default function useWeChatOpenId(): Promise<IData> {
         return {
             code: res.code,
             openId: data.openId,
-            sessionKey: data.sessionKey
+            sessionKey: data.sessionKey,
+            unionId: data.unionId
         };
     });
 }
