@@ -48,6 +48,10 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    scroll: {
+        type: Boolean,
+        default: false
+    },
     /**
      * 分页列表
      */
@@ -136,10 +140,12 @@ const handleScrolltolower = () => {
             >
         </slot>
         <view class="body">
+            <!-- extra 是不跟随滚动 -->
+            <slot name="extra"></slot>
             <scroll-view
                 class="content border-box"
                 :style="{ backgroundImage: `url(${bgImage})` }"
-                :scroll-y="true"
+                :scroll-y="scroll"
                 :refresher-enabled="pagination"
                 :refresher-triggered="refreshStatus"
                 :refresher-threshold="100"
@@ -148,7 +154,6 @@ const handleScrolltolower = () => {
                 @refresherrefresh="handleRefresherrefresh"
                 @scrolltolower="handleScrolltolower"
             >
-                <slot name="extra"></slot>
                 <slot></slot>
                 <uni-load-more v-if="pagination" iconType="circle" :status="moreStatus" />
             </scroll-view>

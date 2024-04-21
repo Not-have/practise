@@ -7,7 +7,8 @@ const handleRefreshData = () => {
 </script>
 
 <template>
-    <PublicPage :footer="true" more="none" @refresh-data="handleRefreshData">
+    <PublicPage more="none" :scroll="true" @refresh-data="handleRefreshData">
+        <template #extra> 提示信息 </template>
         <view class="uni-scss-test"> uni.scss 内置的常用样式变量测试 </view>
         <view class="uni-scss-test"> uni.scss 内置的常用样式变量测试 </view>
         <view class="uni-scss-test"> uni.scss 内置的常用样式变量测试 </view>

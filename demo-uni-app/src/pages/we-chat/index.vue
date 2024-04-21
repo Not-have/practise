@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import PublicPage from '@/components/public-page/index.vue';
-import DemoVideo from '@/components/demo-video/index.vue';
+// import DemoVideo from '@/components/demo-video/index.vue';
 </script>
 <template>
     <PublicPage>
-        <DemoVideo />
+        <!-- <DemoVideo /> -->
+        22
     </PublicPage>
 </template>
 
