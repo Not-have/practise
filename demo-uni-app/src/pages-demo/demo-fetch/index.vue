@@ -1,19 +1,15 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { Ref, UnwrapRef } from 'vue';
-interface IObj {
-  age: string;
-}
+import { dataDemo } from './fetch';
+import { useService } from '@/hooks';
 
-const obj: Ref<UnwrapRef<IObj>> = ref({
-  age: ''
-});
+const { data } = useService(dataDemo);
+console.log(data);
 </script>
 <template>
   <view>
     请求
     <view>
-      {{ obj?.age }}
+      {{ data }}
     </view>
   </view>
 </template>
