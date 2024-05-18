@@ -1,15 +1,17 @@
 <script lang="ts" setup>
-import { dataDemo } from './fetch';
+import { dataDemo, dataDemoList } from './fetch';
 import { useService } from '@/hooks';
 
 const { data } = useService(dataDemo);
-console.log(data);
+const { data: list } = useService(dataDemoList);
 </script>
 <template>
   <view>
     请求
     <view>
-      {{ data }}
+      {{ data?.title }}
+
+      {{ list?.length }}
     </view>
   </view>
 </template>
