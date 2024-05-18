@@ -10,7 +10,9 @@ enum ERouter {
 
     WE_CHAT = '/pages/we-chat/index',
 
-    MINE = '/pages/mine/index'
+    MINE = '/pages/mine/index',
+
+    DEMO_FETCH = '/pages-demo/demo-fetch/index'
 }
 
 export default ERouter;
