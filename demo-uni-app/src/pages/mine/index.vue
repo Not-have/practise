@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PublicPage from 'uni-vue-uni-app/src/components/page/index.vue';
+import PublicPage from '@/uni_modules/micro-vue-uni-app/src/components/page/index.vue';
 
 const handleRefreshData = () => {
     console.log(222);
