@@ -16,7 +16,7 @@
         "ant-design-vue": "^4.1.2",
         "element-plus": "^2.3.12",
         "micro-util-ts": "^1.5.4",
-        "micro-vue-hooks": "^1.3.3",
+        "micro-vue-hooks": "^1.3.7",
         "pinia": "^2.1.6",
         "vue": "^3.3.4",
         "vue-router": "^4.2.4",
