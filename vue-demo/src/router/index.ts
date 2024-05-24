@@ -58,6 +58,11 @@ const router = createRouter({
             name: ERouter.VUE_STYLED_COMPONENTS,
             component: () => import("../views/vue-styled-components/index.vue"),
         },
+        {
+            path: ERouter.DEMO_HOOKS,
+            name: ERouter.DEMO_HOOKS,
+            component: () => import("../views/demo-hooks/index.vue"),
+        }
     ],
 });
 

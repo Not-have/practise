@@ -37,6 +37,10 @@ const handleRouter = () => {
 
 console.log(uni.$u.trim(' abc '));
 console.log(' abc ');
+
+const handleFetchRouter = () => {
+    router(ERouter.DEMO_FETCH);
+};
 </script>
 <template>
     <Page
@@ -49,6 +53,9 @@ console.log(' abc ');
         <button @click="handleAllClick">全量修改</button>
 
         <button @click="handleRouter"> 跳转 </button>
+
+        <button @click="handleFetchRouter"> 请求 </button>
+
         <hr />
         {{ objTestStore.age }}
         {{ objTestStore.name }}

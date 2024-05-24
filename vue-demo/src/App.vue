@@ -32,6 +32,9 @@ import {
         &nbsp;
         &nbsp;
         <RouterLink :to="ERouter.VUE_STYLED_COMPONENTS">vue-styled-components</RouterLink>
+        &nbsp;
+        &nbsp;
+        <RouterLink :to="ERouter.DEMO_HOOKS">demo-hooks</RouterLink>
 
     </nav>
     <br />

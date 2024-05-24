@@ -21,65 +21,65 @@ import initRequest from './init-request';
 
 interface IConfig extends Omit<UniNamespace.RequestOptions, 'method' | 'url' | 'data'> {}
 interface IParamsConf extends IConfig {
-    /**
-     * 基础的 url 信息
-     *
-     * 例：http://localhost:52330
-     */
-    baseUrl?: string;
+  /**
+   * 基础的 url 信息
+   *
+   * 例：http://localhost:52330
+   */
+  baseUrl?: string;
 }
 
 function injectUrl(baseUrl: string = '', url: string): string {
-    if (!/^https?:\/\//i.test(url)) {
-        url = `${baseUrl}${url}`;
-    }
+  if (!/^https?:\/\//i.test(url)) {
+    url = `${baseUrl}${url}`;
+  }
 
-    return url;
+  return url;
 }
 
 function fetch({ baseUrl, ...conf }: IParamsConf = {}) {
-    function get<D, Q extends string | AnyObject>(
-        url: string,
-        params?: Q,
-        config?: IConfig
-    ): Promise<D> {
-        return dataRequest<D>({
-            ...conf,
-            url: injectUrl(baseUrl, url),
-            method: 'GET',
-            data: params,
-            header: {
-                ...conf?.header,
-                ...config?.header
-            },
-            ...config
-        });
-    }
+  function get<D, Q extends string | AnyObject>(
+    url: string,
+    params?: Q,
+    config?: IConfig
+  ): Promise<D> {
+    return dataRequest<D>({
+      ...conf,
+      url: injectUrl(baseUrl, url),
+      method: 'GET',
+      data: params,
+      header: {
+        ...conf?.header,
+        ...config?.header
+      },
+      ...config
+    });
+  }
 
-    function post<D, Q extends string | AnyObject>(
-        url: string,
-        params?: Q,
-        config?: IConfig
-    ): Promise<D | null> {
-        return dataRequest<D>({
-            ...conf,
-            url: injectUrl(baseUrl, url),
-            method: 'POST',
-            data: params,
-            header: {
-                ...conf?.header,
-                ...config?.header
-            },
-            ...config
-        });
-    }
+  function post<D, Q extends string | AnyObject>(
+    url: string,
+    params?: Q,
+    config?: IConfig
+  ): Promise<D | null> {
+    return dataRequest<D>({
+      ...conf,
+      url: injectUrl(baseUrl, url),
+      method: 'POST',
+      data: params,
+      header: {
+        ...conf?.header,
+        ...config?.header
+      },
+      ...config
+    });
+  }
 
-    return {
-        get,
-        post
-    };
+  return {
+    get,
+    post
+  };
 }
 
-export default fetch;
+export default fetch();
 
 export { initRequest };
