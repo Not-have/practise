@@ -59,10 +59,11 @@ sudo killall -HUP mDNSResponder
 
 distributionBase=GRADLE_USER_HOME
 distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-8.6-all.zip
+
+# distributionUrl=https\://services.gradle.org/distributions/gradle-8.6-all.zip
 
 # 国内镜像源
-# distributionUrl=https\://mirrors.aliyun.com/macports/distfiles/gradle/gradle-8.6-all.zip
+distributionUrl=https\://mirrors.aliyun.com/macports/distfiles/gradle/gradle-8.6-all.zip
 
 networkTimeout=10000
 validateDistributionUrl=true
@@ -77,3 +78,6 @@ zipStorePath=wrapper/dists
 npm run android
 ```
 
+![Alt text](./assets/images/run.png)
+
+注：这个报错，是因为权限不足引起的，所以使用管理员运行 `cmd`。
