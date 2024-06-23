@@ -30,7 +30,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
@@ -51,7 +51,26 @@ export default function TabLayout() {
         name="two"
         options={{
           title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="chrome" color={color} />,
+        }}
+      />
+      {/* 
+        name 是 tabs 下的文件名
+        options.title 是 tab 的标题
+        options.tabBarIcon 是 icon
+      */}
+      <Tabs.Screen
+        name="demo-ui"
+        options={{
+          title: 'demo ui',
+          tabBarIcon: ({ color }) => <TabBarIcon name="simplybuilt" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="demo-router"
+        options={{
+          title: 'demo router',
+          tabBarIcon: ({ color }) => <TabBarIcon name="minus" color={color} />,
         }}
       />
     </Tabs>
