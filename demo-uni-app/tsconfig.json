@@ -1,5 +1,4 @@
 {
-    "extends": "@vue/tsconfig/tsconfig.json",
     "compilerOptions": {
         "sourceMap": true,
         "module": "es2020",
@@ -24,12 +23,6 @@
     },
     "vueCompilerOptions": {
         "target": 3,
-        "nativeTags": [
-            "block",
-            "template",
-            "component",
-            "slot"
-        ]
     },
     "include": [
         "src/**/*.ts",
@@ -37,5 +30,19 @@
         "src/**/*.tsx",
         "src/**/*.vue",
         "typings.d.ts"
-    ]
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "useDefineForClassFields": true,
+    "jsx": "preserve",
+    "noImplicitThis": true,
+    "strict": true,
+    "isolatedModules": true,
+    "preserveValueImports": true,
+    "importsNotUsedAsValues": "error",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
 }

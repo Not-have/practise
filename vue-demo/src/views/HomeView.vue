@@ -7,7 +7,7 @@
 
 </style>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 function handleError() {
     // reload();
     // throw new Error('请求错误！');
@@ -15,6 +15,8 @@ function handleError() {
     new Promise((resolve, reject) => {
         reject('1111');
     }).catch
+
+    return <div>111</div>
   
   // 注释掉下一行，以确保全局未捕获 Promise 拒绝
   // promise.catch(error => {});
