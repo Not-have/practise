@@ -1,14 +1,8 @@
-import { createSSRApp } from 'vue';
-import App from './App.vue';
-import "uno.css";
-import setupStore from '@/store/index';
-import setupUiLibrary from '@/common/setup-ui-library'
-
+import { createSSRApp } from "vue";
+import App from "./App.vue";
 export function createApp() {
-    const app = createSSRApp(App);
-    setupStore(app);
-    setupUiLibrary(app);
-    return {
-        app
-    };
+  const app = createSSRApp(App);
+  return {
+    app,
+  };
 }

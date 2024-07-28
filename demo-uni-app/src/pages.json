@@ -1,86 +1,16 @@
 {
-    "pages": [
-        {
-            "path": "pages/home/index",
-            "style": {
-                "navigationBarTitleText": "home",
-                "navigationStyle": "custom"
-            }
-        },
-        {
-            "path": "pages/mine/index",
-            "style": {
-                "navigationBarTitleText": "mine"
-            }
-        }, 
-        {
-            "path": "pages/we-chat/index",
-            "style": {
-                "navigationBarTitleText": "we-chat"
-            }
-        }
-    ],
-    "subPackages":[
-        {
-            "root": "pages-home",
-            "pages": [
-                {
-                    "path": "details/index",
-                    "style": {
-                        "navigationBarTitleText": "首页详情"
-                    }
-                }
-            ]
-        },
-        {
-            "root": "pages-demo",
-            "pages": [
-                {
-                    "path": "demo-fetch/index",
-                    "style": {
-                        "navigationBarTitleText": "请求 demo"
-                    }
-                }
-            ]
-        }
-    ],
-    "easycom": {
-        "autoscan": true,
-        "custom": {
-            "^common-(.*)": "@/common/common-$1/index.vue",
-            "^u-(.*)": "uview-plus/components/u-$1/u-$1.vue",
-            "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-        }
-    },
-    "globalStyle": {
-        "navigationBarTextStyle": "black",
-        "navigationBarTitleText": "demo",
-        "navigationBarBackgroundColor": "#F8F8F8",
-        "backgroundColor": "#F8F8F8"
-    },
-    "tabBar": {
-        "backgroundColor": "#007aff",
-        "selectedColor": "#fff",
-        "fontSize": "30px",
-        "list": [
-            {
-                "pagePath": "pages/home/index",
-                "text": "首页"
-            },
-            {
-                "pagePath": "pages/we-chat/index",
-                "text": "微信"
-            },
-            {
-                "pagePath": "pages/mine/index",
-                "text": "我的"
-            }
-        ]
-    },
-    "plugins": {
-        "WechatSI": {
-            "version": "0.3.5",
-            "provider": "wx069ba97219f66d99"
-        }
-    }
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
 }
