@@ -1,8 +1,9 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "verbatimModuleSyntax": true,  // 替换 importsNotUsedAsValues
+    "verbatimModuleSyntax": false,  // 替换 importsNotUsedAsValues
     "ignoreDeprecations": "5.0",   // 忽略 TypeScript 5.0 版本的弃用警告
+    "preserveValueImports": false,
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {

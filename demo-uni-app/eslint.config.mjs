@@ -77,8 +77,10 @@ export default tseslint.config({
     'vue/multi-word-component-names': 0,
     'vue/no-v-html': 0,
     'vue/require-toggle-inside-transition': 0,
+    
     'no-useless-catch': 'off',
     'no-case-declarations': 'off',
-    'no-self-assign': 'off'
+    'no-self-assign': 'off',
+    'no-async-promise-executor': 'off'
   }
 })
