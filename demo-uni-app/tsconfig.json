@@ -1,13 +1,19 @@
 {
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
+    "verbatimModuleSyntax": true,  // 替换 importsNotUsedAsValues
+    "ignoreDeprecations": "5.0",   // 忽略 TypeScript 5.0 版本的弃用警告
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
     "lib": ["esnext", "dom"],
-    "types": ["@dcloudio/types"]
+    "types": [
+      "@dcloudio/types",
+      "@uni-helper/uni-app-types",
+      "@uni-helper/uni-ui-types",
+    ]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
