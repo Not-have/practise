@@ -49,8 +49,8 @@ export default tseslint.config({
     '@typescript-eslint/ban-types': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
-    '@typescript-eslint/no-unused-vars': 0,
-    'no-unused-vars': 0,
+    // '@typescript-eslint/no-unused-vars': 0,
+    // 'no-unused-vars': 0,
     'space-before-function-paren': 0,
 
     'vue/attributes-order': 0,

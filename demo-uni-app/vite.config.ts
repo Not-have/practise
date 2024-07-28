@@ -1,20 +1,16 @@
 import { defineConfig } from 'vite';
 import uni from '@dcloudio/vite-plugin-uni';
-import Unocss from 'unocss/vite';
-import AutoImport from 'unplugin-auto-import/vite';
-import commonjs from '@rollup/plugin-commonjs';
+// import AutoImport from 'unplugin-auto-import/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     uni(),
-    Unocss(),
-    commonjs(),
-    AutoImport({
-      dts: 'src/auto-imports.d.ts',
-      imports: ['uni-app'], // 自动引入哪些内容
-      dirs: ['src/']
-    })
+    // AutoImport({
+    //   dts: 'src/auto-imports.d.ts',
+    //   imports: ['uni-app'], // 自动引入哪些内容
+    //   dirs: ['src/']
+    // })
     /*
         {
             name: 'public-popup', // 插件名称

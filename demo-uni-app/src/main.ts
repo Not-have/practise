@@ -1,7 +1,5 @@
 import { createSSRApp } from "vue";
 
-import "uno.css";
-
 import setupUiLibrary from "@/common/setup-ui-library";
 
 import App from "./App.vue";
