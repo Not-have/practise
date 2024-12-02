@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "esbuild-plugin-license": "^1.2.3"
+  }
+}
