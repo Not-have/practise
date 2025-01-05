@@ -6,5 +6,6 @@ export enum ERouter {
     DIRECTIVES = "/directives",
     COMPUTED = "/computed",
     VUE_STYLED_COMPONENTS = "/vue-styled-components",
-    DEMO_HOOKS = "/demo/hooks"
+    DEMO_HOOKS = "/demo/hooks",
+    FIX_DATA ="/fix-data"
 }

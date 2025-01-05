@@ -35,6 +35,9 @@ import {
         &nbsp;
         &nbsp;
         <RouterLink :to="ERouter.DEMO_HOOKS">demo-hooks</RouterLink>
+        &nbsp;
+        &nbsp;
+        <RouterLink :to="ERouter.FIX_DATA">FIX_DATA</RouterLink>
 
     </nav>
     <br />

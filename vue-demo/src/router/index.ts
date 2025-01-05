@@ -56,12 +56,18 @@ const router = createRouter({
         {
             path: ERouter.VUE_STYLED_COMPONENTS,
             name: ERouter.VUE_STYLED_COMPONENTS,
+            // @ts-ignore
             component: () => import("../views/vue-styled-components/index.vue"),
         },
         {
             path: ERouter.DEMO_HOOKS,
             name: ERouter.DEMO_HOOKS,
             component: () => import("../views/demo-hooks/index.vue"),
+        },
+        {
+            path: ERouter.FIX_DATA,
+            name: ERouter.FIX_DATA,
+            component: () => import("../views/fix-data/index.vue"),
         }
     ],
 });
