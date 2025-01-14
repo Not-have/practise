@@ -3,4 +3,3 @@
     about
   </div>
 </template>
-
