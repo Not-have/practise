@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+<script>
+
+  const arr = ["dAs", "fGag", "DaS", "GeweW", "fgaG", "dsFEw"];
+
+
+  const _arr = []
+
+  arr.forEach(item => {
+    const str = item.toLowerCase()
+    _arr.push(str.replace(str[0],str[0].toUpperCase()))
+  })
+
+  console.log(_arr);
+
+
+
+  function test(num) {
+    if (num < 0) return false;
+    const sqrt = Math.sqrt(num);
+    return Number.isInteger(sqrt);
+  }
+
+  console.log(test(111));
+  console.log(test(4));
+</script>

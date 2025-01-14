@@ -1,1 +1,0 @@
-export { default as useName } from './use-name';
