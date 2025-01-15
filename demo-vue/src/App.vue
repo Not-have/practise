@@ -15,20 +15,21 @@ import ConfigProvider, {
   <header>
     <RouterLink to="/">
       Home
-    </RouterLink>
-    |
+    </RouterLink> |
     <RouterLink to="/element">
       Element
-    </RouterLink>
-    |
-    <RouterLink to="/othder">
-      Othder
+    </RouterLink> |
+    <RouterLink to="/arco">
+      Arco Design
+    </RouterLink> |
+    <RouterLink to="/other">
+      Other
     </RouterLink>
   </header>
   <br />
   <hr />
 
-  <ConfigProvider :type="EUiType.ARCO_DESIGN">
+  <ConfigProvider :type="EUiType.ELEMENT">
     <RouterView />
   </ConfigProvider>
 </template>

@@ -1,5 +1,7 @@
 import {
-  defineComponent
+  defineComponent,
+  computed,
+  VNode
 } from "vue";
 
 import {
@@ -24,30 +26,29 @@ export const Container = defineComponent({
     }
   },
   setup(props) {
-    return () => {
-      const {
-        type
-      } = getConfigProviderProps();
+    const configProps = getConfigProviderProps();
 
+    const componentMap = computed(() => {
+      if(configProps.type === EUiType.ARCO_DESIGN) {
+        import("@arco-design/web-vue/dist/arco.css");
+
+        return ArcoComponentMap;
+      }
+
+      import("element-plus/dist/index.css");
+
+      return ElementComponentMap;
+    });
+
+    return (): VNode | null => {
       const {
         config
       } = props;
 
-      // 根据框架类型选择对应的组件映射
-      let componentMap;
-
-      if(type === EUiType.ARCO_DESIGN) {
-        import("@arco-design/web-vue/dist/arco.css");
-        componentMap = ArcoComponentMap;
-      } else {
-        import("element-plus/dist/index.css");
-        componentMap = ElementComponentMap;
-      }
-
-      const Component = componentMap[config.type as keyof typeof componentMap];
+      const Component = componentMap.value[config.type as keyof typeof componentMap.value];
 
       if (!Component) {
-        console.warn(`Component ${config.type} not found in current UI framework`);
+        console.warn(`组件 ${config.type} 在当前UI框架中未找到`);
 
         return null;
       }
