@@ -17,8 +17,12 @@ import ConfigProvider, {
       Home
     </RouterLink>
     |
-    <RouterLink to="/about">
-      About
+    <RouterLink to="/element">
+      Element
+    </RouterLink>
+    |
+    <RouterLink to="/othder">
+      Othder
     </RouterLink>
   </header>
   <br />
