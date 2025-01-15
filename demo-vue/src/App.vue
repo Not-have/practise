@@ -22,7 +22,7 @@ import ConfigProvider, {
     <RouterLink to="/arco">
       Arco Design
     </RouterLink> |
-    <RouterLink to="/other">
+    <RouterLink to="/othder">
       Other
     </RouterLink>
   </header>
