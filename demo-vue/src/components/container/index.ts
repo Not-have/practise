@@ -1,3 +1,7 @@
+/**
+ * 在容器层，确定好使用的 ui 框架
+ */
+/*
 import {
   PropType,
   defineComponent,
@@ -83,3 +87,5 @@ const ConfigProvider = defineComponent({
 export type TConfigProviderInstance = InstanceType<typeof ConfigProvider>;
 
 export default ConfigProvider;
+
+*/
