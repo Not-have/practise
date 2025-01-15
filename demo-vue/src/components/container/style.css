@@ -1,0 +1,23 @@
+.vc-container-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  color: #86909c;
+  min-height: 200px;
+  
+  .loading-spinner {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    border: 2px solid #e5e6eb;
+    border-top-color: #165dff;
+    border-radius: 50%;
+    animation: loading-spin 0.8s linear infinite;
+  }
+}
+
+@keyframes loading-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 

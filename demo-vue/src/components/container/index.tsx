@@ -1,7 +1,9 @@
 import {
   defineComponent,
   computed,
-  VNode
+  ref,
+  VNode,
+  onMounted
 } from "vue";
 
 import {
@@ -17,6 +19,16 @@ import {
   COMPONENT_MAP as ElementComponentMap
 } from "@/components/element-x";
 
+import "./style.css";
+
+// 添加一个简单的 Loading 组件
+const LoadingComponent = (): VNode => (
+  <div class="vc-container-loading">
+    <div class="loading-spinner"></div>
+    <span>加载中...</span>
+  </div>
+);
+
 export const Container = defineComponent({
   name: "vc-container",
   props: {
@@ -28,29 +40,39 @@ export const Container = defineComponent({
   setup(props) {
     const configProps = getConfigProviderProps();
 
-    const componentMap = computed(() => {
-      if(configProps.type === EUiType.ARCO_DESIGN) {
-        import("@arco-design/web-vue/dist/arco.css");
+    const cssLoaded = ref(false);
 
-        return ArcoComponentMap;
+    const componentMap = computed(() => (configProps.type === EUiType.ARCO_DESIGN
+      ? ArcoComponentMap
+      : ElementComponentMap));
+
+    onMounted(() => {
+      if (configProps.type === EUiType.ARCO_DESIGN) {
+        import("@arco-design/web-vue/dist/arco.css").then(() => {
+          cssLoaded.value = true;
+        });
+      } else {
+        import("element-plus/dist/index.css").then(() => {
+          cssLoaded.value = true;
+        });
       }
-
-      import("element-plus/dist/index.css");
-
-      return ElementComponentMap;
     });
 
-    return (): VNode | null => {
+    return (): VNode => {
       const {
         config
       } = props;
+
+      if (!cssLoaded.value) {
+        return <LoadingComponent />;
+      }
 
       const Component = componentMap.value[config.type as keyof typeof componentMap.value];
 
       if (!Component) {
         console.warn(`组件 ${config.type} 在当前UI框架中未找到`);
 
-        return null;
+        return <div>组件 {config.type} 未找到</div>;
       }
 
       return <Component {...config.options}>
