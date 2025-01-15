@@ -1,7 +1,5 @@
 <script setup lang="tsx">
-import {
-  Container
-} from "@/components/container";
+import Container from "@/components/container";
 import {
   mock
 } from "@/const";
@@ -9,6 +7,6 @@ import {
 </script>
 <template>
   <div>
-    <Container :config="mock" />
+    <Container v-bind="mock" />
   </div>
 </template>
