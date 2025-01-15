@@ -20,11 +20,11 @@ import {
   COMPONENT_MAP as ElementComponentMap
 } from "@/components/element-x";
 
-const props = defineProps<{
-  type: string,
-  label: string,
-  options?: any
-}>();
+import {
+  IProps
+} from "../types";
+
+const props = defineProps<IProps>();
 
 const configProps = getConfigProviderProps();
 
