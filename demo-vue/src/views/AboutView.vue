@@ -1,19 +1,26 @@
 <script setup lang="tsx">
 import {
-  EUiType,
-  configProviderProps
-} from "@/components/config-provider";
+  COMPONENT_MAP
+} from "@/components/element-x";
 
-const {
-  type
-} = configProviderProps();
+import "element-plus/dist/index.css";
 
-const el = () => {
-  if(type === EUiType.ELEMENT) {
-    return <el-button>element-plus</el-button>;
+const obj = {
+  type: "Button",
+  label: "弄好",
+  options: {
+    plain: true,
+    text: true,
+    size: "small" as "small"
   }
+};
 
-  return <a-button>@arco-design/web-vue</a-button>;
+const Dom = () => {
+  const El = COMPONENT_MAP[obj.type as keyof typeof COMPONENT_MAP];
+
+  return <El {...obj.options}>
+    {obj.label}
+  </El>;
 
 };
 
@@ -23,6 +30,6 @@ const el = () => {
   <div class="about">
     about
 
-    <el />
+    <Dom />
   </div>
 </template>
