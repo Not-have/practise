@@ -1,5 +1,8 @@
 enum EUiEleType {
-  BUTTON = "Button"
+  BUTTON = "Button",
+  BORDER = "Border",
+  TEXT = "Text",
+  SPACE = "Space"
 }
 
 export default EUiEleType;

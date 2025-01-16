@@ -1,40 +1,17 @@
 <script setup lang="ts">
+import checkJsonSchema from "@/components/check-json-schema";
+import {
+  EUiEleType
+} from "@/components/enum";
 
-import Ajv, {
-  JTDSchemaType
-} from "ajv/dist/jtd";
-const ajv = new Ajv();
-
-interface MyData {
-  foo: number
-  bar?: string
-}
-
-const schema: JTDSchemaType<MyData> = {
-  properties: {
-    foo: {
-      type: "int32"
-    }
-  },
-  optionalProperties: {
-    bar: {
-      type: "string"
-    }
-  }
+const json = {
+  type: EUiEleType.BUTTON,
+  label: "你好"
 };
 
-const validate = ajv.compile(schema);
+const result = checkJsonSchema(json);
 
-const data = {
-  foo: 1,
-  bar: "abc"
-};
-
-if (validate(data)) {
-  console.log(data.foo);
-} else {
-  console.log(validate.errors);
-}
+console.log(result);
 
 </script>
 

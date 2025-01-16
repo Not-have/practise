@@ -2,7 +2,10 @@ import {
   EUiEleType
 } from "@/components/enum";
 
-export interface IProps {
+export type TRecord = Record<string | number, unknown>;
+
+export interface IProps<T extends TRecord = TRecord> {
   type: EUiEleType;
-  label: string | number | boolean;
+  label: string;
+  options?: Partial<T>;
 }

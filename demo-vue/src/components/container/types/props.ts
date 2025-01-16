@@ -1,9 +1,11 @@
 import {
-  VNode
-} from "vue";
+  EUiEleType
+} from "@/components/enum";
 
-export interface IProps {
-  type: string;
-  label: string | VNode;
-  options: { [key: string]: unknown };
+type TRecord = Record<string | number, unknown>;
+
+export interface IProps<T extends TRecord = TRecord> {
+  type: EUiEleType;
+  label: string;
+  options?: Partial<T>;
 }
