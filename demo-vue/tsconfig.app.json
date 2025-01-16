@@ -9,6 +9,6 @@
 
     "verbatimModuleSyntax": false
   },
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "eslint.config.js"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", ".eslintrc.js"],
   "exclude": ["src/**/__tests__/*"]
 }

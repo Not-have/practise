@@ -27,7 +27,7 @@
     "eslint": "^9.18.0",
     "eslint-plugin-json-schema-validator": "^5.3.1",
     "eslint-plugin-jsonc": "^2.18.2",
-    "mb-eslint-config": "^1.1.0",
+    "mb-eslint-config": "^1.1.1",
     "mb-prettier-config": "^1.0.3",
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.4.2",

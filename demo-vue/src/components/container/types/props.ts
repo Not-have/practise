@@ -1,4 +1,6 @@
-import { VNode } from "vue";
+import {
+  VNode
+} from "vue";
 
 export interface IProps {
   type: string;
