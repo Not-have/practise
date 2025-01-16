@@ -5,7 +5,9 @@ import {
   IProps
 } from "../types";
 
-const ajv = new Ajv();
+const ajv = new Ajv({
+  allErrors: true
+});
 
 /**
  * checkJsonSchema

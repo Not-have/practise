@@ -6,7 +6,7 @@ import {
 
 // 测试数据
 const data = {
-  "label": "John Doe",
+  label: "John Doe",
   "type": EUiEleType.BORDER,
   "options": {
     "street": "123 Main St",
