@@ -4,14 +4,17 @@ import {
   EUiEleType
 } from "@/components/enum";
 
-const json = {
-  type: EUiEleType.BUTTON,
-  label: "你好"
+// 测试数据
+const data = {
+  "label": "John Doe",
+  "type": EUiEleType.BORDER,
+  "options": {
+    "street": "123 Main St",
+    "city": "Somewhere"
+  }
 };
 
-const result = checkJsonSchema(json);
-
-console.log(result);
+console.log(checkJsonSchema(data));
 
 </script>
 

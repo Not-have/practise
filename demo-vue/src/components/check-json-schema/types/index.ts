@@ -4,8 +4,9 @@ import {
 
 export type TRecord = Record<string | number, unknown>;
 
-export interface IProps<T extends TRecord = TRecord> {
+export interface IProps {
   type: EUiEleType;
   label: string;
-  options?: Partial<T>;
+
+  // options?: object;
 }
