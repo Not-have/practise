@@ -1,11 +1,5 @@
 import {
-  EUiEleType
-} from "@/components/enum";
+  PropsCheckJsonSchema
+} from "@/components/check-json-schema";
 
-type TRecord = Record<string | number, unknown>;
-
-export interface IProps<T extends TRecord = TRecord> {
-  type: EUiEleType;
-  label: string;
-  options?: Partial<T>;
-}
+export type TProps = PropsCheckJsonSchema;

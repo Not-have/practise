@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import checkJsonSchema from "@/components/check-json-schema";
+import Container from "@/components/container";
 import {
   EUiEleType
 } from "@/components/enum";
@@ -7,19 +8,19 @@ import {
 // 测试数据
 const data = {
   label: "John Doe",
-  "type": EUiEleType.BORDER,
+  "type": EUiEleType.BUTTON,
   "options": {
     "street": "123 Main St",
     "city": "Somewhere"
   }
 };
 
-console.log(checkJsonSchema(data));
+const obj = checkJsonSchema(data)!;
 
 </script>
 
 <template>
   <main>
-    home
+    <Container v-bind="obj" />
   </main>
 </template>

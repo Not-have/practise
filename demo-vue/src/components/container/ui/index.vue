@@ -21,10 +21,10 @@ import {
 } from "@/components/element-x";
 
 import {
-  IProps
+  TProps
 } from "../types";
 
-const props = defineProps<IProps>();
+const props = defineProps<TProps>();
 
 const configProps = getConfigProviderProps();
 
