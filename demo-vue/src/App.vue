@@ -24,6 +24,9 @@ import ConfigProvider, {
     </RouterLink> |
     <RouterLink to="/othder">
       Other
+    </RouterLink> |
+    <RouterLink to="/json">
+      Json
     </RouterLink>
   </header>
   <br />

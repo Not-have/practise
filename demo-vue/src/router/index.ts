@@ -20,6 +20,11 @@ const router = createRouter({
       path: "/othder",
       name: "othder",
       component: () => import("../views/Othder.vue")
+    },
+    {
+      path: "/json",
+      name: "json",
+      component: () => import("../views/Json.vue")
     }
   ]
 });
