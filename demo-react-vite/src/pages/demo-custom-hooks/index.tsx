@@ -6,17 +6,27 @@ import {
   ScLineText
 } from "@/rc";
 import {
+  ChangeEvent,
   useState
 } from "react";
 
 export default function DemoCustomHooks(): React.ReactElement {
-  const [count, setCount] = useState<number>(0);
+  const [inputValue, setInputValue] = useState("");
 
-  const increment = () => {
-    setCount(prevCount => prevCount + 1);
+  const handleSearch = (value: string): void => {
+    console.warn("执行搜索:", value);
   };
 
-  const handleThrottleClick = useThrottle(increment, 100);
+  const throttledSearch = useThrottle(handleSearch, 1000);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const {
+      value
+    } = e.target;
+
+    setInputValue(value);     // 实时更新输入框显示
+    throttledSearch(value);   // 节流后的搜索操作
+  };
 
   const {
     currentTime,
@@ -35,11 +45,16 @@ export default function DemoCustomHooks(): React.ReactElement {
     <ScLineText children="useThrottle 节流" />
 
     <p>
-      Count:
-      {count}
+      截流:
+      {inputValue}
     </p>
 
-    <button onClick={handleThrottleClick}>Increment</button>
+    <input
+      onChange={handleInputChange}
+      placeholder="输入搜索内容..."
+      type="text"
+      value={inputValue}/>
+
     <ScLineText children="useCountDown" />
 
     <div>
