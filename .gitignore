@@ -7,9 +7,6 @@
 #
 .DS_Store
 
-# Xcode
-#
-build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -27,9 +24,6 @@ DerivedData
 *.xcuserstate
 ios/.xcode.env.local
 
-# Android/IntelliJ
-#
-build/
 .idea
 .gradle
 local.properties
@@ -70,3 +64,6 @@ yarn-error.log
 # testing
 /coverage
 **/node_modules/
+# React Router
+**/.react-router/
+**/build/
