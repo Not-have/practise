@@ -33,5 +33,11 @@ import EsLint, {
 
 export default [
   ...EsLint,
-  ...react
+  ...react,
+  {
+    rules: {
+      "react/jsx-no-bind": "off",
+      "no-extra-parens": "warn"
+    }
+  }
 ];

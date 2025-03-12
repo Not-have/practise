@@ -3,8 +3,14 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+a + a {
+  margin-left: 20px;
+}
 a:hover {
-  color: #535bf2;
+  color: hsl(237, 45%, 76%);
+}
+.active {
+  color: red;
 }
 
 body {
