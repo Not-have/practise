@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 容器样式 */
+      .container {
+        width: 300px; /* 容器宽度 */
+        height: 50px; /* 容器高度 */
+        overflow: hidden; /* 隐藏超出容器的内容 */
+        position: relative; /* 用于定位动画元素 */
+      }
+
+      /* 动态文本 */
+      .scroll-text {
+        display: inline-block;
+        white-space: nowrap; /* 防止文本换行 */
+        padding-right: 50px; /* 给文本右边留出空间 */
+        animation: none; /* 默认没有动画 */
+      }
+
+      /* 当容器内容溢出时触发动画 */
+      .container:hover .scroll-text {
+        animation: scroll-text 8s linear infinite; /* 启动动画 */
+      }
+
+      /* 关键帧动画定义 */
+      @keyframes scroll-text {
+        0% {
+          transform: translateX(0%);
+        }
+        99% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(0%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="scroll-text">东湖的风景真美啊！</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成坐标点示例</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="800" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const width = canvas.width;
+        const height = canvas.height;
+        const margin = 20;
+        const xStep = 60; // x轴步长
+        const baseY = height / 2; // 基准 y 值
+        const yOffset = 30; // y 值间隔
+        function generateCoordinates(
+            numPoints,
+            allowOverflow = true,
+            options = {
+                width: width,
+                height: height,
+                margin: 50,
+                xStep: 50,
+                yStep: 50,
+            }
+        ) {
+            const { width, height, margin, xStep, yStep } = options;
+            const coordinates = [];
+            const baseY = (height - 2 * margin) / 2;
+            const usedYCoordinates = new Set(); // 用于存储已使用的 y 坐标
+
+            let yDirection = 1; // 控制 y 方向：1 表示向上，-1 表示向下
+
+            for (let i = 0; i < numPoints; i++) {
+                const x = margin + i * xStep;
+                if (x > width - margin && !allowOverflow) break;
+
+                let y;
+
+                // 第一个点固定在中间，第二个点向上，第三个点向下，依次类推
+                if (i === 0) {
+                    y = Math.round(baseY);
+                } else {
+                    do {
+                        y = Math.round(baseY + yDirection * (yStep + (Math.random() - 0.5) * 50));
+                    } while (usedYCoordinates.has(y)); // 确保 y 不重复
+
+                    // 切换 y 的方向，上方 (1) 和下方 (-1) 交替
+                    yDirection *= -1;
+                }
+
+                usedYCoordinates.add(y); // 记录已经使用的 y 坐标
+                coordinates.push([x, height - margin - y]);
+            }
+
+            return coordinates;
+        }
+
+        const points = generateCoordinates(10);
+        console.log(points);
+
+
+        // 绘制坐标系
+        function drawAxis() {
+            ctx.beginPath();
+            ctx.moveTo(margin, height - margin);
+            ctx.lineTo(width - margin, height - margin); // x轴
+            ctx.lineTo(width - margin, margin); // y轴
+            ctx.stroke();
+        }
+
+        // 绘制数据点
+        function drawPoints(coordinates) {
+            ctx.fillStyle = 'blue';
+
+            coordinates.forEach(([x, y]) => {
+                ctx.beginPath();
+                ctx.arc(x, height - y - margin, 5, 0, 2 * Math.PI);
+                ctx.fill();
+            });
+        }
+
+        // 生成指定数量的坐标点并绘制
+        const numPoints = 10; // 可以修改这个值来生成不同数量的点
+        const coordinates = generateCoordinates(numPoints);
+        console.log(coordinates);
+        drawAxis();
+        drawPoints(coordinates);
+    </script>
+</body>
+
+</html>

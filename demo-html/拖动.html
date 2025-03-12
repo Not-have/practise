@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #container {
+        display: flex;
+        cursor: pointer;
+      }
+
+      .draggable {
+        padding: 20px;
+        margin: 10px;
+        background-color: lightgray;
+        border: 1px solid #ccc;
+        user-select: none; /* 防止文本被选中 */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div class="draggable">Item 1</div>
+      <div class="draggable">Item 2</div>
+      <div class="draggable">Item 3</div>
+      <div class="draggable">Item 4</div>
+    </div>
+  </body>
+</html>
+<script>
+  const draggables = document.querySelectorAll(".draggable");
+  let currentDraggable = null;
+  let offsetX = 0;
+
+  draggables.forEach((draggable) => {
+    draggable.addEventListener("mousedown", (e) => {
+      currentDraggable = draggable;
+      offsetX = e.clientX - draggable.getBoundingClientRect().left;
+
+      // 添加鼠标移动事件
+      document.addEventListener("mousemove", handleMouseMove);
+
+      // 添加鼠标释放事件
+      document.addEventListener("mouseup", handleMouseUp);
+    });
+  });
+
+  function handleMouseMove(e) {
+    if (!currentDraggable) return;
+
+    // 更新当前位置
+    currentDraggable.style.position = "absolute";
+    currentDraggable.style.left = e.clientX - offsetX + "px";
+
+    // 检测与其他元素的碰撞
+    draggables.forEach((draggable) => {
+      if (draggable !== currentDraggable) {
+        const rect1 = currentDraggable.getBoundingClientRect();
+        const rect2 = draggable.getBoundingClientRect();
+
+        // 检测是否横向重叠
+        if (rect1.right > rect2.left && rect1.left < rect2.right) {
+          // 交换位置
+          const parent = currentDraggable.parentNode;
+          parent.insertBefore(
+            currentDraggable,
+            rect1.left < rect2.left ? draggable : draggable.nextSibling
+          );
+        }
+      }
+    });
+  }
+
+  function handleMouseUp() {
+    if (!currentDraggable) return;
+
+    // 清理状态
+    currentDraggable.style.position = "";
+    currentDraggable = null;
+
+    // 移除事件监听
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
+  }
+</script>
