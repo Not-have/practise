@@ -37,7 +37,10 @@ export default [
   {
     rules: {
       "react/jsx-no-bind": "off",
-      "no-extra-parens": "warn"
+      "no-extra-parens": "warn",
+      "no-confusing-arrow": ["error", {
+        "onlyOneSimpleParam": true
+      }]
     }
   }
 ];
