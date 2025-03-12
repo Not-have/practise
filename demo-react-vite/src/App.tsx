@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Demo01 from "./pages/demo-01";
 import Demo02 from "./pages/demo-02";
 import DemoCustomHooks from "./pages/demo-custom-hooks";
+import DemoHooks from "./pages/demo-hooks";
 import DemoLazy from "./pages/demo-lazy";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -46,6 +47,14 @@ function App(): React.ReactElement {
         to="/demo-custom-hooks">
         DemoCustomHooks
       </NavLink>
+
+      <NavLink
+        className={({
+          isActive
+        }) => (isActive ? "active" : "")}
+        to="/demo-hooks">
+        DemoHooks
+      </NavLink>
     </ScNAv>
 
     <Routes>
@@ -64,6 +73,10 @@ function App(): React.ReactElement {
       <Route
         element={<DemoCustomHooks />}
         path="demo-custom-hooks" />
+
+      <Route
+        element={<DemoHooks />}
+        path="demo-hooks" />
     </Routes>
   </>;
 }
