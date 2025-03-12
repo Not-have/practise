@@ -7,6 +7,8 @@ import styled from "styled-components";
 
 import Demo01 from "./pages/demo-01";
 import Demo02 from "./pages/demo-02";
+import DemoCustomHooks from "./pages/demo-custom-hooks";
+import DemoLazy from "./pages/demo-lazy";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ScNAv = styled.nav`
@@ -28,6 +30,22 @@ function App(): React.ReactElement {
         to="/demo02">
         Demo02
       </NavLink>
+
+      <NavLink
+        className={({
+          isActive
+        }) => (isActive ? "active" : "")}
+        to="/demo-lazy">
+        DemoLazy
+      </NavLink>
+
+      <NavLink
+        className={({
+          isActive
+        }) => (isActive ? "active" : "")}
+        to="/demo-custom-hooks">
+        DemoCustomHooks
+      </NavLink>
     </ScNAv>
 
     <Routes>
@@ -38,6 +56,14 @@ function App(): React.ReactElement {
       <Route
         element={<Demo02 />}
         path="demo02" />
+
+      <Route
+        element={<DemoLazy />}
+        path="demo-lazy" />
+
+      <Route
+        element={<DemoCustomHooks />}
+        path="demo-custom-hooks" />
     </Routes>
   </>;
 }
