@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>["aAaa", "dfdD"] 首字母大写，其余小写</title>
+</head>
+<body>
+  
+</body>
+</html>
+
+<script>
+  // 方法一：
+  function toUpperCase01(arr) {
+    let newArr = []
+    for(let i = 0; i < arr.length; i++) {      
+      newArr.push(arr[i][0].toUpperCase() + arr[i].slice(1).toLowerCase())
+    }
+    return newArr
+  }
+  console.log(toUpperCase01(["aAaaccc", "CdfdD"]))
+
+  // 方法二：
+  function toUpperCase02(arr) {
+    return arr.map(item => item[0].toUpperCase() + item.slice(1).toLowerCase())
+  }
+  console.log(toUpperCase02(["aAaa", "dfdD"]))
+
+</script>

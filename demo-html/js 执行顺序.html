@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  console.log('start'); // 同步任务，立即执行，输出 "start"
+
+  setTimeout(() => {
+    console.log('timeout'); // 宏任务，会在本轮事件循环的最后执行
+  }, 0);
+
+  new Promise((res) => {
+    console.log(11); // 同步任务，马上执行，输出 "11"
+    res(1); // 让 Promise 进入 resolved 状态
+  }).then(() => {
+    console.log('promise'); // 微任务，会在同步任务执行完毕后马上执行
+  });
+
+  console.log('end'); // 同步任务，立即执行，输出 "end"
+
+  /*
+分步解读
+同步任务的执行
+代码开始运行，首先执行 console.log('start')，输出 start。
+接着创建 setTimeout，它是一个宏任务，会被添加到宏任务队列中。
+执行 new Promise 的构造函数，其中的 console.log(11) 同步执行，输出 11，随后调用 res(1)，这会让 .then() 回调进入微任务队列。
+执行 console.log('end')，输出 end。
+此时，所有同步任务都已执行完毕。
+微任务的处理
+事件循环会优先处理微任务队列中的任务。
+执行 Promise.then() 回调，输出 promise。
+宏任务的处理
+微任务处理完后，开始处理宏任务队列。
+执行 setTimeout 回调，输出 timeout。
+  */
+</script>
+
+<!-- 
+
+关键要点解析
+  同步任务与异步任务
+    同步代码，像 console.log 和 new Promise 构造函数里的代码，会在主线程中依次执行。
+    异步任务，例如 setTimeout 和 Promise.then()，会被分别添加到宏任务队列和微任务队列中。
+
+  事件循环机制
+    同步任务会立即执行。
+    微任务（比如 Promise.then）会在同步任务执行结束后马上执行。
+    宏任务（例如 setTimeout）会在本轮事件循环的最后执行。
+    微任务的优先级高于宏任务。
+  特殊情况说明
+    即便 setTimeout 的延迟时间设为 0，它依然是宏任务，要等到同步任务和微任务都执行完才会执行。
+    Promise 的 .then() 回调属于微任务，会在同步任务之后、宏任务之前执行。
+    通过这种执行顺序，能够保证微任务（例如用户交互、DOM 更新）优先于宏任务（例如网络请求、定时任务）执行，从而提升用户体验。
+-->

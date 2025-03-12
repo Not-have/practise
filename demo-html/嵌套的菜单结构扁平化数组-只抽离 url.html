@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>嵌套的菜单结构扁平化数组-只抽离 url</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  /*
+  可能的步骤是：
+    初始化一个空数组来保存所有路径。
+    定义一个递归函数，参数是当前节点和当前路径前缀。
+    在递归函数中，将当前节点的 url 添加到当前路径前缀后面，形成完整路径。
+    将这个完整路径添加到结果数组中。
+    如果当前节点有 children，递归处理每个子节点，传递新的路径前缀。
+    从根节点开始调用递归函数，初始路径前缀为空字符串。
+  */
+
+  const sidebarMenus = [
+    {
+      url: '',
+      children: [
+        {
+          url: '/app',
+          children: [
+            {
+              url: '/:id/info',
+              children: []
+            },
+            {
+              url: '/:id/detail',
+              children: [
+                {
+                  url: '/group'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
+  // ['', '/app', '/app/:id/info', '/app/:id/detail', '/app/:id/detail/group']
+
+  function flattenUrls(menus, prefix = '') {
+    const result = [];
+    menus.forEach(item => {
+      // 拼接当前路径
+      const currentPath = prefix + item.url;
+      result.push(currentPath);
+      // 如果有子菜单，递归处理
+      if (item.children && item.children.length > 0) {
+        // 递归调用并将结果合并到 result 数组中
+        result.push(...flattenUrls(item.children, currentPath));
+      }
+    });
+    return result;
+  }
+
+  console.log(flattenUrls(sidebarMenus));
+  
+</script>
