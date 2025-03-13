@@ -2,7 +2,8 @@ import React from "react";
 
 import {
   TestUseEffect,
-  TestUseState
+  TestUseState,
+  TestUseLayoutEffect
 } from "./components";
 
 export default function DemoHooks() : React.ReactElement {
@@ -16,5 +17,6 @@ export default function DemoHooks() : React.ReactElement {
 
     <TestUseState />
     <TestUseEffect />
+    <TestUseLayoutEffect />
   </>;
 }
