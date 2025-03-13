@@ -7,6 +7,7 @@ import styled from "styled-components";
 
 import Demo01 from "./pages/demo-01";
 import Demo02 from "./pages/demo-02";
+import DemoApi from "./pages/demo-api";
 import DemoCustomHooks from "./pages/demo-custom-hooks";
 import DemoHooks from "./pages/demo-hooks";
 import DemoLazy from "./pages/demo-lazy";
@@ -27,7 +28,7 @@ function App(): React.ReactElement {
       <NavLink
         className={({
           isActive
-        }) => (isActive ? "active" : "")}
+        }) => isActive ? "active" : ""}
         to="/demo02">
         Demo02
       </NavLink>
@@ -35,7 +36,7 @@ function App(): React.ReactElement {
       <NavLink
         className={({
           isActive
-        }) => (isActive ? "active" : "")}
+        }) => isActive ? "active" : ""}
         to="/demo-lazy">
         DemoLazy
       </NavLink>
@@ -43,7 +44,7 @@ function App(): React.ReactElement {
       <NavLink
         className={({
           isActive
-        }) => (isActive ? "active" : "")}
+        }) => isActive ? "active" : ""}
         to="/demo-custom-hooks">
         DemoCustomHooks
       </NavLink>
@@ -51,9 +52,17 @@ function App(): React.ReactElement {
       <NavLink
         className={({
           isActive
-        }) => (isActive ? "active" : "")}
+        }) => isActive ? "active" : ""}
         to="/demo-hooks">
         DemoHooks
+      </NavLink>
+
+      <NavLink
+        className={({
+          isActive
+        }) => isActive ? "active" : ""}
+        to="/demo-api">
+        DemoApi
       </NavLink>
     </ScNAv>
 
@@ -77,6 +86,10 @@ function App(): React.ReactElement {
       <Route
         element={<DemoHooks />}
         path="demo-hooks" />
+
+      <Route
+        element={<DemoApi />}
+        path="demo-api" />
     </Routes>
   </>;
 }

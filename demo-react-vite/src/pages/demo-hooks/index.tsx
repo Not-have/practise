@@ -3,7 +3,8 @@ import React from "react";
 import {
   TestUseEffect,
   TestUseState,
-  TestUseLayoutEffect
+  TestUseLayoutEffect,
+  TestUseMemo
 } from "./components";
 
 export default function DemoHooks() : React.ReactElement {
@@ -18,5 +19,6 @@ export default function DemoHooks() : React.ReactElement {
     <TestUseState />
     <TestUseEffect />
     <TestUseLayoutEffect />
+    <TestUseMemo />
   </>;
 }
