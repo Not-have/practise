@@ -4,7 +4,8 @@ import {
   TestUseEffect,
   TestUseState,
   TestUseLayoutEffect,
-  TestUseMemo
+  TestUseMemo,
+  TestUseId
 } from "./components";
 
 export default function DemoHooks() : React.ReactElement {
@@ -20,5 +21,6 @@ export default function DemoHooks() : React.ReactElement {
     <TestUseEffect />
     <TestUseLayoutEffect />
     <TestUseMemo />
+    <TestUseId />
   </>;
 }
