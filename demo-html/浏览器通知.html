@@ -6,33 +6,89 @@
   <title>浏览器通知</title>
 </head>
 <body>
+  <h1>浏览器通知示例</h1>
+  <button id="notifyButton">点击启用通知</button>
+  <div id="status">当前状态: 等待操作</div>
   
+  <script>
+    function notifyMe() {
+      document.getElementById('status').textContent = "当前状态: 尝试发送通知...";
+      console.log("notifyMe 方法被调用");
+      
+      if (!("Notification" in window)) {
+        // 检查浏览器是否支持通知
+        const message = "当前浏览器不支持桌面通知";
+        alert(message);
+        document.getElementById('status').textContent = "当前状态: " + message;
+        console.error(message);
+      } else if (Notification.permission === "granted") {
+        console.log("通知权限已获取，正在创建通知...");
+        document.getElementById('status').textContent = "当前状态: 权限已获取，创建通知";
+        
+        try {
+          // 创建一个更丰富的通知
+          const notification = new Notification("你好！", {
+            body: "这是一条测试通知",
+            icon: "https://picsum.photos/64/64", // 添加一个示例图标
+            tag: "test-notification"
+          });
+          
+          notification.onclick = function() {
+            console.log("通知被点击了");
+            document.getElementById('status').textContent = "当前状态: 通知被点击";
+            window.focus();
+          };
+          
+          console.log("通知已创建:", notification);
+        } catch (error) {
+          console.error("创建通知时出错:", error);
+          document.getElementById('status').textContent = "当前状态: 创建通知出错 - " + error.message;
+        }
+      } else if (Notification.permission !== "denied") {
+        console.log("请求通知权限...");
+        document.getElementById('status').textContent = "当前状态: 请求通知权限";
+        
+        // 我们需要征求用户的许可
+        Notification.requestPermission().then((permission) => {
+          console.log("权限请求结果:", permission);
+          document.getElementById('status').textContent = "当前状态: 权限请求结果 - " + permission;
+          
+          // 如果用户接受，我们就创建一个通知
+          if (permission === "granted") {
+            try {
+              const notification = new Notification("你好！", {
+                body: "这是一条测试通知",
+                icon: "https://picsum.photos/64/64",
+                tag: "test-notification"
+              });
+              console.log("通知已创建:", notification);
+            } catch (error) {
+              console.error("创建通知时出错:", error);
+              document.getElementById('status').textContent = "当前状态: 创建通知出错 - " + error.message;
+            }
+          }
+        }).catch(error => {
+          console.error("请求权限时出错:", error);
+          document.getElementById('status').textContent = "当前状态: 请求权限出错 - " + error.message;
+        });
+      } else {
+        const message = "通知权限已被拒绝";
+        console.warn(message);
+        document.getElementById('status').textContent = "当前状态: " + message;
+      }
+    }
+
+    // 添加按钮点击事件监听器，用户交互后触发通知
+    document.getElementById("notifyButton").addEventListener("click", function() {
+      console.log("按钮被点击");
+      notifyMe();
+    });
+    
+    // 页面加载后输出当前通知权限状态，便于调试
+    window.addEventListener("load", function() {
+      console.log("当前通知权限状态:", Notification.permission);
+      document.getElementById('status').textContent = "当前状态: 页面已加载，通知权限: " + Notification.permission;
+    });
+  </script>
 </body>
 </html>
-<script>
-
-function notifyMe() {
-  if (!("Notification" in window)) {
-    // 检查浏览器是否支持通知
-    alert("当前浏览器不支持桌面通知");
-  } else if (Notification.permission === "granted") {
-    console.log(222);
-    
-    // 检查是否已授予通知权限；如果是的话，创建一个通知
-    const notification = new Notification("你好！");
-    // …
-  } else if (Notification.permission !== "denied") {
-    // 我们需要征求用户的许可
-    Notification.requestPermission().then((permission) => {
-      // 如果用户接受，我们就创建一个通知
-      if (permission === "granted") {
-        const notification = new Notification("你好！");
-        // …
-      }
-    });
-  }
-
-  // 最后，如果用户拒绝了通知，并且你想尊重用户的选择，则无需再打扰他们
-}
-setTimeout(() => notifyMe(), 5000);
-</script>

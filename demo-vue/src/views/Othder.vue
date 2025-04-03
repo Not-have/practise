@@ -1,12 +1,11 @@
-<script setup lang="tsx">
-import Container from "@/components/container";
-import {
-  mock
-} from "@/const";
+<script setup>
 
 </script>
+
 <template>
-  <div>
-    <Container v-bind="mock" />
-  </div>
+  <div></div>
 </template>
+
+<style scoped>
+.my-swiper { height: 300px; } /* 必设高度，否则容器塌陷 */
+</style>
