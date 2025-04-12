@@ -10,6 +10,10 @@ import {
   useState
 } from "react";
 
+import {
+  TestUseHistory
+} from "./components";
+
 export default function DemoCustomHooks(): React.ReactElement {
   const [inputValue, setInputValue] = useState("");
 
@@ -67,6 +71,7 @@ export default function DemoCustomHooks(): React.ReactElement {
     <button onClick={handlePause}>暂停</button>
     <button onClick={handleResume}>继续</button>
     <button onClick={handleReset}>重置</button>
-
+    <ScLineText children="useHistory" />
+    <TestUseHistory />
   </>;
 }
