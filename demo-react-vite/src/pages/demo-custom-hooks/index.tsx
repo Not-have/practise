@@ -11,7 +11,8 @@ import {
 } from "react";
 
 import {
-  TestUseHistory
+  TestUseHistory,
+  TestUseLocationQuery
 } from "./components";
 
 export default function DemoCustomHooks(): React.ReactElement {
@@ -73,5 +74,7 @@ export default function DemoCustomHooks(): React.ReactElement {
     <button onClick={handleReset}>重置</button>
     <ScLineText children="useHistory" />
     <TestUseHistory />
+    <ScLineText children="useLocationQuery" />
+    <TestUseLocationQuery />
   </>;
 }
