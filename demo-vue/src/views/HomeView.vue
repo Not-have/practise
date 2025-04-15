@@ -6,6 +6,10 @@ import {
   watch
 } from "vue";
 
+import {
+  DomMessage
+} from "@/utils";
+
 const [state, setState] = useState({
   age: 1
 });
@@ -17,10 +21,16 @@ const handleClick = (): void => {
 };
 
 const handleReductionClick = (): void => {
+  DomMessage.message({
+    message: "这是一条成功提示",
+    type: "success",
+    duration: 3000
+  });
   setState();
 };
 
 watch(() => state.age, (newValue, oldValue) => {
+  // eslint-disable-next-line no-console
   console.log(newValue, oldValue);
 });
 </script>
