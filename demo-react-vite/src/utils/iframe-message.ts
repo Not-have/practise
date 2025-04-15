@@ -1,5 +1,11 @@
+enum EType {
+  MESSAGE = "message",
+  RESPONSE = "response",
+  ERROR = "error"
+}
+
 interface IMessage {
-  type: "message" | "response" | "error";
+  type: EType | `${EType}`;
   data: {
     [key: string]: string | number | boolean | object;
   };
@@ -9,8 +15,6 @@ class IframeCommunicator {
   private iframe: HTMLIFrameElement | null = null;
 
   private url: string | null = null;
-
-  private type: string | null = null;
 
   constructor() {
 
@@ -47,19 +51,14 @@ class IframeCommunicator {
   }
 
   postMessage(message: IMessage): void {
-
     if (this.iframe) {
       this.iframe.contentWindow?.postMessage(message, this.url || "*");
-      this.type = message.type;
     }
   }
 
-  onMessage(callback: (message: IMessage) => void): void {
-    window.addEventListener("message", event => {
-      // eslint-disable-next-line no-console
-      console.log(this.type);
-
-      if (event.data.type !== "message") {
+  onMessage(callback: (params: IMessage) => void): void {
+    window.addEventListener("message", (event: MessageEvent) => {
+      if (!Object.values(EType).includes(event.data.type)) {
         return;
       }
 
@@ -67,7 +66,7 @@ class IframeCommunicator {
     });
   }
 
-  removeMessageListener(callback: (event: MessageEvent) => void): void {
+  removeMessageListener(callback: (e: MessageEvent | IMessage) => void): void {
     window.removeEventListener("message", callback);
   }
 
@@ -80,3 +79,11 @@ class IframeCommunicator {
 }
 
 export default IframeCommunicator;
+
+export {
+  EType
+};
+
+export type {
+  IMessage
+};
