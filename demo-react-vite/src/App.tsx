@@ -10,6 +10,7 @@ import Demo02 from "./pages/demo-02";
 import DemoApi from "./pages/demo-api";
 import DemoCustomHooks from "./pages/demo-custom-hooks";
 import DemoHooks from "./pages/demo-hooks";
+import DemoIframeMessage from "./pages/demo-iframe-message";
 import DemoLazy from "./pages/demo-lazy";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -64,6 +65,14 @@ function App(): React.ReactElement {
         to="/demo-api">
         DemoApi
       </NavLink>
+
+      <NavLink
+        className={({
+          isActive
+        }) => isActive ? "active" : ""}
+        to="/demo-iframe-message">
+        DemoIframeMessage
+      </NavLink>
     </ScNAv>
 
     <Routes>
@@ -90,6 +99,10 @@ function App(): React.ReactElement {
       <Route
         element={<DemoApi />}
         path="demo-api" />
+
+      <Route
+        element={<DemoIframeMessage />}
+        path="demo-iframe-message" />
     </Routes>
   </>;
 }

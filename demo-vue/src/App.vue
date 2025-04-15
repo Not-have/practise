@@ -1,8 +1,45 @@
 <script setup lang="ts">
 import {
+  onMounted,
+  onUnmounted
+} from "vue";
+import {
   RouterLink,
   RouterView
 } from "vue-router";
+
+import {
+  IframeCommunicator
+} from "@/utils";
+import {
+  localStorageHelper
+} from "@mt-kit/utils";
+
+const ifram = new IframeCommunicator();
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const handleMessage = (event: any ): void => {
+  localStorageHelper.set({
+    key: "message-test",
+    value: event.data
+  });
+
+  // eslint-disable-next-line no-console
+  console.log(event.data);
+};
+
+onMounted(() => {
+
+  // window.addEventListener("message", handleMessage);
+  ifram.onMessage(handleMessage);
+});
+
+onUnmounted(() => {
+
+  // window.addEventListener("message", handleMessage);
+  ifram.removeMessageListener(handleMessage);
+});
+
 </script>
 
 <template>
