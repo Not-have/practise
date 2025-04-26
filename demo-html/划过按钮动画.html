@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background: linear-gradient(
+          135deg,
+          rgba(85, 239, 203, 1) 0%,
+          rgba(30, 87, 153, 1) 0%,
+          rgba(85, 239, 203, 1) 0%,
+          rgba(91, 202, 255, 1) 100%
+        );
+        color: #f7f7f7;
+        font-family: "Lato", sans-serif;
+        font-weight: 300;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        flex-wrap: wrap;
+        width: 60vw;
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 100vh;
+      }
+      .button {
+        flex: 1 1 auto;
+        margin: 10px;
+        padding: 20px;
+        border: 2px solid #f7f7f7;
+        text-align: center;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s;
+        &:after {
+          position: absolute;
+          transition: 0.3s;
+          content: "";
+          width: 0;
+          left: 50%;
+          bottom: 0;
+          height: 3px;
+          background: #f7f7f7;
+        }
+        &:after {
+          height: 120%;
+          left: -10%;
+          transform: skewX(15deg);
+          z-index: -1;
+        }
+        &:hover {
+          cursor: pointer;
+          &:after {
+            width: 100%;
+            left: 0;
+          }
+
+          & {
+            color: #5bcaff;
+          }
+          &:after {
+            left: -10%;
+            width: 120%;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="button">Center -> out</div>
+      <div class="button">Left -> Right -> Left</div>
+      <div class="button">Left -> Right -> Right</div>
+      <div class="button">Top -> Bottom -> Top</div>
+      <div class="button">Skew Fill Left -> Right</div>
+      <!--   <div class="button">Flex Grow</div> -->
+      <div class="button">Rounded Corners</div>
+      <div class="button">Scale</div>
+      <div class="button">Border (Inner Shadow)</div>
+      <div class="button">Border (Outer Shadow)</div>
+    </div>
+  </body>
+</html>
