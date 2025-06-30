@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pulse Button</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f9fafb;
+    }
+    
+    .pulse-button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: pulse 3s infinite;
+    }
+    
+    .pulse-button:hover {
+      background-color: #2563eb;
+    }
+    
+    .pulse-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <button class="pulse-button">
+      Click Me!
+    </button>
+  </div>
+</body>
+</html>
+    
