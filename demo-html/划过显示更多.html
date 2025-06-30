@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(
+        135deg,
+        rgba(85, 239, 203, 1) 0%,
+        rgba(30, 87, 153, 1) 0%,
+        rgba(85, 239, 203, 1) 0%,
+        rgba(91, 202, 255, 1) 100%
+      );
+      color: #f7f7f7;
+      font-family: "Lato", sans-serif;
+      font-weight: 300;
+      padding: 20px;
+    }
+
+    .container {
+      display: none;
+    }
+
+    .hover-more {
+      display: inline-block;
+      background-color: #f7f7f7;
+      color: #000;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .hover-more:hover + .container {
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="hover-more">
+      划过显示更多
+    </div>
+    <div class="container">
+      <div>按钮一</div>
+      <div>按钮二</div>
+      <div>按钮三</div>
+      <div>按钮四</div>
+      <div>按钮五</div>
+      <div>按钮六</div>
+    </div>
+  </div>
+</body>
+</html>
