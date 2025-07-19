@@ -1,7 +1,6 @@
 {
   "name": "demo-uni-app",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "dev:custom": "uni -p",
     "dev:h5": "uni",
