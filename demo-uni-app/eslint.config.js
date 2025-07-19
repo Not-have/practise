@@ -4,21 +4,10 @@ import {
   vue
 } from "@mt-kit/eslint-config";
 
-const _vue = [
-  ...vue,
-  {
-    files: ["**/*.vue"],
-    rules: {
-      "vue/multi-word-component-names": "off",
-      "vue/require-default-prop": "off"
-    }
-  }
-];
-
 export default [
   javascript,
   typescript,
-  ..._vue,
+  ...vue,
   {
     rules: {
       "@typescript-eslint/ban-ts-comment": "off",
@@ -35,7 +24,9 @@ export default [
       "no-async-promise-executor": "off",
       "guard-for-in": "off",
       "no-case-declarations": "off",
-      "no-self-assign": "off"
+      "no-self-assign": "off",
+      "vue/multi-word-component-names": "off",
+      "vue/require-default-prop": "off"
     }
   }
 ];
