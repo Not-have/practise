@@ -8,12 +8,12 @@ function getNewsletter(): IReturns["params"] {
     }, 250);
 
     try {
-      uni.$once("navigateTo_params", function (data) {
+      uni.$once("navigateTo_params", data => {
         clearTimeout(timeout);
         resolve(data);
       });
     } catch (e) {
-      new Error("Getting route params error:" + e);
+      new Error(`Getting route params error:${e}`);
       reject(e);
     }
   });
@@ -35,13 +35,16 @@ export default function useRoute(): Promise<IReturns> {
         const routes: any = getCurrentPages(); // 获取当前打开过的页面路由数组
 
         let query = null;
+
         if (JSON.stringify(e) !== "{}") {
           query = await (JSON.parse(decodeURIComponent(e.query)) ||
             routes[routes.length - 1].options);
         }
 
         const location = routes[routes.length - 1].route;
+
         let referrer = "";
+
         referrer = routes[0]?.route || "";
 
         // if (routes.length > 2) {
@@ -58,7 +61,8 @@ export default function useRoute(): Promise<IReturns> {
         });
       } catch (e) {
         reason(e);
-        throw new Error("Error getting routing information: " + e);
+
+        throw new Error(`Error getting routing information: ${e}`);
       }
     });
   });

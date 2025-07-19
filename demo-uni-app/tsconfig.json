@@ -1,6 +1,11 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
+    "useDefineForClassFields": true,
+    "noImplicitThis": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",

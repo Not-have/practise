@@ -3,10 +3,12 @@ import { initRequest } from "@/api";
 
 // https://mp.weixin.qq.com/wxamp/devprofile/get_profile?token=420041989&lang=zh_CN
 const appid = import.meta.env.VITE_WE_CHAT_APP_ID;
+
 const secret = import.meta.env.VITE_WE_CHAT_SECRET;
 
 interface IData {
   phoneNumber: string;
+
   /**
    * 调用凭据，token有效期为7200s
    */
@@ -26,14 +28,14 @@ async function getPhoneNumber(phoneNumberCode?: string): Promise<IData> {
       data: {
         code: phoneNumberCode
       }
-    })
-      .then((data: any) => {
-        resolve({
-          phoneNumber: data.phone_info.phoneNumber,
-          accessToken: accessToken
-        });
-      })
-      .catch(reject);
+    }).
+        then((data: any) => {
+          resolve({
+            phoneNumber: data.phone_info.phoneNumber,
+            accessToken
+          });
+        }).
+        catch(reject);
   });
 }
 
@@ -42,14 +44,13 @@ function getAccessToken(): Promise<string> {
     url: "https://api.weixin.qq.com/cgi-bin/token",
     method: "GET",
     data: {
-      appid: appid,
-      secret: secret,
+      appid,
+      secret,
       grant_type: "client_credential"
     }
-  }).then((data: any) => {
-    return data.access_token;
-  });
+  }).then((data: any) => data.access_token);
 }
+
 /**
  * @deprecated 获取用户手机号和 accessToken（非个人用户）
  *
@@ -63,6 +64,7 @@ export default function useWeChatPhoneNumber(e: ButtonOnGetphonenumberEvent): Pr
   return new Promise(async (resolve, reject) => {
     if (e.detail?.code) {
       const data = await getPhoneNumber(e.detail.code);
+
       resolve(data);
     }
 

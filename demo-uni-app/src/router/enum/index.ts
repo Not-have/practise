@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
-
 enum ERouter {
+
   /**
    * 首页
    * -
@@ -12,7 +11,7 @@ enum ERouter {
 
   MINE = "/pages/mine/index",
 
-  DEMO_FETCH = "/pages-demo/demo-fetch/index"
+  DEMO_FETCH = "/pages-demo/demo-fetch/index",
 }
 
 export default ERouter;

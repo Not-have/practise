@@ -80,6 +80,7 @@ const bar = reactive({
 });
 
 onLoad(() => {
+
   /*
    * OnLaunch 加入的内容，用于计算刘海屏
    * https://blog.csdn.net/weixin_44596839/article/details/124358961
@@ -138,14 +139,33 @@ const handleClick = (): void => {
 };
 </script>
 <template>
-  <view class="public-top-bar" :style="[{ height: bar.CustomBar + 'px' }]">
-    <view class="bar" :style="style" :class="[bgImage !== '' ? ' text-white' : '', bgColor]">
-      <view v-if="isBack" class="left" :style="[{ color: bgColor }]">
+  <view
+    class="public-top-bar"
+    :style="[{ height: `${bar.CustomBar}px` }]"
+  >
+    <view
+      class="bar"
+      :style="style"
+      :class="[bgImage !== '' ? ' text-white' : '', bgColor]"
+    >
+      <view
+        v-if="isBack"
+        class="left"
+        :style="[{ color: bgColor }]"
+      >
         <slot name="left">
-          <uni-icons :color="backColor" type="left" size="20" @tap="handleClick" />
+          <uni-icons
+            :color="backColor"
+            type="left"
+            size="20"
+            @tap="handleClick"
+          />
         </slot>
       </view>
-      <view class="content" :style="[{ top: bar.StatusBar + 'px', color: color }]">
+      <view
+        class="content"
+        :style="[{ top: `${bar.StatusBar}px`, color }]"
+      >
         <slot></slot>
       </view>
       <slot name="right"></slot>

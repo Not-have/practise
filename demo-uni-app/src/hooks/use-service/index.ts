@@ -1,6 +1,9 @@
-import type { Ref } from "vue";
-import { toRef } from "vue";
-import { ServiceFunction, ServiceConfig, useService as _useService } from "micro-vue-hooks";
+import { Ref, toRef } from "vue";
+import {
+  ServiceFunction,
+  ServiceConfig,
+  useService as _useService
+} from "@mt-kit/vue-hooks";
 
 interface IAsyncResult<T, Q> {
   data?: Ref<T | null | undefined>;
@@ -10,10 +13,10 @@ interface IAsyncResult<T, Q> {
 }
 
 export default function useService<T, Q>(
-  fetch: ServiceFunction<T, Q>,
-  query?: Q,
-  initData?: T,
-  config?: ServiceConfig
+    fetch: ServiceFunction<T, Q>,
+    query?: Q,
+    initData?: T,
+    config?: ServiceConfig
 ): IAsyncResult<T, Q> {
   const _data = _useService<T, Q>(fetch, query, initData, config);
 
