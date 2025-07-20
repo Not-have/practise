@@ -34,10 +34,11 @@
     "build:quickapp-webview-union": "uni build -p quickapp-webview-union",
     "type-check": "vue-tsc --noEmit",
     "lint:eslint": "eslint . --fix \"src/**/*.{js,ts,tsx,vue,html}\"",
-    "lint:format": "prettier --write --loglevel warn \"src/**/*.{js,ts,json,tsx,css,less,vue,html,md}\""
+    "lint:format": "prettier --write --loglevel warn \"src/**/*.{js,ts,json,tsx,css,less,vue,html,md}\"",
+    "lint:css": "stylelint '**/*.vue' --fix"
   },
   "dependencies": {
-  "@dcloudio/uni-app": "3.0.0-4030620241128001",
+    "@dcloudio/uni-app": "3.0.0-4030620241128001",
     "@dcloudio/uni-app-harmony": "3.0.0-4030620241128001",
     "@dcloudio/uni-app-plus": "3.0.0-4030620241128001",
     "@dcloudio/uni-components": "3.0.0-4030620241128001",
@@ -63,8 +64,9 @@
     "@dcloudio/uni-cli-shared": "3.0.0-4030620241128001",
     "@dcloudio/uni-stacktracey": "3.0.0-4030620241128001",
     "@dcloudio/vite-plugin-uni": "3.0.0-4030620241128001",
-    "@mt-kit/eslint-config": "^1.0.4",
-    "@mt-kit/prettier-config": "^1.0.1",
+    "@mt-kit/eslint-config": "^2.1.0",
+    "@mt-kit/prettier-config": "^1.1.0",
+    "@mt-kit/stylelint-config": "^2.1.0",
     "@uni-helper/uni-app-types": "^0.5.13",
     "@uni-helper/uni-ui-types": "^0.5.15",
     "@vue/runtime-core": "^3.4.21",

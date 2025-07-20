@@ -26,12 +26,9 @@ const title = ref("Hello");
 }
 
 .logo {
-  height: 200rpx;
+  margin: 200rpx auto 50rpx;
   width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
+  height: 200rpx;
 }
 
 .text-area {
