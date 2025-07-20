@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "postinstall": "rm -fr package-lock.json"
+    "postinstall": "rm -fr package-lock.json",
+    "lint:css": "stylelint src/**/*.{css,vue} --fix"
   },
   "dependencies": {
     "@mt-kit/utils": "^1.0.1",
@@ -24,7 +25,7 @@
   "devDependencies": {
     "@mt-kit/eslint-config": "^2.1.0",
     "@mt-kit/prettier-config": "^1.1.0",
-    "@mt-kit/stylelint-config": "^1.0.2",
+    "@mt-kit/stylelint-config": "^2.1.0",
     "@tsconfig/node22": "^22.0.1",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^5.2.3",
