@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS弹出框滚动优化</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            min-height: 200vh; /* 确保页面有足够内容可滚动 */
+            padding: 20px;
+        }
+        
+        /* 按钮样式 */
+        .open-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        /* 弹出框容器 */
+        .modal-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 蒙层样式 */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+        
+        /* 内容框样式 */
+        .modal-content {
+            position: relative;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh; /* 限制最大高度 */
+            z-index: 2;
+            overflow: hidden; /* 确保内容框内的滚动条生效 */
+        }
+        
+        /* 内容框头部 */
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #666;
+        }
+        
+        /* 内容框主体（可滚动区域） */
+        .modal-body {
+            padding: 20px;
+            max-height: calc(80vh - 100px); /* 减去头部和底部高度 */
+            overflow-y: auto; /* 垂直滚动条 */
+            overflow-x: hidden; /* 隐藏水平滚动条 */
+        }
+        
+        /* 内容框底部 */
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* 弹出框显示时的样式（通过JS添加） */
+        .modal-container.active {
+            display: flex;
+        }
+        
+        /* 禁止页面滚动的样式（通过JS添加） */
+        .no-scroll {
+            overflow: hidden;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <h3>页面内容（滚动时弹出框下内容不应滚动）</h3>
+    <p>滚动页面查看效果，点击按钮打开弹出框：</p>
+    
+    <button class="open-btn" id="openModal">打开弹出框</button>
+    
+    <div class="modal-container" id="modal">
+        <div class="overlay" id="overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">弹出框标题</h4>
+                <button class="close-btn" id="closeModal">×</button>
+            </div>
+            <div class="modal-body">
+                <p>这里是弹出框的内容，内容足够长时会显示滚动条：</p>
+                <p>1. 第一行内容</p>
+                <p>2. 第二行内容</p>
+                <p>3. 第三行内容</p>
+                <p>4. 第四行内容</p>
+                <p>5. 第五行内容</p>
+                <p>6. 第六行内容</p>
+                <p>7. 第七行内容</p>
+                <p>8. 第八行内容</p>
+                <p>9. 第九行内容</p>
+                <p>10. 第十行内容</p>
+                <p>11. 第十一行内容</p>
+                <p>12. 第十二行内容</p>
+                <p>13. 第十三行内容</p>
+                <p>14. 第十四行内容</p>
+                <p>15. 第十五行内容</p>
+                <p>16. 第十六行内容</p>
+                <p>17. 第十七行内容</p>
+                <p>18. 第十八行内容</p>
+                <p>19. 第十九行内容</p>
+                <p>20. 第二十行内容</p>
+                <!-- 更多内容用于测试滚动 -->
+                <p>21. 第二十一行内容</p>
+                <p>22. 第二十二行内容</p>
+                <p>23. 第二十三行内容</p>
+                <p>24. 第二十四行内容</p>
+                <p>25. 第二十五行内容</p>
+            </div>
+            <div class="modal-footer">
+                <button class="close-btn" id="closeModalBtn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const openModalBtn = document.getElementById('openModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const closeModal = document.getElementById('closeModal');
+        const overlay = document.getElementById('overlay');
+        const modalContainer = document.getElementById('modal');
+        const htmlElement = document.documentElement;
+        
+        // 打开弹出框
+        function openModal() {
+            modalContainer.classList.add('active');
+            htmlElement.classList.add('no-scroll'); // 禁止页面滚动
+        }
+        
+        // 关闭弹出框
+        function closeModalFunc() {
+            modalContainer.classList.remove('active');
+            htmlElement.classList.remove('no-scroll'); // 恢复页面滚动
+        }
+        
+        // 绑定事件
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModalFunc);
+        closeModal.addEventListener('click', closeModalFunc);
+        overlay.addEventListener('click', closeModalFunc); // 点击蒙层关闭弹出框
+    </script>
+</body>
+</html>

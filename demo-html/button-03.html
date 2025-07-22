@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>右下到左上45°光泽流动效果</title>
+    <style>
+      .glossy-box {
+        width: 100px;
+        height: 50px;
+        background: #6a5acd; /* 基础背景色 */
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden; /* 隐藏超出部分 */
+        animation: pulse 2s infinite linear;
+      }
+
+      /* 光泽层（伪元素实现） */
+      .glossy-box::before {
+        content: "";
+        position: absolute;
+        width: 200%; /* 扩大尺寸确保覆盖 */
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent 40%,
+          rgba(255, 255, 255, 0.5) 50%,
+          transparent 60%
+        );
+        animation: glossy-flow 2s infinite linear;
+        transform: translate(50%, 50%) rotate(45deg); /* 初始右下位置 */
+      }
+
+      /* 光泽流动动画 */
+      @keyframes glossy-flow {
+        0% {
+          transform: translate(50%, 50%) rotate(90deg); /* 从右下开始 */
+        }
+        20% {
+          transform: translate(45%, 45%) rotate(90deg); /* 移动到左上 */
+        }
+        50% {
+          transform: translate(0%, 0%) rotate(90deg); /* 移动到左上 */
+        }
+        80% {
+          transform: translate(-45%, -45%) rotate(90deg); /* 移动到左上 */
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(90deg); /* 移动到左上 */
+        }
+      }
+
+      @keyframes pulse {
+        0%{
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.15);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+        75% {
+          transform: scale(1.15);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glossy-box"></div>
+  </body>
+</html>
