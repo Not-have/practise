@@ -5,12 +5,13 @@ class EventBus {
     if (!this.events[event]) {
       this.events[event] = [];
     }
+
     this.events[event].push(callback);
   }
 
   public $emit(event: string, ...args: any[]) {
     if (this.events[event]) {
-      this.events[event].forEach((callback) => {
+      this.events[event].forEach(callback => {
         callback(...args);
       });
     }

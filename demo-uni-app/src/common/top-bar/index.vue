@@ -80,6 +80,7 @@ const bar = reactive({
 });
 
 onLoad(() => {
+
   /*
    * OnLaunch 加入的内容，用于计算刘海屏
    * https://blog.csdn.net/weixin_44596839/article/details/124358961
@@ -138,14 +139,33 @@ const handleClick = (): void => {
 };
 </script>
 <template>
-  <view class="public-top-bar" :style="[{ height: bar.CustomBar + 'px' }]">
-    <view class="bar" :style="style" :class="[bgImage !== '' ? ' text-white' : '', bgColor]">
-      <view v-if="isBack" class="left" :style="[{ color: bgColor }]">
+  <view
+    class="public-top-bar"
+    :style="[{ height: `${bar.CustomBar}px` }]"
+  >
+    <view
+      class="bar"
+      :style="style"
+      :class="[bgImage !== '' ? ' text-white' : '', bgColor]"
+    >
+      <view
+        v-if="isBack"
+        class="left"
+        :style="[{ color: bgColor }]"
+      >
         <slot name="left">
-          <uni-icons :color="backColor" type="left" size="20" @tap="handleClick" />
+          <uni-icons
+            :color="backColor"
+            type="left"
+            size="20"
+            @tap="handleClick"
+          />
         </slot>
       </view>
-      <view class="content" :style="[{ top: bar.StatusBar + 'px', color: color }]">
+      <view
+        class="content"
+        :style="[{ top: `${bar.StatusBar}px`, color }]"
+      >
         <slot></slot>
       </view>
       <slot name="right"></slot>
@@ -157,38 +177,45 @@ const handleClick = (): void => {
 .public-top-bar {
   position: relative;
   width: 100%;
+
   /* 使 .public-top-bar 撑满屏幕宽度 */
 }
 
 /* 只让 bar 脱离 */
 .public-top-bar .bar {
-  width: 100%;
   display: flex;
   align-items: center;
-  box-sizing: border-box;
   position: fixed;
-  width: 100%;
   top: 0;
   z-index: 9999;
-  background-color: #f8f8f8;
-  /* compatible */
-  min-height: 0px;
+
   /* #ifdef MP-WEIXIN */
-  padding-right: 220upx;
+
   /* #endif */
+
   /* #ifdef MP-ALIPAY */
   padding-right: 150upx;
+
   /* #endif */
   box-shadow: 0upx 0upx 0upx;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  width: 100%;
+
+  /* compatible */
+  min-height: 0;
 }
 
 .public-top-bar .bar .left {
   display: flex;
   align-items: center;
   justify-content: center;
+
   /* compatible */
+
   /* #ifdef MP-ALIPAY */
   opacity: 0;
+
   /* #endif */
   margin-left: 20rpx;
   font-size: 36upx;
@@ -200,20 +227,17 @@ const handleClick = (): void => {
 
 .public-top-bar .bar .content {
   position: absolute;
-  text-align: center;
-  width: calc(100% - 340upx);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
+  inset: 0;
   margin: auto;
+  width: calc(100% - 340upx);
   height: 60upx;
-  font-size: 30upx;
   line-height: 60upx;
+  overflow: hidden;
   cursor: none;
-  pointer-events: none;
+  font-size: 30upx;
+  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  pointer-events: none;
 }
 </style>

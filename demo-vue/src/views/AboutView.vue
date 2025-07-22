@@ -55,8 +55,9 @@ const handleClick = (): void => {
 
 <style scoped>
 .draggable {
+  top: 10px;
+  background-color: aqua;
   width: 200px;
   height: 100px;
-  background-color: aqua;
 }
 </style>

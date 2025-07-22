@@ -1,11 +1,13 @@
-import { defineConfig } from 'vite';
-import uni from '@dcloudio/vite-plugin-uni';
+import { defineConfig } from "vite";
+import uni from "@dcloudio/vite-plugin-uni";
+
 // import AutoImport from 'unplugin-auto-import/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    uni(),
+    uni()
+
     // AutoImport({
     //   dts: 'src/auto-imports.d.ts',
     //   imports: ['uni-app'], // 自动引入哪些内容
@@ -30,7 +32,7 @@ export default defineConfig({
                         const templateCode = templateMatch[0];
                         // 在模板代码后面添加全局组件
                         const updatedTemplate = templateCode.replace(
-                            // public-popup 是在 main.ts 中写入的全局引用 app.component('public-popup', PublicPopup); 
+                            // public-popup 是在 main.ts 中写入的全局引用 app.component('public-popup', PublicPopup);
                             '</template>',
                             `
                                 <public-popup eventBusName='/${match[1]}' />

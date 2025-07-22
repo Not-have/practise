@@ -8,6 +8,7 @@ import Scroll from "../scroll/index.vue";
 import { isObject } from "./util";
 
 interface ITopBarProps {
+
   /**
    * TopBar 标题
    */
@@ -36,12 +37,12 @@ interface ITopBarProps {
   /**
    * 头部文字颜色
    */
-  color?: String;
+  color?: string;
 }
 
 const props = defineProps({
   topBar: {
-    type: [Boolean, Object] as PropType<Boolean | ITopBarProps>
+    type: [Boolean, Object] as PropType<boolean | ITopBarProps>
   },
 
   /**
@@ -133,16 +134,22 @@ const topBarProps = computed(() => {
   if (isObject(props.topBar)) {
     obj = {
       topBar: true,
+
       // @ts-ignore
       title: props.topBar?.title,
+
       // @ts-ignore
       isBack: props.topBar?.isBack,
+
       // @ts-ignore
       bgColor: props.topBar?.bgColor,
+
       // @ts-ignore
       bgImage: props.topBar?.bgImage,
+
       // @ts-ignore
       backColor: props.topBar?.backColor,
+
       // @ts-ignore
       color: props.topBar?.color
     };
@@ -157,11 +164,14 @@ const topBarProps = computed(() => {
     :style="{ backgroundColor: bgColor, backgroundImage: `url(${bgImage})` }"
   >
     <PublicLoading v-if="loading" />
-    <slot v-if="topBarProps.topBar" name="topBar">
+    <slot
+      v-if="topBarProps.topBar"
+      name="topBar"
+    >
       <PublicTopBar
-        :isBack="topBarProps.isBack"
-        :bgColor="topBarProps.bgColor"
-        :bgImage="topBarProps.bgImage"
+        :is-back="topBarProps.isBack"
+        :bg-color="topBarProps.bgColor"
+        :bg-image="topBarProps.bgImage"
         :color="topBarProps.color"
         :back-color="topBarProps.backColor"
       >
@@ -175,8 +185,8 @@ const topBarProps = computed(() => {
       :scroll="scroll"
       :load="load"
       :refresh="refresh"
-      :moreStatus="moreStatus"
-      :isNoneData="isNoneData"
+      :more-status="moreStatus"
+      :is-none-data="isNoneData"
     >
       <template #extra>
         <slot name="extra"></slot>
@@ -185,11 +195,16 @@ const topBarProps = computed(() => {
         <slot></slot>
       </template>
       <template #noneData>
-        <slot name="noneData"> 暂无数据 </slot>
+        <slot name="noneData">
+          暂无数据
+        </slot>
       </template>
     </Scroll>
 
-    <view v-if="footer" class="footer">
+    <view
+      v-if="footer"
+      class="footer"
+    >
       <slot name="footer"></slot>
     </view>
   </view>

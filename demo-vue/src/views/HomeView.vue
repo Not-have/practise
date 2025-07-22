@@ -10,7 +10,10 @@ import {
   DomMessage
 } from "@/utils";
 
-const [state, setState] = useState({
+const [
+  state,
+  setState
+] = useState({
   age: 1
 });
 

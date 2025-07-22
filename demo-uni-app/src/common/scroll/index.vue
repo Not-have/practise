@@ -1,7 +1,14 @@
 <script lang="ts" setup>
 import type { UniLoadMoreStatus } from "@uni-helper/uni-ui-types";
 
-import { PropType, nextTick, defineProps, computed, ref, watchEffect } from "vue";
+import {
+  PropType,
+  nextTick,
+  defineProps,
+  computed,
+  ref,
+  watchEffect
+} from "vue";
 
 /**
  *
@@ -83,6 +90,8 @@ const props = defineProps({
   }
 });
 
+const emit = defineEmits(["load", "refresh"]);
+
 const showNoneData = computed(() => {
   if (props.moreStatus === "loading") {
     return true;
@@ -102,8 +111,6 @@ const showNoneData = computed(() => {
 
   return true;
 });
-
-const emit = defineEmits(["load", "refresh"]);
 
 const handleScrolltolower = (): void => {
   if (props.moreStatus === "noMore") {
@@ -145,7 +152,11 @@ const scrollTop = ref(null);
 <template>
   <view
     class="scroll"
-    :style="{ padding: padding, backgroundColor: bgColor, backgroundImage: `url(${bgImage})` }"
+    :style="{
+      padding,
+      backgroundColor: bgColor,
+      backgroundImage: `url(${bgImage})`,
+    }"
   >
     <slot name="extra"></slot>
     <scroll-view
@@ -153,7 +164,7 @@ const scrollTop = ref(null);
       class="scroll-content"
       :style="[
         { overflowY: scroll === 'y' ? 'auto' : 'hidden' },
-        { overflowX: scroll === 'x' ? 'auto' : 'hidden' }
+        { overflowX: scroll === 'x' ? 'auto' : 'hidden' },
       ]"
       :scroll-y="scroll === 'y'"
       :scroll-x="scroll === 'x'"
@@ -169,10 +180,19 @@ const scrollTop = ref(null);
       @scrolltolower="handleScrolltolower"
     >
       <slot></slot>
-      <uni-load-more v-if="moreStatus" iconType="circle" :status="moreStatus" />
+      <uni-load-more
+        v-if="moreStatus"
+        icon-type="circle"
+        :status="moreStatus"
+      />
     </scroll-view>
-    <view v-else class="none-data">
-      <slot name="noneData"> 暂无数据 </slot>
+    <view
+      v-else
+      class="none-data"
+    >
+      <slot name="noneData">
+        暂无数据
+      </slot>
     </view>
   </view>
 </template>
