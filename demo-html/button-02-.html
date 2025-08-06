@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pulse Button</title>
+    <title>Pulse Button with Light Band</title>
     <style>
       body {
         display: flex;
@@ -22,10 +22,9 @@
         font-size: 16px;
         border-radius: 8px;
         cursor: pointer;
-        transition: all 0.3s;
-        animation: pulse 3s infinite;
         position: relative;
         overflow: hidden;
+        transition: all 0.3s;
       }
 
       .pulse-button:hover {
@@ -37,6 +36,7 @@
         box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.5);
       }
 
+      /* Pulse Animation */
       @keyframes pulse {
         0%,
         100% {
@@ -51,32 +51,33 @@
         position: absolute;
         content: "";
         display: inline-block;
-        top: -180px;
+        top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         background-color: #fff;
-        animation: shiny-btn1 3s infinite;
+        opacity: 0.3;
+        pointer-events: none;
+        z-index: 1;
+        animation: lightMove 3s infinite linear;
       }
 
-      @-webkit-keyframes shiny-btn1 {
+      /* 光带动画，从右下角到左上角 */
+      @keyframes lightMove {
         0% {
-          -webkit-transform: scale(0) rotate(45deg);
+          transform: translate(100%, 100%) rotate(45deg);
           opacity: 0;
         }
-        80% {
-          -webkit-transform: scale(0) rotate(45deg);
-          opacity: 0.5;
-        }
-        81% {
-          -webkit-transform: scale(4) rotate(45deg);
+        50% {
+          transform: translate(0, 0) rotate(45deg);
           opacity: 1;
         }
         100% {
-          -webkit-transform: scale(50) rotate(45deg);
+          transform: translate(-100%, -100%) rotate(45deg);
           opacity: 0;
         }
       }
+
     </style>
   </head>
   <body>
