@@ -1,3 +1,8 @@
-import EsLint from "@mt-kit/eslint-config";
+import EsLint, {
+  vue
+} from "@mt-kit/eslint-config";
 
-export default EsLint;
+export default [
+  ...EsLint,
+  ...vue,
+];
