@@ -16,7 +16,7 @@ onMounted(async () => {
   setTimeout(() => controller.abort(), 5000);
 
   try {
-    const res = await fetch("/image-proxy/upload/goods/1/detail/c85e8f8d8bd7b0c3ab7cee002bbc4e4a64278c01.jpg", {
+    const res = await fetch("/proxy-image/upload/goods/1/detail/c85e8f8d8bd7b0c3ab7cee002bbc4e4a64278c01.jpg", {
       signal: controller.signal,
       referrerPolicy: "no-referrer"
     });
