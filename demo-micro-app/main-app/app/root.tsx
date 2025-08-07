@@ -9,6 +9,7 @@ import {
 // @ts-ignore
 import type { Route } from "./+types/root";
 import "./app.css";
+import { Navigation } from "./components/Navigation";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,7 +20,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        {children}
+        <div className="min-h-screen bg-gray-50">
+          <Navigation />
+          <main className="pt-16">
+            {children}
+          </main>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
