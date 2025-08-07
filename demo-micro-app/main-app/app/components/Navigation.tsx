@@ -21,7 +21,7 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-gray-900">Demo App</h1>
+            <h1 className="text-xl font-bold text-gray-900">Demo</h1>
           </div>
           
           {/* Navigation Links */}
