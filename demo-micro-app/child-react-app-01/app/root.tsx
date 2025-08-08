@@ -8,6 +8,7 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import { Navigation } from "./components/Navigation";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -42,7 +43,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Navigation />
+      <main className="flex-1 ml-64">
+        <Outlet />
+      </main>
+    </div>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -62,14 +70,19 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Navigation />
+      <main className="flex-1 ml-64 p-6">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold mb-4">{message}</h1>
+          <p className="text-lg mb-6">{details}</p>
+          {stack && (
+            <pre className="w-full p-4 overflow-x-auto bg-gray-100 dark:bg-gray-800 rounded-lg">
+              <code>{stack}</code>
+            </pre>
+          )}
+        </div>
+      </main>
+    </div>
   );
 }
