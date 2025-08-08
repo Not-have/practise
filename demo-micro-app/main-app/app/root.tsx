@@ -5,13 +5,20 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { useEffect } from "react";
 
 // @ts-ignore
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Navigation } from "./components/Navigation";
+import { initMicroApp } from "./utils/micro-app";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    // 在客户端初始化 micro-app
+    initMicroApp();
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -20,9 +27,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 flex flex-col">
           <Navigation />
-          <main className="pt-16">
+          <main className="flex-1 overflow-y-auto pt-1 flex flex-col">
             {children}
           </main>
         </div>
