@@ -11,14 +11,8 @@ import { useEffect } from "react";
 import type { Route } from "./+types/root";
 import "./app.css";
 import { Navigation } from "./components/Navigation";
-import { initMicroApp } from "./utils/micro-app";
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    // 在客户端初始化 micro-app
-    initMicroApp();
-  }, []);
-
   return (
     <html lang="en">
       <head>
