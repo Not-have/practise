@@ -6,5 +6,5 @@ export default {
   ssr: true,
   // 添加对开发工具请求的处理
   serverModuleFormat: "esm",
-  basename: "/child-react-app-01",
+  basename: "/child-react-app-01/",
 } satisfies Config;
