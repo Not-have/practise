@@ -43,23 +43,19 @@ const isActive = computed(() => (path: string) => {
 <style scoped>
 .app {
   display: flex;
-  min-height: 100vh;
+  height: 100%;
   background-color: #f8f9fa;
 }
 
 .main-content {
   flex: 1;
   padding: 20px;
-  margin-left: 250px; /* 为左侧菜单留出空间 */
   transition: margin-left 0.3s ease;
 }
 
 .sidebar {
-  position: fixed;
-  left: 0;
-  top: 0;
   width: 250px;
-  height: 100vh;
+  height: 100%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
@@ -110,34 +106,4 @@ const isActive = computed(() => (path: string) => {
   font-weight: 500;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-    padding: 10px;
-  }
-  
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  
-  .sidebar.open {
-    transform: translateX(0);
-  }
-}
-
-/* 全局样式 */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 </style>
