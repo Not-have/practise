@@ -1,0 +1,304 @@
+/* Home页面样式 */
+.home-page {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome-section {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.welcome-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.action-btn {
+  display: inline-block;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  color: white;
+  min-width: 140px;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.home-btn {
+  background-color: #1976d2;
+}
+
+.one-btn {
+  background-color: #4caf50;
+}
+
+.two-btn {
+  background-color: #9c27b0;
+}
+
+.route-description {
+  text-align: center;
+}
+
+.description-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.route-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.route-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.home-card .card-title {
+  color: #1976d2;
+}
+
+.one-card .card-title {
+  color: #4caf50;
+}
+
+.two-card .card-title {
+  color: #9c27b0;
+}
+
+.card-description {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* One页面样式 - 蓝色主题 */
+.page-one {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  min-height: 100%;
+}
+
+.page-one .page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.page-one .page-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1976d2;
+  margin-bottom: 16px;
+}
+
+.page-one .page-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.page-one .content-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.page-one .feature-card,
+.page-one .info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.1);
+  border-left: 4px solid #1976d2;
+}
+
+.page-one .feature-card h2,
+.page-one .info-card h3 {
+  color: #1976d2;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.page-one .feature-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.page-one .feature-card li {
+  padding: 8px 0;
+  color: #666;
+  position: relative;
+  padding-left: 20px;
+}
+
+.page-one .feature-card li:before {
+  content: "✓";
+  color: #1976d2;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.page-one .info-card p {
+  color: #666;
+  line-height: 1.8;
+}
+
+/* Two页面样式 - 绿色主题 */
+.page-two {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+  min-height: 100%;
+}
+
+.page-two .page-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.page-two .page-header h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #4caf50;
+  margin-bottom: 16px;
+}
+
+.page-two .page-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.page-two .content-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.page-two .feature-card,
+.page-two .info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4caf50;
+}
+
+.page-two .feature-card h2,
+.page-two .info-card h3 {
+  color: #4caf50;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.page-two .feature-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.page-two .feature-card li {
+  padding: 8px 0;
+  color: #666;
+  position: relative;
+  padding-left: 20px;
+}
+
+.page-two .feature-card li:before {
+  content: "✓";
+  color: #4caf50;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.page-two .info-card p {
+  color: #666;
+  line-height: 1.8;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .home-page,
+  .page-one,
+  .page-two {
+    padding: 20px 15px;
+  }
+  
+  .welcome-title,
+  .page-one .page-header h1,
+  .page-two .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .welcome-subtitle,
+  .page-one .page-header p,
+  .page-two .page-header p {
+    font-size: 1rem;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .action-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .route-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .route-card {
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .page-one .content-section,
+  .page-two .content-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
