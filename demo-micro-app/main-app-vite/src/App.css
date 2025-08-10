@@ -36,3 +36,14 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* micro-app 高度设置 */
+micro-app {
+  height: 100%;
+  width: 100%;
+}
+
+micro-app-body {
+  height: 100%;
+  width: 100%;
+}
