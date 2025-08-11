@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import styles from './Navigation.module.css';
+import styles from './index.module.css';
 
 interface MenuItem {
   name: string;
@@ -14,7 +14,7 @@ const menuItems: MenuItem[] = [
   { name: '联系', path: '/contact', icon: '📞' },
 ];
 
-export function Navigation() {
+export default function Navigation() {
   const location = useLocation();
   
   return (

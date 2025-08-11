@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Navigation } from './Navigation';
-import styles from './Layout.module.css';
+import Navigation from '../navigation';
+import styles from './index.module.css';
 
 export default function Layout() {
   return (

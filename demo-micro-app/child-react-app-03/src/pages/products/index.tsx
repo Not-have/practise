@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './Products.module.css';
+import styles from './index.module.css';
 
 interface Product {
   id: number;

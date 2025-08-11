@@ -4,7 +4,7 @@ const routes: RouteObject[] = [
   {
     path: '/',
     async lazy() {
-      const { default: Component } = await import('../components/Layout');
+      const { default: Component } = await import('../components/layout');
       return {
         Component,
       };
@@ -13,35 +13,35 @@ const routes: RouteObject[] = [
       {
         index: true,
         async lazy() {
-          const { default: Component } = await import('../pages/Home');
+          const { default: Component } = await import('../pages/home');
           return { Component };
         },
       },
       {
         path: 'about',
         async lazy() {
-          const { default: Component } = await import('../pages/About');
+          const { default: Component } = await import('../pages/about');
           return { Component };
         },
       },
       {
         path: 'products',
         async lazy() {
-          const { default: Component } = await import('../pages/Products');
+          const { default: Component } = await import('../pages/products');
           return { Component };
         },
       },
       {
         path: 'contact',
         async lazy() {
-          const { default: Component } = await import('../pages/Contact');
+          const { default: Component } = await import('../pages/contact');
           return { Component };
         },
       },
       {
         path: '*',
         async lazy() {
-          const { default: Component } = await import('../pages/NotFound');
+          const { default: Component } = await import('../pages/not-found');
           return { Component };
         },
       },
