@@ -4,8 +4,8 @@ import './Sidebar.css';
 const Sidebar = () => {
   const menuItems = [
     { path: '/', label: '首页', icon: '🏠' },
-    { path: '/one', label: '页面 One', icon: '📄' },
-    { path: '/two', label: '页面 Two', icon: '📄' },
+    { path: '/vue-02', label: '页面 Vue', icon: '📄' },
+    { path: '/react-03', label: '页面 React', icon: '📄' },
   ];
 
   return (
