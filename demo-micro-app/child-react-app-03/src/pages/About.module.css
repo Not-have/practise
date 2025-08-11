@@ -1,0 +1,76 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #1e293b;
+}
+
+.description {
+  font-size: 1.125rem;
+  margin-bottom: 32px;
+  color: #475569;
+}
+
+.techStack {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #1e293b;
+}
+
+.techList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.techItem {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #f8fafc;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+
+.techItem:hover {
+  transform: translateX(8px);
+}
+
+.bullet {
+  width: 8px;
+  height: 8px;
+  background-color: #2563eb;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .techItem {
+    padding: 12px 8px;
+  }
+}

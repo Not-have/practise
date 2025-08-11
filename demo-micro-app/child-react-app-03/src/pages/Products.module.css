@@ -1,0 +1,131 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: #1e293b;
+}
+
+.description {
+  font-size: 1.125rem;
+  margin-bottom: 32px;
+  color: #475569;
+}
+
+.productGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.productCard {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.productCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.productImage {
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  background-color: #f1f5f9;
+}
+
+.productImage:not([src]), 
+.productImage[src=""], 
+.productImage[src="null"],
+.productImage[src="undefined"],
+.productImage[alt]:not([src]) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+}
+
+.productImage:not([src])::before, 
+.productImage[src=""]::before, 
+.productImage[src="null"]::before,
+.productImage[src="undefined"]::before,
+.productImage[alt]:not([src])::before {
+  content: "📷";
+  font-size: 2rem;
+  color: #94a3b8;
+}
+
+.productInfo {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+
+.productDescription {
+  font-size: 0.875rem;
+  color: #475569;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.productFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.productPrice {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2563eb;
+}
+
+.productButton {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.productButton:hover {
+  background-color: #1d4ed8;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .productGrid {
+    grid-template-columns: 1fr;
+  }
+}
