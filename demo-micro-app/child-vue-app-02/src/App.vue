@@ -51,6 +51,7 @@ const isActive = computed(() => (path: string) => {
   flex: 1;
   padding: 20px;
   transition: margin-left 0.3s ease;
+  overflow-y: auto;
 }
 
 .sidebar {
