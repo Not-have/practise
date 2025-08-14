@@ -12,11 +12,11 @@ const Home = () => {
           <Link to="/" className="action-btn home-btn">
             首页
           </Link>
-          <Link to="/react-03" className="action-btn one-btn">
-            react-03
-          </Link>
           <Link to="/vue-02" className="action-btn two-btn">
             vue-02
+          </Link>
+          <Link to="/react-03" className="action-btn one-btn">
+            react-03
           </Link>
         </div>
       </div>
