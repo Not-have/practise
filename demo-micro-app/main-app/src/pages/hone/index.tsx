@@ -29,12 +29,12 @@ const Home = () => {
             <p className="card-description">应用的主页面,包含导航链接</p>
           </div>
           <div className="route-card one-card">
-            <h3 className="card-title">页面 One (/one)</h3>
-            <p className="card-description">第一个功能页面,展示蓝色主题</p>
+            <h3 className="card-title">页面 vue-02 (/vue-02)</h3>
+            <p className="card-description">一个 Vue 项目的子应用</p>
           </div>
           <div className="route-card two-card">
-            <h3 className="card-title">页面 Two (/two)</h3>
-            <p className="card-description">第二个功能页面,展示绿色主题</p>
+            <h3 className="card-title">页面 react-03 (/react-03)</h3>
+            <p className="card-description">一个 React 项目的子应用</p>
           </div>
         </div>
       </div>
