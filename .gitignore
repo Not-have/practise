@@ -1,69 +1,199 @@
-**/*-lock.json
-.idea/
-/react-demo/dist/
-**/dist
-
-# OSX
-#
+# ===== 通用忽略 =====
+# 系统文件
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-*.xccheckout
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-*.xcuserstate
-ios/.xcode.env.local
+# IDE 和编辑器
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
 
-.idea
-.gradle
-local.properties
-*.iml
-*.hprof
-.cxx/
-*.keystore
-!debug.keystore
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
-# node.js
-#
+# 临时文件
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# ===== Node.js 相关 =====
+# 依赖目录
 node_modules/
-npm-debug.log
-yarn-error.log
+**/node_modules/
 
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/
+# 包管理器文件
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+**/*-lock.json
 
-**/fastlane/report.xml
-**/fastlane/Preview.html
-**/fastlane/screenshots
-**/fastlane/test_output
+# 构建输出
+dist/
+build/
+**/dist/
+**/build/
+out/
+.next/
+.nuxt/
+.output/
 
-# Bundle artifact
-*.jsbundle
+# ===== 前端框架相关 =====
+# React/Vue 等框架
+.react-router/
+.vite/
+.parcel-cache/
 
-# Ruby / CocoaPods
-/ios/Pods/
-/vendor/bundle/
+# 测试覆盖率
+coverage/
+.nyc_output/
+*.lcov
 
-# Temporary files created by Metro to check the health of the file watcher
+# ===== Flutter 相关 =====
+# Dart
+*.class
+*.pyc
+*.swp
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+
+# Flutter 特定
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Android
+**/android/app/debug
+**/android/app/profile
+**/android/app/release
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.jks
+
+# iOS
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# ===== React Native 相关 =====
+# Expo
+.expo/
+.expo-shared/
+web-build/
+
+# React Native
+*.hprof
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+*.ipa
+*.apk
+*.aab
+
+# Metro
 .metro-health-check*
 
-# testing
-/coverage
-**/node_modules/
-# React Router
-**/.react-router/
-**/build/
+# ===== 微前端相关 =====
+# 子应用构建产物
+**/child-*/dist/
+**/child-*/build/
+
+# ===== 构建工具相关 =====
+# Webpack
+.webpack/
+
+# ESBuild
+.esbuild/
+
+# Vite
+.vite/
+
+# ===== 测试相关 =====
+# Jest
+.jest/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# ===== 环境变量 =====
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# ===== 其他 =====
+# 文档生成
+docs/api/
+
+# 性能分析
+*.cpuprofile
+*.heapprofile
+
+# 错误报告
+app.*.symbols
+app.*.map.json
+
+# 快照测试
+**/__snapshots__/
+
+# 类型检查缓存
+.eslintcache
+.stylelintcache
+
+# 编辑器配置
+.editorconfig
+
+# 本地配置
+.local
