@@ -5,7 +5,6 @@ const Two = () => {
     name="child-vue-app-02"
     url="http://47.108.222.61/child-vue-app-02/"
     baseroute="/"
-    iframe
     style={{ width: '100%', height: '100%' }}
   />
 };
