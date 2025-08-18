@@ -86,7 +86,8 @@ const stats = ref([
 
 <style scoped>
 .about {
-  min-height: 100vh;
+  height: 100%;
+  overflow-y: auto;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 }
 
