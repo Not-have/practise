@@ -139,17 +139,17 @@ const setupIpcHandlers = (): void => {
   });
 
   // 定期更新设备信息（每30秒）
-  setInterval(async () => {
-    if (mainWindow) {
-      try {
-        const deviceInfo = await DeviceInfoCollector.getAllDeviceInfo();
-        mainWindow.webContents.send('device-info-update', deviceInfo);
-        console.log('🔄 设备信息已更新');
-      } catch (error) {
-        console.error('❌ 更新设备信息失败:', error);
-      }
-    }
-  }, 300000);
+  // setInterval(async () => {
+  //   if (mainWindow) {
+  //     try {
+  //       const deviceInfo = await DeviceInfoCollector.getAllDeviceInfo();
+  //       mainWindow.webContents.send('device-info-update', deviceInfo);
+  //       console.log('🔄 设备信息已更新');
+  //     } catch (error) {
+  //       console.error('❌ 更新设备信息失败:', error);
+  //     }
+  //   }
+  // }, 300000);
 };
 
 // 启动HTTP服务器
