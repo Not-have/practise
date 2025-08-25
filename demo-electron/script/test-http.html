@@ -236,6 +236,13 @@
         }
 
         function checkHealth() {
+            // 如果已经成功连接，跳过健康检查
+            if (API_BASE && document.getElementById('status-health').textContent === '✅ 已连接') {
+                console.log('✅ 健康检查已跳过，状态已是最新');
+                return;
+            }
+            
+            console.log('🔍 执行健康检查...');
             makeRequest('/api/health', 'status-health', 'result-health');
         }
 
@@ -243,19 +250,15 @@
         window.addEventListener('load', () => {
             console.log('🚀 页面加载完成，开始检测HTTP服务器...');
             setTimeout(() => {
-                // 先检测端口
+                // 只检测端口，不重复调用健康检查
                 detectPort().then((port) => {
                     console.log(`✅ 端口检测成功，端口: ${port}`);
-                    // 端口检测成功后，延迟检查健康状态
-                    setTimeout(() => {
-                        console.log('🔍 开始健康检查...');
-                        checkHealth();
-                    }, 500);
+                    // 端口检测成功后，健康检查已经在detectPort中完成，无需重复调用
                 }).catch((error) => {
                     console.log('❌ 端口检测失败:', error);
-                    // 端口检测失败，仍然尝试检查健康状态
+                    // 端口检测失败时，才尝试健康检查作为备用
                     setTimeout(() => {
-                        console.log('🔍 尝试健康检查...');
+                        console.log('🔍 尝试健康检查作为备用...');
                         checkHealth();
                     }, 500);
                 });
@@ -300,6 +303,13 @@
                             updateStatusAfterSuccess(port);
                             
                             console.log(`🌐 API基础URL已更新为: ${API_BASE}`);
+                            
+                            // 端口检测成功后，自动更新健康检查状态（不重复调用API）
+                            const healthStatusElement = document.getElementById('status-health');
+                            if (healthStatusElement) {
+                                healthStatusElement.textContent = '✅ 已连接';
+                                healthStatusElement.className = 'status success';
+                            }
                             
                             return Promise.resolve(port); // 成功返回端口号
                         } catch (parseError) {
