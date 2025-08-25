@@ -70,6 +70,15 @@ export class DeviceInfoCollector {
           const cards: NetworkCard[] = [];
           for (const service of services) {
             if (service.trim()) {
+              // 过滤掉VPN和虚拟网络服务
+              if (service.toLowerCase().includes('vpn') || 
+                  service.toLowerCase().includes('shadowrocket') ||
+                  service.toLowerCase().includes('clash') ||
+                  service.toLowerCase().includes('proxifier') ||
+                  service.toLowerCase().includes('tunnelblick')) {
+                continue;
+              }
+              
               try {
                 const { stdout: macOutput } = await execAsync(`networksetup -getmacaddress "${service.trim()}"`);
                 const macMatch = macOutput.match(/([a-fA-F0-9:]+)/);
@@ -80,8 +89,13 @@ export class DeviceInfoCollector {
                     type: 'Network Service'
                   });
                 }
-              } catch (macError) {
-                console.log(`获取服务 ${service} 的MAC地址失败:`, macError);
+              } catch (macError: any) {
+                // 忽略特定错误，继续处理其他服务
+                if (macError.code === 4) {
+                  console.log(`跳过服务 ${service} (不支持MAC地址获取)`);
+                } else {
+                  console.log(`获取服务 ${service} 的MAC地址失败:`, macError.message);
+                }
               }
             }
           }
@@ -109,11 +123,14 @@ export class DeviceInfoCollector {
             if (line.includes('ether') && currentInterface) {
               const macMatch = line.match(/ether\s+([a-fA-F0-9:]+)/);
               if (macMatch) {
-                cards.push({
-                  name: currentInterface,
-                  macAddress: macMatch[1],
-                  type: 'Network Interface'
-                });
+                // 过滤掉虚拟接口
+                if (!currentInterface.includes('utun') && !currentInterface.includes('lo')) {
+                  cards.push({
+                    name: currentInterface,
+                    macAddress: macMatch[1],
+                    type: 'Network Interface'
+                  });
+                }
               }
             }
           }
@@ -123,6 +140,36 @@ export class DeviceInfoCollector {
           }
         } catch (error) {
           console.log('macOS网卡方法2失败:', error);
+        }
+
+        // 方法3: 使用system_profiler获取网络硬件信息
+        try {
+          const { stdout: profilerOutput } = await execAsync('system_profiler SPNetworkDataType | grep -A 10 "Type:"');
+          const lines = profilerOutput.trim().split('\n');
+          let currentService = '';
+          const cards: NetworkCard[] = [];
+          
+          for (const line of lines) {
+            if (line.includes('Type:')) {
+              currentService = line.split(':')[1]?.trim() || 'Unknown';
+            }
+            if (line.includes('Hardware Address:') && currentService) {
+              const macMatch = line.match(/Hardware Address:\s*([a-fA-F0-9:]+)/);
+              if (macMatch) {
+                cards.push({
+                  name: currentService,
+                  macAddress: macMatch[1],
+                  type: 'Network Hardware'
+                });
+              }
+            }
+          }
+          
+          if (cards.length > 0) {
+            return cards;
+          }
+        } catch (error) {
+          console.log('macOS网卡方法3失败:', error);
         }
 
         // 如果还是没有找到，至少提供一些基本信息

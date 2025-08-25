@@ -319,11 +319,21 @@
           const container = document.getElementById('networkCards');
           
           if (networkCards.length === 0) {
-            container.innerHTML = '<div class="network-item"><div class="network-name">未找到网卡信息</div><div class="network-details">-</div></div>';
+            container.innerHTML = '<div class="network-item"><div class="network-name">未找到网卡信息</div><div class="network-details">请检查网络连接</div></div>';
             return;
           }
 
-          container.innerHTML = networkCards.map(card => `
+          // 过滤掉无效的网卡信息
+          const validCards = networkCards.filter(card => 
+            card.name && card.name !== 'Unknown' && card.macAddress && card.macAddress !== 'N/A'
+          );
+
+          if (validCards.length === 0) {
+            container.innerHTML = '<div class="network-item"><div class="network-name">网卡信息</div><div class="network-details">正在获取中...</div></div>';
+            return;
+          }
+
+          container.innerHTML = validCards.map(card => `
             <div class="network-item">
               <div class="network-name">${card.name}</div>
               <div class="network-details">MAC: ${card.macAddress} | 类型: ${card.type}</div>
