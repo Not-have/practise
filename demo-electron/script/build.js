@@ -2,7 +2,6 @@
 
 const { execSync } = require('child_process');
 const fs = require('fs');
-const path = require('path');
 
 console.log('🚀 开始构建 Electron 项目...');
 
@@ -17,13 +16,8 @@ try {
   console.log('🔨 编译 TypeScript...');
   execSync('npx tsc', { stdio: 'inherit' });
   
-  // 复制 HTML 文件到 dist 目录
-  if (fs.existsSync('index.html')) {
-    fs.copyFileSync('index.html', 'dist/index.html');
-    console.log('📄 复制 index.html 到 dist 目录');
-  }
-
   console.log('✅ 构建完成！');
+  console.log('💡 HTML 文件保持独立，修改后刷新窗口即可');
   console.log('💡 运行 npm start 启动应用');
   
 } catch (error) {

@@ -4,11 +4,9 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch",
-    "build:full": "node build.js",
     "start": "npm run build && electron .",
-    "dev": "npm run build:watch & electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development npm run watch & electron .",
+    "watch": "tsc --watch"
   },
   "author": "",
   "license": "ISC",
