@@ -142,6 +142,18 @@
                 <span id="status-health" class="status"></span>
                 <div id="result-health" class="result" style="display: none;"></div>
             </div>
+
+            <div class="api-section">
+                <h3>⚙️ 窗口控制</h3>
+                <div style="margin-bottom: 15px;">
+                    <button class="button" onclick="showWindow()">显示窗口</button>
+                    <button class="button" onclick="hideWindow()">隐藏窗口</button>
+                    <button class="button" onclick="minimizeWindow()">最小化</button>
+                    <button class="button" onclick="restoreWindow()">还原</button>
+                </div>
+                <span id="status-config" class="status"></span>
+                <div id="result-config" class="result" style="display: none;"></div>
+            </div>
         </div>
     </div>
 
@@ -210,6 +222,58 @@
             }
         }
 
+        // POST请求函数，用于窗口控制
+        async function makePostRequest(endpoint, statusElementId, resultElementId) {
+            try {
+                setStatus(statusElementId, 'loading', '请求中...');
+                
+                // 确保API_BASE已设置
+                if (!API_BASE) {
+                    console.log('⚠️ API_BASE未设置，尝试重新检测端口...');
+                    await detectPort();
+                    if (!API_BASE) {
+                        throw new Error('无法确定API服务器地址');
+                    }
+                }
+                
+                console.log(`🌐 正在发送POST请求: ${API_BASE}${endpoint}`);
+                
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                console.log(`📡 响应状态: ${response.status} ${response.statusText}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log(`📦 响应数据:`, data);
+                
+                if (data.success) {
+                    setStatus(statusElementId, 'success', '成功');
+                    showResult(resultElementId, data);
+                } else {
+                    setStatus(statusElementId, 'error', '失败');
+                    showResult(resultElementId, data);
+                }
+            } catch (error) {
+                console.error(`❌ POST请求失败:`, error);
+                setStatus(statusElementId, 'error', '错误');
+                showResult(resultElementId, { 
+                    error: error.message,
+                    endpoint: endpoint,
+                    apiBase: API_BASE,
+                    timestamp: new Date().toISOString()
+                });
+            }
+        }
+
         function getAllDeviceInfo() {
             makeRequest('/api/device-info', 'status-all', 'result-all');
         }
@@ -243,6 +307,23 @@
             
             console.log('🔍 执行健康检查...');
             makeRequest('/api/health', 'status-health', 'result-health');
+        }
+
+        // 窗口控制函数
+        function showWindow() {
+            makePostRequest('/api/config?action=show', 'status-config', 'result-config');
+        }
+
+        function hideWindow() {
+            makePostRequest('/api/config?action=hide', 'status-config', 'result-config');
+        }
+
+        function minimizeWindow() {
+            makePostRequest('/api/config?action=minimize', 'status-config', 'result-config');
+        }
+
+        function restoreWindow() {
+            makePostRequest('/api/config?action=restore', 'status-config', 'result-config');
         }
 
         // 页面加载完成后自动检查服务状态

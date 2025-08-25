@@ -6,9 +6,11 @@ export class DeviceInfoHTTPServer {
   private server: any;
   private port: number;
   private isRunning: boolean = false;
+  private mainWindow: any; // 主窗口引用
 
-  constructor(port: number = 3000) {
+  constructor(port: number = 3000, mainWindow?: any) {
     this.port = port;
+    this.mainWindow = mainWindow;
   }
 
   /**
@@ -117,6 +119,9 @@ export class DeviceInfoHTTPServer {
         case '/api/bios':
           await this.handleBIOSInfo(req, res);
           break;
+        case '/api/config':
+          await this.handleConfig(req, res);
+          break;
         case '/api/health':
           this.handleHealth(req, res);
           break;
@@ -187,6 +192,36 @@ export class DeviceInfoHTTPServer {
         <span class="method">GET</span>
         <span class="url">/api/bios</span>
         <div class="description">获取BIOS信息</div>
+    </div>
+    
+    <div class="endpoint">
+        <span class="method">GET</span>
+        <span class="url">/api/config</span>
+        <div class="description">获取应用配置</div>
+    </div>
+    
+    <div class="endpoint">
+        <span class="method">POST</span>
+        <span class="url">/api/config?action=show</span>
+        <div class="description">显示窗口</div>
+    </div>
+    
+    <div class="endpoint">
+        <span class="method">POST</span>
+        <span class="url">/api/config?action=hide</span>
+        <div class="description">隐藏窗口</div>
+    </div>
+    
+    <div class="endpoint">
+        <span class="method">POST</span>
+        <span class="url">/api/config?action=minimize</span>
+        <div class="description">最小化窗口</div>
+    </div>
+    
+    <div class="endpoint">
+        <span class="method">POST</span>
+        <span class="url">/api/config?action=restore</span>
+        <div class="description">还原窗口</div>
     </div>
     
     <div class="endpoint">
@@ -287,6 +322,33 @@ export class DeviceInfoHTTPServer {
   }
 
   /**
+   * 处理配置请求
+   */
+  private async handleConfig(req: IncomingMessage, res: ServerResponse): Promise<void> {
+    try {
+      const url = new URL(req.url || '/', `http://${req.headers.host}`);
+      const action = url.searchParams.get('action');
+
+      console.log(`📋 配置请求: action=${action}`);
+
+      if (req.method === 'GET') {
+        // 获取当前配置
+        const config = await this.getCurrentConfig();
+        this.sendSuccess(res, config);
+      } else if (req.method === 'POST') {
+        // 执行窗口控制操作
+        const result = await this.executeWindowAction(action);
+        this.sendSuccess(res, result);
+      } else {
+        this.sendError(res, 405, 'Method not allowed');
+      }
+    } catch (error) {
+      console.error('处理配置请求失败:', error);
+      this.sendError(res, 500, 'Failed to handle config request');
+    }
+  }
+
+  /**
    * 处理健康检查请求
    */
   private handleHealth(_req: IncomingMessage, res: ServerResponse): void {
@@ -337,5 +399,94 @@ export class DeviceInfoHTTPServer {
       isRunning: this.isRunning,
       port: this.port
     };
+  }
+
+  /**
+   * 设置主窗口引用
+   */
+  setMainWindow(window: any): void {
+    this.mainWindow = window;
+    console.log('🖥️ HTTP服务器主窗口引用已设置');
+  }
+
+  /**
+   * 获取当前配置
+   */
+  private async getCurrentConfig(): Promise<any> {
+    // 这里应该从主进程获取配置，暂时返回默认值
+    return {
+      windowMode: 'desktop', // 'desktop' 或 'background'
+      autoStart: true,
+      showInTaskbar: true,
+      minimizeToTray: false
+    };
+  }
+
+  /**
+   * 执行窗口控制操作
+   */
+  private async executeWindowAction(action: string | null): Promise<any> {
+    if (!action) {
+      throw new Error('Missing action parameter');
+    }
+
+    console.log(`🖥️ 执行窗口操作: ${action}`);
+
+    // 检查是否有主窗口引用
+    if (!this.mainWindow) {
+      throw new Error('主窗口引用不可用');
+    }
+
+    try {
+      switch (action) {
+        case 'show':
+          this.mainWindow.show();
+          this.mainWindow.focus();
+          console.log('✅ 窗口已显示');
+          return {
+            action,
+            status: 'success',
+            message: '窗口已显示'
+          };
+          
+        case 'hide':
+          this.mainWindow.hide();
+          console.log('✅ 窗口已隐藏');
+          return {
+            action,
+            status: 'success',
+            message: '窗口已隐藏'
+          };
+          
+        case 'minimize':
+          this.mainWindow.minimize();
+          console.log('✅ 窗口已最小化');
+          return {
+            action,
+            status: 'success',
+            message: '窗口已最小化'
+          };
+          
+        case 'restore':
+          if (this.mainWindow.isMinimized()) {
+            this.mainWindow.restore();
+            console.log('✅ 窗口已还原');
+          } else {
+            this.mainWindow.show();
+            console.log('✅ 窗口已显示');
+          }
+          return {
+            action,
+            status: 'success',
+            message: '窗口已还原'
+          };
+          
+        default:
+          throw new Error(`未知的操作类型: ${action}`);
+      }
+    } catch (error: any) {
+      console.error('❌ 窗口操作失败:', error);
+      throw new Error(`窗口操作失败: ${error.message}`);
+    }
   }
 }

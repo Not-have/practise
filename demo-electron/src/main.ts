@@ -138,6 +138,76 @@ const setupIpcHandlers = (): void => {
     }
   });
 
+  // 处理窗口控制请求
+  ipcMain.handle('window-control', async (_event, action: string, value: any) => {
+    try {
+      console.log(`🖥️ 窗口控制请求: ${action} = ${value}`);
+      
+      switch (action) {
+        case 'show':
+          if (mainWindow) {
+            mainWindow.show();
+            mainWindow.focus();
+            return { success: true, message: '窗口已显示' };
+          }
+          break;
+          
+        case 'hide':
+          if (mainWindow) {
+            mainWindow.hide();
+            return { success: true, message: '窗口已隐藏' };
+          }
+          break;
+          
+        case 'minimize':
+          if (mainWindow) {
+            mainWindow.minimize();
+            return { success: true, message: '窗口已最小化' };
+          }
+          break;
+          
+        case 'maximize':
+          if (mainWindow) {
+            if (mainWindow.isMaximized()) {
+              mainWindow.unmaximize();
+              return { success: true, message: '窗口已还原' };
+            } else {
+              mainWindow.maximize();
+              return { success: true, message: '窗口已最大化' };
+            }
+          }
+          break;
+          
+        case 'set-window-mode':
+          if (value === 'background') {
+            // 后台运行模式
+            if (mainWindow) {
+              mainWindow.hide();
+              // 设置任务栏图标隐藏
+              mainWindow.setSkipTaskbar(true);
+            }
+            return { success: true, message: '已切换到后台运行模式' };
+          } else if (value === 'desktop') {
+            // 桌面显示模式
+            if (mainWindow) {
+              mainWindow.show();
+              mainWindow.setSkipTaskbar(false);
+            }
+            return { success: true, message: '已切换到桌面显示模式' };
+          }
+          break;
+          
+        default:
+          return { success: false, message: '未知的操作类型' };
+      }
+      
+      return { success: false, message: '操作失败' };
+    } catch (error) {
+      console.error('❌ 窗口控制失败:', error);
+      throw error;
+    }
+  });
+
   // 定期更新设备信息（每30秒）
   // setInterval(async () => {
   //   if (mainWindow) {
@@ -161,7 +231,7 @@ const startHTTPServer = async (): Promise<void> => {
   for (const port of ports) {
     try {
       console.log(`🚀 正在启动HTTP服务器，端口: ${port}...`);
-      httpServer = new DeviceInfoHTTPServer(port);
+      httpServer = new DeviceInfoHTTPServer(port, mainWindow); // 传递主窗口引用
       await httpServer.start();
       console.log(`✅ HTTP服务器启动成功，端口: ${port}`);
       
@@ -193,11 +263,22 @@ app.whenReady().then(async () => {
   // 启动HTTP服务器
   await startHTTPServer();
   
+  // 创建主窗口
   createWindow();
+  
+  // 更新HTTP服务器的主窗口引用
+  if (httpServer && mainWindow) {
+    httpServer.setMainWindow(mainWindow);
+    console.log('✅ HTTP服务器主窗口引用已更新');
+  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
+      // 重新设置主窗口引用
+      if (httpServer && mainWindow) {
+        httpServer.setMainWindow(mainWindow);
+      }
     }
   });
 });
