@@ -33,10 +33,10 @@ const createWindow = (): void => {
   // 加载 HTML 文件（从项目根目录）
   mainWindow.loadFile('index.html');
 
-  // 开发模式下打开开发者工具
+  // 开发模式下启用文件监听，但不自动打开开发者工具
   if (isDev) {
     console.log('🚀 开发模式已启用');
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools(); // 注释掉自动打开开发者工具
     
     // 监听 HTML 文件变化
     watchHtmlFile();
