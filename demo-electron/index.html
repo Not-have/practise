@@ -20,129 +20,126 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: #f5f5f5;
-        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: white;
+        margin: 0;
         padding: 20px;
+        color: #333;
       }
 
       .container {
-        max-width: 1000px;
+        max-width: 800px;
         margin: 0 auto;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
       }
 
       .header {
-        background: #2c3e50;
-        color: white;
-        padding: 20px;
         text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
       }
 
       .header h1 {
-        font-size: 1.8em;
-        margin-bottom: 5px;
-        font-weight: 400;
+        font-size: 1.5em;
+        margin: 0 0 10px 0;
+        font-weight: normal;
+        color: #333;
       }
 
       .header p {
         font-size: 0.9em;
-        opacity: 0.8;
+        color: #666;
+        margin: 0;
       }
 
       .content {
-        padding: 20px;
-      }
-
-      .info-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 15px;
         margin-bottom: 20px;
       }
 
-      .info-card {
-        background: #f8f9fa;
-        border-radius: 6px;
-        padding: 15px;
-        border: 1px solid #e9ecef;
+      .info-list {
+        margin-bottom: 20px;
       }
 
-      .info-card h3 {
-        color: #495057;
-        margin-bottom: 10px;
-        font-size: 1em;
+      .info-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .info-item:last-child {
+        border-bottom: none;
+      }
+
+      .info-label {
         display: flex;
         align-items: center;
         gap: 8px;
+        width: 120px;
+        font-size: 0.9em;
+        color: #555;
+        flex-shrink: 0;
       }
 
-      .info-card .icon {
-        font-size: 16px;
+      .info-label .icon {
+        font-size: 14px;
       }
 
       .info-value {
-        font-size: 0.9em;
-        color: #6c757d;
-        background: white;
-        padding: 8px;
-        border-radius: 4px;
-        border-left: 3px solid #007bff;
+        font-size: 0.85em;
+        color: #333;
+        font-family: 'Monaco', 'Menlo', monospace;
         word-break: break-all;
-        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        flex: 1;
       }
 
-      .network-cards {
-        background: #f8f9fa;
-        border-radius: 6px;
-        padding: 15px;
-        border: 1px solid #e9ecef;
+      .network-section {
+        margin-bottom: 20px;
       }
 
-      .network-cards h3 {
-        color: #495057;
-        margin-bottom: 15px;
-        font-size: 1em;
+      .network-section h3 {
+        margin: 0 0 15px 0;
+        font-size: 0.9em;
+        font-weight: normal;
+        color: #555;
         display: flex;
         align-items: center;
         gap: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
       }
 
-      .network-card {
-        background: white;
-        border-radius: 4px;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-left: 3px solid #007bff;
+      .network-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
       }
 
-      .network-card:last-child {
-        margin-bottom: 0;
+      .network-item:last-child {
+        border-bottom: none;
       }
 
-      .network-card h4 {
-        color: #495057;
-        margin-bottom: 5px;
-        font-size: 0.9em;
+      .network-name {
+        width: 150px;
+        font-size: 0.85em;
+        color: #555;
+        flex-shrink: 0;
       }
 
-      .network-info {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+      .network-details {
+        flex: 1;
         font-size: 0.8em;
-        color: #6c757d;
+        color: #666;
       }
 
       .status-bar {
-        background: #6c757d;
-        color: white;
-        padding: 10px 20px;
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 10px;
         text-align: center;
         font-size: 0.8em;
+        color: #666;
       }
 
       .status-bar .status {
@@ -156,26 +153,19 @@
         height: 6px;
         border-radius: 50%;
         background: #28a745;
-        animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-        0% { opacity: 1; }
-        50% { opacity: 0.5; }
-        100% { opacity: 1; }
       }
 
       .loading {
         text-align: center;
         padding: 30px;
-        color: #6c757d;
+        color: #666;
       }
 
       .loading .spinner {
-        width: 30px;
-        height: 30px;
-        border: 3px solid #e9ecef;
-        border-top: 3px solid #007bff;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ddd;
+        border-top: 2px solid #666;
         border-radius: 50%;
         animation: spin 1s linear infinite;
         margin: 0 auto 15px;
@@ -187,10 +177,10 @@
       }
 
       .error {
-        background: #dc3545;
-        color: white;
-        padding: 12px;
-        border-radius: 4px;
+        background: #f8d7da;
+        color: #721c24;
+        padding: 10px;
+        border: 1px solid #f5c6cb;
         margin: 15px 0;
         text-align: center;
       }
@@ -214,48 +204,49 @@
         </div>
 
         <div id="content" style="display: none;">
-          <div class="info-grid">
-            <div class="info-card">
-              <h3>
+          <div class="info-list">
+            <div class="info-item">
+              <div class="info-label">
                 <span class="icon">🖥️</span>
                 CPU ID
-              </h3>
+              </div>
               <div class="info-value" id="cpuId">加载中...</div>
             </div>
 
-            <div class="info-card">
-              <h3>
+            <div class="info-item">
+              <div class="info-label">
                 <span class="icon">💾</span>
                 硬盘序列号
-              </h3>
+              </div>
               <div class="info-value" id="diskSerial">加载中...</div>
             </div>
 
-            <div class="info-card">
-              <h3>
+            <div class="info-item">
+              <div class="info-label">
                 <span class="icon">🔧</span>
                 主板 UUID
-              </h3>
+              </div>
               <div class="info-value" id="motherboardUUID">加载中...</div>
             </div>
 
-            <div class="info-card">
-              <h3>
+            <div class="info-item">
+              <div class="info-label">
                 <span class="icon">⚙️</span>
                 BIOS 序列号
-              </h3>
+              </div>
               <div class="info-value" id="biosSerial">加载中...</div>
             </div>
           </div>
 
-          <div class="network-cards">
+          <div class="network-section">
             <h3>
               <span class="icon">🌐</span>
               网卡信息
             </h3>
             <div id="networkCards">
-              <div class="network-card">
-                <div class="loading">加载中...</div>
+              <div class="network-item">
+                <div class="network-name">加载中...</div>
+                <div class="network-details">正在获取网卡信息...</div>
               </div>
             </div>
           </div>
@@ -328,17 +319,14 @@
           const container = document.getElementById('networkCards');
           
           if (networkCards.length === 0) {
-            container.innerHTML = '<div class="network-card"><p>未找到网卡信息</p></div>';
+            container.innerHTML = '<div class="network-item"><div class="network-name">未找到网卡信息</div><div class="network-details">-</div></div>';
             return;
           }
 
           container.innerHTML = networkCards.map(card => `
-            <div class="network-card">
-              <h4>${card.name}</h4>
-              <div class="network-info">
-                <div><strong>MAC地址:</strong> ${card.macAddress}</div>
-                <div><strong>类型:</strong> ${card.type}</div>
-              </div>
+            <div class="network-item">
+              <div class="network-name">${card.name}</div>
+              <div class="network-details">MAC: ${card.macAddress} | 类型: ${card.type}</div>
             </div>
           `).join('');
         }
