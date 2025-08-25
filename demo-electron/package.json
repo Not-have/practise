@@ -1,0 +1,22 @@
+{
+  "name": "demo-electron",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "build:full": "node build.js",
+    "start": "npm run build && electron .",
+    "dev": "npm run build:watch & electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/electron": "^1.4.38",
+    "@types/node": "^20.19.11",
+    "electron": "^37.3.1",
+    "typescript": "^5.9.2"
+  }
+}
