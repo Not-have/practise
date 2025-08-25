@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
 import { DeviceInfoCollector } from './deviceInfo';
+import { DeviceInfoHTTPServer } from './httpServer';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -148,12 +149,50 @@ const setupIpcHandlers = (): void => {
         console.error('❌ 更新设备信息失败:', error);
       }
     }
-  }, 30000);
+  }, 300000);
 };
 
-app.whenReady().then(() => {
+// 启动HTTP服务器
+let httpServer: DeviceInfoHTTPServer | null = null;
+
+const startHTTPServer = async (): Promise<void> => {
+  const ports = [3000, 3001, 3002, 3003, 3004, 3005];
+  
+  for (const port of ports) {
+    try {
+      console.log(`🚀 正在启动HTTP服务器，端口: ${port}...`);
+      httpServer = new DeviceInfoHTTPServer(port);
+      await httpServer.start();
+      console.log(`✅ HTTP服务器启动成功，端口: ${port}`);
+      
+      // 验证服务器状态
+      const status = httpServer.getStatus();
+      console.log('📊 HTTP服务器状态:', status);
+      
+      // 设置全局变量，让测试页面知道实际使用的端口
+      (global as any).HTTP_SERVER_PORT = port;
+      
+      return; // 成功启动，退出循环
+      
+    } catch (error) {
+      console.error(`❌ 端口 ${port} 启动失败:`, error);
+      if (httpServer) {
+        httpServer.stop();
+        httpServer = null;
+      }
+    }
+  }
+  
+  console.error('❌ 所有端口都无法启动HTTP服务器');
+};
+
+app.whenReady().then(async () => {
   console.log('🎯 应用准备就绪，创建主窗口...');
   setupIpcHandlers();
+  
+  // 启动HTTP服务器
+  await startHTTPServer();
+  
   createWindow();
 
   app.on('activate', () => {
@@ -165,6 +204,15 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    if (httpServer) {
+      httpServer.stop();
+    }
     app.quit();
+  }
+});
+
+app.on('before-quit', () => {
+  if (httpServer) {
+    httpServer.stop();
   }
 });

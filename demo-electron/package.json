@@ -8,7 +8,8 @@
     "dev": "NODE_ENV=development npm run watch & electron .",
     "watch": "tsc --watch",
     "test": "node script/test-basic.js",
-    "quick": "node script/start-app.js"
+    "quick": "node script/start-app.js",
+    "http-test": "open script/test-http.html"
   },
   "author": "",
   "license": "ISC",
