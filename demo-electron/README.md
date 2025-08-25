@@ -1,4 +1,4 @@
-# Demo Electron with TypeScript
+# Demo Electron
 
 这是一个使用 TypeScript 的 Electron 项目。
 
@@ -57,30 +57,8 @@ npm install
 
 ## 故障排除
 
-### 如果文件监听不工作
-
-1. **检查环境变量**：
-   确保使用 `npm run dev` 启动
-
-2. **手动设置环境变量**：
-   ```bash
-   NODE_ENV=development ELECTRON_IS_DEV=true npm start
-   ```
-
-3. **检查控制台输出**：
-   启动应用后查看控制台日志，确认监听状态
-
 ### 常见问题
 
 - **路径问题**：确保 `index.html` 在项目根目录
 - **权限问题**：某些系统可能需要特殊权限来监听文件
 - **编辑器问题**：某些编辑器可能使用临时文件，导致监听失效
-
-## 命令说明
-
-| 命令 | 说明 | 使用场景 |
-|------|------|----------|
-| `npm run build` | 编译 TypeScript | 生产构建 |
-| `npm start` | 构建并启动 | 生产环境 |
-| `npm run dev` | 开发模式启动 | 日常开发（推荐） |
-| `npm run watch` | 监听编译 | 仅编译时使用 |
