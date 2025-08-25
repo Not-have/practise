@@ -8,7 +8,7 @@ import microApp from '@micro-zoe/micro-app'
 
 microApp.start({
   'router-mode': 'history',
-  'disable-scopecss': true,
+  'iframe': true
 })
 
 createRoot(document.getElementById('root')!).render(

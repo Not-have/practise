@@ -15,28 +15,28 @@ const products: Product[] = [
     name: '产品 A',
     description: '这是一个很棒的产品，具有出色的性能和品质。',
     price: 199,
-    image: 'https://via.placeholder.com/300x200?text=Product+A'
+    image: 'https://mini-app-test.tos-cn-beijing.volces.com/10011.jpeg'
   },
   {
     id: 2,
     name: '产品 B',
     description: '另一个优秀的产品，满足您的各种需求。',
     price: 299,
-    image: 'https://via.placeholder.com/300x200?text=Product+B'
+    image: 'https://mini-app-test.tos-cn-beijing.volces.com/10012.jpeg'
   },
   {
     id: 3,
     name: '产品 C',
     description: '高端产品，为您提供最佳的体验。',
     price: 399,
-    image: 'https://via.placeholder.com/300x200?text=Product+C'
+    image: 'https://mini-app-test.tos-cn-beijing.volces.com/100000000553_1755243571659.jpeg'
   },
   {
     id: 4,
     name: '产品 D',
     description: '创新设计，引领行业潮流。',
     price: 499,
-    image: 'https://via.placeholder.com/300x200?text=Product+D'
+    image: 'https://mini-app-test.tos-cn-beijing.volces.com/06_1754301544398.jpeg'
   }
 ];
 
