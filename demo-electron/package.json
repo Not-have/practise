@@ -6,7 +6,9 @@
     "build": "tsc",
     "start": "npm run build && electron .",
     "dev": "NODE_ENV=development npm run watch & electron .",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "test": "node script/test-basic.js",
+    "quick": "node script/start-app.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +18,8 @@
     "@types/node": "^20.19.11",
     "electron": "^37.3.1",
     "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "systeminformation": "^5.27.7"
   }
 }

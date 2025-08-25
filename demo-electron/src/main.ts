@@ -1,6 +1,7 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
+import { DeviceInfoCollector } from './deviceInfo';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -19,11 +20,12 @@ console.log('  process.cwd():', process.cwd());
 
 const createWindow = (): void => {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 700,
+    width: 1000,
+    height: 800,
     webPreferences: {
       nodeIntegration: false,
-      contextIsolation: true
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
@@ -120,8 +122,38 @@ const watchHtmlFile = (): void => {
   }
 };
 
+// 设置IPC处理程序
+const setupIpcHandlers = (): void => {
+  // 处理获取设备信息的请求
+  ipcMain.handle('get-device-info', async () => {
+    try {
+      console.log('🔍 正在获取设备信息...');
+      const deviceInfo = await DeviceInfoCollector.getAllDeviceInfo();
+      console.log('✅ 设备信息获取成功:', deviceInfo);
+      return deviceInfo;
+    } catch (error) {
+      console.error('❌ 获取设备信息失败:', error);
+      throw error;
+    }
+  });
+
+  // 定期更新设备信息（每30秒）
+  setInterval(async () => {
+    if (mainWindow) {
+      try {
+        const deviceInfo = await DeviceInfoCollector.getAllDeviceInfo();
+        mainWindow.webContents.send('device-info-update', deviceInfo);
+        console.log('🔄 设备信息已更新');
+      } catch (error) {
+        console.error('❌ 更新设备信息失败:', error);
+      }
+    }
+  }, 30000);
+};
+
 app.whenReady().then(() => {
   console.log('🎯 应用准备就绪，创建主窗口...');
+  setupIpcHandlers();
   createWindow();
 
   app.on('activate', () => {

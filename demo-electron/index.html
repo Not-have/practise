@@ -5,16 +5,363 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
     />
     <meta
       http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
     />
-    <title>Hello from Electron renderer!</title>
+    <title>设备信息监控器</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f5f5f5;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      .header {
+        background: #2c3e50;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+        margin-bottom: 5px;
+        font-weight: 400;
+      }
+
+      .header p {
+        font-size: 0.9em;
+        opacity: 0.8;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .info-card {
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 15px;
+        border: 1px solid #e9ecef;
+      }
+
+      .info-card h3 {
+        color: #495057;
+        margin-bottom: 10px;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .info-card .icon {
+        font-size: 16px;
+      }
+
+      .info-value {
+        font-size: 0.9em;
+        color: #6c757d;
+        background: white;
+        padding: 8px;
+        border-radius: 4px;
+        border-left: 3px solid #007bff;
+        word-break: break-all;
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      }
+
+      .network-cards {
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 15px;
+        border: 1px solid #e9ecef;
+      }
+
+      .network-cards h3 {
+        color: #495057;
+        margin-bottom: 15px;
+        font-size: 1em;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .network-card {
+        background: white;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-left: 3px solid #007bff;
+      }
+
+      .network-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .network-card h4 {
+        color: #495057;
+        margin-bottom: 5px;
+        font-size: 0.9em;
+      }
+
+      .network-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        font-size: 0.8em;
+        color: #6c757d;
+      }
+
+      .status-bar {
+        background: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 0.8em;
+      }
+
+      .status-bar .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .status-indicator {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #28a745;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+      }
+
+      .loading {
+        text-align: center;
+        padding: 30px;
+        color: #6c757d;
+      }
+
+      .loading .spinner {
+        width: 30px;
+        height: 30px;
+        border: 3px solid #e9ecef;
+        border-top: 3px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .error {
+        background: #dc3545;
+        color: white;
+        padding: 12px;
+        border-radius: 4px;
+        margin: 15px 0;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello from Electron renderer!</h1>
-    <p>👋</p>
+    <div class="container">
+      <div class="header">
+        <h1>🖥️ 设备信息监控器</h1>
+        <p>实时监控您的设备硬件信息</p>
+      </div>
+
+      <div class="content">
+        <div id="loading" class="loading">
+          <div class="spinner"></div>
+          <p>正在获取设备信息...</p>
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+          <p>获取设备信息失败，请检查应用权限</p>
+        </div>
+
+        <div id="content" style="display: none;">
+          <div class="info-grid">
+            <div class="info-card">
+              <h3>
+                <span class="icon">🖥️</span>
+                CPU ID
+              </h3>
+              <div class="info-value" id="cpuId">加载中...</div>
+            </div>
+
+            <div class="info-card">
+              <h3>
+                <span class="icon">💾</span>
+                硬盘序列号
+              </h3>
+              <div class="info-value" id="diskSerial">加载中...</div>
+            </div>
+
+            <div class="info-card">
+              <h3>
+                <span class="icon">🔧</span>
+                主板 UUID
+              </h3>
+              <div class="info-value" id="motherboardUUID">加载中...</div>
+            </div>
+
+            <div class="info-card">
+              <h3>
+                <span class="icon">⚙️</span>
+                BIOS 序列号
+              </h3>
+              <div class="info-value" id="biosSerial">加载中...</div>
+            </div>
+          </div>
+
+          <div class="network-cards">
+            <h3>
+              <span class="icon">🌐</span>
+              网卡信息
+            </h3>
+            <div id="networkCards">
+              <div class="network-card">
+                <div class="loading">加载中...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status">
+          <span class="status-indicator"></span>
+          <span id="statusText">正在连接...</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 设备信息管理
+      class DeviceInfoManager {
+        constructor() {
+          this.init();
+        }
+
+        async init() {
+          try {
+            // 获取初始设备信息
+            await this.loadDeviceInfo();
+            
+            // 设置自动更新监听
+            this.setupAutoUpdate();
+            
+            // 隐藏加载状态，显示内容
+            this.showContent();
+            
+          } catch (error) {
+            console.error('初始化失败:', error);
+            this.showError();
+          }
+        }
+
+        async loadDeviceInfo() {
+          try {
+            const deviceInfo = await window.electronAPI.getDeviceInfo();
+            this.updateUI(deviceInfo);
+            this.updateStatus('已连接 - 最后更新: ' + new Date().toLocaleTimeString());
+          } catch (error) {
+            console.error('获取设备信息失败:', error);
+            throw error;
+          }
+        }
+
+        setupAutoUpdate() {
+          window.electronAPI.onDeviceInfoUpdate((deviceInfo) => {
+            console.log('收到设备信息更新:', deviceInfo);
+            this.updateUI(deviceInfo);
+            this.updateStatus('已连接 - 最后更新: ' + new Date().toLocaleTimeString());
+          });
+        }
+
+        updateUI(deviceInfo) {
+          // 更新基本信息
+          document.getElementById('cpuId').textContent = deviceInfo.cpuId;
+          document.getElementById('diskSerial').textContent = deviceInfo.diskSerial;
+          document.getElementById('motherboardUUID').textContent = deviceInfo.motherboardUUID;
+          document.getElementById('biosSerial').textContent = deviceInfo.biosSerial;
+
+          // 更新网卡信息
+          this.updateNetworkCards(deviceInfo.networkCards);
+        }
+
+        updateNetworkCards(networkCards) {
+          const container = document.getElementById('networkCards');
+          
+          if (networkCards.length === 0) {
+            container.innerHTML = '<div class="network-card"><p>未找到网卡信息</p></div>';
+            return;
+          }
+
+          container.innerHTML = networkCards.map(card => `
+            <div class="network-card">
+              <h4>${card.name}</h4>
+              <div class="network-info">
+                <div><strong>MAC地址:</strong> ${card.macAddress}</div>
+                <div><strong>类型:</strong> ${card.type}</div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        updateStatus(text) {
+          document.getElementById('statusText').textContent = text;
+        }
+
+        showContent() {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('content').style.display = 'block';
+        }
+
+        showError() {
+          document.getElementById('loading').style.display = 'none';
+          document.getElementById('error').style.display = 'block';
+        }
+      }
+
+      // 页面加载完成后初始化
+      document.addEventListener('DOMContentLoaded', () => {
+        new DeviceInfoManager();
+      });
+    </script>
   </body>
 </html>
