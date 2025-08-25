@@ -86,11 +86,12 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🌐 设备信息HTTP API测试</h1>
-            <p>测试通过HTTP请求获取设备信息的功能</p>
-            <div id="api-status" class="status">🔍 检测中...</div>
-        </div>
+            <div class="header">
+                <h1>🌐 设备信息HTTP API测试</h1>
+                <p>测试通过HTTP请求获取设备信息的功能</p>
+                <div id="api-status" class="status">🔍 检测中...</div>
+                <button class="button" onclick="detectPort()" style="margin-top: 10px;">🔄 重新检测端口</button>
+            </div>
 
         <div class="content">
             <div class="api-section">
@@ -145,7 +146,7 @@
     </div>
 
     <script>
-        const API_BASE = 'http://localhost:3000';
+        let API_BASE = 'http://localhost:3000';
 
         function setStatus(elementId, status, message) {
             const element = document.getElementById(elementId);
@@ -162,6 +163,15 @@
         async function makeRequest(endpoint, statusElementId, resultElementId) {
             try {
                 setStatus(statusElementId, 'loading', '请求中...');
+                
+                // 确保API_BASE已设置
+                if (!API_BASE) {
+                    console.log('⚠️ API_BASE未设置，尝试重新检测端口...');
+                    await detectPort();
+                    if (!API_BASE) {
+                        throw new Error('无法确定API服务器地址');
+                    }
+                }
                 
                 console.log(`🌐 正在请求: ${API_BASE}${endpoint}`);
                 
@@ -231,49 +241,89 @@
 
         // 页面加载完成后自动检查服务状态
         window.addEventListener('load', () => {
+            console.log('🚀 页面加载完成，开始检测HTTP服务器...');
             setTimeout(() => {
-                checkHealth();
-                detectPort();
+                // 先检测端口
+                detectPort().then((port) => {
+                    console.log(`✅ 端口检测成功，端口: ${port}`);
+                    // 端口检测成功后，延迟检查健康状态
+                    setTimeout(() => {
+                        console.log('🔍 开始健康检查...');
+                        checkHealth();
+                    }, 500);
+                }).catch((error) => {
+                    console.log('❌ 端口检测失败:', error);
+                    // 端口检测失败，仍然尝试检查健康状态
+                    setTimeout(() => {
+                        console.log('🔍 尝试健康检查...');
+                        checkHealth();
+                    }, 500);
+                });
             }, 1000);
         });
 
         // 检测可用的端口
         async function detectPort() {
+            // 优先测试常用端口
             const ports = [3000, 3001, 3002, 3003, 3004, 3005];
-            console.log('🔍 检测可用端口...');
+            console.log('🔍 开始检测可用端口...');
+            console.log('🔍 测试端口列表:', ports);
             
             for (const port of ports) {
                 try {
-                    console.log(`🔍 测试端口 ${port}...`);
-                    const response = await fetch(`http://localhost:${port}/api/health`, {
+                    console.log(`🔍 正在测试端口 ${port}...`);
+                    
+                    // 使用与makeRequest相同的逻辑来测试端口
+                    const testUrl = `http://localhost:${port}/api/health`;
+                    console.log(`🔗 测试URL: ${testUrl}`);
+                    
+                    const response = await fetch(testUrl, {
                         method: 'GET',
-                        headers: { 'Accept': 'application/json' },
-                        mode: 'cors'
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
                     });
                     
+                    console.log(`📡 端口 ${port} 响应状态:`, response.status, response.statusText);
+                    
                     if (response.ok) {
-                        console.log(response, "response");
+                        const responseText = await response.text();
+                        console.log(`📦 响应内容:`, responseText);
                         
-                        console.log(`✅ 找到可用端口: ${port}`);
-                        API_BASE = `http://localhost:${port}`;
-                        document.getElementById('api-status').textContent = `✅ 已连接到端口 ${port}`;
-                        document.getElementById('api-status').className = 'status success';
-                        
-                        // 自动测试健康检查
-                        setTimeout(() => checkHealth(), 500);
-                        return;
+                        try {
+                            const jsonData = JSON.parse(responseText);
+                            console.log(`✅ 端口 ${port} 连接成功!`);
+                            console.log(`📊 响应数据:`, jsonData);
+                            
+                            // 更新API基础URL和状态
+                            updateStatusAfterSuccess(port);
+                            
+                            console.log(`🌐 API基础URL已更新为: ${API_BASE}`);
+                            
+                            return Promise.resolve(port); // 成功返回端口号
+                        } catch (parseError) {
+                            console.log(`⚠️ 端口 ${port} 响应不是有效JSON:`, parseError);
+                        }
+                    } else {
+                        console.log(`⚠️ 端口 ${port} 响应异常:`, response.status, response.statusText);
                     }
                 } catch (error) {
-                    console.log(`❌ 端口 ${port} 不可用:`, error.message);
+                    console.log(`❌ 端口 ${port} 连接失败:`, error);
+                    console.log(`❌ 错误类型:`, error.name);
+                    console.log(`❌ 错误消息:`, error.message);
                 }
             }
             
-            console.log('❌ 未找到可用的HTTP服务器');
-            document.getElementById('api-status').textContent = '❌ 未找到HTTP服务器，请确保应用已启动';
-            document.getElementById('api-status').className = 'status error';
+            console.log('❌ 所有端口都无法连接');
+            const statusElement = document.getElementById('api-status');
+            statusElement.textContent = '❌ 未找到HTTP服务器，请确保应用已启动';
+            statusElement.className = 'status error';
             
             // 显示帮助信息
             showHelpInfo();
+            
+            return Promise.reject(new Error('未找到可用端口'));
         }
         
         // 显示帮助信息
@@ -286,9 +336,37 @@
                     <p>2. 在应用启动时，HTTP服务器会自动启动</p>
                     <p>3. 如果仍然无法连接，请检查控制台日志</p>
                     <p>4. 或者尝试重新启动应用</p>
+                    <h4>🔧 手动测试步骤：</h4>
+                    <p>1. 在浏览器中直接访问: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+                    <p>2. 或者尝试: <a href="http://127.0.0.1:3000" target="_blank">http://127.0.0.1:3000</a></p>
+                    <p>3. 检查Electron应用控制台的HTTP服务器日志</p>
                 </div>
             `;
             document.querySelector('.content').appendChild(helpDiv);
+        }
+        
+        // 同步状态显示
+        function syncStatus() {
+            if (API_BASE) {
+                const statusElement = document.getElementById('api-status');
+                const port = API_BASE.split(':').pop();
+                statusElement.textContent = `✅ 已连接到端口 ${port}`;
+                statusElement.className = 'status success';
+            }
+        }
+        
+        // 在每次成功的API调用后同步状态
+        function updateStatusAfterSuccess(port) {
+            const newApiBase = `http://localhost:${port}`;
+            console.log(`🔄 正在更新API_BASE: ${API_BASE} -> ${newApiBase}`);
+            API_BASE = newApiBase;
+            
+            // 立即更新状态显示
+            const statusElement = document.getElementById('api-status');
+            statusElement.textContent = `✅ 已连接到端口 ${port}`;
+            statusElement.className = 'status success';
+            
+            console.log(`✅ 状态已更新，API_BASE: ${API_BASE}`);
         }
     </script>
 </body>
