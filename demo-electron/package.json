@@ -9,18 +9,30 @@
     "watch": "tsc --watch",
     "test": "node script/test-basic.js",
     "quick": "node script/start-app.js",
-    "http-test": "open script/test-http.html"
+    "http-test": "open script/test-http.html",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@electron-forge/cli": "^7.8.3",
+    "@electron-forge/maker-deb": "^7.8.3",
+    "@electron-forge/maker-rpm": "^7.8.3",
+    "@electron-forge/maker-squirrel": "^7.8.3",
+    "@electron-forge/maker-zip": "^7.8.3",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.8.3",
+    "@electron-forge/plugin-fuses": "^7.8.3",
+    "@electron/fuses": "^1.8.0",
     "@types/electron": "^1.4.38",
     "@types/node": "^20.19.11",
     "electron": "^37.3.1",
     "typescript": "^5.9.2"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.1",
     "systeminformation": "^5.27.7"
   }
 }
