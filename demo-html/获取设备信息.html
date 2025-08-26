@@ -322,6 +322,127 @@
         <span class="info-value" id="currentTimestamp"></span>
       </div>
     </div>
+
+    <div class="info-section">
+      <h3>🎯 传感器信息 (Sensor APIs)</h3>
+      <div class="info-item">
+        <span class="info-label">加速度传感器:</span>
+        <span class="info-value" id="accelerometerSupport"></span>
+        <button class="copy-btn" onclick="checkAccelerometer()">测试</button>
+      </div>
+      <div class="info-item">
+        <span class="info-label">陀螺仪传感器:</span>
+        <span class="info-value" id="gyroscopeSupport"></span>
+        <button class="copy-btn" onclick="checkGyroscope()">测试</button>
+      </div>
+      <div class="info-item">
+        <span class="info-label">磁力计传感器:</span>
+        <span class="info-value" id="magnetometerSupport"></span>
+        <button class="copy-btn" onclick="checkMagnetometer()">测试</button>
+      </div>
+      <div class="info-item">
+        <span class="info-label">环境光传感器:</span>
+        <span class="info-value" id="ambientLightSupport"></span>
+        <button class="copy-btn" onclick="checkAmbientLight()">测试</button>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📱 媒体设备信息</h3>
+      <div class="info-item">
+        <span class="info-label">摄像头数量:</span>
+        <span class="info-value" id="cameraCount"></span>
+        <button class="copy-btn" onclick="checkMediaDevices()">检测</button>
+      </div>
+      <div class="info-item">
+        <span class="info-label">麦克风数量:</span>
+        <span class="info-value" id="microphoneCount"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">音频输出设备:</span>
+        <span class="info-value" id="audioOutputDevices"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">支持的音频格式:</span>
+        <span class="info-value" id="audioFormats"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">支持的视频格式:</span>
+        <span class="info-value" id="videoFormats"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🔐 安全与隐私</h3>
+      <div class="info-item">
+        <span class="info-label">HTTPS 状态:</span>
+        <span class="info-value" id="httpsStatus"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">混合内容状态:</span>
+        <span class="info-value" id="mixedContentStatus"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Referrer Policy:</span>
+        <span class="info-value" id="referrerPolicy"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">内容安全策略:</span>
+        <span class="info-value" id="cspStatus"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🌍 国际化信息</h3>
+      <div class="info-item">
+        <span class="info-label">时区:</span>
+        <span class="info-value" id="timezone"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">夏令时:</span>
+        <span class="info-value" id="daylightSaving"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">日期格式:</span>
+        <span class="info-value" id="dateFormat"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">数字格式:</span>
+        <span class="info-value" id="numberFormat"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">货币格式:</span>
+        <span class="info-value" id="currencyFormat"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>⚡ 高级特性</h3>
+      <div class="info-item">
+        <span class="info-label">Service Worker 支持:</span>
+        <span class="info-value" id="serviceWorkerSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Push API 支持:</span>
+        <span class="info-value" id="pushApiSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">IndexedDB 支持:</span>
+        <span class="info-value" id="indexedDbSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">WebAssembly 支持:</span>
+        <span class="info-value" id="webAssemblySupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">SharedArrayBuffer 支持:</span>
+        <span class="info-value" id="sharedArrayBufferSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">BigInt 支持:</span>
+        <span class="info-value" id="bigIntSupport"></span>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -417,6 +538,53 @@
       document.getElementById('domLoadTime').textContent = '计算中...';
       document.getElementById('resourceLoadTime').textContent = '计算中...';
       document.getElementById('currentTimestamp').textContent = '计算中...';
+
+      // 传感器信息
+      document.getElementById('accelerometerSupport').textContent = 'Accelerometer' in window ? '支持' : '不支持';
+      document.getElementById('gyroscopeSupport').textContent = 'Gyroscope' in window ? '支持' : '不支持';
+      document.getElementById('magnetometerSupport').textContent = 'Magnetometer' in window ? '支持' : '不支持';
+      document.getElementById('ambientLightSupport').textContent = 'AmbientLightSensor' in window ? '支持' : '不支持';
+
+      // 媒体设备信息
+      if ('mediaDevices' in navigator && 'enumerateDevices' in navigator.mediaDevices) {
+        navigator.mediaDevices.enumerateDevices().then(devices => {
+          const cameras = devices.filter(device => device.kind === 'videoinput');
+          const microphones = devices.filter(device => device.kind === 'audioinput');
+          const audioOutputs = devices.filter(device => device.kind === 'audiooutput');
+          
+          document.getElementById('cameraCount').textContent = cameras.length + ' 个';
+          document.getElementById('microphoneCount').textContent = microphones.length + ' 个';
+          document.getElementById('audioOutputDevices').textContent = audioOutputs.length + ' 个';
+        });
+      } else {
+        document.getElementById('cameraCount').textContent = '不支持';
+        document.getElementById('microphoneCount').textContent = '不支持';
+        document.getElementById('audioOutputDevices').textContent = '不支持';
+      }
+
+      // 音频视频格式支持
+      checkMediaFormats();
+
+      // 安全与隐私信息
+      document.getElementById('httpsStatus').textContent = location.protocol === 'https:' ? 'HTTPS' : 'HTTP';
+      document.getElementById('mixedContentStatus').textContent = '未知';
+      document.getElementById('referrerPolicy').textContent = '未知';
+      document.getElementById('cspStatus').textContent = '未知';
+
+      // 国际化信息
+      document.getElementById('timezone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      document.getElementById('daylightSaving').textContent = new Date().getTimezoneOffset() < new Date(2024, 6, 1).getTimezoneOffset() ? '是' : '否';
+      document.getElementById('dateFormat').textContent = new Intl.DateTimeFormat().format(new Date());
+      document.getElementById('numberFormat').textContent = new Intl.NumberFormat().format(1234.56);
+      document.getElementById('currencyFormat').textContent = new Intl.NumberFormat('zh-CN', { style: 'currency', currency: 'CNY' }).format(1234.56);
+
+      // 高级特性支持
+      document.getElementById('serviceWorkerSupport').textContent = 'serviceWorker' in navigator ? '支持' : '不支持';
+      document.getElementById('pushApiSupport').textContent = 'PushManager' in window ? '支持' : '不支持';
+      document.getElementById('indexedDbSupport').textContent = 'indexedDB' in window ? '支持' : '不支持';
+      document.getElementById('webAssemblySupport').textContent = typeof WebAssembly === 'object' ? '支持' : '不支持';
+      document.getElementById('sharedArrayBufferSupport').textContent = typeof SharedArrayBuffer !== 'undefined' ? '支持' : '不支持';
+      document.getElementById('bigIntSupport').textContent = typeof BigInt !== 'undefined' ? '支持' : '不支持';
     }
 
     // 获取浏览器名称
@@ -581,6 +749,130 @@
       document.getElementById('currentTimestamp').textContent = '计算中...';
       
       setTimeout(getPerformanceInfo, 100);
+    }
+
+    // 检查媒体格式支持
+    function checkMediaFormats() {
+      // 音频格式支持
+      const audioFormats = [];
+      const videoFormats = [];
+      
+      // 检查音频格式
+      const audio = document.createElement('audio');
+      if (audio.canPlayType('audio/mpeg')) audioFormats.push('MP3');
+      if (audio.canPlayType('audio/ogg')) audioFormats.push('OGG');
+      if (audio.canPlayType('audio/wav')) audioFormats.push('WAV');
+      if (audio.canPlayType('audio/aac')) audioFormats.push('AAC');
+      if (audio.canPlayType('audio/webm')) audioFormats.push('WebM');
+      
+      // 检查视频格式
+      const video = document.createElement('video');
+      if (video.canPlayType('video/mp4')) videoFormats.push('MP4');
+      if (video.canPlayType('video/webm')) videoFormats.push('WebM');
+      if (video.canPlayType('video/ogg')) videoFormats.push('OGG');
+      if (video.canPlayType('video/avi')) videoFormats.push('AVI');
+      
+      document.getElementById('audioFormats').textContent = audioFormats.length > 0 ? audioFormats.join(', ') : '不支持';
+      document.getElementById('videoFormats').textContent = videoFormats.length > 0 ? videoFormats.join(', ') : '不支持';
+    }
+
+    // 检查加速度传感器
+    function checkAccelerometer() {
+      if ('Accelerometer' in window) {
+        try {
+          const accelerometer = new Accelerometer({ frequency: 1 });
+          accelerometer.addEventListener('reading', () => {
+            document.getElementById('accelerometerSupport').textContent = 
+              `支持 (X: ${accelerometer.x?.toFixed(2)}, Y: ${accelerometer.y?.toFixed(2)}, Z: ${accelerometer.z?.toFixed(2)})`;
+          });
+          accelerometer.start();
+          setTimeout(() => accelerometer.stop(), 3000);
+        } catch (error) {
+          document.getElementById('accelerometerSupport').textContent = '支持但需要权限';
+        }
+      } else {
+        document.getElementById('accelerometerSupport').textContent = '不支持';
+      }
+    }
+
+    // 检查陀螺仪传感器
+    function checkGyroscope() {
+      if ('Gyroscope' in window) {
+        try {
+          const gyroscope = new Gyroscope({ frequency: 1 });
+          gyroscope.addEventListener('reading', () => {
+            document.getElementById('gyroscopeSupport').textContent = 
+              `支持 (X: ${gyroscope.x?.toFixed(2)}, Y: ${gyroscope.y?.toFixed(2)}, Z: ${gyroscope.z?.toFixed(2)})`;
+          });
+          gyroscope.start();
+          setTimeout(() => gyroscope.stop(), 3000);
+        } catch (error) {
+          document.getElementById('gyroscopeSupport').textContent = '支持但需要权限';
+        }
+      } else {
+        document.getElementById('gyroscopeSupport').textContent = '不支持';
+      }
+    }
+
+    // 检查磁力计传感器
+    function checkMagnetometer() {
+      if ('Magnetometer' in window) {
+        try {
+          const magnetometer = new Magnetometer({ frequency: 1 });
+          magnetometer.addEventListener('reading', () => {
+            document.getElementById('magnetometerSupport').textContent = 
+              `支持 (X: ${magnetometer.x?.toFixed(2)}, Y: ${magnetometer.y?.toFixed(2)}, Z: ${magnetometer.z?.toFixed(2)})`;
+          });
+          magnetometer.start();
+          setTimeout(() => magnetometer.stop(), 3000);
+        } catch (error) {
+          document.getElementById('magnetometerSupport').textContent = '支持但需要权限';
+        }
+      } else {
+        document.getElementById('magnetometerSupport').textContent = '不支持';
+      }
+    }
+
+    // 检查环境光传感器
+    function checkAmbientLight() {
+      if ('AmbientLightSensor' in window) {
+        try {
+          const lightSensor = new AmbientLightSensor({ frequency: 1 });
+          lightSensor.addEventListener('reading', () => {
+            document.getElementById('ambientLightSupport').textContent = 
+              `支持 (${lightSensor.illuminance?.toFixed(0)} lux)`;
+          });
+          lightSensor.start();
+          setTimeout(() => lightSensor.stop(), 3000);
+        } catch (error) {
+          document.getElementById('ambientLightSupport').textContent = '支持但需要权限';
+        }
+      } else {
+        document.getElementById('ambientLightSupport').textContent = '不支持';
+      }
+    }
+
+    // 检查媒体设备
+    function checkMediaDevices() {
+      if ('mediaDevices' in navigator && 'enumerateDevices' in navigator.mediaDevices) {
+        navigator.mediaDevices.enumerateDevices().then(devices => {
+          const cameras = devices.filter(device => device.kind === 'videoinput');
+          const microphones = devices.filter(device => device.kind === 'audioinput');
+          const audioOutputs = devices.filter(device => device.kind === 'audiooutput');
+          
+          document.getElementById('cameraCount').textContent = cameras.length + ' 个';
+          document.getElementById('microphoneCount').textContent = microphones.length + ' 个';
+          document.getElementById('audioOutputDevices').textContent = audioOutputs.length + ' 个';
+          
+          // 显示设备详细信息
+          if (cameras.length > 0) {
+            console.log('摄像头设备:', cameras.map(d => d.label || d.deviceId));
+          }
+          if (microphones.length > 0) {
+            console.log('麦克风设备:', microphones.map(d => d.label || d.deviceId));
+          }
+        });
+      }
     }
 
     // 窗口大小改变时更新窗口信息

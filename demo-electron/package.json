@@ -4,7 +4,7 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && electron .",
+    "start:dev": "npm run build && electron .",
     "dev": "NODE_ENV=development npm run watch & electron .",
     "watch": "tsc --watch",
     "test": "node script/test-basic.js",

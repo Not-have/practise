@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+
+var serial = '';
+var app = {
+	    initialize: function() {
+	        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+	    },
+	    onDeviceReady: function() {
+	      this.deviceVersion();
+	    },
+	    deviceVersion: function() {
+        console.log(device.serial);
+	    serial = device.serial;
+	    }
+	};
+	app.initialize();
+
+</script>
