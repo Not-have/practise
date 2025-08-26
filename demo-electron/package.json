@@ -10,9 +10,10 @@
     "test": "node script/test-basic.js",
     "quick": "node script/start-app.js",
     "http-test": "open script/test-http.html",
+    "clean": "rm -rf out && rm -fr dist",
     "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "package": "npm run clean && npm run build && electron-forge package",
+    "make": "npm run clean && npm run build && electron-forge make"
   },
   "author": "",
   "license": "ISC",
