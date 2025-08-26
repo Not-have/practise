@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import Home from './pages/hone';
 import React03 from './pages/react-03';
 import Vue02 from './pages/vue-02';
+import VBen from './pages/vben';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/react-03" element={<React03 />} />
             <Route path="/vue-02" element={<Vue02 />} />
+            <Route path="/vben" element={<VBen />} />
           </Routes>
         </main>
       </div>

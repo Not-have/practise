@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>获取设备信息</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .info-section {
+      margin-bottom: 25px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fafafa;
+    }
+    .info-section h3 {
+      color: #555;
+      margin-top: 0;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+    }
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+      padding: 5px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .info-label {
+      font-weight: bold;
+      color: #333;
+      min-width: 200px;
+    }
+    .info-value {
+      color: #666;
+      word-break: break-all;
+      text-align: right;
+      max-width: 400px;
+    }
+    .copy-btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+    .copy-btn:hover {
+      background: #0056b3;
+    }
+    .status {
+      color: #28a745;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📱 JavaScript 设备信息获取器</h1>
+    
+    <div class="info-section">
+      <h3>🌐 浏览器信息 (Navigator)</h3>
+      <div class="info-item">
+        <span class="info-label">User Agent:</span>
+        <span class="info-value" id="userAgent"></span>
+        <button class="copy-btn" onclick="copyToClipboard('userAgent')">复制</button>
+      </div>
+      <div class="info-item">
+        <span class="info-label">浏览器名称:</span>
+        <span class="info-value" id="browserName"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">浏览器版本:</span>
+        <span class="info-value" id="browserVersion"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">操作系统:</span>
+        <span class="info-value" id="operatingSystem"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">语言:</span>
+        <span class="info-value" id="language"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Cookie 启用:</span>
+        <span class="info-value" id="cookieEnabled"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">在线状态:</span>
+        <span class="info-value" id="onLine"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">平台:</span>
+        <span class="info-value" id="platform"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">产品:</span>
+        <span class="info-value" id="product"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">产品子版本:</span>
+        <span class="info-value" id="productSub"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">供应商:</span>
+        <span class="info-value" id="vendor"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">供应商子版本:</span>
+        <span class="info-value" id="vendorSub"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📱 屏幕信息 (Screen)</h3>
+      <div class="info-item">
+        <span class="info-label">屏幕宽度:</span>
+        <span class="info-value" id="screenWidth"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">屏幕高度:</span>
+        <span class="info-value" id="screenHeight"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">可用宽度:</span>
+        <span class="info-value" id="availWidth"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">可用高度:</span>
+        <span class="info-value" id="availHeight"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">颜色深度:</span>
+        <span class="info-value" id="colorDepth"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">像素深度:</span>
+        <span class="info-value" id="pixelDepth"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">设备像素比:</span>
+        <span class="info-value" id="devicePixelRatio"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🖥️ 窗口信息 (Window)</h3>
+      <div class="info-item">
+        <span class="info-label">窗口宽度:</span>
+        <span class="info-value" id="windowWidth"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">窗口高度:</span>
+        <span class="info-value" id="windowHeight"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">内部宽度:</span>
+        <span class="info-value" id="innerWidth"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">内部高度:</span>
+        <span class="info-value" id="innerHeight"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">外部宽度:</span>
+        <span class="info-value" id="outerWidth"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">外部高度:</span>
+        <span class="info-value" id="outerHeight"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📍 位置信息 (Geolocation)</h3>
+      <div class="info-item">
+        <span class="info-label">地理位置支持:</span>
+        <span class="info-value" id="geolocationSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">当前位置:</span>
+        <span class="info-value" id="currentLocation"></span>
+        <button class="copy-btn" onclick="getLocation()">获取位置</button>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🔋 电池信息 (Battery API)</h3>
+      <div class="info-item">
+        <span class="info-label">电池支持:</span>
+        <span class="info-value" id="batterySupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">电池电量:</span>
+        <span class="info-value" id="batteryLevel"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">充电状态:</span>
+        <span class="info-value" id="charging"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">充电时间:</span>
+        <span class="info-value" id="chargingTime"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">放电时间:</span>
+        <span class="info-value" id="dischargingTime"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📡 网络信息 (Network Information API)</h3>
+      <div class="info-item">
+        <span class="info-label">网络类型:</span>
+        <span class="info-value" id="networkType"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">网络速度:</span>
+        <span class="info-value" id="networkSpeed"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">连接质量:</span>
+        <span class="info-value" id="connectionQuality"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🎮 硬件信息</h3>
+      <div class="info-item">
+        <span class="info-label">CPU 核心数:</span>
+        <span class="info-value" id="cpuCores"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">内存信息:</span>
+        <span class="info-value" id="memoryInfo"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">硬件并发:</span>
+        <span class="info-value" id="hardwareConcurrency"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📱 设备特性</h3>
+      <div class="info-item">
+        <span class="info-label">触摸支持:</span>
+        <span class="info-value" id="touchSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">最大触摸点:</span>
+        <span class="info-value" id="maxTouchPoints"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">振动支持:</span>
+        <span class="info-value" id="vibrationSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">WebGL 支持:</span>
+        <span class="info-value" id="webglSupport"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">WebRTC 支持:</span>
+        <span class="info-value" id="webrtcSupport"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>🔒 权限信息</h3>
+      <div class="info-item">
+        <span class="info-label">摄像头权限:</span>
+        <span class="info-value" id="cameraPermission"></span>
+        <button class="copy-btn" onclick="checkCameraPermission()">检查权限</button>
+      </div>
+      <div class="info-item">
+        <span class="info-label">麦克风权限:</span>
+        <span class="info-value" id="microphonePermission"></span>
+        <button class="copy-btn" onclick="checkMicrophonePermission()">检查权限</button>
+      </div>
+      <div class="info-item">
+        <span class="info-label">通知权限:</span>
+        <span class="info-value" id="notificationPermission"></span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h3>📊 性能信息</h3>
+      <div class="info-item">
+        <span class="info-label">页面加载时间:</span>
+        <span class="info-value" id="pageLoadTime"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">DOM 内容加载时间:</span>
+        <span class="info-value" id="domLoadTime"></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">资源加载时间:</span>
+        <span class="info-value" id="resourceLoadTime"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 获取所有设备信息
+    function getAllDeviceInfo() {
+      // 浏览器信息
+      document.getElementById('userAgent').textContent = navigator.userAgent;
+      document.getElementById('browserName').textContent = getBrowserName();
+      document.getElementById('browserVersion').textContent = getBrowserVersion();
+      document.getElementById('operatingSystem').textContent = getOperatingSystem();
+      document.getElementById('language').textContent = navigator.language || '未知';
+      document.getElementById('cookieEnabled').textContent = navigator.cookieEnabled ? '是' : '否';
+      document.getElementById('onLine').textContent = navigator.onLine ? '在线' : '离线';
+      document.getElementById('platform').textContent = navigator.platform || '未知';
+      document.getElementById('product').textContent = navigator.product || '未知';
+      document.getElementById('productSub').textContent = navigator.productSub || '未知';
+      document.getElementById('vendor').textContent = navigator.vendor || '未知';
+      document.getElementById('vendorSub').textContent = navigator.vendorSub || '未知';
+
+      // 屏幕信息
+      document.getElementById('screenWidth').textContent = screen.width + 'px';
+      document.getElementById('screenHeight').textContent = screen.height + 'px';
+      document.getElementById('availWidth').textContent = screen.availWidth + 'px';
+      document.getElementById('availHeight').textContent = screen.availHeight + 'px';
+      document.getElementById('colorDepth').textContent = screen.colorDepth + '位';
+      document.getElementById('pixelDepth').textContent = screen.pixelDepth + '位';
+      document.getElementById('devicePixelRatio').textContent = window.devicePixelRatio || '1';
+
+      // 窗口信息
+      document.getElementById('windowWidth').textContent = window.outerWidth + 'px';
+      document.getElementById('windowHeight').textContent = window.outerHeight + 'px';
+      document.getElementById('innerWidth').textContent = window.innerWidth + 'px';
+      document.getElementById('innerHeight').textContent = window.innerHeight + 'px';
+      document.getElementById('outerWidth').textContent = window.outerWidth + 'px';
+      document.getElementById('outerHeight').textContent = window.outerHeight + 'px';
+
+      // 地理位置
+      document.getElementById('geolocationSupport').textContent = 'geolocation' in navigator ? '支持' : '不支持';
+      document.getElementById('currentLocation').textContent = '点击获取';
+
+      // 电池信息
+      if ('getBattery' in navigator) {
+        navigator.getBattery().then(battery => {
+          document.getElementById('batterySupport').textContent = '支持';
+          document.getElementById('batteryLevel').textContent = Math.round(battery.level * 100) + '%';
+          document.getElementById('charging').textContent = battery.charging ? '充电中' : '未充电';
+          document.getElementById('chargingTime').textContent = battery.chargingTime === Infinity ? '未知' : battery.chargingTime + '秒';
+          document.getElementById('dischargingTime').textContent = battery.dischargingTime === Infinity ? '未知' : battery.dischargingTime + '秒';
+        });
+      } else {
+        document.getElementById('batterySupport').textContent = '不支持';
+        document.getElementById('batteryLevel').textContent = '不支持';
+        document.getElementById('charging').textContent = '不支持';
+        document.getElementById('chargingTime').textContent = '不支持';
+        document.getElementById('dischargingTime').textContent = '不支持';
+      }
+
+      // 网络信息
+      if ('connection' in navigator) {
+        const connection = navigator.connection;
+        document.getElementById('networkType').textContent = connection.effectiveType || '未知';
+        document.getElementById('networkSpeed').textContent = connection.downlink + ' Mbps';
+        document.getElementById('connectionQuality').textContent = connection.rtt + ' ms';
+      } else {
+        document.getElementById('networkType').textContent = '不支持';
+        document.getElementById('networkSpeed').textContent = '不支持';
+        document.getElementById('connectionQuality').textContent = '不支持';
+      }
+
+      // 硬件信息
+      document.getElementById('cpuCores').textContent = navigator.hardwareConcurrency || '未知';
+      if ('memory' in performance) {
+        const memory = performance.memory;
+        document.getElementById('memoryInfo').textContent = 
+          `已用: ${Math.round(memory.usedJSHeapSize / 1048576)}MB / 总计: ${Math.round(memory.totalJSHeapSize / 1048576)}MB`;
+      } else {
+        document.getElementById('memoryInfo').textContent = '不支持';
+      }
+      document.getElementById('hardwareConcurrency').textContent = navigator.hardwareConcurrency || '未知';
+
+      // 设备特性
+      document.getElementById('touchSupport').textContent = 'ontouchstart' in window ? '支持' : '不支持';
+      document.getElementById('maxTouchPoints').textContent = navigator.maxTouchPoints || '0';
+      document.getElementById('vibrationSupport').textContent = 'vibrate' in navigator ? '支持' : '不支持';
+      document.getElementById('webglSupport').textContent = !!window.WebGLRenderingContext ? '支持' : '不支持';
+      document.getElementById('webrtcSupport').textContent = !!window.RTCPeerConnection ? '支持' : '不支持';
+
+      // 权限信息
+      document.getElementById('notificationPermission').textContent = Notification.permission;
+
+      // 性能信息
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const perfData = performance.getEntriesByType('navigation')[0];
+          if (perfData) {
+            document.getElementById('pageLoadTime').textContent = Math.round(perfData.loadEventEnd - perfData.loadEventStart) + 'ms';
+            document.getElementById('domLoadTime').textContent = Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart) + 'ms';
+            document.getElementById('resourceLoadTime').textContent = Math.round(perfData.loadEventEnd - perfData.fetchStart) + 'ms';
+          }
+        }, 100);
+      });
+    }
+
+    // 获取浏览器名称
+    function getBrowserName() {
+      const userAgent = navigator.userAgent;
+      if (userAgent.includes('Firefox')) return 'Firefox';
+      if (userAgent.includes('Chrome')) return 'Chrome';
+      if (userAgent.includes('Safari')) return 'Safari';
+      if (userAgent.includes('Edge')) return 'Edge';
+      if (userAgent.includes('MSIE') || userAgent.includes('Trident/')) return 'Internet Explorer';
+      return '未知';
+    }
+
+    // 获取浏览器版本
+    function getBrowserVersion() {
+      const userAgent = navigator.userAgent;
+      const match = userAgent.match(/(chrome|firefox|safari|edge|msie|trident(?=\/))\/?\s*(\d+)/i);
+      return match ? match[2] : '未知';
+    }
+
+    // 获取操作系统
+    function getOperatingSystem() {
+      const userAgent = navigator.userAgent;
+      if (userAgent.includes('Windows')) return 'Windows';
+      if (userAgent.includes('Mac')) return 'macOS';
+      if (userAgent.includes('Linux')) return 'Linux';
+      if (userAgent.includes('Android')) return 'Android';
+      if (userAgent.includes('iOS')) return 'iOS';
+      return '未知';
+    }
+
+    // 获取地理位置
+    function getLocation() {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const coords = position.coords;
+            document.getElementById('currentLocation').textContent = 
+              `纬度: ${coords.latitude.toFixed(6)}, 经度: ${coords.longitude.toFixed(6)}`;
+          },
+          error => {
+            document.getElementById('currentLocation').textContent = '获取失败: ' + error.message;
+          }
+        );
+      } else {
+        document.getElementById('currentLocation').textContent = '不支持地理位置';
+      }
+    }
+
+    // 检查摄像头权限
+    async function checkCameraPermission() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        document.getElementById('cameraPermission').textContent = '已授权';
+        stream.getTracks().forEach(track => track.stop());
+      } catch (error) {
+        document.getElementById('cameraPermission').textContent = '未授权或拒绝';
+      }
+    }
+
+    // 检查麦克风权限
+    async function checkMicrophonePermission() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        document.getElementById('microphonePermission').textContent = '已授权';
+        stream.getTracks().forEach(track => track.stop());
+      } catch (error) {
+        document.getElementById('microphonePermission').textContent = '未授权或拒绝';
+      }
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard(elementId) {
+      const text = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = event.target;
+        btn.textContent = '已复制!';
+        setTimeout(() => {
+          btn.textContent = '复制';
+        }, 2000);
+      }).catch(err => {
+        console.error('复制失败:', err);
+      });
+    }
+
+    // 页面加载完成后获取所有信息
+    window.addEventListener('load', getAllDeviceInfo);
+
+    // 窗口大小改变时更新窗口信息
+    window.addEventListener('resize', () => {
+      document.getElementById('windowWidth').textContent = window.outerWidth + 'px';
+      document.getElementById('windowHeight').textContent = window.outerHeight + 'px';
+      document.getElementById('innerWidth').textContent = window.innerWidth + 'px';
+      document.getElementById('innerHeight').textContent = window.innerHeight + 'px';
+    });
+  </script>
+</body>
+</html>
