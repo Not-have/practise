@@ -9,8 +9,6 @@ import App from "./App";
 
 const root = createRoot(document.querySelector("#root"));
 
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+root.render(<StrictMode>
+  <App />
+</StrictMode>);

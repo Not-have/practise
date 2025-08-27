@@ -25,9 +25,9 @@
  *  });
  * ```
  */
-import "./index.css";
-
 import "../src/main.tsx";
+
+import "./index.css";
 
 // eslint-disable-next-line no-console
 console.log("👋 This message is being logged by \"renderer.ts\", included via Vite");
