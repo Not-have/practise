@@ -6,6 +6,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types", "./types"],
     "types": ["node"],
     "allowJs": true,
     "noImplicitAny": true,
@@ -16,6 +17,7 @@
   },
   "include": [
     "src/**/*",
-    "electron/**/*"
+    "electron/**/*",
+    "types/**/*"
   ]
 }
