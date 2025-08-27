@@ -9,7 +9,6 @@
     "name": "李勇",
     "email": "yong.li@yidatec.com"
   },
-  "type": "module",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
