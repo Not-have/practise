@@ -2,6 +2,18 @@
 <navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
-    测试
+    <view>测试</view>
+    
+    <view>打字机</view>
+    <view class="output-area">
+      <view class="output-label">AI回复：</view>
+      <view class="output-content">
+        {{displayText}}
+        <!-- 打字动画指示器 -->
+        <text class="cursor" wx:if="{{isGenerating}}">|</text>
+      </view>
+    </view>
+
+    <button bind:tap="handleTap">模拟↩️</button>
   </view>
 </scroll-view>
