@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
+
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import ProductsView from '../views/ProductsView.vue'
-import ContactView from '../views/ContactView.vue'
+// @ts-ignore
 import Luckysheet from '../views/Luckysheet.vue'
+import ContactView from '../views/ContactView.vue'
+import Exceljs from '../views/Exceljs.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +36,11 @@ const router = createRouter({
       path: '/luckysheet',
       name: 'luckysheet',
       component: Luckysheet
+    },
+    {
+      path: '/exceljs',
+      name: 'exceljs',
+      component: Exceljs
     }
   ]
 })

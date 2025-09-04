@@ -9,6 +9,11 @@
     container: "luckysheet", // 设定DOM容器的id
     title: "", // 设定表格名称
     lang: "zh", // 设定表格语言
+    userInfo: false,
+    showinfobar: false, // 隐藏信息栏
+    showstatisticBar: false, // 隐藏统计栏
+    showsheetbar: false,
+    
     data: [
       {
         name: "Cell", //工作表名称
@@ -48,25 +53,7 @@
         image: [], //图片
         showGridLines: 1, //是否显示网格线
         dataVerification: {}, //数据验证配置
-      },
-      {
-        name: "Sheet2",
-        color: "",
-        index: 1,
-        status: 0,
-        order: 1,
-        celldata: [],
-        config: {},
-      },
-      {
-        name: "Sheet3",
-        color: "",
-        index: 2,
-        status: 0,
-        order: 2,
-        celldata: [],
-        config: {},
-      },
+      }
     ],
   };
   

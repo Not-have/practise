@@ -9,7 +9,8 @@ const menuItems = [
   { name: '关于', path: '/about', icon: 'ℹ️' },
   { name: '产品', path: '/products', icon: '📦' },
   { name: '联系', path: '/contact', icon: '📞' },
-  { name: 'luckysheet demo', path: '/luckysheet', icon: '📊' }
+  { name: 'luckysheet demo', path: '/luckysheet', icon: '📊' },
+  { name: 'exceljs demo', path: '/exceljs', icon: '📊' }
 ]
 
 const isActive = computed(() => (path: string) => {

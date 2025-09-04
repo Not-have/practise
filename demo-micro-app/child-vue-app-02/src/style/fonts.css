@@ -1,8 +1,8 @@
-@font-face {
+/* @font-face {
   font-family: 'MingLiU';
-  src: url('../assets/fonts/MingLiU-ExtB.ttc'); /* 相对路径即可 */
+  src: url('../assets/fonts/MingLiU-ExtB.ttc');
 }
 
 p, div {
   font-family: "MingLiU", sans-serif;
-}
+} */
