@@ -17,6 +17,7 @@ import "@univerjs/presets/lib/styles/preset-sheets-core.css";
 import { WORKBOOK_DATA } from './data'
 
 import ColumnHeaderCustomExtension from './extensions/column-header.extension'
+import RowHeaderCustomExtension from './extensions/row-header.extension'
 
 const createUniverDemo = () => {
   const { univerAPI } = createUniver({
@@ -45,6 +46,9 @@ const createUniverDemo = () => {
       }
 
       univerAPI.registerSheetColumnHeaderExtension(unitId, new ColumnHeaderCustomExtension())
+      
+      // 注册行头扩展
+      univerAPI.registerSheetRowHeaderExtension(unitId, new RowHeaderCustomExtension())
     }
   })
 
