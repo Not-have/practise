@@ -10,7 +10,7 @@ const menuItems = [
   { name: '产品', path: '/products', icon: '📦' },
   { name: '联系', path: '/contact', icon: '📞' },
   { name: 'luckysheet demo', path: '/luckysheet', icon: '📊' },
-  { name: 'exceljs demo', path: '/exceljs', icon: '📊' }
+  { name: 'univer demo', path: '/univer', icon: '📊' }
 ]
 
 const isActive = computed(() => (path: string) => {
