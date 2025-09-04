@@ -19,13 +19,13 @@ export const WORKBOOK_DATA: Partial<IWorkbookData> = {
       name: '员工信息',
       rowCount: 100,
       columnCount: columnCount, // 使用动态生成的列数
-      defaultRowHeight: 30,
+      defaultRowHeight: 80,
       defaultColumnWidth: 100,
       rowHeader: {
-        width: 46,
+        width: 60,
       },
       columnHeader: {
-        height: 20,
+        height: 40,
       },
       cellData: {
         0: {
