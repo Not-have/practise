@@ -17,7 +17,6 @@ export default class ColumnHeaderCustomExtension extends SheetExtension {
 
   draw(ctx: UniverRenderingContext, _parentScale: IScale, spreadsheetSkeleton: SpreadsheetSkeleton) {
 
-    console.log(spreadsheetSkeleton, ctx)
     const { rowColumnSegment, columnHeaderHeight = 0 } = spreadsheetSkeleton
     const { startColumn, endColumn } = rowColumnSegment
 

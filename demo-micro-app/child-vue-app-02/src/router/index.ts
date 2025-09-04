@@ -9,7 +9,7 @@ import Luckysheet from '../views/Luckysheet.vue'
 import ContactView from '../views/ContactView.vue'
 
 // @ts-ignore
-import Univer from '../views/UniverDemo.vue'
+import Univer from '../views/UniverDemo/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
