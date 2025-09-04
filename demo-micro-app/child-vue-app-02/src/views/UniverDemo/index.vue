@@ -29,6 +29,9 @@ const createUniverDemo = () => {
     presets: [
       UniverSheetsCorePreset({
         container: "univer",
+        sheets: {
+          protectedRangeShadow: false,
+        },
       }),
     ],
   });
@@ -51,6 +54,8 @@ const createUniverDemo = () => {
       .then((permissionId) => {
         permission.sheetRuleChangedAfterAuth$.subscribe(
           (currentPermissionId) => {
+            console.log("无权限操作被拦截:", currentPermissionId);
+
             if (currentPermissionId === permissionId) {
               permission.setWorksheetPermissionPoint(
                 unitId,
@@ -62,6 +67,8 @@ const createUniverDemo = () => {
           }
         );
       });
+
+    permission.setPermissionDialogVisible(false)
   }
 
   univerAPI.addEvent(univerAPI.Event.LifeCycleChanged, async ({ stage }) => {
