@@ -29,7 +29,7 @@ export const WORKBOOK_DATA: Partial<IWorkbookData> = {
       },
       cellData: {
         0: {
-          0: { v: '张三' },
+          0: { v: '张三', custom: { name: '张三' , id: '1234567890'} },
           1: { v: '技术部' },
           2: { v: '前端工程师' },
           3: { v: '2023-01-15' },

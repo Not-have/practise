@@ -10,6 +10,7 @@ import ContactView from '../views/ContactView.vue'
 
 // @ts-ignore
 import Univer from '../views/UniverDemo/index.vue'
+import Table from '../views/Table.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,11 @@ const router = createRouter({
       path: '/univer',
       name: 'univer',
       component: Univer
+    },
+    {
+      path: '/table',
+      name: 'table',
+      component: Table
     }
   ]
 })
