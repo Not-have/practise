@@ -242,6 +242,11 @@
         <span class="info-label">连接质量:</span>
         <span class="info-value" id="connectionQuality"></span>
       </div>
+      <div class="info-item">
+        <span class="info-label">公网IP地址:</span>
+        <span class="info-value" id="publicIP"></span>
+        <button class="copy-btn" onclick="getPublicIP()">获取IP</button>
+      </div>
     </div>
 
     <div class="info-section">
@@ -511,6 +516,9 @@
         document.getElementById('networkSpeed').textContent = '不支持';
         document.getElementById('connectionQuality').textContent = '不支持';
       }
+      
+      // 公网IP信息
+      document.getElementById('publicIP').textContent = '点击获取';
 
       // 硬件信息
       document.getElementById('cpuCores').textContent = navigator.hardwareConcurrency || '未知';
@@ -872,6 +880,90 @@
             console.log('麦克风设备:', microphones.map(d => d.label || d.deviceId));
           }
         });
+      }
+    }
+
+    // 获取公网IP地址
+    async function getPublicIP() {
+      const ipElement = document.getElementById('publicIP');
+      const button = event.target;
+      
+      // 显示加载状态
+      ipElement.textContent = '获取中...';
+      button.textContent = '获取中...';
+      button.disabled = true;
+      
+      try {
+        // 使用多个IP查询服务，提高成功率
+        const ipServices = [
+          'https://api.ipify.org?format=json',
+          'https://ipapi.co/json/',
+          'https://api.ip.sb/geoip',
+          'https://ipinfo.io/json',
+          'https://api.myip.com'
+        ];
+        
+        let ipData = null;
+        let lastError = null;
+        
+        // 尝试每个服务
+        for (const service of ipServices) {
+          try {
+            const response = await fetch(service, {
+              method: 'GET',
+              timeout: 5000
+            });
+            
+            if (response.ok) {
+              ipData = await response.json();
+              break;
+            }
+          } catch (error) {
+            lastError = error;
+            continue;
+          }
+        }
+        
+        if (ipData) {
+          // 根据不同服务的响应格式提取IP
+          let ip = '';
+          let location = '';
+          
+          if (ipData.ip) {
+            ip = ipData.ip;
+          } else if (ipData.query) {
+            ip = ipData.query;
+          } else if (ipData.ipAddress) {
+            ip = ipData.ipAddress;
+          }
+          
+          // 提取位置信息
+          if (ipData.country) {
+            location = ipData.country;
+            if (ipData.region) location += `, ${ipData.region}`;
+            if (ipData.city) location += `, ${ipData.city}`;
+          } else if (ipData.country_name) {
+            location = ipData.country_name;
+            if (ipData.region) location += `, ${ipData.region}`;
+            if (ipData.city) location += `, ${ipData.city}`;
+          }
+          
+          if (ip) {
+            ipElement.textContent = location ? `${ip} (${location})` : ip;
+            button.textContent = '重新获取';
+          } else {
+            throw new Error('无法解析IP地址');
+          }
+        } else {
+          throw lastError || new Error('所有IP查询服务都失败了');
+        }
+        
+      } catch (error) {
+        console.error('获取公网IP失败:', error);
+        ipElement.textContent = '获取失败: ' + error.message;
+        button.textContent = '重试';
+      } finally {
+        button.disabled = false;
       }
     }
 
