@@ -39,6 +39,13 @@ const routes: RouteObject[] = [
         },
       },
       {
+        path: 'text-converter',
+        async lazy() {
+          const { default: Component } = await import('../pages/text-converter');
+          return { Component };
+        },
+      },
+      {
         path: '*',
         async lazy() {
           const { default: Component } = await import('../pages/not-found');

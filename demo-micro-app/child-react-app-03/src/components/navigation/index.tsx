@@ -12,6 +12,7 @@ const menuItems: MenuItem[] = [
   { name: '关于', path: '/about', icon: 'ℹ️' },
   { name: '产品', path: '/products', icon: '📦' },
   { name: '联系', path: '/contact', icon: '📞' },
+  { name: '字符转换', path: '/text-converter', icon: '🔄' },
 ];
 
 export default function Navigation() {
