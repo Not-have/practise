@@ -50,6 +50,9 @@ onUnmounted(() => {
     <RouterLink to="/about">
       About
     </RouterLink>
+    <RouterLink to="/ai">
+      AI
+    </RouterLink>
   </header>
 
   <RouterView />
@@ -57,19 +60,19 @@ onUnmounted(() => {
 
 <style scoped>
 header {
-  line-height: 1.5;
   max-height: 100vh;
+  line-height: 1.5;
 }
 
 nav {
+  margin-top: 2rem;
   width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
 }
 
 a.router-link-exact-active {
-  color: hsla(160, 100%, 37%, 1);
+  color: hsl(160deg 100% 37% / 100%);
 }
 
 a.router-link-exact-active:hover {
