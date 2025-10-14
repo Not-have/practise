@@ -9,7 +9,7 @@ import App from "./App.tsx";
 
 import "./index.css";
 
-const rootElement = document.getElementById("root");
+const rootElement = document.querySelector("#root");
 
 if (rootElement) {
   createRoot(rootElement).render(<BrowserRouter>

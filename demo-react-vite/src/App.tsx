@@ -1,19 +1,22 @@
+/* eslint-disable no-confusing-arrow */
+/* eslint-disable react/jsx-no-bind */
 import {
   Routes,
   Route,
   NavLink
 } from "react-router";
+
 import styled from "styled-components";
 
 import Demo01 from "./pages/demo-01";
 import Demo02 from "./pages/demo-02";
 import DemoApi from "./pages/demo-api";
 import DemoCustomHooks from "./pages/demo-custom-hooks";
+import DemoDevice from "./pages/demo-device";
 import DemoHooks from "./pages/demo-hooks";
 import DemoIframeMessage from "./pages/demo-iframe-message";
 import DemoLazy from "./pages/demo-lazy";
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const ScNAv = styled.nav`
   border-bottom: 1px solid #ccc;
 `;
@@ -73,6 +76,14 @@ function App(): React.ReactElement {
         to="/demo-iframe-message">
         DemoIframeMessage
       </NavLink>
+
+      <NavLink
+        className={({
+          isActive
+        }) => isActive ? "active" : ""}
+        to="/demo-device">
+        DemoDevice
+      </NavLink>
     </ScNAv>
 
     <Routes>
@@ -103,6 +114,10 @@ function App(): React.ReactElement {
       <Route
         element={<DemoIframeMessage />}
         path="demo-iframe-message" />
+
+      <Route
+        element={<DemoDevice />}
+        path="demo-device" />
     </Routes>
   </>;
 }
