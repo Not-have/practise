@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全屏视频悬浮按钮</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f3f4f6;
+      overflow: hidden;
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+    
+    .fullscreen-video {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+    }
+    
+    .btn-float {
+      position: fixed;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .btn-float:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+    }
+    
+    .btn-info {
+      top: 24px;
+      right: 24px;
+      background: white;
+      color: #3B82F6;
+    }
+    
+    .btn-action {
+      bottom: 24px;
+      right: 24px;
+      background: #3B82F6;
+      color: white;
+    }
+    
+    .btn-fullscreen {
+      bottom: 24px;
+      left: 24px;
+      background: #1E293B;
+      color: white;
+    }
+    
+    .icon {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+    }
+    
+    .modal-content {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 400px;
+      width: 100%;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    
+    .modal-close:hover {
+      color: #374151;
+    }
+    
+    .modal-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+    
+    .modal-text {
+      color: #6b7280;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    
+    .modal-btn {
+      padding: 8px 16px;
+      background: #3B82F6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    
+    .modal-btn:hover {
+      background: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <!-- 视频元素 -->
+    <video id="fullscreenVideo" class="fullscreen-video" autoplay muted loop controls>
+      <!-- 替换为你的视频源 -->
+      <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+      您的浏览器不支持HTML5视频播放。
+    </video>
+    
+    <!-- 悬浮按钮 - 右上角 -->
+    <button id="infoButton" class="btn-float btn-info">
+      <span class="icon">ℹ</span>
+    </button>
+    
+    <!-- 悬浮按钮 - 右下角 -->
+    <button id="actionButton" class="btn-float btn-action">
+      <span class="icon">▶</span>
+    </button>
+    
+    <!-- 悬浮按钮 - 左下角 -->
+    <button id="fullscreenToggle" class="btn-float btn-fullscreen">
+      <span class="icon">⛶</span>
+    </button>
+    
+    <!-- 信息弹窗 (默认隐藏) -->
+    <div id="infoModal" class="modal">
+      <div class="modal-overlay" id="modalOverlay"></div>
+      <div class="modal-content">
+        <button id="closeModal" class="modal-close">×</button>
+        <h3 class="modal-title">视频信息</h3>
+        <p class="modal-text">这是一个全屏视频演示，您可以通过右下角的按钮控制视频播放/暂停，左下角按钮切换全屏模式。</p>
+        <button class="modal-btn">了解更多</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 获取DOM元素
+    const video = document.getElementById('fullscreenVideo');
+    const actionButton = document.getElementById('actionButton');
+    const fullscreenToggle = document.getElementById('fullscreenToggle');
+    const infoButton = document.getElementById('infoButton');
+    const infoModal = document.getElementById('infoModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    
+    // 播放/暂停按钮功能
+    actionButton.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        actionButton.innerHTML = '<span class="icon">⏸</span>';
+      } else {
+        video.pause();
+        actionButton.innerHTML = '<span class="icon">▶</span>';
+      }
+    });
+    
+    // 全屏切换功能
+    fullscreenToggle.addEventListener('click', () => {
+      const container = document.querySelector('.video-container');
+      
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+        } else if (container.webkitRequestFullscreen) { // Safari
+          container.webkitRequestFullscreen();
+        } else if (container.msRequestFullscreen) { // IE11
+          container.msRequestFullscreen();
+        }
+        fullscreenToggle.innerHTML = '<span class="icon">⛶</span>';
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { // Safari
+          document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { // IE11
+          document.msExitFullscreen();
+        }
+        fullscreenToggle.innerHTML = '<span class="icon">⛶</span>';
+      }
+    });
+    
+    // 信息弹窗控制
+    function openModal() {
+      infoModal.classList.add('show');
+    }
+    
+    function closeModalFunc() {
+      infoModal.classList.remove('show');
+    }
+    
+    infoButton.addEventListener('click', openModal);
+    closeModal.addEventListener('click', closeModalFunc);
+    modalOverlay.addEventListener('click', closeModalFunc);
+    
+    // 视频结束时重置播放按钮
+    video.addEventListener('ended', () => {
+      actionButton.innerHTML = '<span class="icon">▶</span>';
+    });
+    
+    // 监听全屏状态变化
+    document.addEventListener('fullscreenchange', updateFullscreenButton);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+    document.addEventListener('msfullscreenchange', updateFullscreenButton);
+    
+    function updateFullscreenButton() {
+      if (document.fullscreenElement) {
+        fullscreenToggle.innerHTML = '<span class="icon">⛶</span>';
+      } else {
+        fullscreenToggle.innerHTML = '<span class="icon">⛶</span>';
+      }
+    }
+    
+    // 视频控制按钮自动隐藏效果
+    let hideControlsTimeout;
+    
+    function showControls() {
+      [actionButton, fullscreenToggle, infoButton].forEach(btn => {
+        btn.style.opacity = '1';
+        btn.style.transform = 'translateY(0) scale(1)';
+      });
+      
+      clearTimeout(hideControlsTimeout);
+      hideControlsTimeout = setTimeout(hideControls, 3000);
+    }
+    
+    function hideControls() {
+      [actionButton, fullscreenToggle, infoButton].forEach(btn => {
+        btn.style.opacity = '0.7';
+      });
+    }
+    
+    // 初始化显示控制按钮并设置自动隐藏
+    showControls();
+    
+    // 点击视频时显示控制按钮
+    video.addEventListener('click', showControls);
+    video.addEventListener('mousemove', showControls);
+  </script>
+</body>
+</html>
