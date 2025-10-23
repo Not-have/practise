@@ -1,37 +1,18 @@
-<script setup lang="ts">
+<script setup lang="tsx">
+import Index from "./compenents/index.vue";
 import {
   onMounted
 } from "vue";
-
 onMounted(() => {
   document.documentElement.removeAttribute("theme-mode");
 });
-
-const doc = `
-# This is TDesign
-
-
-\`\`\`bash
-$ npm i tdesign-vue-next
-\`\`\`
-
----
-
-\`\`\`javascript
-import { createApp } from 'vue';
-import App from './app.vue';
-
-const app = createApp(App);
-app.use(TDesignChat);
-\`\`\`
-`;
 </script>
 <template>
   <div>
-    <t-chat-content
-      role="assistant"
-      :content="doc"
-      variant="base"
-    />
+    <t-chat-item>
+      <template #content>
+        <Index />
+      </template>
+    </t-chat-item>
   </div>
 </template>
