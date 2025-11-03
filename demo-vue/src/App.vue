@@ -50,8 +50,8 @@ onUnmounted(() => {
     <RouterLink to="/about">
       About
     </RouterLink>
-    <RouterLink to="/ai">
-      AI
+    <RouterLink to="/video">
+      Video
     </RouterLink>
   </header>
 
@@ -88,5 +88,4 @@ a {
 a:first-of-type {
   border: 0;
 }
-
 </style>

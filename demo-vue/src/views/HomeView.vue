@@ -11,8 +11,7 @@ import {
 } from "@/utils";
 
 const [
-  state,
-  setState
+  state, setState
 ] = useState({
   age: 1
 });

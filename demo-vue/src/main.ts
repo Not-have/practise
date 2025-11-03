@@ -3,8 +3,6 @@ import {
   directiveDraggable,
   directiveConversionTime
 } from "@mt-kit/vue-directives";
-import TDesignChat from "@tdesign-vue-next/chat";
-import "tdesign-vue-next/es/style/index.css";
 import {
   createApp
 } from "vue";
@@ -27,8 +25,6 @@ const app = createApp(App);
 //     console.error(err, info);
 //   }
 // };
-
-app.use(TDesignChat);
 
 app.use(directiveDraggable);
 app.use(directiveConversionTime);
