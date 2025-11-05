@@ -7,6 +7,14 @@ import {
   useRoute
 } from "vue-router";
 
+import {
+  ElContainer,
+  ElHeader,
+  ElMain,
+  ElMenu,
+  ElMenuItem
+} from "element-plus";
+
 const route = useRoute();
 
 const activeIndex = ref("");
@@ -21,9 +29,9 @@ watch(() => route.path, syncActive, {
 </script>
 
 <template>
-  <el-container class="layout-root">
-    <el-header height="60px">
-      <el-menu
+  <ElContainer class="layout-root">
+    <ElHeader height="60px">
+      <ElMenu
         :default-active="activeIndex"
         mode="horizontal"
         router
@@ -32,15 +40,15 @@ watch(() => route.path, syncActive, {
         active-text-color="#409eff"
         :ellipsis="false"
       >
-        <el-menu-item index="/css">
+        <ElMenuItem index="/css">
           css
-        </el-menu-item>
-      </el-menu>
-    </el-header>
-    <el-main>
+        </ElMenuItem>
+      </ElMenu>
+    </ElHeader>
+    <ElMain>
       <router-view />
-    </el-main>
-  </el-container>
+    </ElMain>
+  </ElContainer>
 </template>
 
 <style scoped>
