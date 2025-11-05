@@ -1,17 +1,30 @@
 <script setup lang="ts">
-
+import {
+  watch,
+  ref
+} from "vue";
 import {
   useRoute
 } from "vue-router";
 
 const route = useRoute();
+
+const activeIndex = ref("");
+
+const syncActive = (): void => {
+  activeIndex.value = route.path === "/" ? "/" : route.path;
+};
+
+watch(() => route.path, syncActive, {
+  immediate: true
+});
 </script>
 
 <template>
   <el-container class="layout-root">
     <el-header height="60px">
       <el-menu
-        :default-active="route.path"
+        :default-active="activeIndex"
         mode="horizontal"
         router
         background-color="#ffffff"
@@ -19,7 +32,7 @@ const route = useRoute();
         active-text-color="#409eff"
         :ellipsis="false"
       >
-        <el-menu-item index="css">
+        <el-menu-item index="/css">
           css
         </el-menu-item>
       </el-menu>
