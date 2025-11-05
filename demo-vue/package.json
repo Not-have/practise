@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "fix": "eslint \"./**/*.{css,tsx,vue,ts,js,html}\" --fix"
+    "fix": "eslint \"./**/*.{css,tsx,vue,ts,js,html}\" --fix",
+    "format": "prettier --write \"./**/*.{css,tsx,vue,ts,js,html}\""
   },
   "dependencies": {
     "pinia": "^3.0.3",
@@ -18,6 +19,8 @@
   },
   "devDependencies": {
     "@mt-kit/eslint-config": "^2.4.2",
+    "@mt-kit/prettier-config": "^1.2.2",
+    "@mt-kit/stylelint-config": "^2.1.1",
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.18.11",
     "@vitejs/plugin-vue": "^6.0.1",
@@ -25,6 +28,8 @@
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.1",
     "npm-run-all2": "^8.0.4",
+    "prettier": "^3.6.2",
+    "stylelint": "^16.25.0",
     "typescript": "~5.9.0",
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^8.0.3",
