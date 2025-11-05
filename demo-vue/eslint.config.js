@@ -1,5 +1,6 @@
 import EsLint, {
-  typescript, vue
+  typescript,
+  vue
 } from "@mt-kit/eslint-config";
 
 export default [
