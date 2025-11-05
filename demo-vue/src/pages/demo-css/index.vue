@@ -28,24 +28,38 @@ const dangerType = ref("default");
         {{ item }}
       </ElRadioButton>
     </ElRadioGroup>
-    <p :type="dangerType">
-      属性选择器
-    </p>
+    <div :type="dangerType">
+      <p>
+        属性选择器
+      </p>
+    </div>
   </div>
 </template>
-<style scoped>
-p[type="large"] {
-  font-size: 36px;
-  color: #c9399e;
+<style lang="less" scoped>
+@import url("@/styles/variables.less");
+
+div{
+  color: rgb(70, 193, 54);
 }
 
-p[type="default"] {
-  font-size: 24px;
-  color: #308d50;
+div[type="large"] {
+  p {
+    font-size: 36px;
+    color: rgb(218, 47, 167);
+  }
 }
 
-p[type="small"] {
-  font-size: 12px;
-  color: #2c5fc4;
+div[type="default"] {
+  p {
+    font-size: 24px;
+  }
 }
+
+div[type="small"] {
+  p {
+    font-size: 12px;
+    color: darken(@brand-color, 10%);
+  }
+}
+
 </style>

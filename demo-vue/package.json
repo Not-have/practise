@@ -28,6 +28,7 @@
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.1",
+    "less": "^4.4.2",
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2",
     "stylelint": "^16.25.0",
