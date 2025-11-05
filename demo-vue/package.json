@@ -3,15 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "engines": {
-    "node": "^20.19.0 || >=22.12.0"
-  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build"
+    "type-check": "vue-tsc --build",
+    "fix": "eslint \"./**/*.{css,tsx,vue,ts,js,html}\" --fix"
   },
   "dependencies": {
     "pinia": "^3.0.3",
@@ -19,15 +17,20 @@
     "vue-router": "^4.6.3"
   },
   "devDependencies": {
+    "@mt-kit/eslint-config": "^2.4.2",
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.18.11",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
     "@vue/tsconfig": "^0.8.1",
+    "eslint": "^9.39.1",
     "npm-run-all2": "^8.0.4",
     "typescript": "~5.9.0",
     "vite": "npm:rolldown-vite@latest",
     "vite-plugin-vue-devtools": "^8.0.3",
     "vue-tsc": "^3.1.1"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
   }
 }
