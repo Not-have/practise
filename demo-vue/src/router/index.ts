@@ -6,6 +6,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: "/",
+      redirect: "/css"
+    },
+    {
       path: "/css",
       name: "css",
       component: () => import("@/pages/demo-css/index.vue")
