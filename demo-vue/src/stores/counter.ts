@@ -1,5 +1,5 @@
 import {
-  ref, computed
+  ref
 } from "vue";
 
 import {
@@ -7,17 +7,27 @@ import {
 } from "pinia";
 
 export const useCounterStore = defineStore("counter", () => {
-  const count = ref(0);
+  const clickHandler = ref<null | (() => void)>(null);
 
-  const doubleCount = computed(() => count.value * 2);
+  const registerClickHandler = (handler: () => void): void => {
+    clickHandler.value = handler;
+  };
 
-  function increment() {
-    count.value++;
-  }
+  const clearClickHandler = (): void => {
+    clickHandler.value = null;
+  };
+
+  const invokeClickHandler = (): void => {
+    const fn = clickHandler.value;
+
+    if (fn) {
+      fn();
+    }
+  };
 
   return {
-    count,
-    doubleCount,
-    increment
+    registerClickHandler,
+    clearClickHandler,
+    invokeClickHandler
   };
 });

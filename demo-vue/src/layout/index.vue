@@ -8,14 +8,21 @@ import {
 } from "vue-router";
 
 import {
+  useCounterStore
+} from "@/stores/counter";
+import {
   ElContainer,
   ElHeader,
   ElMain,
   ElMenu,
-  ElMenuItem
+  ElMenuItem,
+  ElFooter,
+  ElButton
 } from "element-plus";
 
 const route = useRoute();
+
+const counter = useCounterStore();
 
 const activeIndex = ref("");
 
@@ -43,11 +50,21 @@ watch(() => route.path, syncActive, {
         <ElMenuItem index="/css">
           css
         </ElMenuItem>
+        <ElMenuItem index="/stores">
+          stores
+        </ElMenuItem>
       </ElMenu>
     </ElHeader>
     <ElMain>
       <router-view />
     </ElMain>
+    <ElFooter height="60px">
+      <div class="footer-content">
+        <ElButton @click="counter.invokeClickHandler()">
+          footer
+        </ElButton>
+      </div>
+    </ElFooter>
   </ElContainer>
 </template>
 
