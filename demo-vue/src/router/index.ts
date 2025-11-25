@@ -18,6 +18,11 @@ const router = createRouter({
       path: "/stores",
       name: "stores",
       component: () => import("@/pages/demo-stores/index.vue")
+    },
+    {
+      path: "/waterfall",
+      name: "waterfall",
+      component: () => import("@/pages/demo-waterfall/index.vue")
     }
   ]
 });

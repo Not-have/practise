@@ -1,0 +1,29 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.fixAll.prettier": "explicit",
+    "source.organizeImports": "never"
+  },
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "stylelint.enable": true,
+  "stylelint.packageManager": "pnpm",
+  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "html", "js", "jsx", "ts", "tsx"],
+  "stylelint.customSyntax": "postcss-html",
+  "stylelint.snippet": ["css", "less", "postcss", "scss", "vue", "html", "js", "jsx", "ts", "tsx"],
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .code-workspace, .browserslistrc, .node-version, .gitignore, .editorconfig, .npmrc, .gitattributes, tsconfig.json",
+    "eslint.config.js": ".eslint*, .oxlint*, .prettier*, depcheck.config.js, .npmpackagejsonlintrc.cjs, cspell.json, commitlint.config.cjs, .npmpackagejsonlintrc-ignore, .depcheckrc.yml, .markdownlint.yaml, stylelint.config.mjs",
+    "README.md": "LICENSE, CHANGELOG.md",
+    "*.ts": "$(capture).test.ts, $(capture).test.tsx, $(capture).spec.ts, $(capture).spec.tsx, $(capture).d.ts",
+    "*.tsx": "$(capture).test.ts, $(capture).test.tsx, $(capture).spec.ts, $(capture).spec.tsx,$(capture).d.ts"
+  }
+}
