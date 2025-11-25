@@ -4,7 +4,8 @@ import {
   ref,
   onMounted,
   onUnmounted,
-  watch
+  watch,
+  nextTick
 } from "vue";
 
 interface IWaterfallItem {
@@ -27,44 +28,77 @@ const props = withDefaults(defineProps<{
 
 const containerRef = ref<HTMLDivElement | null>(null);
 
+const itemRefs = ref<Map<string | number, HTMLDivElement>>(new Map());
+
 const columns = reactive<Array<IWaterfallItem[]>>([]);
 
-// 计算列总高度（通过图片高度）
-const colHeight = (col: IWaterfallItem[]): number => col.reduce((sum, item) => sum + (item.height || 0), 0);
+const columnHeights = ref<number[]>([]);
 
-// 瀑布流核心布局
+// 获取最短列的索引
+const getShortestColumnIndex = (): number => {
+  let minIndex = 0;
+
+  let minHeight = columnHeights.value[0] || 0;
+
+  for (let i = 1; i < columnHeights.value.length; i++) {
+    const height = columnHeights.value[i] || 0;
+
+    if (height < minHeight) {
+      minHeight = height;
+      minIndex = i;
+    }
+  }
+
+  return minIndex;
+};
+
+// 更新列高度
+const updateColumnHeights = (): void => {
+  nextTick(() => {
+    columns.forEach((col, colIndex) => {
+      let totalHeight = 0;
+
+      col.forEach(item => {
+        const itemEl = itemRefs.value.get(item.id || "");
+
+        if (itemEl) {
+          totalHeight += itemEl.offsetHeight + props.gap;
+        } else if (item.height) {
+          totalHeight += item.height + props.gap;
+        }
+      });
+
+      columnHeights.value[colIndex] = totalHeight;
+    });
+  });
+};
+
+// 瀑布流布局
 const layout = (): void => {
   if (columns.length === 0) {
     return;
   }
 
-  // 清空
+  // 清空所有列
   columns.forEach(col => {
     col.splice(0, col.length);
   });
+  columnHeights.value.fill(0);
 
+  // 重新分配项目
   props.list.forEach(item => {
+    const colIndex = getShortestColumnIndex();
 
-    // 找最短列
-    const [
-      firstCol
-    ] = columns;
+    const col = columns[colIndex];
 
-    let minCol = firstCol;
+    if (col) {
+      col.push(item);
 
-    if (!minCol) {
-      return;
-    }
-
-    for (let i = 1; i < columns.length; i++) {
-      const col = columns[i];
-
-      if (col && colHeight(col) < colHeight(minCol)) {
-        minCol = col;
+      // 更新该列的高度（使用估算值）
+      if (item.height && columnHeights.value[colIndex] !== undefined) {
+        columnHeights.value[colIndex] += item.height + props.gap;
       }
     }
-
-    minCol.push(item);
   });
 };
 
@@ -76,32 +110,72 @@ const calcColumns = (): void => {
 
   const width = containerRef.value.clientWidth;
 
-  const colCount = Math.max(1, Math.floor(width / props.colWidth));
+  const colCount = Math.max(1, Math.floor((width + props.gap) / (props.colWidth + props.gap)));
 
   if (columns.length !== colCount) {
     columns.splice(0, columns.length);
+    columnHeights.value = [];
 
     for (let i = 0; i < colCount; i++) {
       columns.push([]);
+      columnHeights.value.push(0);
     }
 
     layout();
   }
 };
 
-// 图片加载完成后记录图片高度并重新布局
+// 图片加载完成
 const handleImgLoad = (e: Event): void => {
   const target = e.target as HTMLImageElement;
 
   const {
-    src
-  } = target;
+    itemId
+  } = target.dataset;
 
-  const item = props.list.find(i => i.src === src);
+  if (!itemId) {
+    return;
+  }
+
+  const item = props.list.find(i => String(i.id) === itemId);
 
   if (item) {
-    item.height = target.naturalHeight / (target.naturalWidth / props.colWidth);
+
+    // 计算图片高度
+    const {
+      naturalHeight,
+      naturalWidth
+    } = target;
+
+    const imgHeight = naturalHeight / (naturalWidth / props.colWidth);
+
+    // 估算文字区域高度
+    let contentHeight = 0;
+
+    if (item.title || item.description) {
+      const titleHeight = item.title ? 20 : 0;
+
+      const descLines = item.description ? Math.ceil((item.description as string).length / 30) : 0;
+
+      const descHeight = descLines * 18;
+
+      // padding + title + description
+      contentHeight = 24 + titleHeight + descHeight;
+    }
+
+    // 保存总高度
+    item.height = imgHeight + contentHeight;
+
+    // 重新布局
     layout();
+    updateColumnHeights();
+  }
+};
+
+// 设置项目引用
+const setItemRef = (el: HTMLDivElement | null, item: IWaterfallItem): void => {
+  if (el && item.id !== undefined) {
+    itemRefs.value.set(item.id, el);
   }
 };
 
@@ -114,7 +188,9 @@ onUnmounted(() => {
   window.removeEventListener("resize", calcColumns);
 });
 
-watch(() => props.list, layout, {
+watch(() => props.list, () => {
+  calcColumns();
+}, {
   deep: true
 });
 </script>
@@ -125,17 +201,19 @@ watch(() => props.list, layout, {
     class="waterfall"
   >
     <div
-      v-for="(col, index) in columns"
-      :key="index"
+      v-for="(col, colIndex) in columns"
+      :key="colIndex"
       class="waterfall-col"
     >
       <div
         v-for="item in col"
         :key="item.id"
+        :ref="el => setItemRef(el as HTMLDivElement, item)"
         class="waterfall-item"
       >
         <img
           :src="item.src"
+          :data-item-id="item.id"
           @load="handleImgLoad"
         />
         <div
