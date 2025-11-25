@@ -56,6 +56,9 @@ watch(() => route.path, syncActive, {
         <ElMenuItem index="/waterfall">
           waterfall
         </ElMenuItem>
+        <ElMenuItem index="/components">
+          components
+        </ElMenuItem>
       </ElMenu>
     </ElHeader>
     <ElMain>
