@@ -28,6 +28,11 @@ const router = createRouter({
       path: "/components",
       name: "components",
       component: () => import("@/pages/demo-components/index.vue")
+    },
+    {
+      path: "/markdown",
+      name: "markdown",
+      component: () => import("@/pages/demo-markdown/index.vue")
     }
   ]
 });
