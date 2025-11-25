@@ -12,10 +12,17 @@ import {
 
 /**
  * 将 Markdown 字符串转换为 Word 文档并下载
- * @param markdown - Markdown 字符串
- * @param filename - 下载的文件名，默认为 'document.docx'
+ * @param {object} options - 配置对象
+ * @param {string} options.markdown - Markdown 字符串
+ * @param {string} options.filename - 下载的文件名，默认为 'document.docx'
  */
-export async function markdownToWord(markdown: string, filename: string = "document.docx"): Promise<void> {
+export default async function markdownToWord({
+  markdown,
+  filename = "document.docx"
+}: {
+  markdown: string;
+  filename?: string;
+}): Promise<void> {
   try {
 
     // 解析 markdown 为 tokens

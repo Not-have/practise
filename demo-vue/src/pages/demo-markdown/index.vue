@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   markdownToWord
-} from "@/utils/transform-md-word";
+} from "@/utils";
 
 import {
   markdown
@@ -9,7 +9,10 @@ import {
 
 const handleDownload = async () => {
   try {
-    await markdownToWord(markdown, "在时光深处寻找生命的意义.docx");
+    await markdownToWord({
+      markdown,
+      filename: "在时光深处寻找生命的意义.docx"
+    });
   } catch (error) {
     console.error("下载失败:", error);
   }
