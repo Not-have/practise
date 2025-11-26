@@ -2,6 +2,9 @@
 import {
   markdownToWord
 } from "@/utils";
+import {
+  ElButton
+} from "element-plus";
 
 import {
   markdown
@@ -22,11 +25,11 @@ const handleDownload = async () => {
 <template>
   <div>
     <h1>Demo Markdown</h1>
-    <el-button
+    <ElButton
       type="primary"
       @click="handleDownload"
     >
       下载 Word 文档
-    </el-button>
+    </ElButton>
   </div>
 </template>
