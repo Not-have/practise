@@ -196,3 +196,5 @@ app.*.map.json
 
 # 本地配置
 .local
+
+*storybook.log
