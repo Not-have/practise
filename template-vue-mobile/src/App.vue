@@ -1,7 +1,10 @@
 <script setup lang="ts"></script>
 
 <template>
-  <h1>You did it!</h1>
+  <div class="basis-0 bg-red-500">
+    You did it!
+  </div>
 </template>
-
-<style scoped></style>
+<style>
+@import "tailwindcss";
+</style>

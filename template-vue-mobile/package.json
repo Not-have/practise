@@ -13,7 +13,9 @@
   "dependencies": {
     "@mt-kit/style": "^1.0.0",
     "@mt-kit/vue-hooks": "^1.1.0",
+    "@tailwindcss/vite": "^4.1.17",
     "pinia": "^3.0.4",
+    "tailwindcss": "^4.1.17",
     "vue": "^3.5.25",
     "vue-router": "^4.6.3"
   },
