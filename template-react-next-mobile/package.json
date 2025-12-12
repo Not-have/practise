@@ -2,16 +2,16 @@
   "name": "template-react-next-mobile",
   "version": "1.0.0",
   "description": "Template React Next Mobile",
+  "private": true,
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "scripts": {
     "dev": "mt-cli-run dev",
     "boot": "pnpm run clear && pnpm install",
     "clear:app": "pnpm --filter \"./packages-app/**\" clear",
     "clear": "rm -fr node_modules && rm -fr .pnpm-store && rm -fr pnpm-lock.yaml && pnpm run clear:app"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.22.0",
   "devDependencies": {
     "@mt-kit/cli-run": "catalog:",
     "@mt-kit/eslint-config": "catalog:",
@@ -23,5 +23,6 @@
     "prettier": "catalog:",
     "stylelint": "catalog:",
     "typescript": "catalog:"
-  }
+  },
+  "packageManager": "pnpm@10.22.0"
 }

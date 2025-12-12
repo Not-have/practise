@@ -1,0 +1,20 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit",
+    "source.fixAll.prettier": "explicit",
+    "source.organizeImports": "never"
+  },
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "stylelint.enable": true,
+  "stylelint.packageManager": "pnpm",
+  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "html", "js", "jsx", "ts", "tsx"],
+  "stylelint.customSyntax": "postcss-html",
+  "stylelint.snippet": ["css", "less", "postcss", "scss", "vue", "html", "js", "jsx", "ts", "tsx"],
+  "typescript.inlayHints.enumMemberValues.enabled": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.preferences.includePackageJsonAutoImports": "on"
+}
