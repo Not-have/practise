@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Template React Next Mobile",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "boot": "pnpm run clear && pnpm install",
+    "clear:app": "pnpm --filter \"./packages-app/**\" clear",
+    "clear": "rm -fr node_modules && rm -fr .pnpm-store && rm -fr pnpm-lock.yaml && pnpm run clear:app"
   },
   "keywords": [],
   "author": "",

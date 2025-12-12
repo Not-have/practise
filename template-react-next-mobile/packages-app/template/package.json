@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "clear": "rm -fr node_modules && rm -fr .next && rm -fr package-lock.json && rm -fr next-env.d.ts"
   },
   "dependencies": {
     "next": "catalog:",
