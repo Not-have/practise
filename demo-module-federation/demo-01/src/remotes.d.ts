@@ -1,6 +1,5 @@
-declare module 'remote/Button' {
-  import type { ComponentType } from 'react';
-  const Button: ComponentType<any>;
-  export default Button;
+declare module 'remote/*' {
+  const mod: any;
+  export = mod;
 }
 
