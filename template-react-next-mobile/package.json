@@ -13,6 +13,15 @@
   "license": "ISC",
   "packageManager": "pnpm@10.22.0",
   "devDependencies": {
-    "@mt-kit/cli-run": "^1.0.0"
+    "@mt-kit/cli-run": "catalog:",
+    "@mt-kit/eslint-config": "catalog:",
+    "@mt-kit/prettier-config": "catalog:",
+    "@mt-kit/stylelint-config": "catalog:",
+    "@mt-kit/ts-config": "catalog:",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "stylelint": "catalog:",
+    "typescript": "catalog:"
   }
 }
