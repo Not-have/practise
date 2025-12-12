@@ -1,0 +1,12 @@
+{
+  "name": "template-react-next-mobile",
+  "version": "1.0.0",
+  "description": "Template React Next Mobile",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.22.0"
+}
