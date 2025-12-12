@@ -1,5 +1,9 @@
+import {
+  Button
+} from "antd";
+
 export default function Home(): React.ReactNode {
   return <div>
-    <h1>Hello World</h1>
+    <Button type="primary">Button</Button>
   </div>;
 }
