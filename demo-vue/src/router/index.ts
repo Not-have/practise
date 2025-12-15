@@ -33,6 +33,11 @@ const router = createRouter({
       path: "/markdown",
       name: "markdown",
       component: () => import("@/pages/demo-markdown/index.vue")
+    },
+    {
+      path: "/rich-text",
+      name: "rich-text",
+      component: () => import("@/pages/demo-rich-text/index.vue")
     }
   ]
 });

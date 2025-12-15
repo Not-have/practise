@@ -62,6 +62,9 @@ watch(() => route.path, syncActive, {
         <ElMenuItem index="/markdown">
           markdown
         </ElMenuItem>
+        <ElMenuItem index="/rich-text">
+          rich-text
+        </ElMenuItem>
       </ElMenu>
     </ElHeader>
     <ElMain>
