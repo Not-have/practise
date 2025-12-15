@@ -1,78 +1,89 @@
-<script>
+<script lang="ts" setup>
+import type {
+  IEditorConfig
+} from "@wangeditor/editor";
+
 import {
-  Editor, Toolbar
+  Editor,
+  Toolbar
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
 } from "@wangeditor/editor-for-vue";
 import {
-  onBeforeUnmount, ref, shallowRef, onMounted
+  computed,
+  onBeforeUnmount,
+  shallowRef
 } from "vue";
 
 import "@wangeditor/editor/dist/css/style.css"; // 引入 css
 
-export default {
-  components: {
-    Editor,
-    Toolbar
-  },
-  setup() {
+interface IProps {
+  modelValue: string;
+}
 
-    // 编辑器实例，必须用 shallowRef
-    const editorRef = shallowRef();
+const {
+  modelValue
+} = defineProps<IProps>();
 
-    // 内容 HTML
-    const valueHtml = ref("<p>hello</p>");
+const emit = defineEmits<{
+  (e: "update:modelValue", value: string): void;
+}>();
 
-    // 模拟 ajax 异步获取内容
-    onMounted(() => {
-      setTimeout(() => {
-        valueHtml.value = "<p>模拟 Ajax 异步设置内容</p>";
-      }, 1500);
-    });
+// 编辑器实例，必须用 shallowRef
+const editorRef = shallowRef();
 
-    const toolbarConfig = {};
+const editorStyle = computed(() => ({
+  height: "500px",
+  overflowY: "hidden"
+}));
 
-    const editorConfig = {
-      placeholder: "请输入内容..."
-    };
+const mergedEditorConfig = computed<Partial<IEditorConfig>>(() => ({
+  placeholder: "请输入内容..."
+}));
 
-    // 组件销毁时，也及时销毁编辑器
-    onBeforeUnmount(() => {
-      const editor = editorRef.value;
+// 组件销毁时，也及时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value;
 
-      if (editor == null) {
-        return;
-      }
-
-      editor.destroy();
-    });
-
-    const handleCreated = editor => {
-      editorRef.value = editor; // 记录 editor 实例，重要！
-    };
-
-    return {
-      editorRef,
-      valueHtml,
-      mode: "default", // 或 'simple'
-      toolbarConfig,
-      editorConfig,
-      handleCreated
-    };
+  if (editor == null) {
+    return;
   }
+
+  editor.destroy();
+});
+
+const handleCreated = (editor: Editor): void => {
+  editorRef.value = editor; // 记录 editor 实例，重要！
 };
+
+const normalizeEmptyHtml = (value: string): string => {
+  const cleaned = value?.trim();
+
+  if (cleaned === "<p><br></p>" || cleaned === "<p></p>" || cleaned === "<p><br></p><p></p>") {
+    return "";
+  }
+
+  return value;
+};
+
+const handleUpdateValue = (value: string): void => {
+  emit("update:modelValue", normalizeEmptyHtml(value));
+};
+
 </script>
 <template>
   <div style="border: 1px solid #ccc">
     <Toolbar
       style="border-bottom: 1px solid #ccc"
       :editor="editorRef"
-      :default-config="toolbarConfig"
-      :mode="mode"
+      mode="default"
     />
     <Editor
-      v-model="valueHtml"
-      style="height: 500px; overflow-y: hidden;"
-      :default-config="editorConfig"
-      :mode="mode"
+      :value="modelValue"
+      :style="editorStyle"
+      :default-config="mergedEditorConfig"
+      mode="default"
+      @update:model-value="handleUpdateValue"
       @on-created="handleCreated"
     />
   </div>
