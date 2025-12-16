@@ -26,7 +26,7 @@ const {
 } = defineProps<IProps>();
 
 const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
+  (e: "update:modelValue" | "change", value: string): void;
 }>();
 
 // 编辑器实例，必须用 shallowRef
@@ -38,7 +38,10 @@ const editorStyle = computed(() => ({
 }));
 
 const mergedEditorConfig = computed<Partial<IEditorConfig>>(() => ({
-  placeholder: "请输入内容..."
+  placeholder: "请输入内容...",
+
+  // 关闭默认自动聚焦，避免有多个编辑器时总是最后一个获得焦点
+  autoFocus: false
 }));
 
 // 组件销毁时，也及时销毁编辑器
@@ -67,7 +70,10 @@ const normalizeEmptyHtml = (value: string): string => {
 };
 
 const handleUpdateValue = (value: string): void => {
-  emit("update:modelValue", normalizeEmptyHtml(value));
+  const normalizedValue = normalizeEmptyHtml(value);
+
+  emit("update:modelValue", normalizedValue);
+  emit("change", normalizedValue);
 };
 
 </script>

@@ -28,7 +28,7 @@ const dynamicValidateForm = reactive<{
   richText03: ""
 });
 
-const submitForm = (formEl: FormInstance | undefined) => {
+const submitForm = (formEl: FormInstance | undefined): void => {
 
   if (!formEl) {
     return;
@@ -45,7 +45,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
   });
 };
 
-const resetForm = (formEl: FormInstance | undefined) => {
+const resetForm = (formEl: FormInstance | undefined): void => {
   if (!formEl) {
     return;
   }
@@ -53,6 +53,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
   formEl.resetFields();
   dynamicValidateForm.richText01 = "";
   dynamicValidateForm.richText02 = "";
+};
+
+const handleRichTextChange = (prop: "richText01" | "richText02"): void => {
+  formRef.value?.validateField(prop);
 };
 </script>
 
@@ -74,8 +78,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
         }
       ]"
     >
-      {{ dynamicValidateForm.richText01 }}
-      <RichText v-model="dynamicValidateForm.richText01" />
+      <RichText
+        v-model="dynamicValidateForm.richText01"
+        @change="handleRichTextChange('richText01')"
+      />
     </ElFormItem>
     <ElFormItem
       prop="richText02"
@@ -84,12 +90,14 @@ const resetForm = (formEl: FormInstance | undefined) => {
         {
           required: true,
           message: 'Rich Text 02 is required',
-          trigger: 'blur',
+          trigger: 'change',
         }
       ]"
     >
-      {{ dynamicValidateForm.richText02 }}
-      <RichText v-model="dynamicValidateForm.richText02" />
+      <RichText
+        v-model="dynamicValidateForm.richText02"
+        @change="handleRichTextChange('richText02')"
+      />
     </ElFormItem>
     <ElFormItem
       prop="richText03"
