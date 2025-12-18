@@ -1,7 +1,14 @@
 import App from './App';
-import { createBridgeComponent } from '@module-federation/bridge-react';
+import { BrowserRouter } from 'react-router';
+import { createBridgeComponent } from '@module-federation/bridge-react/v19';
 
-// 使用 createBridgeComponent 将 App 包装为远程模块并导出
+// 包装一层 Router，避免远程被宿主消费时缺少路由上下文
+const RemoteApp = () => (
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
+
 export default createBridgeComponent({
-  rootComponent: App
+  rootComponent: RemoteApp,
 });

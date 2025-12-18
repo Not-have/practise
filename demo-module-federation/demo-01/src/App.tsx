@@ -1,17 +1,21 @@
-import './App.css';
-
-import Button from 'remote/Button';
+import { Remote1App } from './remotes/Remote1App';
+import { BrowserRouter, Route, Routes } from 'react-router';
 
 const App = () => {
-  const handleClick = () => {
-    console.log('主容器，远程加载MFE2的Button组件.');
-  };
-
   return (
-    <div className="content">
-      <h1>Rsbuild with React</h1>
-      <p>主容器，远程加载MFE2的Button组件.</p>
-      <Button onClick={handleClick}>MFE2 Button111222</Button>
+    <div className="">
+      <BrowserRouter>
+        <Routes>
+          {/*  */}
+          <Route
+            path="/remote1/*"
+            // 使用 Remote1App 组件, 将会被懒加载
+            Component={() => (
+              <Remote1App />
+            )}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

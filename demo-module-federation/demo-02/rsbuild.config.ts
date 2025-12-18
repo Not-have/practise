@@ -6,5 +6,8 @@ import mfConfig from './module-federation.config';
 
 // Docs: https://rsbuild.rs/config/
 export default defineConfig({
+  server: {
+    port: 3001
+  },
   plugins: [pluginReact(), pluginModuleFederation(mfConfig)],
 });

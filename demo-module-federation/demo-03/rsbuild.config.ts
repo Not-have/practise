@@ -4,10 +4,14 @@ import { pluginModuleFederation } from '@module-federation/rsbuild-plugin';
 
 // Docs: https://rsbuild.rs/config/
 export default defineConfig({
+  server: {
+    port: 3002
+  },
   plugins: [
     pluginReact(),
     pluginModuleFederation({
       name: 'remote1',
+      filename: 'remoteEntry.js',
       exposes: {
         './export-app': './src/export-app.tsx', // 导出应用类型远程模块
       },
