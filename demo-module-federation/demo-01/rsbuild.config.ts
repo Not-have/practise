@@ -10,6 +10,8 @@ export default defineConfig({
       name: 'test-01',
       remotes: {
         remote1: 'remote1@http://localhost:3002/remoteEntry.js',
+        // 避免别名前缀冲突，改成与 remote1 不相关的前缀
+        Rc: 'remote@http://localhost:3001/remoteEntry.js',
       },
       bridge: {
         enableBridgeRouter: true,

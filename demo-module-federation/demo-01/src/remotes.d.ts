@@ -1,5 +1,4 @@
-declare module 'remote/*' {
-  const mod: any;
-  export = mod;
+declare module 'Rc/Button' {
+  import Button from 'Rc/Button';
+  export default Button;
 }
-

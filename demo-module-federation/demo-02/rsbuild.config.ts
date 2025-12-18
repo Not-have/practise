@@ -9,5 +9,8 @@ export default defineConfig({
   server: {
     port: 3001
   },
-  plugins: [pluginReact(), pluginModuleFederation(mfConfig)],
+  plugins: [
+    pluginReact(), 
+    pluginModuleFederation(mfConfig)
+  ],
 });

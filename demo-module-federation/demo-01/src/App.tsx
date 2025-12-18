@@ -1,10 +1,11 @@
-import { Remote1App } from './remotes/Remote1App';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter } from 'react-router';
 import Layout from './layout';
 
 const App = () => {
   return (
-    <Layout />
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
     // <div className="">
     //   <BrowserRouter>
     //     <Routes>
