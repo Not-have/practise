@@ -3,6 +3,6 @@ import Button from 'Rc/Button';
 export default function Demo02() {
   return <div>
     
-    <Button>111</Button>
+    <Button>按钮</Button>
   </div>;
 }
