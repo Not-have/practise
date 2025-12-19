@@ -64,6 +64,8 @@
       id="source-image"
       src="https://cdn.ailearning.qq.com/teaching-resources/course/20250805/1754328036623527_1-1.jpg"
       alt="示例图片"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <div class="result">
       <div class="swatch" id="color-swatch"></div>
@@ -78,6 +80,8 @@
     const swatch = document.getElementById('color-swatch');
     const colorText = document.getElementById('color-text');
     const hsbText = document.getElementById('hsb-text');
+    const MAX_DRAW_DIMENSION = 240;
+    const BUCKET_SIZE = 24;
 
     // 防止后续动态换图遗漏跨域配置
     img.crossOrigin = 'anonymous';
@@ -116,6 +120,73 @@
       };
     };
 
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+    const getPixelScore = (r, g, b) => {
+      const { s, b: brightness } = rgbToHsb(r, g, b);
+      const saturationScore = s / 100;
+      const preferredBrightness = 1 - Math.abs(brightness - 65) / 65;
+      const brightnessScore = clamp(preferredBrightness, 0, 1);
+      return saturationScore * 0.7 + brightnessScore * 0.3;
+    };
+
+    const computeDominantColor = data => {
+      const buckets = new Map();
+
+      for (let i = 0; i < data.length; i += 4) {
+        const alpha = data[i + 3];
+        if (alpha < 128) continue;
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+
+        const score = getPixelScore(r, g, b);
+        if (score <= 0) continue;
+
+        const key = [
+          Math.round(r / BUCKET_SIZE),
+          Math.round(g / BUCKET_SIZE),
+          Math.round(b / BUCKET_SIZE),
+        ].join('-');
+
+        let bucket = buckets.get(key);
+        if (!bucket) {
+          bucket = { r: 0, g: 0, b: 0, count: 0, score: 0 };
+          buckets.set(key, bucket);
+        }
+
+        bucket.r += r;
+        bucket.g += g;
+        bucket.b += b;
+        bucket.count += 1;
+        bucket.score += score;
+      }
+
+      if (!buckets.size) {
+        return null;
+      }
+
+      let bestBucket = null;
+      let bestWeight = -Infinity;
+      buckets.forEach(bucket => {
+        const weight = bucket.score * (1 + Math.log(bucket.count + 1));
+        if (weight > bestWeight) {
+          bestWeight = weight;
+          bestBucket = bucket;
+        }
+      });
+
+      if (!bestBucket || bestBucket.count === 0) {
+        return null;
+      }
+
+      return {
+        r: Math.round(bestBucket.r / bestBucket.count),
+        g: Math.round(bestBucket.g / bestBucket.count),
+        b: Math.round(bestBucket.b / bestBucket.count),
+      };
+    };
+
     const getImageDataSafe = (ctx, width, height) => {
       try {
         return ctx.getImageData(0, 0, width, height);
@@ -129,14 +200,19 @@
 
     const updateThemeColor = () => {
       const canvas = document.createElement('canvas');
-      const width = img.naturalWidth || img.width;
-      const height = img.naturalHeight || img.height;
+      const sourceWidth = img.naturalWidth || img.width;
+      const sourceHeight = img.naturalHeight || img.height;
 
-      if (!width || !height) {
+      if (!sourceWidth || !sourceHeight) {
         colorText.textContent = '未获取到图片尺寸';
         hsbText.textContent = 'HSB 暂不可用';
         return;
       }
+
+      const longestSide = Math.max(sourceWidth, sourceHeight);
+      const scale = longestSide > MAX_DRAW_DIMENSION ? MAX_DRAW_DIMENSION / longestSide : 1;
+      const width = Math.max(1, Math.round(sourceWidth * scale));
+      const height = Math.max(1, Math.round(sourceHeight * scale));
 
       canvas.width = width;
       canvas.height = height;
@@ -152,31 +228,14 @@
         return;
       }
 
-      const { data } = imageData;
-      let r = 0;
-      let g = 0;
-      let b = 0;
-      let count = 0;
-      const step = Math.max(1, Math.floor((width * height) / 50000));
-
-      for (let i = 0; i < data.length; i += 4 * step) {
-        const alpha = data[i + 3];
-        if (alpha < 128) continue; // 忽略透明像素
-        r += data[i];
-        g += data[i + 1];
-        b += data[i + 2];
-        count++;
-      }
-
-      if (!count) {
+      const dominantColor = computeDominantColor(imageData.data);
+      if (!dominantColor) {
         colorText.textContent = '未识别到有效像素';
         hsbText.textContent = 'HSB 暂不可用';
         return;
       }
 
-      r = Math.round(r / count);
-      g = Math.round(g / count);
-      b = Math.round(b / count);
+      const { r, g, b } = dominantColor;
       const hex = rgbToHex(r, g, b);
       const { h, s, b: brightness } = rgbToHsb(r, g, b);
 
