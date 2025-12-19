@@ -54,7 +54,13 @@
 </head>
 <body>
   <main class="demo">
-    <img id="source-image" src="./images/image-06.jpg" alt="示例图片" />
+    <img
+      id="source-image"
+      src="https://cdn.ailearning.qq.com/teaching-resources/course/20250805/1754328036623527_1-1.jpg"
+      alt="示例图片"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <div class="result">
       <div class="swatch" id="color-swatch"></div>
       <p class="color-value" id="color-text">解析中…</p>
@@ -65,8 +71,23 @@
     const swatch = document.getElementById('color-swatch');
     const colorText = document.getElementById('color-text');
 
+    // 防止后续动态换图遗漏跨域配置
+    img.crossOrigin = 'anonymous';
+    img.referrerPolicy = 'no-referrer';
+
     const rgbToHex = (r, g, b) =>
       '#' + [r, g, b].map(channel => channel.toString(16).padStart(2, '0')).join('');
+
+    const getImageDataSafe = (ctx, width, height) => {
+      try {
+        return ctx.getImageData(0, 0, width, height);
+      } catch (error) {
+        if (error.name === 'SecurityError') {
+          throw new Error('跨域限制：目标图片未正确设置 CORS');
+        }
+        throw error;
+      }
+    };
 
     const updateThemeColor = () => {
       const canvas = document.createElement('canvas');
@@ -83,7 +104,15 @@
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0, width, height);
 
-      const { data } = ctx.getImageData(0, 0, width, height);
+      let imageData;
+      try {
+        imageData = getImageDataSafe(ctx, width, height);
+      } catch (error) {
+        colorText.textContent = error.message;
+        return;
+      }
+
+      const { data } = imageData;
       let r = 0;
       let g = 0;
       let b = 0;
