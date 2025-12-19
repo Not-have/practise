@@ -38,6 +38,12 @@
       gap: 16px;
       justify-content: center;
     }
+    .values {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
     .swatch {
       width: 64px;
       height: 64px;
@@ -63,13 +69,17 @@
     />
     <div class="result">
       <div class="swatch" id="color-swatch"></div>
-      <p class="color-value" id="color-text">解析中…</p>
+      <div class="values">
+        <p class="color-value" id="color-text">解析中…</p>
+        <p class="color-value" id="hsb-text">HSB 解析中…</p>
+      </div>
     </div>
   </main>
   <script>
     const img = document.getElementById('source-image');
     const swatch = document.getElementById('color-swatch');
     const colorText = document.getElementById('color-text');
+    const hsbText = document.getElementById('hsb-text');
 
     // 防止后续动态换图遗漏跨域配置
     img.crossOrigin = 'anonymous';
@@ -77,6 +87,36 @@
 
     const rgbToHex = (r, g, b) =>
       '#' + [r, g, b].map(channel => channel.toString(16).padStart(2, '0')).join('');
+
+    const rgbToHsb = (r, g, b) => {
+      const rn = r / 255;
+      const gn = g / 255;
+      const bn = b / 255;
+      const max = Math.max(rn, gn, bn);
+      const min = Math.min(rn, gn, bn);
+      const delta = max - min;
+
+      let h = 0;
+      if (delta !== 0) {
+        if (max === rn) {
+          h = ((gn - bn) / delta) % 6;
+        } else if (max === gn) {
+          h = (bn - rn) / delta + 2;
+        } else {
+          h = (rn - gn) / delta + 4;
+        }
+        h = Math.round(h * 60);
+        if (h < 0) h += 360;
+      }
+
+      const s = max === 0 ? 0 : delta / max;
+      const v = max;
+      return {
+        h,
+        s: Math.round(s * 100),
+        b: Math.round(v * 100),
+      };
+    };
 
     const getImageDataSafe = (ctx, width, height) => {
       try {
@@ -96,6 +136,7 @@
 
       if (!width || !height) {
         colorText.textContent = '未获取到图片尺寸';
+        hsbText.textContent = 'HSB 暂不可用';
         return;
       }
 
@@ -109,6 +150,7 @@
         imageData = getImageDataSafe(ctx, width, height);
       } catch (error) {
         colorText.textContent = error.message;
+        hsbText.textContent = 'HSB 暂不可用';
         return;
       }
 
@@ -130,6 +172,7 @@
 
       if (!count) {
         colorText.textContent = '未识别到有效像素';
+        hsbText.textContent = 'HSB 暂不可用';
         return;
       }
 
@@ -137,9 +180,11 @@
       g = Math.round(g / count);
       b = Math.round(b / count);
       const hex = rgbToHex(r, g, b);
+      const { h, s, b: brightness } = rgbToHsb(r, g, b);
 
       swatch.style.backgroundColor = hex;
       colorText.textContent = `${hex} | rgb(${r}, ${g}, ${b})`;
+      hsbText.textContent = `hsb(${h}, ${s}%, ${brightness}%)`;
       document.body.style.background = `linear-gradient(135deg, ${hex}, #f5f5f5 70%)`;
     };
 
@@ -149,6 +194,7 @@
       img.addEventListener('load', updateThemeColor);
       img.addEventListener('error', () => {
         colorText.textContent = '图片加载失败';
+        hsbText.textContent = 'HSB 暂不可用';
       });
     }
   </script>
