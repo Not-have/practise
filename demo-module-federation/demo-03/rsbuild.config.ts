@@ -15,6 +15,12 @@ export default defineConfig({
       exposes: {
         './export-app': './src/export-app.tsx', // 导出应用类型远程模块
       },
+      shared: {
+        react: { singleton: true, requiredVersion: '^19.2.3' },
+        'react-dom': { singleton: true, requiredVersion: '^19.2.3' },
+        antd: { singleton: true, requiredVersion: '^6.1.1' },
+        '@ant-design/cssinjs': { singleton: true },
+      },
       bridge: {
         // 启用 Bridge Router 路由能力，默认为 true
         enableBridgeRouter: true, 

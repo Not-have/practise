@@ -16,6 +16,12 @@ export default defineConfig({
       bridge: {
         enableBridgeRouter: true,
       },
-    }),
+      shared: {
+        react: { singleton: true, requiredVersion: '^19.2.1' },
+        'react-dom': { singleton: true, requiredVersion: '^19.2.1' },
+        antd: { singleton: true, requiredVersion: '^6.1.1' },
+        '@ant-design/cssinjs': { singleton: true },
+      },
+    })
   ],
 });

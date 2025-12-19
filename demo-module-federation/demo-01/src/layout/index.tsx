@@ -1,5 +1,8 @@
+import "antd/dist/reset.css";
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router';
 import { Layout as AntdLayout, Menu, type MenuProps } from 'antd';
+
+
 
 import Demo01 from '../pages/demo-01';
 import Demo02 from '../pages/demo-02';
