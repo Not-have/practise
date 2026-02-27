@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>H5 相机取景框 - 扫一扫效果</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      }
+
+      .camera-wrap {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .camera-wrap video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scaleX(-1); /* 镜像，更像自拍/扫码习惯 */
+      }
+
+      /* 四周半透明遮罩 */
+      .mask {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.55);
+        pointer-events: none;
+      }
+      .mask.top {
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 22%;
+      }
+      .mask.bottom {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 22%;
+      }
+      .mask.left {
+        top: 22%;
+        bottom: 22%;
+        left: 0;
+        width: 12%;
+      }
+      .mask.right {
+        top: 22%;
+        bottom: 22%;
+        right: 0;
+        width: 12%;
+      }
+
+      /* 取景框白边 */
+      .frame {
+        position: absolute;
+        top: 22%;
+        left: 12%;
+        right: 12%;
+        bottom: 22%;
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        pointer-events: none;
+      }
+
+      /* 四角装饰（可选） */
+      .frame::before,
+      .frame::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        border-color: #00ff88;
+        border-style: solid;
+      }
+      .frame::before {
+        top: 6px;
+        left: 6px;
+        border-width: 3px 0 0 3px;
+        border-radius: 4px 0 0 0;
+      }
+      .frame::after {
+        bottom: 6px;
+        right: 6px;
+        border-width: 0 3px 3px 0;
+        border-radius: 0 0 4px 0;
+      }
+      .corner-tr {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 24px;
+        height: 24px;
+        border: 3px solid #00ff88;
+        border-left: none;
+        border-bottom: none;
+        border-radius: 0 4px 0 0;
+      }
+      .corner-bl {
+        position: absolute;
+        bottom: 6px;
+        left: 6px;
+        width: 24px;
+        height: 24px;
+        border: 3px solid #00ff88;
+        border-right: none;
+        border-top: none;
+        border-radius: 0 0 0 4px;
+      }
+
+      .hint {
+        position: absolute;
+        bottom: 28%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        pointer-events: none;
+      }
+
+      .error-msg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+        display: none;
+      }
+      .error-msg.show {
+        display: block;
+      }
+
+      .btn-close {
+        position: fixed;
+        top: 12px;
+        right: 12px;
+        z-index: 10;
+        width: 36px;
+        height: 36px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .btn-start {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        padding: 14px 28px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        background: #00ff88;
+        color: #000;
+        cursor: pointer;
+      }
+      .btn-start:hover {
+        opacity: 0.9;
+      }
+      .btn-start.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="camera-wrap">
+      <video id="video" autoplay playsinline muted></video>
+      <div class="mask top"></div>
+      <div class="mask bottom"></div>
+      <div class="mask left"></div>
+      <div class="mask right"></div>
+      <div class="frame">
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+      </div>
+      <p class="hint">将二维码/条形码放入框内</p>
+      <p id="error" class="error-msg"></p>
+      <button type="button" class="btn-start" id="btnStart">点击开启相机</button>
+      <button type="button" class="btn-close" id="close" aria-label="关闭">×</button>
+    </div>
+
+    <script>
+      const video = document.getElementById('video');
+      const errorEl = document.getElementById('error');
+      const closeBtn = document.getElementById('close');
+      const btnStart = document.getElementById('btnStart');
+      let stream = null;
+
+      // 兼容：部分环境没有 mediaDevices，用旧版 API 兜底
+      if (!navigator.mediaDevices && navigator.getUserMedia) {
+        navigator.mediaDevices = {};
+        navigator.mediaDevices.getUserMedia = function (opts) {
+          return new Promise(function (ok, err) {
+            navigator.getUserMedia(opts, ok, err);
+          });
+        };
+      }
+      if (!navigator.mediaDevices && navigator.webkitGetUserMedia) {
+        navigator.mediaDevices = {};
+        navigator.mediaDevices.getUserMedia = function (opts) {
+          return new Promise(function (ok, err) {
+            navigator.webkitGetUserMedia(opts, ok, err);
+          });
+        };
+      }
+
+      function showError(msg) {
+        errorEl.textContent = msg;
+        errorEl.classList.add('show');
+      }
+
+      function hideError() {
+        errorEl.classList.remove('show');
+      }
+
+      function getGetUserMedia() {
+        if (navigator.mediaDevices && typeof navigator.mediaDevices.getUserMedia === 'function') {
+          return navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+        }
+        return null;
+      }
+
+      async function startCamera() {
+        hideError();
+        var getUserMedia = getGetUserMedia();
+        if (!getUserMedia) {
+          var isFile = location.protocol === 'file:';
+          showError(
+            isFile
+              ? '相机需要在安全环境下使用。请用本地服务器打开本页（如 npx serve . 或 npm run dev），不要直接双击 file:// 文件。'
+              : '当前环境不支持摄像头。请用 Chrome/Edge 通过 http://localhost 或 https 打开本页。'
+          );
+          return;
+        }
+        try {
+          stream = await getUserMedia({
+            video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+            audio: false,
+          });
+          video.srcObject = stream;
+          if (btnStart) btnStart.classList.add('hidden');
+        } catch (e) {
+          try {
+            stream = await getUserMedia({ video: true, audio: false });
+            video.srcObject = stream;
+            if (btnStart) btnStart.classList.add('hidden');
+          } catch (e2) {
+            var errMsg = (e2.name && e2.name !== 'Error' ? e2.name + ': ' : '') + (e2.message || '请允许使用摄像头');
+            if (e2.name === 'NotAllowedError' || e2.name === 'PermissionDeniedError') {
+              errMsg = '已拒绝摄像头权限，请在浏览器设置中允许后刷新重试。';
+            } else if (e2.name === 'NotFoundError') {
+              errMsg = '未检测到摄像头设备。';
+            }
+            showError('无法使用相机：' + errMsg);
+          }
+        }
+      }
+
+      function stopCamera() {
+        if (stream) {
+          stream.getTracks().forEach((t) => t.stop());
+          stream = null;
+        }
+        video.srcObject = null;
+      }
+
+      closeBtn.addEventListener('click', () => {
+        stopCamera();
+        window.close();
+        // 若在普通页面打开无法 close，可改为返回或跳转
+        // history.back();
+      });
+
+      // 必须由用户点击后再调起相机（iOS Safari 等要求“用户手势”）
+      btnStart.addEventListener('click', () => {
+        startCamera();
+      });
+
+      // 若环境明确支持且非 iOS，可尝试自动开启（可选）
+      if (navigator.mediaDevices && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) === false) {
+        startCamera();
+      } else {
+        // 移动端或不确定时，只显示“点击开启相机”
+        if (!getGetUserMedia()) {
+          startCamera();
+        }
+      }
+    </script>
+  </body>
+</html>

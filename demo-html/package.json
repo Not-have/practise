@@ -1,0 +1,16 @@
+{
+  "name": "demo-html",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "js 二叉树.js",
+  "scripts": {
+    "dev": "http-server -p 8080",
+    "dev:https": "http-server -p 8443 -S -C ssl/cert.pem -K ssl/key.pem"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
