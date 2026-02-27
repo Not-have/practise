@@ -1,6 +1,6 @@
 {
   "libVersion": "2.32.3",
-  "projectname": "demo-weChat-app",
+  "projectname": "demo-wechat",
   "setting": {
     "urlCheck": true,
     "coverView": false,
@@ -9,7 +9,6 @@
     "preloadBackgroundData": false,
     "autoAudits": false,
     "useApiHook": true,
-    "useApiHostProcess": true,
     "showShadowRootInWxmlPanel": false,
     "useStaticServer": false,
     "useLanDebug": false,
@@ -18,6 +17,5 @@
     "bigPackageSizeSupport": false,
     "checkInvalidKey": true,
     "ignoreDevUnusedFiles": true
-  },
-  "condition": {}
+  }
 }
