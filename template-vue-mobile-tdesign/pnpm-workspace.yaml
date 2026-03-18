@@ -1,2 +1,3 @@
 packages:
-  - 'request'
+  - 'package-request'
+  - 'package-dev'
