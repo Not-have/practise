@@ -1,13 +1,4 @@
-# 移动端适配方案
-
-## 插件
-
-[postcss](https://github.com/postcss/postcss)
-[postcss-pxtorem](https://github.com/cuth/postcss-pxtorem)
-
-## 配置
-
-```js
+// postcss.config.js
 import postcssPxtorem from 'postcss-pxtorem'
 
 export default {
@@ -21,4 +12,3 @@ export default {
     }),
   ],
 }
-```
