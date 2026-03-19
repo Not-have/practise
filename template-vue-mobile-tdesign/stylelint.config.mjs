@@ -1,20 +1,34 @@
 export default {
-  extends: ['stylelint-config-standard'],
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-tailwindcss',
+    'stylelint-config-recess-order',
+  ],
   plugins: ['stylelint-order'],
   rules: {
     'no-descending-specificity': null,
     'import-notation': 'string',
     'no-empty-source': null,
+
     'custom-property-pattern': null,
     'selector-class-pattern': null,
+
     'selector-pseudo-class-no-unknown': [
       true,
       {
-        ignorePseudoClasses: ['deep'],
+        ignorePseudoClasses: ['deep', 'v-deep'],
       },
     ],
-    'media-query-no-invalid': null, // 官方表示此规则应当仅对于原生CSS启用，对于预处理器（Less）不应启用
-    'declaration-property-value-no-unknown': null, // 官方表示此规则应当仅对于原生CSS启用，对于预处理器（Less）不应启用
+
+    'selector-pseudo-element-no-unknown': [
+      true,
+      {
+        ignorePseudoElements: ['v-deep'],
+      },
+    ],
+
+    'media-query-no-invalid': null,
+    'declaration-property-value-no-unknown': null,
   },
   overrides: [
     {
