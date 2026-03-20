@@ -34,7 +34,7 @@ onUnmounted(() => {
   <div>
     <iframe
       ref="iframeRef"
-      src="https://xxx.xxx.xxx/login?externalSystemUrl=http://localhost:5173/"
+      src="https://xxx.xxx.xxx/login?Xxxx=http://localhost:5173/"
       frameborder="0"
     ></iframe>
   </div>
