@@ -34,7 +34,7 @@ onUnmounted(() => {
   <div>
     <iframe
       ref="iframeRef"
-      src="https://dev.ailearning.qq.com/login?externalSystemUrl=http://localhost:5173/"
+      src="https://ailearning.qq.com/login?externalSystemUrl=http://localhost:5173/"
       frameborder="0"
     ></iframe>
   </div>
