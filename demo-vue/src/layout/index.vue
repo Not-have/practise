@@ -65,6 +65,9 @@ watch(() => route.path, syncActive, {
         <ElMenuItem index="/rich-text">
           rich-text
         </ElMenuItem>
+        <ElMenuItem index="/iframe">
+          iframe
+        </ElMenuItem>
       </ElMenu>
     </ElHeader>
     <ElMain>

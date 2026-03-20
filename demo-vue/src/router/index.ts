@@ -38,6 +38,11 @@ const router = createRouter({
       path: "/rich-text",
       name: "rich-text",
       component: () => import("@/pages/demo-rich-text/index.vue")
+    },
+    {
+      path: "/iframe",
+      name: "iframe",
+      component: () => import("@/pages/demo-iframe/index.vue")
     }
   ]
 });
