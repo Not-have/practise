@@ -90,7 +90,10 @@ export default {
     /**
      * 箭头函数
      */
-    "arrow-body-style": "error", // 要求箭头函数体使用大括号
+    "arrow-body-style": [
+      "error",
+      "always"
+    ], // 要求箭头函数体使用大括号
 
     "arrow-parens": [
       "error",
@@ -286,7 +289,7 @@ export default {
         ignoreTrailingComments: true,
         ignoreUrls: true
       }
-    ], // 单行最多允许160个字符, 对包含url的行不进行此限制
+    ], // 单行最多允许200个字符, 对包含url的行不进行此限制
     "multiline-comment-style": "off", // 强制对多行注释使用特定风格
     "new-cap": [
       "error",
@@ -434,7 +437,7 @@ export default {
      */
     "no-param-reassign": 1, // 禁止对 function 的参数进行重新赋值
     "no-proto": "error", // 禁止使用对象的 __proto__ 属性，若使用则报错
-    "no-prototype-builtins": "warn", // 禁止使用如 hasOwnProperty、isPrototypeOf 等基于原型的内置方法，使用则报错
+    "no-prototype-builtins": "warn", // 禁止使用如 hasOwnProperty、isPrototypeOf 等基于原型的内置方法，使用则警告
     "no-redeclare": [
       "error",
       {
