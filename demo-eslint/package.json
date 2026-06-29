@@ -1,0 +1,23 @@
+{
+  "name": "demo-eslint",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "pnpm eslint .",
+    "fix": "eslint \"./**/*.{css,tsx,vue,ts,js,html}\" --fix"
+  },
+  "dependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint-plugin-unicorn": "^69.0.0",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "globals": "^17.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^10.6.0"
+  }
+}
