@@ -1,6 +1,4 @@
-export {
-    javascript
-} from "./config/index.js";
+import { javascript } from "./config/index.js";
 
 const DEFAULT = [
   javascript
