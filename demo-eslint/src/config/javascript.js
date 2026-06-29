@@ -186,9 +186,37 @@ export default {
     ], // Getter必须有返回值，并且禁止返回值为undefined, 比如 return
     "grouped-accessor-pairs": "error", // 强制 getter 和 setter 在对象中成对出现
     "guard-for-in": "error", // 要求 for-in 循环中有一个 if 语句
-    "id-denylist": "error", // 禁止使用指定的标识符
+    "id-denylist": [
+      "error",
+      "foo",
+      "bar",
+      "baz",
+      "qux",
+      "tmp",
+      "temp",
+      "data",
+      "obj",
+      "arr",
+      "str",
+      "num",
+      "bool",
+      "val",
+      "retval",
+      "cb",
+      "callback",
+      "err",
+      "e"
+    ], // 禁止使用指定的标识符，避免无意义的占位命名
     "id-length": "off", // 禁止在标识符中使用悬空下划线
-    "id-match": "error", // 强制标识符的命名约定
+    "id-match": [
+      "error",
+      "^_?([a-z][a-zA-Z0-9]*|[A-Z][a-zA-Z0-9]*|[A-Z][A-Z0-9]*(?:_[A-Z0-9]+)*)$",
+      {
+        classFields: true,
+        onlyDeclarations: false,
+        properties: false
+      }
+    ], // 强制标识符使用 camelCase、PascalCase 或 UPPER_SNAKE_CASE
     "implicit-arrow-linebreak": [
       "error",
       "beside"
