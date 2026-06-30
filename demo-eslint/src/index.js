@@ -5,6 +5,7 @@ import {
   ignores,
   importX,
   jsdoc,
+  jsx,
   jsonc,
   react,
   regexp,
@@ -35,6 +36,7 @@ const VUE = [
 
 const REACT = [
   ...DEFAULT,
+  jsx,
   react
 ];
 
