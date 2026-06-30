@@ -37,13 +37,12 @@ export default {
     // 代码块左花括号前必须保留空格，例如 `if (foo) {`
     "@stylistic/space-before-blocks": "error",
 
-    // 对 import/export、对象字面量、对象解构的花括号强制换行
+    // 对 import、对象字面量、对象解构的花括号强制换行；导出包含两个及以上成员时才要求换行
     "@stylistic/object-curly-newline": [
       "error",
       {
         ExportDeclaration: {
-          minProperties: 1,
-          multiline: true
+          minProperties: 2
         },
         ImportDeclaration: {
           minProperties: 1,

@@ -1,8 +1,6 @@
 const a = 1;
 
-export {
-  a
-};
+export { a };
 
 function test() {
   console.log("测试");
