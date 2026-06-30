@@ -1,7 +1,13 @@
-import { javascript } from "./config/index.js";
+import {
+  javascript,
+  command,
+  comments
+} from "./config/index.js";
 
 const DEFAULT = [
-  javascript
+  javascript,
+  command,
+  comments
 ];
 
 export default DEFAULT;

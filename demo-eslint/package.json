@@ -8,11 +8,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "pnpm eslint .",
+    "lint": "npm eslint .",
     "fix": "eslint \"./**/*.{css,tsx,vue,ts,js,html}\" --fix"
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
+    "eslint-plugin-command": "^3.5.2",
+    "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-unicorn": "^69.0.0",
     "eslint-plugin-unused-imports": "^4.4.1",
     "globals": "^17.7.0"
