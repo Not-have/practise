@@ -1,8 +1,5 @@
-// 引入 @typescript-eslint 的 ESLint 插件规则集合
-import pluginTs from "@typescript-eslint/eslint-plugin";
-
-// 引入 @typescript-eslint 的 parser，用于解析 TypeScript / TSX 语法
-import parserTs from "@typescript-eslint/parser";
+import pluginTs from "@typescript-eslint/eslint-plugin"; // 引入 @typescript-eslint 的 ESLint 插件规则集合
+import parserTs from "@typescript-eslint/parser"; // 引入 @typescript-eslint 的 parser，用于解析 TypeScript / TSX 语法
 
 /**
  * TypeScript 规则配置

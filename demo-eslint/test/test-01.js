@@ -1,9 +1,9 @@
 const a = 1;
 
-export { a };
-
 function test() {
   console.log("测试");
 }
 
 test();
+
+export { a };
