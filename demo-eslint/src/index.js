@@ -5,7 +5,8 @@ import {
   ignores,
   jsdoc,
   jsonc,
-  regexp
+  regexp,
+  typescript
 } from "./config/index.js";
 
 const DEFAULT = [
@@ -15,7 +16,8 @@ const DEFAULT = [
   ignores,
   jsdoc,
   jsonc,
-  regexp
+  regexp,
+  typescript
 ].flat();
 
 export default DEFAULT;

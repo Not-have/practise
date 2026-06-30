@@ -5,3 +5,4 @@ export { default as ignores } from "./ignores.js";
 export { default as jsdoc } from "./jsdoc.js";
 export { default as jsonc } from "./jsonc.js";
 export { default as regexp } from "./regexp.js";
+export { default as typescript } from "./typescript.js";
