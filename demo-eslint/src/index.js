@@ -6,6 +6,7 @@ import {
   importX,
   jsdoc,
   jsonc,
+  react,
   regexp,
   stylistic,
   typescript,
@@ -32,6 +33,14 @@ const VUE = [
   vue
 ];
 
+const REACT = [
+  ...DEFAULT,
+  react
+];
+
 export default DEFAULT;
 
-export { VUE };
+export {
+  REACT,
+  VUE
+};
