@@ -12,3 +12,4 @@ export { default as stylistic } from "./stylistic.js";
 export { default as typescript } from "./typescript.js";
 export { default as unicorn } from "./unicorn.js";
 export { default as vue } from "./vue.js";
+export { default as prettier } from "./prettier.js";

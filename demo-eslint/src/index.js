@@ -12,7 +12,8 @@ import {
   stylistic,
   typescript,
   unicorn,
-  vue
+  vue,
+  prettier
 } from "./config/index.js";
 
 const DEFAULT = [
@@ -26,7 +27,8 @@ const DEFAULT = [
   regexp,
   stylistic,
   typescript,
-  unicorn
+  unicorn,
+  prettier
 ].flat();
 
 const VUE = [
