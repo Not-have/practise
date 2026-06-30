@@ -13,7 +13,7 @@ const DEFAULT = [
   comments,
   ignores,
   jsdoc,
-  ...jsonc
-];
+  jsonc
+].flat();
 
 export default DEFAULT;
