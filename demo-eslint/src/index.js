@@ -24,8 +24,14 @@ const DEFAULT = [
   regexp,
   stylistic,
   typescript,
-  unicorn,
-  vue
+  unicorn
 ].flat();
 
+const VUE = [
+  ...DEFAULT,
+  vue
+];
+
 export default DEFAULT;
+
+export { VUE };
