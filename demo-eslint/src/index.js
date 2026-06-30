@@ -1,13 +1,15 @@
 import {
   javascript,
   command,
-  comments
+  comments,
+  ignores
 } from "./config/index.js";
 
 const DEFAULT = [
   javascript,
   command,
-  comments
+  comments,
+  ignores
 ];
 
 export default DEFAULT;
