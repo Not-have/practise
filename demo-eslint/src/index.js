@@ -6,6 +6,7 @@ import {
   jsdoc,
   jsonc,
   regexp,
+  stylistic,
   typescript,
   unicorn
 } from "./config/index.js";
@@ -18,6 +19,7 @@ const DEFAULT = [
   jsdoc,
   jsonc,
   regexp,
+  stylistic,
   typescript,
   unicorn
 ].flat();

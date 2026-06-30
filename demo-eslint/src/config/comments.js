@@ -13,7 +13,10 @@ import eslintComments from "eslint-plugin-eslint-comments";
 const withLegacyContext = plugin => {
   return {
     ...plugin,
-    rules: Object.fromEntries(Object.entries(plugin.rules).map(([ruleName, rule]) => {
+    rules: Object.fromEntries(Object.entries(plugin.rules).map(([
+      ruleName,
+      rule
+    ]) => {
       return [
         ruleName,
         {
