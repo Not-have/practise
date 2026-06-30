@@ -30,15 +30,15 @@ const DEFAULT = [
 ].flat();
 
 const VUE = [
-  ...DEFAULT,
+  DEFAULT,
   vue
-];
+].flat();
 
 const REACT = [
-  ...DEFAULT,
+  DEFAULT,
   jsx,
   react
-];
+].flat();
 
 export default DEFAULT;
 
