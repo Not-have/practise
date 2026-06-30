@@ -257,7 +257,8 @@ export default {
       {
         beforeBlockComment: true,
         beforeLineComment: true,
-        allowBlockEnd: true
+        allowBlockEnd: true,
+        ignorePattern: "prettier-ignore"
       }
     ], // 要求在注释周围有空行
     "lines-between-class-members": [
@@ -792,7 +793,7 @@ export default {
       "never"
     ],
 
-    // TODO 因为 webpack，从而禁止的
+    // 因为 webpack 相关兼容，暂时关闭该规则
     // 允许 require 的使用
     "unicorn/prefer-module": "off",
 

@@ -47,5 +47,22 @@ export default {
   useTabs: false,
 
   // Vue <script> 和 <style> 内容不额外缩进，避免和脚本区 ESLint 缩进规则冲突
-  vueIndentScriptAndStyle: false
+  vueIndentScriptAndStyle: false,
+
+  // 对 JSX/TSX 单独覆盖闭合尖括号位置，对齐 @stylistic/jsx-closing-bracket-location: "after-props"
+  overrides: [
+    {
+
+      // prettier-ignore
+      files: [
+        "*.jsx",
+        "*.mjsx",
+        "*.tsx",
+        "*.mtsx"
+      ],
+      options: {
+        bracketSameLine: true
+      }
+    }
+  ]
 };
