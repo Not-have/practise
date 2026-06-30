@@ -9,7 +9,8 @@ import {
   regexp,
   stylistic,
   typescript,
-  unicorn
+  unicorn,
+  vue
 } from "./config/index.js";
 
 const DEFAULT = [
@@ -23,7 +24,8 @@ const DEFAULT = [
   regexp,
   stylistic,
   typescript,
-  unicorn
+  unicorn,
+  vue
 ].flat();
 
 export default DEFAULT;

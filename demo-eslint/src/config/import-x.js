@@ -125,7 +125,7 @@ export default [
   },
   {
     files: [
-      "**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}"
+      "**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx,vue}"
     ],
     ignores: [
       "eslint.config.js"
