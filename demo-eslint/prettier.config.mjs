@@ -1,5 +1,7 @@
 /**
+ * ESLint 优先于 Prettier。
  * Prettier 只用于补充 ESLint 预设未覆盖的格式化场景。
+ * 当 Prettier 无法表达 ESLint 的细节格式规则时，以 ESLint 规则为准。
  * 保持 eslint-plugin-prettier 关闭，避免 ESLint 和 Prettier
  * 在同一个命令里争夺同一批文件的格式化控制权。
  *
