@@ -2,7 +2,7 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import lottie, { type AnimationItem } from 'lottie-web'
 
-import { gachaMachineAnimation } from './gachaAnimation'
+import gachaMachineAnimation  from './assets/ZS.json'
 
 const animationElement = ref<HTMLDivElement | null>(null)
 const isPlaying = ref(false)
