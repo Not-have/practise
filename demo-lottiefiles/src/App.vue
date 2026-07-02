@@ -2,62 +2,107 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import lottie, { type AnimationItem } from 'lottie-web'
 
-import gachaMachineAnimation  from './assets/ZS.json'
+import gachaMachineAnimation from './assets/ZS.json'
+import { createPixiGachaAnimation } from './pixiGachaAnimation'
 
-const animationElement = ref<HTMLDivElement | null>(null)
-const isPlaying = ref(false)
+const lottieElement = ref<HTMLDivElement | null>(null)
+const pixiElement = ref<HTMLDivElement | null>(null)
+const isLottiePlaying = ref(false)
+const isPixiPlaying = ref(false)
 
-let animation: AnimationItem | null = null
+let lottieAnimation: AnimationItem | null = null
+let pixiAnimation: Awaited<ReturnType<typeof createPixiGachaAnimation>> | null = null
 
-const handlePlay = () => {
-  if (!animation || isPlaying.value) return
+const lottieEndFrame = Math.max(0, Math.floor((gachaMachineAnimation as { op?: number }).op ?? 120) - 1)
 
-  isPlaying.value = true
-  animation.stop()
-  animation.playSegments([0, 119], true)
+const handleLottiePlay = () => {
+  if (!lottieAnimation || isLottiePlaying.value) return
+
+  isLottiePlaying.value = true
+  lottieAnimation.stop()
+  lottieAnimation.playSegments([0, lottieEndFrame], true)
 }
 
-onMounted(() => {
-  if (!animationElement.value) return
+const handlePixiPlay = () => {
+  if (!pixiAnimation || isPixiPlaying.value) return
 
-  animation = lottie.loadAnimation({
-    container: animationElement.value,
-    renderer: 'svg',
-    loop: false,
-    autoplay: false,
-    animationData: gachaMachineAnimation,
-  })
+  pixiAnimation.play()
+}
 
-  animation.addEventListener('complete', () => {
-    isPlaying.value = false
-  })
-  animation.goToAndStop(0, true)
+onMounted(async () => {
+  if (lottieElement.value) {
+    lottieAnimation = lottie.loadAnimation({
+      container: lottieElement.value,
+      renderer: 'svg',
+      loop: false,
+      autoplay: false,
+      animationData: gachaMachineAnimation,
+    })
+
+    lottieAnimation.addEventListener('complete', () => {
+      isLottiePlaying.value = false
+    })
+    lottieAnimation.goToAndStop(0, true)
+  }
+
+  if (pixiElement.value) {
+    pixiAnimation = await createPixiGachaAnimation(pixiElement.value, {
+      onPlay: () => {
+        isPixiPlaying.value = true
+      },
+      onComplete: () => {
+        isPixiPlaying.value = false
+      },
+    })
+  }
 })
 
 onBeforeUnmount(() => {
-  animation?.destroy()
-  animation = null
+  lottieAnimation?.destroy()
+  lottieAnimation = null
+  pixiAnimation?.destroy()
+  pixiAnimation = null
 })
 </script>
 
 <template>
   <main class="demo-page">
-    <section class="animation-card" aria-label="Lottie 动画播放示例">
+    <section class="player-card" aria-label="Lottie 动画播放示例">
       <div class="stage">
         <div class="lights" aria-hidden="true">
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <div ref="animationElement" class="lottie-player" :class="{ playing: isPlaying }"></div>
+        <div ref="lottieElement" class="animation-player lottie-player"></div>
       </div>
 
       <div class="controls">
-        <p class="eyebrow">Lottie Demo</p>
-        <h1>动画播放</h1>
-        <button class="play-button" type="button" :disabled="isPlaying" @click="handlePlay">
+        <p class="eyebrow">Lottie</p>
+        <h1>JSON 动画</h1>
+        <button class="play-button" type="button" :disabled="isLottiePlaying" @click="handleLottiePlay">
           <span class="play-icon" aria-hidden="true"></span>
-          {{ isPlaying ? '播放中' : '播放动画' }}
+          {{ isLottiePlaying ? '播放中' : '播放动画' }}
+        </button>
+      </div>
+    </section>
+
+    <section class="player-card" aria-label="Pixi.js 动画播放示例">
+      <div class="stage">
+        <div class="lights" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div ref="pixiElement" class="animation-player pixi-player"></div>
+      </div>
+
+      <div class="controls">
+        <p class="eyebrow">Pixi.js</p>
+        <h1>Canvas 动画</h1>
+        <button class="play-button" type="button" :disabled="isPixiPlaying" @click="handlePixiPlay">
+          <span class="play-icon" aria-hidden="true"></span>
+          {{ isPixiPlaying ? '播放中' : '播放动画' }}
         </button>
       </div>
     </section>
@@ -87,14 +132,15 @@ button {
 .demo-page {
   display: grid;
   min-height: 100vh;
-  place-items: center;
-  padding: clamp(18px, 5vw, 56px);
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+  gap: clamp(18px, 4vw, 34px);
+  align-items: center;
+  padding: clamp(18px, 4vw, 48px);
 }
 
-.animation-card {
+.player-card {
   display: grid;
-  width: min(720px, 100%);
-  min-height: min(820px, calc(100vh - 72px));
+  min-height: min(800px, calc(100vh - 72px));
   grid-template-rows: 1fr auto;
   overflow: hidden;
   border: 2px solid rgba(23, 25, 37, 0.12);
@@ -106,9 +152,9 @@ button {
 .stage {
   position: relative;
   display: grid;
-  min-height: 460px;
+  min-height: 420px;
   place-items: center;
-  padding: clamp(20px, 5vw, 40px);
+  padding: clamp(20px, 4vw, 36px);
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
     linear-gradient(0deg, rgba(255, 255, 255, 0.55) 1px, transparent 1px),
@@ -142,13 +188,16 @@ button {
   background: #f69ac7;
 }
 
-.lottie-player {
-  width: min(78vw, 520px);
+.animation-player {
+  width: min(34vw, 520px);
+  min-width: 280px;
   aspect-ratio: 1;
 }
 
-.lottie-player.playing {
-  animation: stage-bump 0.42s ease-in-out 3;
+.pixi-player canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .controls {
@@ -173,8 +222,8 @@ h1 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 8vw, 5rem);
-  line-height: 0.95;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1;
 }
 
 .play-button {
@@ -210,18 +259,13 @@ h1 {
   border-left: 15px solid #171925;
 }
 
-@keyframes stage-bump {
-  0%,
-  100% {
-    transform: rotate(0deg);
+@media (max-width: 860px) {
+  .demo-page {
+    grid-template-columns: 1fr;
   }
 
-  35% {
-    transform: rotate(-1.4deg) translateY(-3px);
-  }
-
-  70% {
-    transform: rotate(1.4deg) translateY(2px);
+  .animation-player {
+    width: min(78vw, 520px);
   }
 }
 
@@ -230,12 +274,12 @@ h1 {
     padding: 16px;
   }
 
-  .animation-card {
-    min-height: calc(100vh - 32px);
+  .player-card {
+    min-height: auto;
   }
 
   .stage {
-    min-height: 360px;
+    min-height: 340px;
   }
 }
 </style>

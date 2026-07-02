@@ -17,6 +17,7 @@
   "dependencies": {
     "lottie-web": "^5.13.0",
     "pinia": "^3.0.4",
+    "pixi.js": "^8.19.0",
     "vue": "beta",
     "vue-router": "^5.1.0"
   },
