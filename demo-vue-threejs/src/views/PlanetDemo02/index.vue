@@ -68,15 +68,6 @@ function handleBackGalaxy() {
   });
 }
 
-function handleBackPlanet() {
-  if (stage.value !== "map") return;
-
-  void runTransition(async () => {
-    stage.value = "planet";
-    selectedPlanetId.value = null;
-    await canvasRef.value?.enterPlanetSystem();
-  });
-}
 </script>
 
 <template>
@@ -86,6 +77,31 @@ function handleBackPlanet() {
       @select-galaxy="handleSelectGalaxy"
       @select-planet="handleSelectPlanet"
     />
+
+    <nav class="view-tabs">
+      <button
+        type="button"
+        :class="{ active: stage === 'galaxy' }"
+        :disabled="isAnimating"
+        @click="handleBackGalaxy"
+      >
+        宇宙
+      </button>
+      <button
+        type="button"
+        :class="{ active: stage === 'planet' }"
+        disabled
+      >
+        星系
+      </button>
+      <button
+        type="button"
+        :class="{ active: stage === 'map' }"
+        disabled
+      >
+        星球
+      </button>
+    </nav>
   </section>
 </template>
 
@@ -99,5 +115,56 @@ function handleBackPlanet() {
   background:
     radial-gradient(circle at 42% 48%, rgba(56, 91, 180, 0.2), transparent 32%),
     #050816;
+}
+
+.view-tabs {
+  position: absolute;
+  right: 22px;
+  bottom: 18px;
+  z-index: 3;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 6px;
+  border: 1px solid rgba(84, 145, 255, 0.42);
+  border-radius: 999px;
+  background: rgba(20, 55, 118, 0.56);
+  box-shadow:
+    0 0 24px rgba(39, 117, 255, 0.2),
+    inset 0 0 18px rgba(105, 168, 255, 0.16);
+  backdrop-filter: blur(12px);
+}
+
+.view-tabs button {
+  min-width: 68px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(214, 229, 255, 0.72);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.view-tabs button::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  vertical-align: 1px;
+}
+
+.view-tabs button.active {
+  background: linear-gradient(135deg, rgba(57, 134, 255, 0.95), rgba(66, 99, 205, 0.95));
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(90, 166, 255, 0.42);
+}
+
+.view-tabs button:disabled {
+  cursor: default;
 }
 </style>

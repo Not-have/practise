@@ -62,6 +62,12 @@ export class GalaxyScene {
   private mode: "galaxy" | "planet" | "map" | "transition" = "galaxy";
   private selectedGalaxyId = "";
   private selectedPlanetId = "";
+  private isPointerDown = false;
+  private hasDragged = false;
+  private lastPointerX = 0;
+  private lastPointerY = 0;
+  private startPointerX = 0;
+  private startPointerY = 0;
 
   constructor(options: GalaxySceneOptions) {
     this.container = options.container;
@@ -250,6 +256,9 @@ export class GalaxyScene {
   dispose() {
     cancelAnimationFrame(this.frameId);
     this.container.removeEventListener("pointerdown", this.handlePointerDown);
+    window.removeEventListener("pointermove", this.handlePointerMove);
+    window.removeEventListener("pointerup", this.handlePointerUp);
+    window.removeEventListener("pointercancel", this.handlePointerCancel);
     this.clearGroup(this.starfieldGroup);
     this.clearGroup(this.galaxyGroup);
     this.clearGroup(this.planetGroup);
@@ -353,7 +362,7 @@ export class GalaxyScene {
     galaxy.planets.forEach((planet, index) => {
       const itemGroup = new THREE.Group();
       const mesh = this.createPlanetMesh(planet, 0.42);
-      const glow = this.createGlowSprite(planet.color, 1.25, 0.28);
+      const glow = this.createGlowSprite(planet.color, planet.radius * 0.95, 0.3);
 
       mesh.userData = {
         id: planet.id,
@@ -457,14 +466,17 @@ export class GalaxyScene {
     const y = -0.12 + (1 - frontWeight) * 0.34;
     const z = -4.15 + depthWeight * 6.4;
     const scale = 0.32 + depthWeight * 0.9;
-    const glowScale = 1.05 + depthWeight * 2.05;
+    const glowScale = item.planet.radius * (0.76 + depthWeight * 1.05);
     const opacity = 0.26 + depthWeight * 0.74;
+    const glowOpacity = 0.18 + depthWeight * 0.62;
 
     item.group.position.set(x, y, z);
     item.group.scale.setScalar(scale);
     item.glow.scale.set(glowScale, glowScale, glowScale);
     item.group.renderOrder = Math.round(depthWeight * 100);
     this.setGroupOpacity(item.group, opacity);
+    this.setMaterialOpacity(item.glow, glowOpacity);
+    this.setPlanetEmissive(item.mesh, 0.06 + depthWeight * 0.16);
 
     item.mesh.userData.isFront = frontWeight > 0.92;
   }
@@ -569,7 +581,7 @@ export class GalaxyScene {
     const orbitRadius = Math.max(0.82, planet.radius * 0.66);
     const orbitColor = new THREE.Color(planet.color).lerp(new THREE.Color("#ffffff"), 0.55);
     const satellitePivots: THREE.Group[] = [];
-    const orbit = this.createOrbit(orbitRadius, `#${orbitColor.getHexString()}`, 0.34);
+    const orbit = this.createSatelliteOrbit(planet, orbitRadius, `#${orbitColor.getHexString()}`);
 
     parent.add(orbit);
 
@@ -610,46 +622,7 @@ export class GalaxyScene {
     canvas.height = size;
 
     if (context) {
-      const base = new THREE.Color(planet.color);
-      const light = base.clone().lerp(new THREE.Color("#ffffff"), 0.4);
-      const dark = base.clone().lerp(new THREE.Color("#101728"), 0.45);
-      const gradient = context.createLinearGradient(0, 0, size, size);
-
-      gradient.addColorStop(0, `#${light.getHexString()}`);
-      gradient.addColorStop(0.5, planet.color);
-      gradient.addColorStop(1, `#${dark.getHexString()}`);
-      context.fillStyle = gradient;
-      context.fillRect(0, 0, size, size);
-
-      context.globalAlpha = 0.28;
-      for (let y = -20; y < size + 20; y += 16) {
-        context.beginPath();
-        for (let x = -10; x <= size + 10; x += 10) {
-          const wave = Math.sin((x + this.hashNumber(planet.id, y) * 80) * 0.035) * 7;
-          const offset = Math.sin(y * 0.12 + this.hashNumber(planet.id, x) * 6) * 5;
-
-          if (x === -10) {
-            context.moveTo(x, y + wave + offset);
-          } else {
-            context.lineTo(x, y + wave + offset);
-          }
-        }
-        context.lineWidth = 3 + this.hashNumber(planet.id, y + 13) * 5;
-        context.strokeStyle = y % 32 === 0 ? "#ffffff" : `#${dark.getHexString()}`;
-        context.stroke();
-      }
-
-      context.globalAlpha = 0.4;
-      for (let index = 0; index < 56; index += 1) {
-        const x = this.hashNumber(planet.id, index * 11) * size;
-        const y = this.hashNumber(planet.id, index * 17) * size;
-        const radius = 1.5 + this.hashNumber(planet.id, index * 23) * 5;
-
-        context.beginPath();
-        context.arc(x, y, radius, 0, Math.PI * 2);
-        context.fillStyle = index % 3 === 0 ? "#ffffff" : `#${light.getHexString()}`;
-        context.fill();
-      }
+      this.paintPlanetTexture(context, planet, size);
     }
 
     const texture = new THREE.CanvasTexture(canvas);
@@ -658,6 +631,254 @@ export class GalaxyScene {
     texture.wrapT = THREE.RepeatWrapping;
     texture.anisotropy = 4;
     return texture;
+  }
+
+  private paintPlanetTexture(context: CanvasRenderingContext2D, planet: PlanetItem, size: number) {
+    const palette = this.getPlanetPalette(planet);
+    const gradient = context.createLinearGradient(0, 0, size, size);
+
+    gradient.addColorStop(0, palette.light);
+    gradient.addColorStop(0.48, palette.base);
+    gradient.addColorStop(1, palette.dark);
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, size, size);
+
+    if (planet.id === "language") {
+      this.paintCloudOceanTexture(context, planet, size, palette);
+    } else if (planet.id === "gen-ai") {
+      this.paintNebulaTexture(context, planet, size, palette);
+    } else if (planet.id === "robotics") {
+      this.paintGasBandsTexture(context, planet, size, palette);
+    } else if (planet.id === "robot") {
+      this.paintMoonTexture(context, planet, size, palette);
+    } else if (planet.id === "physics") {
+      this.paintSolarTexture(context, planet, size, palette);
+    } else {
+      this.paintRockTexture(context, planet, size, palette);
+    }
+
+    this.paintFineGrain(context, planet, size, palette);
+  }
+
+  private paintNebulaTexture(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    palette: ReturnType<GalaxyScene["getPlanetPalette"]>
+  ) {
+    context.globalAlpha = 0.2;
+    for (let index = 0; index < 18; index += 1) {
+      const x = this.hashNumber(planet.id, index * 13) * size;
+      const y = this.hashNumber(planet.id, index * 17) * size;
+      const radius = 24 + this.hashNumber(planet.id, index * 19) * 44;
+      const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
+
+      gradient.addColorStop(0, index % 2 === 0 ? "#ffffff" : palette.light);
+      gradient.addColorStop(1, "rgba(255,255,255,0)");
+      context.fillStyle = gradient;
+      context.beginPath();
+      context.arc(x, y, radius, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    context.globalAlpha = 0.42;
+    for (let index = 0; index < 72; index += 1) {
+      const x = this.hashNumber(planet.id, index * 31) * size;
+      const y = this.hashNumber(planet.id, index * 37) * size;
+
+      context.fillStyle = index % 3 === 0 ? "#ffffff" : palette.light;
+      context.fillRect(x, y, 2.2, 2.2);
+    }
+    context.globalAlpha = 1;
+  }
+
+  private paintCloudOceanTexture(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    palette: ReturnType<GalaxyScene["getPlanetPalette"]>
+  ) {
+    context.globalAlpha = 0.55;
+    for (let index = 0; index < 20; index += 1) {
+      const x = this.hashNumber(planet.id, index * 23) * size;
+      const y = this.hashNumber(planet.id, index * 29) * size;
+      const width = 42 + this.hashNumber(planet.id, index * 31) * 72;
+      const height = 14 + this.hashNumber(planet.id, index * 41) * 32;
+
+      context.fillStyle = index % 2 === 0 ? "#d9fff6" : "#5fb997";
+      context.beginPath();
+      context.ellipse(x, y, width, height, this.hashNumber(planet.id, index) * Math.PI, 0, Math.PI * 2);
+      context.fill();
+    }
+    context.globalAlpha = 0.28;
+    this.paintWavyBands(context, planet, size, "#ffffff", 18, 2.5);
+    context.globalAlpha = 1;
+  }
+
+  private paintGasBandsTexture(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    palette: ReturnType<GalaxyScene["getPlanetPalette"]>
+  ) {
+    for (let y = -8; y < size + 8; y += 18) {
+      context.globalAlpha = 0.5;
+      context.fillStyle = y % 36 === 0 ? palette.light : palette.dark;
+      context.fillRect(0, y, size, 8 + this.hashNumber(planet.id, y) * 12);
+    }
+    context.globalAlpha = 0.38;
+    this.paintWavyBands(context, planet, size, "#ffffff", 14, 4);
+    context.globalAlpha = 1;
+  }
+
+  private paintMoonTexture(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    palette: ReturnType<GalaxyScene["getPlanetPalette"]>
+  ) {
+    context.globalAlpha = 0.5;
+    for (let index = 0; index < 36; index += 1) {
+      const x = this.hashNumber(planet.id, index * 43) * size;
+      const y = this.hashNumber(planet.id, index * 47) * size;
+      const radius = 5 + this.hashNumber(planet.id, index * 53) * 18;
+
+      context.fillStyle = index % 2 === 0 ? palette.dark : palette.light;
+      context.beginPath();
+      context.arc(x, y, radius, 0, Math.PI * 2);
+      context.fill();
+    }
+    context.globalAlpha = 1;
+  }
+
+  private paintSolarTexture(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    palette: ReturnType<GalaxyScene["getPlanetPalette"]>
+  ) {
+    context.globalAlpha = 0.38;
+    for (let index = 0; index < 32; index += 1) {
+      const x = this.hashNumber(planet.id, index * 7) * size;
+      const y = this.hashNumber(planet.id, index * 9) * size;
+      const radius = 10 + this.hashNumber(planet.id, index * 11) * 28;
+
+      context.fillStyle = index % 2 === 0 ? "#fff1a8" : "#ff8d36";
+      context.beginPath();
+      context.arc(x, y, radius, 0, Math.PI * 2);
+      context.fill();
+    }
+    context.globalAlpha = 0.28;
+    this.paintWavyBands(context, planet, size, "#fff7c9", 22, 7);
+    context.globalAlpha = 1;
+  }
+
+  private paintRockTexture(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    palette: ReturnType<GalaxyScene["getPlanetPalette"]>
+  ) {
+    context.globalAlpha = 0.42;
+    for (let index = 0; index < 46; index += 1) {
+      const x = this.hashNumber(planet.id, index * 5) * size;
+      const y = this.hashNumber(planet.id, index * 7) * size;
+      const radius = 4 + this.hashNumber(planet.id, index * 13) * 20;
+
+      context.fillStyle = index % 2 === 0 ? palette.light : palette.dark;
+      context.beginPath();
+      context.ellipse(x, y, radius * 1.5, radius, this.hashNumber(planet.id, index) * Math.PI, 0, Math.PI * 2);
+      context.fill();
+    }
+    context.globalAlpha = 1;
+  }
+
+  private paintWavyBands(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    color: string,
+    step: number,
+    width: number
+  ) {
+    for (let y = -20; y < size + 20; y += step) {
+      context.beginPath();
+      for (let x = -10; x <= size + 10; x += 10) {
+        const wave = Math.sin((x + this.hashNumber(planet.id, y) * 80) * 0.035) * 7;
+        const offset = Math.sin(y * 0.12 + this.hashNumber(planet.id, x) * 6) * 5;
+
+        if (x === -10) {
+          context.moveTo(x, y + wave + offset);
+        } else {
+          context.lineTo(x, y + wave + offset);
+        }
+      }
+      context.lineWidth = width + this.hashNumber(planet.id, y + 13) * width;
+      context.strokeStyle = color;
+      context.stroke();
+    }
+  }
+
+  private paintFineGrain(
+    context: CanvasRenderingContext2D,
+    planet: PlanetItem,
+    size: number,
+    palette: ReturnType<GalaxyScene["getPlanetPalette"]>
+  ) {
+    context.globalAlpha = 0.18;
+    for (let index = 0; index < 120; index += 1) {
+      const x = this.hashNumber(planet.id, index * 61) * size;
+      const y = this.hashNumber(planet.id, index * 67) * size;
+
+      context.fillStyle = index % 2 === 0 ? "#ffffff" : palette.dark;
+      context.fillRect(x, y, 1.4, 1.4);
+    }
+    context.globalAlpha = 1;
+  }
+
+  private getPlanetPalette(planet: PlanetItem) {
+    const palettes: Record<string, {
+      base: string;
+      dark: string;
+      light: string;
+    }> = {
+      language: {
+        base: "#31e5d2",
+        dark: "#10836f",
+        light: "#ccfff5"
+      },
+      "gen-ai": {
+        base: "#f04bd4",
+        dark: "#782d91",
+        light: "#ffd1ff"
+      },
+      robotics: {
+        base: "#5b73ff",
+        dark: "#263b8f",
+        light: "#d2dcff"
+      },
+      robot: {
+        base: "#9fb3c7",
+        dark: "#526474",
+        light: "#f0f7ff"
+      },
+      physics: {
+        base: "#ff9f35",
+        dark: "#a94c24",
+        light: "#fff2a8"
+      },
+      history: {
+        base: "#ff7b9c",
+        dark: "#8f3b52",
+        light: "#ffd4df"
+      }
+    };
+
+    return palettes[planet.id] ?? {
+      base: planet.color,
+      dark: new THREE.Color(planet.color).lerp(new THREE.Color("#111827"), 0.45).getStyle(),
+      light: new THREE.Color(planet.color).lerp(new THREE.Color("#ffffff"), 0.45).getStyle()
+    };
   }
 
   private hashNumber(seed: string, salt: number) {
@@ -671,9 +892,17 @@ export class GalaxyScene {
     return (hash >>> 0) / 4294967295;
   }
 
-  private createOrbit(radius: number, color: string, opacity: number) {
+  private createSatelliteOrbit(planet: PlanetItem, radius: number, color: string) {
+    if (planet.id === "language" || planet.id === "robot") {
+      return this.createLineSatelliteOrbit(radius, color, 0.34);
+    }
+
+    return this.createOrbit(radius, color, 0.42);
+  }
+
+  private createLineSatelliteOrbit(radius: number, color: string, opacity: number) {
     const curve = new THREE.EllipseCurve(0, 0, radius, radius * 0.72, 0, Math.PI * 2);
-    const points = curve.getPoints(96).map((point: {
+    const points = curve.getPoints(128).map((point: {
       x: number;
       y: number;
     }) => {
@@ -683,10 +912,74 @@ export class GalaxyScene {
     const material = new THREE.LineBasicMaterial({
       color,
       transparent: true,
-      opacity
+      opacity,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
     });
 
     return new THREE.LineLoop(geometry, material);
+  }
+
+  private createOrbit(radius: number, color: string, opacity: number) {
+    const group = new THREE.Group();
+    const colorValue = new THREE.Color(color);
+    const brightGeometry = new THREE.BufferGeometry();
+    const dustGeometry = new THREE.BufferGeometry();
+    const brightCount = 64;
+    const dustCount = 220;
+    const brightPositions = new Float32Array(brightCount * 3);
+    const dustPositions = new Float32Array(dustCount * 3);
+
+    for (let index = 0; index < brightCount; index += 1) {
+      const i3 = index * 3;
+      const angle = index / brightCount * Math.PI * 2;
+      const jitter = (Math.random() - 0.5) * 0.018;
+
+      brightPositions[i3] = Math.cos(angle) * (radius + jitter);
+      brightPositions[i3 + 1] = (Math.random() - 0.5) * 0.014;
+      brightPositions[i3 + 2] = Math.sin(angle) * (radius * 0.72 + jitter);
+    }
+
+    for (let index = 0; index < dustCount; index += 1) {
+      const i3 = index * 3;
+      const angle = Math.random() * Math.PI * 2;
+      const band = (Math.random() - 0.5) * 0.13;
+      const localRadius = radius + band;
+
+      dustPositions[i3] = Math.cos(angle) * localRadius;
+      dustPositions[i3 + 1] = (Math.random() - 0.5) * 0.035;
+      dustPositions[i3 + 2] = Math.sin(angle) * (localRadius * 0.72);
+    }
+
+    brightGeometry.setAttribute("position", new THREE.BufferAttribute(brightPositions, 3));
+    dustGeometry.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
+
+    group.add(
+      new THREE.Points(
+        dustGeometry,
+        new THREE.PointsMaterial({
+          color: `#${colorValue.clone().lerp(new THREE.Color("#ffffff"), 0.25).getHexString()}`,
+          size: 0.014,
+          transparent: true,
+          opacity: opacity * 0.45,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        })
+      ),
+      new THREE.Points(
+        brightGeometry,
+        new THREE.PointsMaterial({
+          color,
+          size: 0.02,
+          transparent: true,
+          opacity,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false
+        })
+      )
+    );
+
+    return group;
   }
 
   private createGlowSprite(color: string, size: number, opacity: number) {
@@ -724,10 +1017,50 @@ export class GalaxyScene {
 
   private bindEvents() {
     this.container.addEventListener("pointerdown", this.handlePointerDown);
+    window.addEventListener("pointermove", this.handlePointerMove);
+    window.addEventListener("pointerup", this.handlePointerUp);
+    window.addEventListener("pointercancel", this.handlePointerCancel);
   }
 
   private handlePointerDown = (event: PointerEvent) => {
     if (this.mode === "transition") return;
+
+    this.isPointerDown = true;
+    this.hasDragged = false;
+    this.startPointerX = event.clientX;
+    this.startPointerY = event.clientY;
+    this.lastPointerX = event.clientX;
+    this.lastPointerY = event.clientY;
+  };
+
+  private handlePointerMove = (event: PointerEvent) => {
+    if (!this.isPointerDown || this.mode === "transition") return;
+
+    const deltaX = event.clientX - this.lastPointerX;
+    const deltaY = event.clientY - this.lastPointerY;
+    const totalX = event.clientX - this.startPointerX;
+    const totalY = event.clientY - this.startPointerY;
+
+    if (Math.hypot(totalX, totalY) > 4) {
+      this.hasDragged = true;
+    }
+
+    if (this.hasDragged) {
+      this.rotateCameraByDrag(deltaX, deltaY);
+    }
+
+    this.lastPointerX = event.clientX;
+    this.lastPointerY = event.clientY;
+  };
+
+  private handlePointerUp = (event: PointerEvent) => {
+    if (!this.isPointerDown) return;
+
+    this.isPointerDown = false;
+
+    if (this.mode === "transition" || this.hasDragged) {
+      return;
+    }
 
     const rect = this.container.getBoundingClientRect();
     this.pointer.x = (event.clientX - rect.left) / rect.width * 2 - 1;
@@ -751,6 +1084,25 @@ export class GalaxyScene {
       this.onSelectPlanet(hit.userData.id);
     }
   };
+
+  private handlePointerCancel = () => {
+    this.isPointerDown = false;
+    this.hasDragged = false;
+  };
+
+  private rotateCameraByDrag(deltaX: number, deltaY: number) {
+    const target = new THREE.Vector3(0, 0, 0);
+    const offset = this.camera.position.clone().sub(target);
+    const spherical = new THREE.Spherical().setFromVector3(offset);
+
+    spherical.theta -= deltaX * 0.006;
+    spherical.phi += deltaY * 0.0045;
+    spherical.phi = Math.max(0.42, Math.min(2.25, spherical.phi));
+
+    offset.setFromSpherical(spherical);
+    this.camera.position.copy(target).add(offset);
+    this.camera.lookAt(target);
+  }
 
   private update = () => {
     const delta = this.clock.getDelta();
@@ -854,6 +1206,28 @@ export class GalaxyScene {
         item.transparent = true;
         item.opacity = opacity;
       });
+    });
+  }
+
+  private setMaterialOpacity(object: THREE.Object3D, opacity: number) {
+    const material = (object as THREE.Mesh).material;
+
+    if (!material) return;
+
+    const materials = Array.isArray(material) ? material : [material];
+
+    materials.forEach((item) => {
+      item.transparent = true;
+      item.opacity = opacity;
+    });
+  }
+
+  private setPlanetEmissive(mesh: THREE.Mesh, emissiveIntensity: number) {
+    const material = mesh.material as THREE.MeshStandardMaterial | THREE.MeshStandardMaterial[];
+    const materials = Array.isArray(material) ? material : [material];
+
+    materials.forEach((item) => {
+      item.emissiveIntensity = emissiveIntensity;
     });
   }
 
