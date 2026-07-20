@@ -20,6 +20,12 @@ import {
       >
         星球demo-02
       </RouterLink>
+      <RouterLink
+        class="tab-link"
+        to="/planet-demo-03"
+      >
+        星球demo-03
+      </RouterLink>
     </header>
 
     <main class="page-content">
