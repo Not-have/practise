@@ -23,6 +23,13 @@ const router = createRouter({
       component: () => {
         return import("@/views/PlanetDemo02/index.vue");
       }
+    },
+    {
+      path: "/planet-demo-03",
+      name: "planet-demo-03",
+      component: () => {
+        return import("@/views/PlanetDemo03/index.vue");
+      }
     }
   ]
 });
