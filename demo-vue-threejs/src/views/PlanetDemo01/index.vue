@@ -1,9 +1,10 @@
 <template>
-  <div class="">
-    星球demo-01
-  </div>
+  <UniverseScene />
 </template>
 
-<style scoped>
+<script setup lang="ts">
+import UniverseScene from "./components/UniverseScene.vue";
+</script>
 
+<style scoped>
 </style>

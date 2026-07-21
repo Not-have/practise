@@ -30,6 +30,20 @@ const router = createRouter({
       component: () => {
         return import("@/views/PlanetDemo03/index.vue");
       }
+    },
+    {
+      path: "/demo-canvas",
+      name: "demo-canvas",
+      component: () => {
+        return import("@/views/demo-canvas/index.vue");
+      }
+    },
+    {
+      path: "/demo-nebula",
+      name: "demo-nebula",
+      component: () => {
+        return import("@/views/demo-nebula/index.vue");
+      }
     }
   ]
 });
