@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@vue-flow/core": "^1.48.2",
     "@vueuse/core": "^14.3.0",
     "gsap": "^3.15.0",
     "pinia": "^3.0.4",

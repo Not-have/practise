@@ -14,10 +14,14 @@ import {
 import {
   GalaxyScene
 } from "../three/GalaxyScene";
+import type {
+  PlanetLabelPosition
+} from "../types";
 
 const emit = defineEmits<{
   selectGalaxy: [id: string];
   selectPlanet: [id: string];
+  updatePlanetLabels: [labels: PlanetLabelPosition[]];
 }>();
 
 const containerRef = ref<HTMLElement | null>(null);
@@ -34,6 +38,9 @@ onMounted(() => {
     },
     onSelectPlanet: (id) => {
       emit("selectPlanet", id);
+    },
+    onPlanetLabelsChange: (labels) => {
+      emit("updatePlanetLabels", labels);
     }
   });
 });

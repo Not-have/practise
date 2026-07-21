@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import {
+  computed,
   ref
 } from "vue";
 
 import GalaxyCanvas from "./components/GalaxyCanvas.vue";
+import PlanetDetailMap from "./components/PlanetDetailMap.vue";
 import {
   galaxyData
 } from "./galaxyData";
 import type {
-  GalaxyStage
+  GalaxyStage,
+  PlanetLabelPosition
 } from "./types";
 
 type GalaxyCanvasExpose = {
@@ -24,6 +27,19 @@ const selectedGalaxyId = ref<string | null>(null);
 const selectedPlanetId = ref<string | null>(null);
 const isAnimating = ref(false);
 const canvasRef = ref<GalaxyCanvasExpose | null>(null);
+const planetLabels = ref<PlanetLabelPosition[]>([]);
+
+const selectedGalaxy = computed(() => {
+  return galaxyData.find((item) => {
+    return item.id === selectedGalaxyId.value;
+  }) ?? null;
+});
+
+const selectedPlanet = computed(() => {
+  return selectedGalaxy.value?.planets.find((item) => {
+    return item.id === selectedPlanetId.value;
+  }) ?? null;
+});
 
 async function runTransition(action: () => Promise<void>) {
   if (isAnimating.value) return;
@@ -57,6 +73,14 @@ function handleSelectPlanet(planetId: string) {
   });
 }
 
+function handleOpenPlanetDetail(planetId: string) {
+  void runTransition(async () => {
+    selectedPlanetId.value = planetId;
+    stage.value = "map";
+    await canvasRef.value?.enterPlanetMap(planetId);
+  });
+}
+
 function handleBackGalaxy() {
   if (stage.value === "galaxy") return;
 
@@ -68,6 +92,15 @@ function handleBackGalaxy() {
   });
 }
 
+function handleBackPlanetSystem() {
+  if (stage.value !== "map") return;
+
+  void runTransition(async () => {
+    stage.value = "planet";
+    await canvasRef.value?.enterPlanetSystem();
+  });
+}
+
 </script>
 
 <template>
@@ -76,6 +109,33 @@ function handleBackGalaxy() {
       ref="canvasRef"
       @select-galaxy="handleSelectGalaxy"
       @select-planet="handleSelectPlanet"
+      @update-planet-labels="planetLabels = $event"
+    />
+
+    <div
+      v-if="stage === 'planet'"
+      class="planet-label-layer"
+    >
+      <button
+        v-for="label in planetLabels"
+        :key="label.id"
+        type="button"
+        class="planet-name"
+        :class="{ front: label.isFront }"
+        :style="{
+          left: `${label.x}px`,
+          top: `${label.y}px`,
+          opacity: label.opacity
+        }"
+        @click.stop="handleOpenPlanetDetail(label.id)"
+      >
+        {{ label.name }}
+      </button>
+    </div>
+
+    <PlanetDetailMap
+      v-if="stage === 'map'"
+      :planet="selectedPlanet"
     />
 
     <nav class="view-tabs">
@@ -90,7 +150,8 @@ function handleBackGalaxy() {
       <button
         type="button"
         :class="{ active: stage === 'planet' }"
-        disabled
+        :disabled="stage === 'galaxy' || isAnimating"
+        @click="handleBackPlanetSystem"
       >
         星系
       </button>
@@ -115,6 +176,42 @@ function handleBackGalaxy() {
   background:
     radial-gradient(circle at 42% 48%, rgba(56, 91, 180, 0.2), transparent 32%),
     #050816;
+}
+
+.planet-label-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.planet-name {
+  position: absolute;
+  min-width: 98px;
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(7, 18, 42, 0.42);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  font-weight: 800;
+  text-shadow: 0 0 12px rgba(113, 211, 255, 0.6);
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(-50%, 4px);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.planet-name.front {
+  color: #ffffff;
+  font-size: 16px;
+  background: rgba(18, 44, 86, 0.5);
+}
+
+.planet-name:hover {
+  background: rgba(47, 122, 220, 0.72);
+  transform: translate(-50%, 0);
 }
 
 .view-tabs {

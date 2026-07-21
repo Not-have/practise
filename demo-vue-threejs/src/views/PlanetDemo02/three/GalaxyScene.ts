@@ -6,6 +6,7 @@ import * as THREE from "three";
 
 import type {
   GalaxyItem,
+  PlanetLabelPosition,
   PlanetItem
 } from "../types";
 
@@ -14,6 +15,7 @@ interface GalaxySceneOptions {
   data: GalaxyItem[];
   onSelectGalaxy: (id: string) => void;
   onSelectPlanet: (id: string) => void;
+  onPlanetLabelsChange?: (labels: PlanetLabelPosition[]) => void;
 }
 
 type ClickableKind = "galaxy" | "planet";
@@ -36,13 +38,14 @@ interface PlanetCarouselItem {
 
 const CAMERA_HOME = new THREE.Vector3(0, 4.4, 12);
 const CAMERA_PLANET = new THREE.Vector3(0, 1.85, 8.4);
-const CAMERA_MAP = new THREE.Vector3(0.5, 2.4, 7);
+const CAMERA_MAP = new THREE.Vector3(0.25, 1.95, 7.9);
 
 export class GalaxyScene {
   private readonly container: HTMLElement;
   private readonly data: GalaxyItem[];
   private readonly onSelectGalaxy: (id: string) => void;
   private readonly onSelectPlanet: (id: string) => void;
+  private readonly onPlanetLabelsChange?: (labels: PlanetLabelPosition[]) => void;
   private readonly scene = new THREE.Scene();
   private readonly camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100);
   private readonly renderer = new THREE.WebGLRenderer({
@@ -74,6 +77,7 @@ export class GalaxyScene {
     this.data = options.data;
     this.onSelectGalaxy = options.onSelectGalaxy;
     this.onSelectPlanet = options.onSelectPlanet;
+    this.onPlanetLabelsChange = options.onPlanetLabelsChange;
 
     this.init();
   }
@@ -82,6 +86,7 @@ export class GalaxyScene {
     this.mode = "transition";
     this.selectedGalaxyId = "";
     this.selectedPlanetId = "";
+    this.onPlanetLabelsChange?.([]);
 
     this.createGalaxyOverview();
     this.setGroupVisible(this.galaxyGroup, true);
@@ -112,6 +117,7 @@ export class GalaxyScene {
     }) ?? this.getFallbackGalaxy();
 
     this.mode = "transition";
+    this.onPlanetLabelsChange?.([]);
     this.selectedGalaxyId = galaxy.id;
     this.selectedPlanetId = "";
     this.createPlanetSystem(galaxy);
@@ -161,25 +167,65 @@ export class GalaxyScene {
     const planet = galaxy.planets.find((item) => {
       return item.id === planetId;
     }) ?? this.getFallbackPlanet(galaxy);
+    const activeItem = this.planetCarouselItems.find((item) => {
+      return item.planet.id === planet.id;
+    });
 
     this.mode = "transition";
     this.selectedPlanetId = planet.id;
-    this.createPlanetMap(planet);
-    this.setGroupVisible(this.mapGroup, true);
-    this.setGroupOpacity(this.mapGroup, 0);
-    this.mapGroup.scale.setScalar(0.5);
+    this.clearGroup(this.mapGroup);
+    this.setGroupVisible(this.planetGroup, true);
 
     const tl = gsap.timeline();
 
-    this.fadeGroup(tl, this.planetGroup, 0.05, 0.55, 0);
-    this.fadeGroup(tl, this.mapGroup, 1, 0.8, 0.2);
-    tl.to(this.mapGroup.scale, {
-      x: 1,
-      y: 1,
-      z: 1,
-      duration: 0.85,
-      ease: "power3.out"
-    }, 0.15);
+    if (activeItem) {
+      this.planetCarouselItems.forEach((item) => {
+        if (item.planet.id !== planet.id) {
+          this.fadeGroup(tl, item.group, 0, 0.45, 0);
+        }
+      });
+
+      tl.to(activeItem.group.position, {
+        x: -4.2,
+        y: -0.62,
+        z: 0.24,
+        duration: 0.95,
+        ease: "power3.inOut"
+      }, 0);
+      tl.to(activeItem.group.scale, {
+        x: 3.12,
+        y: 3.12,
+        z: 3.12,
+        duration: 0.95,
+        ease: "power3.inOut"
+      }, 0);
+      tl.to(activeItem.glow.scale, {
+        x: planet.radius * 1.9,
+        y: planet.radius * 1.9,
+        z: planet.radius * 1.9,
+        duration: 0.95,
+        ease: "power3.inOut"
+      }, 0);
+      this.fadeGroup(tl, activeItem.group, 1, 0.55, 0);
+      tl.call(() => {
+        this.setPlanetEmissive(activeItem.mesh, 0.2);
+      }, undefined, 0.2);
+    } else {
+      this.createPlanetMap(planet);
+      this.setGroupVisible(this.mapGroup, true);
+      this.setGroupOpacity(this.mapGroup, 0);
+      this.mapGroup.scale.setScalar(0.5);
+      this.fadeGroup(tl, this.planetGroup, 0.05, 0.55, 0);
+      this.fadeGroup(tl, this.mapGroup, 1, 0.8, 0.2);
+      tl.to(this.mapGroup.scale, {
+        x: 1,
+        y: 1,
+        z: 1,
+        duration: 0.85,
+        ease: "power3.out"
+      }, 0.15);
+    }
+
     tl.to(this.camera.position, {
       x: CAMERA_MAP.x,
       y: CAMERA_MAP.y,
@@ -189,7 +235,7 @@ export class GalaxyScene {
     }, 0);
 
     return this.timelineToPromise(tl, () => {
-      this.setGroupVisible(this.planetGroup, false);
+      this.setGroupVisible(this.mapGroup, false);
       this.mode = "map";
     });
   }
@@ -201,6 +247,7 @@ export class GalaxyScene {
 
     this.mode = "transition";
     this.selectedPlanetId = "";
+    this.onPlanetLabelsChange?.([]);
     this.createPlanetSystem(galaxy);
     this.setGroupVisible(this.planetGroup, true);
     this.setGroupOpacity(this.planetGroup, 0);
@@ -474,6 +521,7 @@ export class GalaxyScene {
     item.group.scale.setScalar(scale);
     item.glow.scale.set(glowScale, glowScale, glowScale);
     item.group.renderOrder = Math.round(depthWeight * 100);
+    item.group.userData.labelOpacity = 0.22 + depthWeight * 0.78;
     this.setGroupOpacity(item.group, opacity);
     this.setMaterialOpacity(item.glow, glowOpacity);
     this.setPlanetEmissive(item.mesh, 0.06 + depthWeight * 0.16);
@@ -484,15 +532,16 @@ export class GalaxyScene {
   private createPlanetMap(planet: PlanetItem) {
     this.clearGroup(this.mapGroup);
 
-    const planetMesh = this.createPlanetMesh(planet, 2.55);
-    const glow = this.createGlowSprite(planet.color, 6.3, 0.4);
-    const orbit = this.createOrbit(3.1, planet.color, 0.46);
+    const planetMesh = this.createPlanetMesh(planet, 1.32);
+    const glow = this.createGlowSprite(planet.color, 3.05, 0.48);
+    const orbit = this.createOrbit(1.72, planet.color, 0.26);
 
-    planetMesh.position.set(-3.45, 0, 0);
+    planetMesh.position.set(-4.2, -0.62, 0.24);
     glow.position.copy(planetMesh.position);
     orbit.position.copy(planetMesh.position);
     orbit.rotation.x = Math.PI * 0.52;
     orbit.rotation.z = Math.PI * 0.08;
+    this.setPlanetEmissive(planetMesh, 0.2);
     this.mapGroup.add(glow, planetMesh, orbit);
 
     const path = new THREE.Group();
@@ -500,7 +549,7 @@ export class GalaxyScene {
     planet.tasks.forEach((task, index) => {
       const progress = planet.tasks.length <= 1 ? 0 : index / (planet.tasks.length - 1);
       const angle = -Math.PI * 0.55 + progress * Math.PI * 0.95;
-      const radius = 3.55;
+      const radius = 1.95;
       const node = new THREE.Mesh(
         new THREE.SphereGeometry(task.status === "active" ? 0.13 : 0.1, 24, 24),
         new THREE.MeshBasicMaterial({
@@ -511,8 +560,8 @@ export class GalaxyScene {
       );
 
       node.position.set(
-        -3.45 + Math.cos(angle) * radius,
-        Math.sin(angle) * radius * 0.86,
+        -4.2 + Math.cos(angle) * radius,
+        -0.6 + Math.sin(angle) * radius * 0.86,
         0.2
       );
       path.add(node);
@@ -1125,8 +1174,39 @@ export class GalaxyScene {
 
     this.camera.lookAt(0, 0, 0);
     this.renderer.render(this.scene, this.camera);
+    this.emitPlanetLabels();
     this.frameId = requestAnimationFrame(this.update);
   };
+
+  private emitPlanetLabels() {
+    if (!this.onPlanetLabelsChange) return;
+
+    if (this.mode !== "planet") {
+      this.onPlanetLabelsChange([]);
+      return;
+    }
+
+    const rect = this.container.getBoundingClientRect();
+    const labels = this.planetCarouselItems.map((item) => {
+      const worldPosition = item.group.localToWorld(
+        new THREE.Vector3(0, -item.planet.radius * 0.52, 0)
+      );
+      const projected = worldPosition.project(this.camera);
+
+      return {
+        id: item.planet.id,
+        name: item.planet.name,
+        x: (projected.x * 0.5 + 0.5) * rect.width,
+        y: (-projected.y * 0.5 + 0.5) * rect.height,
+        opacity: Number(item.group.userData.labelOpacity ?? 1),
+        isFront: Boolean(item.mesh.userData.isFront)
+      };
+    }).filter((label) => {
+      return label.x > -80 && label.x < rect.width + 80 && label.y > -60 && label.y < rect.height + 80;
+    });
+
+    this.onPlanetLabelsChange(labels);
+  }
 
   private removeClickable(kind: ClickableKind) {
     for (let index = this.clickableObjects.length - 1; index >= 0; index -= 1) {

@@ -27,3 +27,12 @@ export interface GalaxyItem {
   summary: string;
   planets: PlanetItem[];
 }
+
+export interface PlanetLabelPosition {
+  id: string;
+  name: string;
+  x: number;
+  y: number;
+  opacity: number;
+  isFront: boolean;
+}
