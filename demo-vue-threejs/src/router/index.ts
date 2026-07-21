@@ -37,6 +37,13 @@ const router = createRouter({
       component: () => {
         return import("@/views/demo-canvas/index.vue");
       }
+    },
+    {
+      path: "/demo-nebula",
+      name: "demo-nebula",
+      component: () => {
+        return import("@/views/demo-nebula/index.vue");
+      }
     }
   ]
 });

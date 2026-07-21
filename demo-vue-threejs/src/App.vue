@@ -3,6 +3,7 @@ import {
   RouterLink,
   RouterView
 } from "vue-router";
+
 </script>
 
 <template>
@@ -31,6 +32,13 @@ import {
         to="/demo-canvas"
       >
         画布
+      </RouterLink>
+
+      <RouterLink
+        class="tab-link"
+        to="/demo-nebula"
+      >
+        星云
       </RouterLink>
     </header>
 
