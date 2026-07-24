@@ -5,6 +5,9 @@ import {
 } from "vue";
 
 import * as THREE from "three";
+import {
+  OrbitControls
+} from "three/addons/controls/OrbitControls.js";
 
 const nebulaRef = ref<HTMLDivElement | null>(null);
 
@@ -18,45 +21,63 @@ onMounted(() => {
     return;
   }
 
-  // 场景
+  // 初始化相机、场景、渲染器等
+
+  const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 3000);
+
+  camera.position.set(100, 100, 100);
+  camera.lookAt(0, 0, 0);
+
+  // 创建场景
   const scene = new THREE.Scene();
 
-  // 创建一个长方体几何对象Geometry
-  const geometry = new THREE.BoxGeometry(100, 100, 100);
-
-  const material = new THREE.MeshBasicMaterial({
-    color: 0xFF_00_00 // 0xff0000设置材质颜色为红色
+  // 创建渲染器
+  const renderer = new THREE.WebGLRenderer({
+    antialias: true
   });
 
-  // 两个参数分别为几何体geometry、材质material
-  const mesh = new THREE.Mesh(geometry, material); // 网格模型对象Mesh
-
-  // 设置网格模型在三维空间中的位置坐标，默认是坐标原点
-  mesh.position.set(0, 0, 0);
-
-  //
-  scene.add(mesh);
-
-  // 创建渲染器对象
-  const renderer = new THREE.WebGLRenderer();
-
-  // 定义threejs输出画布的尺寸
-  renderer.setSize(ele.clientWidth, ele.clientHeight);
-
-  // 添加渲染器对象
   ele.append(renderer.domElement);
 
-  // 透视投影相机
-  const camera = new THREE.PerspectiveCamera();
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // 相机位置
-  camera.position.set(200, 200, 200);
+  // 创建控制器
+  const controls = new OrbitControls(camera, renderer.domElement);
 
-  // 拍照目标
-  camera.lookAt(mesh.position);
+  controls.target.set(0, 0, 0);
+  controls.update();
 
-  // 让渲染器从 camera（相机）的视角，把 scene（场景）中的内容绘制到 canvas 上
-  renderer.render(scene, camera);
+  // 创建一个简单的立方体
+  const geometry = new THREE.BoxGeometry(10, 10, 10);
+
+  const material = new THREE.MeshBasicMaterial({
+    color: 0x00_FF_00
+  });
+
+  const cube = new THREE.Mesh(geometry, material);
+
+  scene.add(cube);
+
+  // 动画循环
+  function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+
+    // 让立方体旋转起来
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  const axesHelper = new THREE.AxesHelper(30);
+
+  scene.add(axesHelper);
+
+  const gridHelper = new THREE.GridHelper(50, 10);
+
+  scene.add(gridHelper);
 
 });
 </script>

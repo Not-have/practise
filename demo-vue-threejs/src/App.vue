@@ -40,6 +40,12 @@ import {
       >
         星云
       </RouterLink>
+      <RouterLink
+        class="tab-link"
+        to="/demo"
+      >
+        Demo
+      </RouterLink>
     </header>
 
     <main class="page-content">
