@@ -7,7 +7,13 @@ import { ThemedView } from './themed-view';
 
 import { Spacing } from '@/constants/theme';
 
+/**
+ * Web 端展示的小徽章。
+ *
+ * 它会显示当前安装的 Expo 版本，并根据浅色/深色模式切换徽章图片。
+ */
 export function WebBadge() {
+  // 读取系统主题，用来选择黑色或白色版本的徽章图。
   const scheme = useColorScheme();
 
   return (
@@ -17,6 +23,7 @@ export function WebBadge() {
       </ThemedText>
       <Image
         source={
+          // 深色背景下使用白色徽章，浅色背景下使用默认徽章。
           scheme === 'dark'
             ? require('@/assets/images/expo-badge-white.png')
             : require('@/assets/images/expo-badge.png')

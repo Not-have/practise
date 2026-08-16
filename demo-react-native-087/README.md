@@ -1,56 +1,62 @@
-# Welcome to your Expo app 👋
+# demo-react-native-087
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+这是一个基于 Expo / React Native 的入门示例项目。项目使用 Expo Router 做页面路由，并同时支持 iOS、Android 和 Web。
 
-## Get started
+## 目录结构说明
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+.
+├── app.json                  # Expo 应用配置，例如应用名称、图标、启动屏、插件等
+├── package.json              # 项目依赖和 npm scripts，例如 start / ios / android / web
+├── tsconfig.json             # TypeScript 配置，包含 @/* 路径别名
+├── assets/                   # 图片、图标、启动屏等静态资源
+│   ├── expo.icon/            # iOS 图标资源配置
+│   └── images/               # App 中使用的图片资源
+├── scripts/                  # 项目辅助脚本
+│   └── reset-project.js      # 重置示例项目用的脚本
+└── src/                      # 主要源码目录
+    ├── app/                  # Expo Router 页面目录：文件名会自动变成路由
+    │   ├── _layout.tsx       # 根布局，负责主题、启动动画、Tab 导航
+    │   ├── index.tsx         # 首页，对应路由 /
+    │   └── explore.tsx       # Explore 页面，对应路由 /explore
+    ├── components/           # 可复用 UI 组件
+    │   ├── app-tabs.tsx      # iOS / Android 使用的原生 Tab 导航
+    │   ├── app-tabs.web.tsx  # Web 使用的 Tab 导航
+    │   ├── animated-icon.tsx # iOS / Android 首页图标和启动动画
+    │   ├── animated-icon.web.tsx
+    │   │                     # Web 首页图标实现
+    │   ├── themed-text.tsx   # 自动适配主题色的文字组件
+    │   ├── themed-view.tsx   # 自动适配主题色的 View 组件
+    │   └── ui/               # 更基础的 UI 小组件
+    ├── constants/            # 常量配置
+    │   └── theme.ts          # 颜色、字体、间距等主题配置
+    ├── hooks/                # 自定义 React Hooks
+    │   ├── use-theme.ts      # 根据系统浅色/深色模式返回主题颜色
+    │   ├── use-color-scheme.ts
+    │   │                     # 原生端读取系统主题
+    │   └── use-color-scheme.web.ts
+    │                         # Web 端读取系统主题，兼容静态渲染
+    └── global.css            # Web 端全局样式
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 初学者阅读顺序
 
-### Other setup steps
+如果你是第一次学习 React Native，可以按这个顺序看：
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+1. `src/app/_layout.tsx`：先理解整个 App 的外层结构。
+2. `src/app/index.tsx`：再看首页是如何由组件拼出来的。
+3. `src/components/themed-text.tsx` 和 `src/components/themed-view.tsx`：理解项目如何封装通用组件。
+4. `src/constants/theme.ts`：了解颜色、间距、字体这些 UI 常量从哪里来。
+5. `src/app/explore.tsx`：最后看更完整的页面示例，包括滚动、链接、图片和折叠面板。
 
-## Learn more
+## 常用命令
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+npm run start
+npm run ios
+npm run android
+npm run web
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+其中 `npm run start` 会启动 Expo 开发服务器，然后你可以根据终端提示选择打开 iOS、Android 或 Web。
